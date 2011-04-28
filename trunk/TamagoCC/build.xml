@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<!-- ====================================================================== 
+     4 avril 2005                                                       
+
+     Projet : TamagoCC  
+     Description : Projet de stage de master 2 de recherche pour la conception
+     			
+                   
+	 Auteur : Hakim BELHAOUARI
+     ====================================================================== -->
+<project name="TamagoCC" default="makejar">
+	<description>
+		Projet de stage de master 2 de recherche pour la conception d'un modele
+		de composant
+    </description>
+
+	<!-- ================================= 
+	          target: init             
+	         ================================= -->
+	<target name="init" description="--> affect les variables d'environnement">
+		<property environment="myenv" />
+		<property name="build" value="bin" />
+		<property name="source" value="source" />
+		<property name="jarjaxp" value="jars" />
+		<property name="javaclasspath" value="${jarjaxp}/junit.jar:${jarjaxp}/dom.jar:${jarjaxp}/jaxp-api.jar:${jarjaxp}/sax.jar:${jarjaxp}/xalan.jar:${jarjaxp}/xercesImpl.jar:${jarjaxp}/velocity-dep-1.4.jar:${jarjaxp}/javassist.jar:${jarjaxp}/log4j-core.jar:${jarjaxp}/openjgraph.jar:${source}:${build}" />
+		<property name="TamagoCC_Schema" value="TamagoNS.xsd" />
+		<property name="TamagoCC_Manifest" value="tamagoccmanifest" />
+		<property name="distrib" value="distrib" />
+		<property name="outdoc" value="doc" />
+	</target>
+
+	<!-- ==============================
+		  target : all
+		 ============================== -->
+	<target name="all">
+		<antcall target="clean" />
+		<antcall target="compile" />
+		<antcall target="run" />
+	</target>
+
+
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: prepare                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="prepare" depends="init">
+		<mkdir dir="${build}" />
+		<mkdir dir="${distrib}" />
+	</target>
+
+	<target name="clean" depends="init">
+		<delete>
+			<fileset dir="${build}">
+				<include name="**/*.class" />
+				<exclude name="**/CVS" />
+			</fileset>
+		</delete>
+
+		<delete>
+			<fileset dir="${distrib}">
+				<include name="**/*.jar" />
+				<exclude name="**/CVS" />
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="compile" depends="prepare,init">
+		<echo>===== ==== Compilation des Fichiers Sources vers le repertoire Build === =====</echo>
+		<javac srcdir="${source}" debug="no" destdir="${build}" classpath="${javaclasspath}" source="1.5" compiler="modern" />
+		<echo>===== ==== Compilation TERMINE === =====</echo>
+	</target>
+
+	<target name="run" depends="compile">
+		<echo>===== === Lancement de l'application principale de TamagoCC === =====</echo>
+		<java classname="tamagocc.TamagoCCMain" classpath="${javaclasspath}">
+			<arg value="-d" />
+			<arg value="${outdir}"/>
+			<arg value="${testXML1}" />
+			<arg value="${testXML2}" />
+		</java>
+		<echo>===== === Fin de l'application === =====</echo>
+	</target>
+
+	<target name="makejar" depends="compile">
+		<echo>===== === Creation du jar de TamagoCC === =====</echo>
+		<jar destfile="${distrib}/tamagoCC.jar" manifest="${TamagoCC_Manifest}" excludes=".project,.classpath">
+			<fileset file="${TamagoCC_Schema}" />
+			<fileset dir="${build}" excludes=".project,.classpath,build.xml" />
+		</jar>
+		<echo>===== === Creation du jar TERMINE === =====</echo>
+	</target>
+
+	<target name="compiledebug" depends="clean,prepare">
+		<echo>===== ==== Compilation des Fichiers Sources vers le repertoire Build === =====</echo>
+		<javac srcdir="${source}" debug="yes" destdir="${build}" classpath="${javaclasspath}" />
+		<echo>===== ==== Compilation TERMINE === =====</echo>
+	</target>
+
+	<target name="makejardebug" depends="compiledebug">
+		<echo>===== === Creation du jar de TamagoCC === =====</echo>
+		<jar destfile="${distrib}/tamagoCC.jar" manifest="${TamagoCC_Manifest}" excludes=".project,.classpath">
+			<fileset file="${TamagoCC_Schema}" />
+			<fileset dir="${build}" excludes=".project,.classpath,build.xml" />
+		</jar>
+		<echo>===== === Creation du jar TERMINE === =====</echo>
+	</target>
+
+	<target name="runjar" depends="makejar">
+		<echo>===== === Lancement du jar de TamagoCC === [${testXML1}]=====</echo>
+		<java jar="${distrib}/tamagoCC.jar" classpath="${javaclasspath}" fork="true">
+			<arg value="../${testXML1}" />
+		</java>
+		<echo>===== === Lancement du jar TERMINE === =====</echo>
+	</target>
+
+	<target name="runtest" depends="makejar">
+		<echo>==== === Lancement du Test === ====</echo>
+		<java jar="${distrib}/tamagoCC.jar" classpath="${javaclasspath}" fork="true">
+			<arg value="-d" />
+			<arg value="${outdir}"/>
+			<arg value="--debug"/>
+			<arg value="1"/>
+			<arg value="--logfile"/>
+			<arg value="stdout"/>
+		</java>
+		<echo>==== === Lancement du Test TERMINE === ====</echo>
+	</target>
+
+	<target name="doc" depends="init">
+		<echo>===== === Lancement de la generation de la Documentation=== =====</echo>
+		<javadoc destdir="${outdoc}" access="public"
+		     use="true" notree="false" nonavbar="false" noindex="false"
+		     splitindex="true" author="true" version="true"
+		     nodeprecatedlist="false" nodeprecated="false" sourcepath="${source}"
+		     classpath="${javaclasspath}" doctitle="Documentation TamagoCC" >
+			<fileset dir="${source}/" includes="**/*.java"/>
+		</javadoc>
+		<echo>===== === Fin de la generation === =====</echo>
+	</target>
+</project>
+

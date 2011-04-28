@@ -1,0 +1,49 @@
+module fr.lip6.desir.tamagocdl;
+
+
+service MonService {
+	property read int count;
+	property read bool isEmpty; 
+	property read string name;
+	property readwrite real prob;
+	
+	invariant #isEmpty <=> count ==0 fail "pas possible";
+	
+	method bool foo(Object f) {
+		pre (f.isOpen() == true);
+	}
+	
+	
+	method int foo2(real b) {
+		id foo2;
+		pre b!=0.0 && #count > 1 fail "toto";
+		post (@return == #count@pre);
+	}
+	
+	method string foo3() {
+		post (#name == @return);
+	}
+	
+	
+	method Stack fxoo4() { 
+		pre !#isEmpty;
+	}
+	
+	behavior {
+		default state debut;
+		states {
+			state debut {
+				allow foo;
+				allow foo2;
+			}
+			state fin {
+				allow foo3;
+				allow foo4;
+			}
+		}
+		transitions {
+			transition from debut to fin with foo;
+			transition from debut to fin with foo2 when #prob > 2.3;
+		}
+	}
+}

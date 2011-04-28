@@ -1,0 +1,79 @@
+/*******************************************
+ * Copyright (C) 2005, Frederic Peschanski *
+ *         >> DO NOT DISTRIBUTE <<         *
+ *******************************************/
+
+import tamago.*;
+
+import java.util.*;
+
+public class TestCarCompositeMain {
+
+    public static void main(String args[]) {
+	
+	try {
+
+	    // Instantiate the remote controller
+	    Remote remote = new Remote();
+	    
+	    // Instantiate and configure the car
+	    Car car = new Car();
+	    CarLifeCycleDecorator lc_car = new CarLifeCycleDecorator(car);
+	    Tamago.Initialize(lc_car);
+	    Tamago.Configure(lc_car);
+	    
+	    // Bindings for remote
+	    remote.bind(lc_car.exportReceiverService());
+
+	    // Start the car
+	    lc_car.on(); // we use the CarService
+
+	    // Start the remote
+	    remote.on();
+
+	    // Test the car
+	    Random rand = new Random();
+	    for(int i = 1; i<= 10 ; i++) {
+		int cmd = rand.nextInt(70);
+		if(cmd<10) {
+		    remote.reset();
+		    remote.forward();
+		} else if(cmd<20) {
+		    remote.reset();
+		    remote.forward();
+		    remote.left();
+		}  else if(cmd<30) {
+		    remote.reset();
+		    remote.forward();
+		    remote.right();
+		} else if(cmd<40) {
+		    remote.reset();
+		    remote.backward();
+		} else if(cmd<50) {
+		    remote.reset();
+		    remote.backward();
+		    remote.left();
+		}  else if(cmd<60) {
+		    remote.reset();
+		    remote.backward();
+		    remote.right();
+		} else if(cmd<70) {
+		    remote.reset();
+		}
+		System.out.println(">>>> Remote Activation #"+i);
+		Tamago.Activate(remote);
+		Tamago.DeActivate(remote);
+	    }
+
+	    // shutdown the remote controller
+	    remote.off();
+
+	    // Stopping car
+	    lc_car.off();
+
+	} catch(Exception e) {
+	    e.printStackTrace(System.err);
+	}
+
+    }
+}
