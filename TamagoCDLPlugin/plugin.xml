@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.tamago.eclipse.cdl.editor.CDLEditor"
+            contributorClass="org.tamago.eclipse.cdl.editor.CDLActionBarContributor"
+            default="true"
+            extensions="cdl"
+            icon="icons/sample.gif"
+            id="tamagocdlplugin.editors.CDLEditor"
+            name="%editor.name">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.core.filebuffers.documentSetup">
+      <participant
+            class="org.tamago.eclipse.cdl.editor.CDLDocumentSetupParticipant"
+            extensions="cdl">
+      </participant>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="TamagoCDLPlugin.category"
+            name="%category.name">
+      </category>
+      <wizard
+            category="TamagoCDLPlugin.category"
+            class="org.tamago.eclipse.cdl.wizards.CDLEntityNew"
+            icon="icons/sample.gif"
+            id="TamagoCDLPlugin.wizard"
+            name="%wizard.name"
+            project="false">
+      </wizard>
+   </extension>
+
+</plugin>

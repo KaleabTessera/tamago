@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/TamagoCC"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/TamagoCSP"/>
+	<classpathentry excluding="**/*.svn*|**/*svn*|**/.svn|**/svn" including="**/*.java" kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="lib" path="/TamagoCC/jars/openjgraph.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Tamago"/>
+	<classpathentry kind="lib" path="/TamagoCC/jars/log4j-core.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,864 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="Ident">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z_](.?[A-Za-z0-9_](&lt;)?(&gt;)?)*(\[\])?" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="IdentType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z_](.?[A-Za-z0-9_](&lt;)?(&gt;)?)*(\[\])?" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="AuthAccess">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="r" />
+      <xs:enumeration value="w" />
+      <xs:enumeration value="rw" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Percolator">
+    <xs:union>
+      <xs:simpleType>
+	<xs:restriction base="xs:string">
+	  <xs:pattern value="[A-Za-z_]([A-Za-z0-9_])*" />
+	</xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+	<xs:restriction base="xs:string">
+	  <xs:enumeration value="*" />
+	</xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+
+  <xs:simpleType name="OperatorStr">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="eq" />
+      <xs:enumeration value="ne" />
+      <xs:enumeration value="lt" />
+      <xs:enumeration value="le" />
+      <xs:enumeration value="gt" />
+      <xs:enumeration value="ge" />
+      <xs:enumeration value="add" />
+      <xs:enumeration value="sub" />
+      <xs:enumeration value="mul" />
+      <xs:enumeration value="mod" />
+      <xs:enumeration value="quo" />
+      <xs:enumeration value="and" />
+      <xs:enumeration value="or" />
+      <xs:enumeration value="impl" />
+      <xs:enumeration value="equiv" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <!-- ===================================================================== BEHAVIOR -->
+  <xs:complexType name="tbehavior">
+    <xs:sequence>
+      <xs:element name="states" type="tstates" minOccurs="0" maxOccurs="1" />
+      <xs:element name="transitions" type="ttransitions" maxOccurs="1" minOccurs="0" />
+    </xs:sequence>
+    <xs:attribute name="default" type="xs:string" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="tstates">
+    <xs:sequence>
+      <xs:element name="state" type="tstate" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ttransitions">
+    <xs:sequence>
+      <xs:element name="transition" type="ttransition" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ttransition">
+    <xs:sequence>
+      <xs:element name="condition" type="tpreexpr" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="from" type="xs:string" />
+    <xs:attribute name="to" type="xs:string" />
+    <xs:attribute name="with" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="tstate">
+    <xs:sequence>
+      <xs:element name="allow" type="tallow" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="tallow">
+    <xs:sequence></xs:sequence>
+    <xs:attribute name="method" type="xs:string" />
+  </xs:complexType>
+  <!-- ===================================================================== END BEHAVIOR -->
+  
+  <!-- ===================================================================== PROPERTY -->
+  
+  <xs:complexType name="tproperties">
+    <xs:sequence>
+      <xs:element name="property" type="tproperty" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="tproperty">
+    <xs:sequence></xs:sequence>
+    <xs:attribute name="name" type="Ident" use="required" />
+    <xs:attribute name="type" type="Ident" use="required" />
+    <xs:attribute name="access" type="AuthAccess" use="optional" />
+  </xs:complexType>
+  
+  <!-- ===================================================================== PROPERTY -->
+  <!-- ===================================================================== IMPLEMENTS CORE INTERFACE TYPE -->
+  
+  <xs:complexType name="timplements">
+    <xs:sequence>
+      <xs:element name="implements" type="timplement" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="timplement">
+    <xs:sequence></xs:sequence>
+    <xs:attribute name="type" type="IdentType" use="required" />
+    <xs:attribute name="module" type="Ident" use="required" />
+  </xs:complexType>
+  
+  <!-- ===================================================================== IMPLEMENTS CORE INTERFACE TYPE -->	
+
+  <!-- ===================================================================== IMPORT CORE TYPE -->
+  
+  <xs:complexType name="tusings">
+    <xs:sequence>
+      <xs:element name="using" type="tusing" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="tusing">
+    <xs:sequence>
+      <xs:element name="package" type="tpackage" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="tpackage">
+    <xs:choice>
+      <xs:element name="anyentity" type="tanyentity" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="entity" type="tentity" minOccurs="0" maxOccurs="1" />
+      <xs:element name="package" type="tpackage" minOccurs="0" maxOccurs="1" />
+    </xs:choice>
+    <xs:attribute name="value" type="Ident" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="tentity">
+    <xs:sequence></xs:sequence>
+    <xs:attribute name="value" type="Ident" use="required" />
+  </xs:complexType>
+  
+  <xs:complexType name="tanyentity">
+    <xs:sequence></xs:sequence>
+  </xs:complexType>
+  
+  <!-- ===================================================================== IMPORT CORE  TYPE -->	
+
+  <!-- ===================================================================== PARAMETER -->
+  <xs:complexType name="tparameters">
+    <xs:sequence>
+      <xs:element name="parameter" type="tparameter" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tparameter">
+    <xs:sequence></xs:sequence>
+    <xs:attribute name="name" type="Ident" use="required" />
+    <xs:attribute name="type" type="Ident" use="required" />
+  </xs:complexType>
+  <!-- ===================================================================== PARAMETER -->
+  
+  <!-- ===================================================================== SIMPLE EXPRESSION -->
+  
+  <xs:complexType name="tint">
+    <xs:sequence></xs:sequence>
+    <xs:attribute name="value" type="xs:integer" use="required" />
+  </xs:complexType>
+  <xs:complexType name="treal">
+    <xs:sequence></xs:sequence>
+    <xs:attribute name="value" type="xs:double" use="required" />
+  </xs:complexType>
+  <xs:complexType name="tbool">
+    <xs:sequence></xs:sequence>
+    <xs:attribute name="value" type="xs:boolean" use="required" />
+  </xs:complexType>
+  <xs:complexType name="tread">
+    <xs:sequence>
+      <xs:element name="index" type="tpreexpr" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="property" type="Ident" use="required" />
+  </xs:complexType>
+  <xs:complexType name="treturn">
+    <xs:sequence>
+      <xs:element name="index" type="tpostexpr" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="tvariable">
+    <xs:sequence>
+      <xs:element name="index" type="tpreexpr" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="type" type="Ident" use="optional"/>
+  </xs:complexType>
+  
+  <xs:complexType name="tcastpre">
+    <xs:sequence>
+      <xs:element name="expression" type="tpreexpr" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="type" type="Ident" use="required"/>
+  </xs:complexType>
+  
+  <xs:complexType name="tcastpost">
+    <xs:sequence>
+      <xs:element name="expression" type="tpostexpr" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="type" type="Ident" use="required"/>
+  </xs:complexType>
+  
+  <xs:complexType name="tvariablepost">
+    <xs:sequence>
+      <xs:element name="index" type="tpostexpr" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="type" type="Ident" use="optional"/>
+  </xs:complexType>
+  
+  <xs:complexType name="treadpost">
+    <xs:sequence>
+      <xs:element name="index" type="tpostexpr" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="property" type="Ident" use="required" />
+  </xs:complexType>
+  
+  <!-- ===================================================================== END SIMPLE EXPRESSION -->
+  
+  <!-- ===================================================================== EXPR POSTCONDITION -->
+  
+  <xs:complexType name="tpostexpr">
+    <xs:choice>
+      <xs:element name="operator" type="tpostoperator" minOccurs="0" maxOccurs="1" />
+      <xs:element name="not" type="tpostnot" minOccurs="0" maxOccurs="1" />
+      <xs:element name="atpre" type="tpostatpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="int" type="tint" minOccurs="0" maxOccurs="1" />
+      <xs:element name="real" type="treal" minOccurs="0" maxOccurs="1" />
+      <xs:element name="bool" type="tbool" minOccurs="0" maxOccurs="1" />
+      <xs:element name="string" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="call" type="tcallpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="cast" type="tcastpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="read" type="treadpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="return" type="treturn" minOccurs="0" maxOccurs="1" />
+      <xs:element name="variable" type="tvariablepost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="in" type="tinlabelpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="quantifier" type="tquantifierpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="nil" type="tnull" minOccurs="0" maxOccurs="1" />
+      <xs:element name="lang-expr" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:choice>
+    <xs:attribute name="category" type="Ident" use="optional" />
+  </xs:complexType>
+  
+  <xs:complexType name="tcallpost">
+    <xs:sequence>
+      <xs:element name="arguments" type="tpostargument" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="method" type="xs:string" use="required" />
+  </xs:complexType>
+  
+  <xs:complexType name="tpostargument">
+    <xs:choice minOccurs="1" maxOccurs="unbounded">
+      <xs:element name="operator" type="tpostoperator" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="not" type="tpostnot" minOccurs="0" maxOccurs="1" />
+      <xs:element name="atpre" type="tpostatpre" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="int" type="tint" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="cast" type="tcastpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="real" type="treal" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="bool" type="tbool" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="string" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="call" type="tcallpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="read" type="treadpost" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="return" type="treturn" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="variable" type="tvariablepost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="in" type="tinlabelpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="quantifier" type="tquantifierpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="nil" type="tnull" minOccurs="0" maxOccurs="1" />
+      <xs:element name="lang-expr" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="tpostoperator">
+    <xs:choice minOccurs="1" maxOccurs="unbounded">
+      <xs:element name="operator" type="tpostoperator" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="not" type="tpostnot" minOccurs="0" maxOccurs="1" />
+      <xs:element name="atpre" type="tpostatpre" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="int" type="tint" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="real" type="treal" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="bool" type="tbool" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="string" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="call" type="tcallpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="cast" type="tcastpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="read" type="treadpost" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="return" type="treturn" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="variable" type="tvariablepost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="in" type="tinlabelpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="quantifier" type="tquantifierpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="nil" type="tnull" minOccurs="0" maxOccurs="1" />
+      <xs:element name="lang-expr" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:choice>
+    <xs:attribute name="name" type="OperatorStr" use="required" />
+  </xs:complexType>
+  
+  <xs:complexType name="tpostnot">
+    <xs:choice>
+      <xs:element name="operator" type="tpostoperator" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="not" type="tpostnot" minOccurs="0" maxOccurs="1" />
+      <xs:element name="atpre" type="tpostatpre" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="int" type="tint" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="real" type="treal" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="bool" type="tbool" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="string" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="call" type="tcallpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="cast" type="tcastpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="read" type="treadpost" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="return" type="treturn" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="variable" type="tvariablepost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="in" type="tinlabelpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="quantifier" type="tquantifierpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="nil" type="tnull" minOccurs="0" maxOccurs="1" />
+      <xs:element name="lang-expr" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:choice>
+  </xs:complexType>
+  
+  <xs:complexType name="tpostatpre">
+    <xs:choice>
+      <xs:element name="operator" type="tpostoperator" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="not" type="tpostnot" minOccurs="0" maxOccurs="1" />
+      <xs:element name="atpre" type="tpostatpre" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="int" type="tint" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="real" type="treal" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="bool" type="tbool" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="string" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="call" type="tcallpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="cast" type="tcastpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="read" type="treadpost" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="return" type="treturn" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="variable" type="tvariablepost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="in" type="tinlabelpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="quantifier" type="tquantifierpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="nil" type="tnull" minOccurs="0" maxOccurs="1" />
+      <xs:element name="lang-expr" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:choice>
+  </xs:complexType>
+  
+  <xs:complexType name="tinlabelpost">
+    <xs:sequence>
+      <xs:element name="scope" type="tpostexpr" minOccurs="1" maxOccurs="1" />
+      <xs:element name="target" type="tpostexpr" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!-- ===================================================================== END EXPR POSTCONDITION -->
+
+  <!-- ===================================================================== EXPR PRECONDITION -->
+  <xs:complexType name="tpreexpr">
+    <xs:choice>
+      <xs:element name="operator" type="tpreoperator" minOccurs="0" maxOccurs="1" />
+      <xs:element name="not" type="tprenot" minOccurs="0" maxOccurs="1" />
+      <xs:element name="int" type="tint" minOccurs="0" maxOccurs="1" />
+      <xs:element name="real" type="treal" minOccurs="0" maxOccurs="1" />
+      <xs:element name="bool" type="tbool" minOccurs="0" maxOccurs="1" />
+      <xs:element name="string" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="call" type="tcallpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="read" type="tread" minOccurs="0" maxOccurs="1" />
+      <xs:element name="cast" type="tcastpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="variable" type="tvariable" minOccurs="0" maxOccurs="1" />
+      <xs:element name="in" type="tinlabelpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="quantifier" type="tquantifierpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="nil" type="tnull" minOccurs="0" maxOccurs="1" />
+      <xs:element name="lang-expr" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:choice>
+    <xs:attribute name="category" type="Ident" use="optional" />
+  </xs:complexType>
+  
+  <xs:complexType name="tcallpre">
+    <xs:sequence>
+      <xs:element name="arguments" type="tpreargument" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="method" type="xs:string" use="required" />
+  </xs:complexType>	
+
+  <xs:complexType name="tpreargument">
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="unbounded">
+	<xs:element name="operator" type="tpreoperator" minOccurs="0" maxOccurs="unbounded" />
+	<xs:element name="not" type="tprenot" minOccurs="0" maxOccurs="1" />
+	<xs:element name="int" type="tint" minOccurs="0" maxOccurs="unbounded" />
+	<xs:element name="real" type="treal" minOccurs="0" maxOccurs="unbounded" />
+	<xs:element name="bool" type="tbool" minOccurs="0" maxOccurs="unbounded" />
+	<xs:element name="string" type="xs:string" minOccurs="0" maxOccurs="1" />
+	<xs:element name="call" type="tcallpre" minOccurs="0" maxOccurs="1" />
+	<xs:element name="cast" type="tcastpre" minOccurs="0" maxOccurs="1" />
+    <xs:element name="read" type="tread" minOccurs="0" maxOccurs="unbounded" />
+	<xs:element name="variable" type="tvariable" minOccurs="0" maxOccurs="1" />
+	<xs:element name="in" type="tinlabelpre" minOccurs="0" maxOccurs="1" />
+	<xs:element name="quantifier" type="tquantifierpre" minOccurs="0" maxOccurs="1" />
+	<xs:element name="nil" type="tnull" minOccurs="0" maxOccurs="1" />
+      <xs:element name="lang-expr" type="xs:string" minOccurs="0" maxOccurs="1" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="tpreoperator">
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="unbounded">
+	<xs:element name="operator" type="tpreoperator" minOccurs="0" maxOccurs="unbounded" />
+	<xs:element name="not" type="tprenot" minOccurs="0" maxOccurs="1" />
+	<xs:element name="int" type="tint" minOccurs="0" maxOccurs="unbounded" />
+	<xs:element name="real" type="treal" minOccurs="0" maxOccurs="unbounded" />
+	<xs:element name="bool" type="tbool" minOccurs="0" maxOccurs="unbounded" />
+	<xs:element name="string" type="xs:string" minOccurs="0" maxOccurs="1" />
+	<xs:element name="call" type="tcallpre" minOccurs="0" maxOccurs="1" />
+	<xs:element name="cast" type="tcastpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="read" type="tread" minOccurs="0" maxOccurs="unbounded" />
+	<xs:element name="variable" type="tvariable" minOccurs="0" maxOccurs="1" />
+	<xs:element name="in" type="tinlabelpre" minOccurs="0" maxOccurs="1" />
+	<xs:element name="quantifier" type="tquantifierpre" minOccurs="0" maxOccurs="1" />
+	<xs:element name="nil" type="tnull" minOccurs="0" maxOccurs="1" />
+	<xs:element name="lang-expr" type="xs:string" minOccurs="0" maxOccurs="1" />
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="name" type="OperatorStr" use="required" />
+  </xs:complexType>
+  
+  <xs:complexType name="tprenot">
+    <xs:choice>
+      <xs:element name="operator" type="tpreoperator" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="not" type="tprenot" minOccurs="0" maxOccurs="1" />
+      <xs:element name="int" type="tint" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="real" type="treal" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="bool" type="tbool" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="string" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="call" type="tcallpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="cast" type="tcastpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="read" type="tread" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="variable" type="tvariable" minOccurs="0" maxOccurs="1" />
+      <xs:element name="in" type="tinlabelpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="quantifier" type="tquantifierpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="nil" type="tnull" minOccurs="0" maxOccurs="1" />
+      <xs:element name="lang-expr" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:choice>
+  </xs:complexType>
+  
+  <xs:complexType name="tinlabelpre">
+    <xs:sequence>
+      <xs:element name="scope" type="tpreexpr" minOccurs="1" maxOccurs="1" />
+      <xs:element name="target" type="tpreexpr" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!-- ===================================================================== END EXPR PRECONDITION -->
+  
+  
+  <!-- ============================================================== CONDITION PRE/POST -->	
+  
+  <xs:complexType name="tprecondition">
+    <xs:choice>
+      <xs:element name="operator" type="tpreoperator" minOccurs="0" maxOccurs="1" />
+      <xs:element name="not" type="tprenot" minOccurs="0" maxOccurs="1" />
+      <xs:element name="int" type="tint" minOccurs="0" maxOccurs="1" />
+      <xs:element name="real" type="treal" minOccurs="0" maxOccurs="1" />
+      <xs:element name="bool" type="tbool" minOccurs="0" maxOccurs="1" />
+      <xs:element name="string" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="call" type="tcallpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="cast" type="tcastpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="read" type="tread" minOccurs="0" maxOccurs="1" />
+      <xs:element name="variable" type="tvariable" minOccurs="0" maxOccurs="1" />
+      <xs:element name="in" type="tinlabelpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="quantifier" type="tquantifierpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="nil" type="tnull" minOccurs="0" maxOccurs="1" />
+      <xs:element name="lang-expr" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:choice>
+    <xs:attribute name="category" type="xs:string" use="optional" />
+    <xs:attribute name="message" type="xs:string" use="optional" />
+  </xs:complexType>
+  
+  <xs:complexType name="tpostcondition">
+    <xs:choice>
+      <xs:element name="operator" type="tpostoperator" minOccurs="0" maxOccurs="1" />
+      <xs:element name="not" type="tpostnot" minOccurs="0" maxOccurs="1" />
+      <xs:element name="atpre" type="tpostatpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="int" type="tint" minOccurs="0" maxOccurs="1" />
+      <xs:element name="real" type="treal" minOccurs="0" maxOccurs="1" />
+      <xs:element name="bool" type="tbool" minOccurs="0" maxOccurs="1" />
+      <xs:element name="string" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="call" type="tcallpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="cast" type="tcastpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="read" type="treadpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="return" type="treturn" minOccurs="0" maxOccurs="1" />
+      <xs:element name="variable" type="tvariablepost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="in" type="tinlabelpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="quantifier" type="tquantifierpost" minOccurs="0" maxOccurs="1" />
+      <xs:element name="nil" type="tnull" minOccurs="0" maxOccurs="1" />
+      <xs:element name="lang-expr" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:choice>
+    <xs:attribute name="category" type="xs:string" use="optional" />
+    <xs:attribute name="message" type="xs:string" use="optional" />
+  </xs:complexType>
+  
+  <!-- ============================================================== END CONDITION -->
+  
+  
+  <!-- ============================================================== INVARIANT -->
+  <xs:complexType name="tinvariants">
+    <xs:sequence>
+      <xs:element name="invariant" type="tinvariant" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="tinvariant">
+    <xs:choice>
+      <xs:element name="operator" type="tpreoperator" minOccurs="0" maxOccurs="1" />
+      <xs:element name="not" type="tprenot" minOccurs="0" maxOccurs="1" />
+      <xs:element name="int" type="tint" minOccurs="0" maxOccurs="1" />
+      <xs:element name="real" type="treal" minOccurs="0" maxOccurs="1" />
+      <xs:element name="bool" type="tbool" minOccurs="0" maxOccurs="1" />
+      <xs:element name="string" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="call" type="tcallpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="cast" type="tcastpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="read" type="tread" minOccurs="0" maxOccurs="1" />
+      <xs:element name="variable" type="tvariable" minOccurs="0" maxOccurs="1" />
+      <xs:element name="in" type="tinlabelpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="quantifier" type="tquantifierpre" minOccurs="0" maxOccurs="1" />
+      <xs:element name="lang-expr" type="xs:string" minOccurs="0" maxOccurs="1" />
+    </xs:choice>
+    <xs:attribute name="category" type="xs:string" use="optional" />
+    <xs:attribute name="message" type="xs:string" use="optional" />		
+  </xs:complexType>	
+  <!-- ============================================================== END INVARIANT -->
+  
+  <!-- ============================================================== METHOD -->
+  
+  <xs:complexType name="tmethod">
+    <xs:sequence>
+      <xs:element name="parameters" type="tparameters" minOccurs="0" maxOccurs="1" />
+      <xs:element name="pre" type="tprecondition" minOccurs="0" maxOccurs="1" />
+      <xs:element name="post" type="tpostcondition" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="name" type="Ident" use="required" />
+    <xs:attribute name="rettype" type="Ident" use="required" />
+    <xs:attribute name="id" type="xs:string" use="optional" />
+  </xs:complexType>
+  
+  <xs:complexType name="tmethods">
+    <xs:sequence>
+      <xs:element name="method" type="tmethod" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!-- ============================================================== END METHOD -->
+  
+  
+  <!-- ============================================================== EXTENSION/HERITAGE SERVICE -->
+  <xs:complexType name="textends">
+    <xs:sequence minOccurs="1" maxOccurs="unbounded">
+      <xs:choice>
+	<xs:element name="refine" type="textend" minOccurs="0" maxOccurs="unbounded" />
+	<xs:element name="include" type="textend" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="textend">
+    <xs:sequence></xs:sequence>
+    <xs:attribute name="service" type="Ident" use="required" />
+    <xs:attribute name="module" type="Ident" use="optional" />
+  </xs:complexType>
+  
+  <!-- ============================================================== END EXTENSION/HERITAGE SERVICE -->
+  
+  
+  <!-- ============================================================== SERVICE -->
+  <xs:complexType name="tservice">
+    <xs:sequence>
+      <xs:element name="imports" type="tusings" minOccurs="0" maxOccurs="1" />
+      <xs:element name="extends" type="textends" minOccurs="0" maxOccurs="1" />
+      <xs:element name="coretypes" type="timplements" minOccurs="0" maxOccurs="1" />
+      <xs:element name="properties" type="tproperties" minOccurs="0" maxOccurs="1" />
+      <xs:choice minOccurs="0" maxOccurs="1">
+	<xs:element name="invariant" type="tinvariant" minOccurs="0" maxOccurs="1" />
+	<xs:element name="invariants" type="tinvariants" minOccurs="0" maxOccurs="1" />
+      </xs:choice>
+      <xs:element name="methods" type="tmethods" minOccurs="0" maxOccurs="1" />
+      <xs:element name="behavior" type="tbehavior" minOccurs="0" maxOccurs="1" />			
+    </xs:sequence>
+    <xs:attribute name="name" type="Ident" use="required" />
+    <xs:attribute name="generic" type="Ident" use="optional" />
+    <xs:attribute name="module" type="IdentType" use="required" />
+  </xs:complexType>
+  
+  
+  <xs:element name="service" type="tservice" />
+  
+  <!-- ============================================================== END SERVICE -->
+  
+  <!-- ************************************************************** ALL SPECIFICITIES COMPONENT-->
+  
+  <!-- ============================================================== PROVIDE -->
+  
+  <xs:complexType name="tprovide">
+    <xs:sequence />
+    <xs:attribute name="service" type="Ident" use="required" />
+    <xs:attribute name="module" type="IdentType" use="optional" />
+  </xs:complexType>
+
+  <xs:complexType name="tprovides">
+    <xs:sequence>
+      <xs:element name="provide" type="tprovide" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!-- ============================================================== END PROVIDE -->
+  
+  <!-- ============================================================== REQUIRE -->
+  
+  <xs:complexType name="trequire">
+    <xs:sequence />
+    <xs:attribute name="service" type="Ident" use="required" />
+    <xs:attribute name="module" type="IdentType" use="optional" />
+    <xs:attribute name="label" type="Ident" use="required" />
+  </xs:complexType>
+  
+  <xs:complexType name="trequires">
+    <xs:sequence>
+      <xs:element name="require" type="trequire" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ============================================================== END REQUIRE -->
+  
+  <!-- ============================================================== PERCOLATEUR -->
+  
+  <xs:complexType name="tpercolator">
+    <xs:sequence />
+    <xs:attribute name="name" type="Percolator" use="required" />
+  </xs:complexType>
+  <xs:complexType name="tpercolators">
+    <xs:sequence>
+      <xs:element name="percolator" type="tpercolator" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- ============================================================== END PERCOLATOR -->
+  
+  <!-- ============================================================== COMPONENT -->
+  
+  <xs:complexType name="tcomponent">
+    <xs:sequence>
+      <xs:element name="imports" type="tusing" minOccurs="0" maxOccurs="1" />
+      <xs:element name="coretypes" type="timplements" minOccurs="0" maxOccurs="1" />
+      <xs:element name="properties" type="tproperties" minOccurs="0" maxOccurs="1" />
+      <xs:element name="percolators" type="tpercolators" minOccurs="0" maxOccurs="1" />
+      <xs:element name="provides" type="tprovides" minOccurs="1" maxOccurs="1" />
+      <xs:element name="requires" type="trequires" minOccurs="0" maxOccurs="1" />
+      <xs:choice minOccurs="0" maxOccurs="1">
+	<xs:element name="invariant" type="tinvariant" minOccurs="0" maxOccurs="1" />
+	<xs:element name="invariants" type="tinvariants" minOccurs="0" maxOccurs="1" />
+      </xs:choice>
+      <xs:element name="methods" type="tmethods" minOccurs="0" maxOccurs="1" />
+      <xs:element name="behavior" type="tbehavior" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="name" type="Ident" use="required" />
+    <xs:attribute name="module" type="IdentType" use="required" />
+  </xs:complexType>
+  <xs:element name="component" type="tcomponent" />
+  
+  <!-- ============================================================== END COMPONENT -->
+  
+  <!-- ************************************************************** ALL SPECIFICITIES ASSEMBLY -->
+
+  <!-- ============================================================== BIND -->
+  
+  <xs:complexType name="tbind">
+    <xs:sequence>
+    </xs:sequence>
+    <xs:attribute name="service" type="Ident"  use="optional" />
+    <xs:attribute name="module" type="Ident"   use="optional" />
+    <xs:attribute name="provider" type="Ident" use="required" />
+    <xs:attribute name="requirer" type="Ident" use="required" />
+    <xs:attribute name="label" type="Ident" use="optional" />
+  </xs:complexType>
+  
+  <xs:complexType name="tbinds">
+    <xs:sequence>
+      <xs:element name="bind" type="tbind" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <!-- ============================================================== END BIND -->
+  
+  <!-- ============================================================== END DEFINITION/USE-->
+  
+  <xs:complexType name="tdefinition">
+    <xs:attribute name="label" type="Ident" use="required" />
+    <xs:attribute name="type" type="Ident" use="required" />
+    <xs:attribute name="module" type="Ident" use="required" />
+  </xs:complexType>
+  
+  <xs:complexType name="tdefinitions">
+    <xs:sequence>
+      <xs:element name="use" type="tdefinition" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!-- ============================================================== END DEFINITION/USE -->
+  
+  
+  
+  <!-- ============================================================== ASSEMBLY -->
+  
+  <xs:complexType name="tassembly">
+    <xs:sequence>
+      <xs:element name="imports" type="tusing" minOccurs="0" maxOccurs="1" />
+      <xs:element name="definitions" type="tdefinitions" minOccurs="0" maxOccurs="1" />
+      <xs:element name="binds" type="tbinds" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="name" type="Ident" use="optional" />
+    <xs:attribute name="module" type="IdentType" use="required" />
+  </xs:complexType>
+  
+  <xs:element name="assembly" type="tassembly" />
+  
+  <!-- ============================================================== END ASSEMBLY -->
+  
+  <!-- ************************************************************** ALL SPECIFICITIES COMPOSITE -->
+  
+  <!-- ============================================================== EXPORTATIONS -->
+  
+  <xs:complexType name="tinlabelexport">
+    <xs:choice>
+      <xs:element name="variable" type="tvariable" minOccurs="0" maxOccurs="1" />
+      <xs:element name="in" type="tinlabelexport" minOccurs="0" maxOccurs="1" />
+    </xs:choice>
+  </xs:complexType>
+  
+  <xs:complexType name="texprprovider">
+    <xs:choice>
+      <xs:element name="in" type="tinlabelexport" minOccurs="0" maxOccurs="1" />
+      <xs:element name="variable" type="tvariable" minOccurs="0" maxOccurs="1" />
+    </xs:choice>
+  </xs:complexType>
+  
+  <xs:complexType name="texport">
+    <xs:sequence>	     
+      <xs:element name="provider" type="tinlabelexport" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="service" type="Ident" use="required" />
+    <xs:attribute name="module" type="Ident" use="required" />
+  </xs:complexType>
+  
+  <xs:complexType name="texportations">
+    <xs:sequence>
+      <xs:element name="export" type="texport" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!-- ============================================================== END EXPORTATIONS -->
+  
+  <!-- ============================================================== COMPOSITE -->
+  
+  <xs:complexType name="tcomposite">
+    <xs:sequence>
+      <xs:element name="imports" type="tusing" minOccurs="0" maxOccurs="1" />
+      <xs:element name="coretypes" type="timplements" minOccurs="0" maxOccurs="1" />
+      <xs:element name="properties" type="tproperties" minOccurs="0" maxOccurs="1" />
+      <xs:element name="percolators" type="tpercolators" minOccurs="0" maxOccurs="1" />
+      <xs:element name="definitions" type="tdefinitions" minOccurs="0" maxOccurs="1" />
+      <xs:element name="provides" type="tprovides" minOccurs="0" maxOccurs="1" />
+      <xs:element name="requires" type="trequires" minOccurs="0" maxOccurs="1" />
+      <xs:element name="exportations" type="texportations" minOccurs="0" maxOccurs="1" />
+      <xs:element name="binds" type="tbinds" minOccurs="0" maxOccurs="1" />
+      <xs:choice minOccurs="0" maxOccurs="1">
+	<xs:element name="invariant" type="tinvariant" minOccurs="0" maxOccurs="1" />
+	<xs:element name="invariants" type="tinvariants" minOccurs="0" maxOccurs="1" />
+      </xs:choice>
+      <xs:element name="methods" type="tmethods" minOccurs="0" maxOccurs="1" />
+      <xs:element name="behavior" type="tbehavior" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="name" type="Ident" use="required" />
+    <xs:attribute name="module" type="IdentType" use="required" />
+  </xs:complexType>
+  
+  <xs:element name="composite" type="tcomposite" />	
+  
+  <!-- ============================================================== END COMPOSITE -->
+
+  <!-- ============================================================== QUANTIFIEER EXPR -->
+  <xs:complexType name="tquantifierpre">
+    <xs:sequence>
+      <xs:choice>
+	<xs:element name="set" type="tset" minOccurs="1" maxOccurs="1" />
+	<xs:element name="range" type="trange" minOccurs="1" maxOccurs="1" />
+	<xs:element name="collection" type="tpreexpr" minOccurs="1" maxOccurs="1" />
+      </xs:choice>
+      <xs:element name="body" type="tpreexpr" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="quantifier" type="tquantifier" use="required"></xs:attribute>
+    <xs:attribute name="variable" type="xs:string" use="required"></xs:attribute>
+    <xs:attribute name="type" type="Ident" use="required"></xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="trange">
+    <xs:sequence>
+      <xs:element name="min" type="tpreexpr" minOccurs="1" maxOccurs="1" />
+      <xs:element name="max" type="tpreexpr" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="tset">
+    <xs:sequence>
+      <xs:element name="element" type="tpreexpr" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:simpleType name="tquantifier">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="forall"></xs:enumeration>
+      <xs:enumeration value="exist"></xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  
+  <xs:complexType name="tquantifierpost">
+    <xs:sequence>
+      <xs:choice>
+	<xs:element name="set" type="tsetpost" minOccurs="1" maxOccurs="1" />
+	<xs:element name="range" type="trangepost" minOccurs="1" maxOccurs="1" />
+	<xs:element name="collection" type="tpostexpr" minOccurs="1" maxOccurs="1" />
+      </xs:choice>
+      <xs:element name="body" type="tpostexpr" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="quantifier" type="tquantifier" use="required"></xs:attribute>
+    <xs:attribute name="variable" type="xs:string" use="required"></xs:attribute>
+    <xs:attribute name="type" type="Ident" use="required"></xs:attribute>
+  </xs:complexType>
+  
+  <xs:complexType name="trangepost">
+    <xs:sequence>
+      <xs:element name="min" type="tpostexpr" minOccurs="1" maxOccurs="1" />
+      <xs:element name="max" type="tpostexpr" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="tsetpost">
+    <xs:sequence>
+      <xs:element name="element" type="tpostexpr" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <!-- ============================================================== END QUANTIFIER EXPR -->
+  
+  <!-- ============================================================== NULL EXPR -->
+  <xs:complexType name="tnull">
+    <xs:sequence />
+  </xs:complexType>
+  <!-- ============================================================== END NULL EXPR -->
+
+</xs:schema>

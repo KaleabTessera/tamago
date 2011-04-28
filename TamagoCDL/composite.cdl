@@ -1,0 +1,59 @@
+module fr.lip6.desir.tamagocdl;
+ 
+composite MonComposite {
+	provide service MonService in fr.lip6.desir.tamagocdl;
+	require service MonService in fr.lip6.desir.tamagocdl as port1;
+
+	property read int count;
+	property read bool isEmpty;
+	property read string name;
+	property readwrite real prob;
+	
+	invariant #isEmpty <=> count ==0 fail "pas possible";
+	
+	use MonComposant in fr.lip6.desir.tamagocdl as comp1;
+	use MonComposite in fr.lip6.desir.tamagocdl as comp2;
+	
+	
+	bind service MonService module fr.lip6.desir.tamagocdl client port1 provider comp1;
+	bind service MonService module fr.lip6.desir.tamagocdl client comp1.port1 provider this;
+	bind service MonService module fr.lip6.desir.tamagocdl client comp1.port1 provider comp2.comp1;
+	
+	export service MonService module fr.lip6.desir.tamagocdl by comp1;
+	export service MonService module fr.lip6.desir.tamagocdl by comp2.comp1;
+		
+	method bool foo5(Object f) {
+		pre port1.(#name) == #name;
+	}
+
+	method int foo2(real b) {
+		pre b != 0.0 && #count > 1 fail "toto";
+		post @return == #count@pre;
+	}
+
+	method string foo3() {
+		post #name == @return;
+	}
+
+	method Stack foo4() {
+		pre #isEmpty;
+	}
+	
+	behavior {
+		default state debut;
+		states {
+			state debut {
+				allow foo;
+				allow foo2;
+			}
+			state fin {
+				allow foo3;
+				allow foo4;
+			}
+		}
+		transitions {
+			transition from debut to fin with foo;
+			transition from debut to fin with foo2 when #prob > 2.3;
+		}
+	}
+}

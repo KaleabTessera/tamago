@@ -1,0 +1,715 @@
+#LyX 1.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 221
+\textclass article
+\language frenchb
+\inputencoding auto
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing single 
+\papersize a4paper
+\paperpackage widemarginsa4
+\use_geometry 0
+\use_amsmath 0
+\use_natbib 0
+\use_numerical_citations 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language french
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\bullet 1
+	0
+	9
+	-1
+\end_bullet
+
+\layout Title
+
+M2-STL : Unité d'Enseignement Composants
+\newline 
+Examen
+\layout Author
+
+Auteur : Frédéric Peschanski
+\layout Date
+
+Jeudi 31 Mars 2005
+\layout Standard
+
+
+\series bold 
+Remarques
+\series default 
+ : tous documents autorisés , durée 2 heures
+\layout Standard
+
+La simulation multi-agents est un domaine actif de recherche.
+ Il s'agit de mettre en oeuvre des agents évoluants au sein d'un environnement.
+ Chaque agent dispose de capteurs leur permettant de percevoir l'environnement,
+ d'un comportement décrivant le fonctionnement de l'agent en fonction de
+ sa perception, et d'effecteurs permettant d'effectuer des actions sur l'environ
+nement (comme des déplacement).
+ Dans ce sujet, nous prendrons le cas simple d'une simulation d'agents proies
+ et prédateurs.
+ L'objectif est de concevoir le simulateur et les agents à base de composants
+ logiciels.
+ 
+\layout Standard
+
+Ce sujet est basé sur les idées de la thèse de Marc Lhuillier sur la plateforme
+ Maleva, thèse soutenue en 1998 au laboratoire d'Informatique de Paris 6.
+\layout Section*
+
+Exercice 1 : Composants élémentaires
+\layout Standard
+
+Il s'agit dans cet exercice de décrire des comportements d'agents composés
+ à partir de comportements élémentaires.
+ Les composants élémentaires Maleva sont constitués par:
+\layout Itemize
+
+un nom de définition (ou type): 
+\family typewriter 
+Capteur
+\family default 
+, 
+\family typewriter 
+CapteurProie
+\family default 
+, 
+\family typewriter 
+CapteurPred
+\family default 
+, 
+\family typewriter 
+Environnement
+\family default 
+, 
+\family typewriter 
+Suivre
+\family default 
+, 
+\family typewriter 
+Fuir
+\family default 
+, 
+\family typewriter 
+Flaner
+\family default 
+ et 
+\family typewriter 
+Effecteur
+\layout Itemize
+
+un ou plusieurs services fournis: représentés par des connecteurs fermés
+\layout Itemize
+
+un ou plusieurs services requis: représentés par des connecteurs ouverts
+\layout Itemize
+
+une ou plusieurs propriétés (on ne détaillera pas les propriétés dans ce
+ sujet)
+\layout Itemize
+
+une borne de contrôle 
+\family typewriter 
+step
+\family default 
+ (activation élémentaire de composant)
+\layout Standard
+
+Le premier composant élémentaire est de type 
+\family typewriter 
+Capteur
+\family default 
+ dont la forme générique est la suivante:
+\layout Standard
+
+
+\begin_inset Graphics
+	filename capteur.eps
+	scale 30
+	keepAspectRatio
+
+\end_inset 
+
+
+\hfill 
+
+\begin_inset Graphics
+	filename capteurproies.eps
+	scale 30
+	keepAspectRatio
+
+\end_inset 
+
+
+\hfill 
+
+\begin_inset Graphics
+	filename capteurpreds.eps
+	scale 30
+	keepAspectRatio
+
+\end_inset 
+
+
+\layout Standard
+
+Un 
+\family typewriter 
+capteur
+\family default 
+ doit être branché sur l'environnement à l'aide de la borne 
+\family typewriter 
+EnvFetch
+\family default 
+ (service requis).
+ Lorsqu'un capteur est activé via la borne de contrôle 
+\family typewriter 
+step
+\family default 
+, le service fourni 
+\family typewriter 
+getAgents
+\family default 
+ permet à un autre composant de récupérer la liste des agents perçus par
+ le capteur.
+ Les propriétés du capteur concernent la distance, l'angle et le champs
+ de vision, ainsi que la position actuelle de l'agent qui possède le capteur.
+ Par défaut, le capteur voit tous les agents dans son champs de vision.
+ Les variantes 
+\family typewriter 
+CapteurProie
+\family default 
+ et 
+\family typewriter 
+CapteurPred
+\family default 
+ permettent de sélectionner le type d'agent visible.
+\layout Standard
+
+Les composants de comportement sont au nombre de trois: 
+\family typewriter 
+Suivre
+\family default 
+, 
+\family typewriter 
+Fuir
+\family default 
+ et 
+\family typewriter 
+Flaner
+\family default 
+.
+ Flaner est un déplacement au hasard, sans liaison avec capteur.
+ La structure de ces composants est la suivante:
+\layout Standard
+
+
+\begin_inset Graphics
+	filename fuir.eps
+	scale 30
+	keepAspectRatio
+
+\end_inset 
+
+
+\hfill 
+
+\begin_inset Graphics
+	filename suivre.eps
+	scale 30
+	keepAspectRatio
+
+\end_inset 
+
+
+\hfill 
+
+\begin_inset Graphics
+	filename flaner.eps
+	scale 30
+	keepAspectRatio
+
+\end_inset 
+
+
+\layout Standard
+
+Par exemple, à partir d'une observation d'un certain nombre d'agent, la
+ comportement 
+\family typewriter 
+Fuir
+\family default 
+, après activation 
+\family typewriter 
+step
+\family default 
+, peut prendre une décision d'action comme un déplacement (pour fuir les
+ agents visibles).
+ Le comportement 
+\family typewriter 
+Flaner
+\family default 
+ ne possède pas de borne 
+\family typewriter 
+getAgents
+\family default 
+.
+\layout Standard
+
+Enfin, le composant élémentaire 
+\family typewriter 
+Effecteur
+\family default 
+ est décrit de la façon suivante:
+\layout Standard
+\align center 
+
+\begin_inset Graphics
+	filename effecteur.eps
+	scale 40
+	keepAspectRatio
+
+\end_inset 
+
+
+\layout Standard
+
+Il s'agit d'une simple répercution de l'action d'un comportement sur l'environne
+ment.
+ En revanche, une effecteur peut être connecté à plusieurs comportements
+ en parallèle (par exemple, fuire et suivre en même temps), il faut donc
+ pouvoir mélanger les actions (note: on ne traitera pas ce problème en détail).
+\layout Subsection*
+
+Question 1 : Comportements composés
+\layout Standard
+
+A partir des composants élémentaires décrits ci-dessus, donner la structure
+ (diagramme de composition) pour les comportements suivants:
+\layout Itemize
+
+
+\family typewriter 
+Trouillard
+\family default 
+ : un agent qui fuit systématiquement
+\layout Itemize
+
+
+\family typewriter 
+Méchant
+\family default 
+ : un agent qui poursuit les proies
+\layout Itemize
+
+
+\family typewriter 
+Vagabond
+\family default 
+ : un agent qui avance au hasard
+\layout Itemize
+
+
+\family typewriter 
+Mixte
+\family default 
+ : un agent qui fuit les prédateurs, poursuit les proies et, s'il ne voit
+ rien, avance au hasard
+\layout Standard
+
+
+\series bold 
+Remarque
+\series default 
+: on considère uniquement la composition en termes de fonctionalités.
+ on ne traitera pas le problème du contrôle (et la borne 
+\family typewriter 
+step
+\family default 
+) dans cette question.
+\layout Subsection*
+
+Question 2 : Implantation de composant élémentaire
+\layout Standard
+
+En vous inspirant de la plateforme 
+\noun on 
+Tamago
+\noun default 
+, décrire en pseudo-code objet (Java ou autre) le composant élémentaire
+ 
+\family typewriter 
+Fuir
+\family default 
+ en distinguant: les interfaces de services fournis, les interfaces de services
+ requis, les interfaces de contrôle (ici, uniquement pour la méthode 
+\family typewriter 
+step
+\family default 
+, mais qui peut retourner 
+\family typewriter 
+true
+\family default 
+ ou 
+\family typewriter 
+false
+\family default 
+ selon le cas, par exemple si un capteur de proie voit au moins une proie,
+ il répond 
+\family typewriter 
+true
+\family default 
+, sinon il répond 
+\family typewriter 
+false
+\family default 
+), et enfin le code du composant 
+\family typewriter 
+Fuir
+\family default 
+.
+\layout Standard
+
+
+\series bold 
+Remarque
+\series default 
+: on ne donnera pas les détails d'implantation de l'algorithme de fuite,
+ ou les structures de données manipulées dans le composant.
+\layout Section*
+
+Exercice 2 : Agents composites
+\layout Standard
+
+Dans l'exercice 1, nous n'avons décrit que des compositions simples.
+ Le but de la plateforme Maleva est de considérer chaque agent comme un
+ composant composite.
+ 
+\layout Subsection*
+
+Question 1 : Structure d'agent composite
+\layout Standard
+
+Représenter la structure (diagramme) du composant composite 
+\family typewriter 
+Mixte
+\family default 
+ de l'exercice 1.
+ Les services fournis et requis exportés par le composite seront liés par
+ des traits en pointillés avec l'architecture interne du composant.
+ Le composant mixte requiert un service supplémentaire 
+\family typewriter 
+EnvRegister
+\family default 
+ d'enregistrement dans l'environnement (on ne s'occupera pas des modalités
+ d'enregistrement).
+\layout Subsection*
+
+Question 2 : Implantation d'agent composite
+\layout Standard
+
+Décrire en pseudo-code l'implantation du composite 
+\family typewriter 
+Mixte
+\family default 
+ en fonction de son architecture interne.
+ On supposera disponible l'ensemble des implantations des composants élémentaire
+s sous-jacents.
+\layout Standard
+
+Dans la méthode 
+\family typewriter 
+step
+\family default 
+, on donnera le code de contrôle du composite 
+\family typewriter 
+Mixte
+\family default 
+ en fonction du code d'activation des sous-composants (méthodes 
+\family typewriter 
+step
+\family default 
+ des sous-composants dont on suppose l'existence).
+ On rappelle que l'activation d'un sous-composant interne est complète (ex.
+ un capteur de proie voit au moins une proie) si la méthode 
+\family typewriter 
+step
+\family default 
+ du sous-composant retourne 
+\family typewriter 
+true
+\family default 
+.
+\layout Section*
+
+Exercice 3 : Le Calcul de Contrôle Concurrent
+\layout Standard
+
+Dans l'exercice précédent, le code de contrôle est décrit par des interaction
+ entre des méthodes 
+\family typewriter 
+step
+\family default 
+ implantées par les composants.
+ L'inconvénient de cette approche est que l'on ne peut séparer le code de
+ contrôle des composants de leurs fonctionnalités.
+ De plus, le code de contrôle est éparpillé dans les différents composants
+ et il est globalement séquentiel.
+\layout Standard
+
+Dans cette exercice, nous proposons de caractériser le code de contrôle
+ par une algèbre de processus inspirée du pi-calcul vu en cours.
+ Nous avons vu que la méthode 
+\family typewriter 
+step
+\family default 
+ ne prenait aucun argument mais retournait simplement une booléen qui indiquait
+ si l'activation était complète ou non.
+ Seule la communication d'un simple booléen est nécessaire, on peut donc
+ simplifier les termes du calcul de la façon suivante:
+\layout Standard
+
+Dans le pi-calcul, les interactions élémentaires sont les suivantes:
+\layout Standard
+
+
+\begin_inset Formula $a!v.P+R\parallel a?(y).Q+T\rightarrow P\parallel Q\{ v/y\}$
+\end_inset 
+
+
+\hfill 
+et
+\hfill 
+
+\begin_inset Formula $a?(x).P+R\parallel a!w.Q+T\rightarrow P\{ w/x\}\parallel Q$
+\end_inset 
+
+
+\layout Standard
+
+Dans le calcul considéré ici, ces deux termes peuvent être unifiés de la
+ façon suivante:
+\layout Standard
+
+
+\begin_inset Formula $a.P+R\parallel a.Q+T\rightarrow P\parallel Q$
+\end_inset 
+
+
+\layout Standard
+
+Ainsi, seule la synchronisation entre deux processus est décrite, le canal
+ (ici 
+\begin_inset Formula $a$
+\end_inset 
+
+) ne sert pas de support de communication mais correspond plutôt à une sorte
+ de verrou.
+ En dehors de cela, la sémantique du calcul est la même que pour le pi-calcul,
+ que ce soient pour les réductions ou la sémantique compositionnelle à base
+ de LTS (systèmes de transitions labellés).
+\layout Subsection*
+
+Question 1 : Sémantique de réduction
+\layout Standard
+
+Donner la sémantique de réduction (exécution symbolique) des termes suivants:
+\layout Itemize
+
+
+\begin_inset Formula $a.b\parallel c.d\parallel(a+c)\parallel b.e\parallel d.f$
+\end_inset 
+
+
+\layout Itemize
+
+
+\begin_inset Formula $(a.b+a.c)\parallel a\parallel c\parallel b$
+\end_inset 
+
+
+\layout Subsection*
+
+Question 2 : Sémantique compositionnelle
+\layout Standard
+
+Donner la sémantique LTS (arbres de transitions labellées) des deux termes
+ suivants:
+\layout Itemize
+
+
+\begin_inset Formula $P=a.(b+c)\parallel a.(c+d)$
+\end_inset 
+
+
+\layout Itemize
+
+
+\begin_inset Formula $Q=a.(b.a.(c+d)+c.a.(c+d)+a.(c+d))+a.(c.a.(b+c)+d.a.(b+c)+a.(b+c+d))$
+\end_inset 
+
+
+\layout Standard
+
+A-t-on par bisimulation, 
+\begin_inset Formula $P$
+\end_inset 
+
+ et
+\begin_inset Formula $Q$
+\end_inset 
+
+ équivalents ? Sinon, modifier le processus 
+\begin_inset Formula $Q$
+\end_inset 
+
+.
+ Justifier votre réponse.
+ 
+\layout Standard
+
+A-t-on, quelque soit le contexte 
+\begin_inset Formula $C$
+\end_inset 
+
+, 
+\begin_inset Formula $C[P]$
+\end_inset 
+
+ et 
+\begin_inset Formula $C[Q]$
+\end_inset 
+
+ équivalents ? Justifier (brièvement) votre réponse.
+\layout Subsection*
+
+Question 3 : Maleva et CCC
+\layout Standard
+
+On peut représenter un ensemble de méthodes 
+\family typewriter 
+step
+\family default 
+ par un terme dans le calcul 
+\noun on 
+CCC
+\noun default 
+ de cet exercice.
+ Par exemple, on peut donner les noms de canaux 
+\begin_inset Formula $proie_{ok}$
+\end_inset 
+
+ et 
+\begin_inset Formula $proie_{ko}$
+\end_inset 
+
+ à la méthode 
+\family typewriter 
+step
+\family default 
+ du composant capteur de proies (respectivement si on voit au moins une
+ proie ou non), et le nom de canal 
+\emph on 
+effecteur
+\emph default 
+ à la méthode 
+\family typewriter 
+step
+\family default 
+ du composant effecteur (pour l'effecteur, la méthode 
+\family typewriter 
+step
+\family default 
+ renvoie toujours 
+\family typewriter 
+true,
+\family default 
+ il n'est donc pas utile d'introduire deux canaux séparés, un seul suffit).
+\layout Standard
+
+Décrire le code de contrôle pour le composant 
+\family typewriter 
+Mixte
+\family default 
+, selon les principes suivants:
+\layout Itemize
+
+Si le capteur de proie voit des agents (
+\begin_inset Formula $proie_{ok}$
+\end_inset 
+
+) alors activer le comportement 
+\family typewriter 
+Suivre
+\layout Itemize
+
+En parallèle, si le capteur de prédateur voit des agents (
+\begin_inset Formula $pred_{ok}$
+\end_inset 
+
+) alors activer 
+\family typewriter 
+Fuir
+\layout Itemize
+
+Sinon, si on ne voit rien (
+\begin_inset Formula $proie_{ko}$
+\end_inset 
+
+ et 
+\begin_inset Formula $pred_{ko}$
+\end_inset 
+
+ simultanément actifs), activer 
+\family typewriter 
+Flaner
+\layout Itemize
+
+Activer 
+\emph on 
+une fois
+\emph default 
+ l'
+\family typewriter 
+Effecteur
+\family default 
+ en fin de contrôle
+\layout Standard
+
+
+\series bold 
+Remarque
+\series default 
+: on s'assurera de ne pas exécuter le comportement 
+\family typewriter 
+Flaner
+\family default 
+ si une proie ou un prédateur est visible.
+ De même, il faudra activer l'
+\family typewriter 
+Effecteur
+\family default 
+ une seule fois, même si on prend la décision à la fois de fuir et de suivre
+ (on pourra pour cela utiliser des canaux privés avec la syntaxe 
+\begin_inset Formula $\nu(c).(P)$
+\end_inset 
+
+ où 
+\begin_inset Formula $c$
+\end_inset 
+
+ est un canal privé dans 
+\begin_inset Formula $P$
+\end_inset 
+
+).
+\the_end

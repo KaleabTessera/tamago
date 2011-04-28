@@ -1,0 +1,17 @@
+module fr.upmc.lip6.desir.tamago;
+
+service HelloWord {
+  property read int p1;
+  property readwrite int p2;
+  property write real p3;
+
+  invariant #p1 <= #p2 fail "OK COCO";
+  
+  method void hello() {
+    pre #p2 == #p1 fail "???";
+    post #p3@pre == #p3 && "toto" == "titi";
+  }
+
+  method voir rien() {
+  }
+}
