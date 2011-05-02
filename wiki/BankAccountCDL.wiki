@@ -12,6 +12,7 @@ The functionalities present in a bank account is:
  * withdraw: decrease the balance of the account
  * init: fix the initial overdraw
 
+The concrete syntax of this service *BankAccount.cdl* can be written as follow:
 {{{
 module tamago.bankaccount;
 
@@ -63,4 +64,19 @@ service BankAccount  {
         }
 }
 
+}}}
+
+
+= Compilation =
+The first step is to produce the abstract Tamago-CDL file with the *tamagocdl* command:
+
+{{{
+tamagocdl -xml -o BankAccount.xml BankAccount.cdl
+}}}
+
+= Generation of the verification code =
+The generation of the container is the role of contract compiler. 
+
+{{{
+tamagocc BankAccount.xml
 }}}
