@@ -1,0 +1,457 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type="text/xsl" href="http://www-poleia.lip6.fr/~belhaouari/TamagoCDL.xsl" ?>
+<component name="VBanqueCompACA" module="tamago.aca">
+    <coretypes>
+    </coretypes>
+    <properties>
+    </properties>
+    <percolators>
+    </percolators>
+    <provides>
+    </provides>
+    <requires>
+    </requires>
+    <invariants>
+    </invariants>
+    <methods>
+        <method name="deposit" rettype="void" id="deposit">
+            <parameters>
+                <parameter name="quad" type="tamago.ext.aca.Quad"/>
+            </parameters>
+        </method>
+        <method name="validate" rettype="void" id="validate">
+            <parameters>
+                <parameter name="quad" type="tamago.ext.aca.Quad"/>
+            </parameters>
+            <pre message="">
+                <operator name="and">
+                    <operator name="impl">
+                        <instate>
+                            <state name="22"/>
+                        </instate>
+                        <operator name="and">
+                            <in>
+                                <scope>
+                                    <variable name="quad" type="tamago.ext.aca.Quad"/>
+                                </scope>
+                                <target>
+                                    <call method="user_Is">
+                                        <arguments>
+                                            <variable name="__sod_2" type="String"/>
+                                        </arguments>
+                                    </call>
+                                </target>
+                            </in>
+                            <in>
+                                <scope>
+                                    <variable name="quad" type="tamago.ext.aca.Quad"/>
+                                </scope>
+                                <target>
+                                    <call method="user_Is">
+                                        <arguments>
+                                            <variable name="__sod_2" type="String"/>
+                                        </arguments>
+                                    </call>
+                                </target>
+                            </in>
+                        </operator>
+                    </operator>
+                    <operator name="impl">
+                        <instate>
+                            <state name="26"/>
+                        </instate>
+                        <in>
+                            <scope>
+                                <variable name="quad" type="tamago.ext.aca.Quad"/>
+                            </scope>
+                            <target>
+                                <call method="user_Is">
+                                    <arguments>
+                                        <variable name="__sod_3" type="String"/>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <operator name="impl">
+                        <instate>
+                            <state name="27"/>
+                        </instate>
+                        <in>
+                            <scope>
+                                <variable name="quad" type="tamago.ext.aca.Quad"/>
+                            </scope>
+                            <target>
+                                <call method="user_Is">
+                                    <arguments>
+                                        <variable name="__sod_3" type="String"/>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <operator name="impl">
+                        <instate>
+                            <state name="32"/>
+                        </instate>
+                        <in>
+                            <scope>
+                                <variable name="quad" type="tamago.ext.aca.Quad"/>
+                            </scope>
+                            <target>
+                                <call method="user_Is">
+                                    <arguments>
+                                        <variable name="__sod_2" type="String"/>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                </operator>
+            </pre>
+        </method>
+        <method name="modify" rettype="void" id="modify">
+            <parameters>
+                <parameter name="quad" type="tamago.ext.aca.Quad"/>
+            </parameters>
+            <pre message="">
+                <operator name="and">
+                    <operator name="impl">
+                        <instate>
+                            <state name="22"/>
+                        </instate>
+                        <in>
+                            <scope>
+                                <variable name="quad" type="tamago.ext.aca.Quad"/>
+                            </scope>
+                            <target>
+                                <call method="user_Is">
+                                    <arguments>
+                                        <variable name="__sod_2" type="String"/>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <operator name="impl">
+                        <instate>
+                            <state name="23"/>
+                        </instate>
+                        <in>
+                            <scope>
+                                <variable name="quad" type="tamago.ext.aca.Quad"/>
+                            </scope>
+                            <target>
+                                <call method="user_Is">
+                                    <arguments>
+                                        <variable name="__sod_2" type="String"/>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <operator name="impl">
+                        <instate>
+                            <state name="15"/>
+                        </instate>
+                        <in>
+                            <scope>
+                                <variable name="quad" type="tamago.ext.aca.Quad"/>
+                            </scope>
+                            <target>
+                                <call method="user_Is">
+                                    <arguments>
+                                        <variable name="__sod_2" type="String"/>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                </operator>
+            </pre>
+        </method>
+    </methods>
+    <behavior default="0">
+        <states>
+            <state name="0" >
+                <allow method="deposit" />
+                <allow method="modify" />
+                <allow method="validate" />
+            </state>
+            <state name="1" >
+                <allow method="modify" />
+                <allow method="validate" />
+                <allow method="cancel" />
+            </state>
+            <state name="2" >
+                <allow method="validate" />
+                <allow method="cancel" />
+                <allow method="modify" />
+            </state>
+            <state name="3" >
+                <allow method="cancel" />
+                <allow method="validate" />
+                <allow method="modify" />
+            </state>
+            <state name="4" >
+                <allow method="validate" />
+                <allow method="modify" />
+            </state>
+            <state name="5" >
+                <allow method="validate" />
+                <allow method="modify" />
+            </state>
+            <state name="6" >
+                <allow method="cancel" />
+                <allow method="validate" />
+                <allow method="modify" />
+            </state>
+            <state name="7" >
+                <allow method="validate" />
+                <allow method="modify" />
+            </state>
+            <state name="8" >
+                <allow method="modify" />
+                <allow method="cancel" />
+                <allow method="validate" />
+            </state>
+            <state name="9" >
+                <allow method="modify" />
+                <allow method="validate" />
+            </state>
+            <state name="10" >
+                <allow method="modify" />
+                <allow method="validate" />
+            </state>
+            <state name="11" >
+                <allow method="modify" />
+                <allow method="validate" />
+            </state>
+            <state name="12" >
+                <allow method="modify" />
+                <allow method="cancel" />
+                <allow method="validate" />
+            </state>
+            <state name="13" >
+                <allow method="cancel" />
+                <allow method="modify" />
+                <allow method="validate" />
+            </state>
+            <state name="14" >
+                <allow method="modify" />
+                <allow method="validate" />
+            </state>
+            <state name="15" >
+                <allow method="deposit" />
+                <allow method="validate" />
+            </state>
+            <state name="16" >
+                <allow method="validate" />
+            </state>
+            <state name="17" >
+                <allow method="validate" />
+            </state>
+            <state name="18" >
+                <allow method="cancel" />
+                <allow method="validate" />
+            </state>
+            <state name="19" >
+                <allow method="cancel" />
+                <allow method="validate" />
+            </state>
+            <state name="20" >
+                <allow method="validate" />
+            </state>
+            <state name="21" >
+                <allow method="validate" />
+                <allow method="cancel" />
+            </state>
+            <state name="22" >
+                <allow method="deposit" />
+                <allow method="validate" />
+            </state>
+            <state name="23" >
+                <allow method="deposit" />
+                <allow method="validate" />
+            </state>
+            <state name="24" >
+                <allow method="validate" />
+            </state>
+            <state name="25" >
+                <allow method="cancel" />
+                <allow method="validate" />
+            </state>
+            <state name="26" >
+                <allow method="deposit" />
+                <allow method="modify" />
+                <allow method="validate" />
+            </state>
+            <state name="27" >
+                <allow method="deposit" />
+                <allow method="modify" />
+            </state>
+            <state name="28" >
+                <allow method="modify" />
+                <allow method="cancel" />
+            </state>
+            <state name="29" >
+                <allow method="modify" />
+            </state>
+            <state name="30" >
+                <allow method="cancel" />
+                <allow method="modify" />
+            </state>
+            <state name="31" >
+                <allow method="modify" />
+            </state>
+            <state name="32" >
+                <allow method="deposit" />
+            </state>
+            <state name="33" >
+            </state>
+            <state name="34" >
+                <allow method="cancel" />
+            </state>
+        </states>
+        <transitions>
+            <transition from="0" to="1" with="deposit">
+            </transition>
+            <transition from="1" to="2" with="modify">
+            </transition>
+            <transition from="2" to="3" with="validate">
+            </transition>
+            <transition from="3" to="4" with="cancel">
+            </transition>
+            <transition from="4" to="5" with="validate">
+            </transition>
+            <transition from="3" to="6" with="validate">
+            </transition>
+            <transition from="6" to="5" with="cancel">
+            </transition>
+            <transition from="2" to="7" with="cancel">
+            </transition>
+            <transition from="7" to="4" with="validate">
+            </transition>
+            <transition from="1" to="8" with="validate">
+            </transition>
+            <transition from="8" to="3" with="modify">
+            </transition>
+            <transition from="8" to="9" with="cancel">
+            </transition>
+            <transition from="9" to="4" with="modify">
+            </transition>
+            <transition from="9" to="10" with="validate">
+            </transition>
+            <transition from="10" to="5" with="modify">
+            </transition>
+            <transition from="5" to="11" with="validate">
+            </transition>
+            <transition from="8" to="12" with="validate">
+            </transition>
+            <transition from="12" to="6" with="modify">
+            </transition>
+            <transition from="6" to="13" with="validate">
+            </transition>
+            <transition from="13" to="11" with="cancel">
+            </transition>
+            <transition from="12" to="10" with="cancel">
+            </transition>
+            <transition from="1" to="14" with="cancel">
+            </transition>
+            <transition from="14" to="7" with="modify">
+            </transition>
+            <transition from="14" to="9" with="validate">
+            </transition>
+            <transition from="0" to="15" with="modify">
+            </transition>
+            <transition from="15" to="2" with="deposit">
+            </transition>
+            <transition from="4" to="16" with="modify">
+            </transition>
+            <transition from="16" to="17" with="validate">
+            </transition>
+            <transition from="5" to="17" with="modify">
+            </transition>
+            <transition from="3" to="18" with="modify">
+            </transition>
+            <transition from="18" to="16" with="cancel">
+            </transition>
+            <transition from="18" to="19" with="validate">
+            </transition>
+            <transition from="19" to="17" with="cancel">
+            </transition>
+            <transition from="6" to="19" with="modify">
+            </transition>
+            <transition from="7" to="20" with="modify">
+            </transition>
+            <transition from="20" to="16" with="validate">
+            </transition>
+            <transition from="2" to="21" with="modify">
+            </transition>
+            <transition from="21" to="18" with="validate">
+            </transition>
+            <transition from="21" to="20" with="cancel">
+            </transition>
+            <transition from="15" to="22" with="validate">
+            </transition>
+            <transition from="22" to="3" with="deposit">
+            </transition>
+            <transition from="22" to="23" with="validate">
+            </transition>
+            <transition from="23" to="6" with="deposit">
+            </transition>
+            <transition from="11" to="24" with="modify">
+            </transition>
+            <transition from="13" to="25" with="modify">
+            </transition>
+            <transition from="25" to="24" with="cancel">
+            </transition>
+            <transition from="17" to="24" with="validate">
+            </transition>
+            <transition from="19" to="25" with="validate">
+            </transition>
+            <transition from="0" to="26" with="validate">
+            </transition>
+            <transition from="26" to="8" with="deposit">
+            </transition>
+            <transition from="26" to="22" with="modify">
+            </transition>
+            <transition from="26" to="27" with="validate">
+            </transition>
+            <transition from="27" to="12" with="deposit">
+            </transition>
+            <transition from="12" to="28" with="validate">
+            </transition>
+            <transition from="28" to="13" with="modify">
+            </transition>
+            <transition from="11" to="29" with="validate">
+            </transition>
+            <transition from="13" to="30" with="validate">
+            </transition>
+            <transition from="30" to="29" with="cancel">
+            </transition>
+            <transition from="28" to="31" with="cancel">
+            </transition>
+            <transition from="31" to="11" with="modify">
+            </transition>
+            <transition from="10" to="31" with="validate">
+            </transition>
+            <transition from="27" to="23" with="modify">
+            </transition>
+            <transition from="23" to="32" with="validate">
+            </transition>
+            <transition from="32" to="13" with="deposit">
+            </transition>
+            <transition from="29" to="33" with="modify">
+            </transition>
+            <transition from="30" to="34" with="modify">
+            </transition>
+            <transition from="34" to="33" with="cancel">
+            </transition>
+            <transition from="24" to="33" with="validate">
+            </transition>
+            <transition from="25" to="34" with="validate">
+            </transition>
+        </transitions>
+    </behavior>
+</component>

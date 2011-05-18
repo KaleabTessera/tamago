@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<processus name="tamago.aca.VBanqueComp" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="TamagoACA.xsd">
+
+	<permissions>
+		<atomic forbidden="false">
+			<role value="clerk" />
+			<action name="deposit" />
+		</atomic>
+		<atomic forbidden="false">
+			<role value="banker" />
+			<action name="deposit" ></action>
+		</atomic>
+		<atomic forbidden="false">
+			<role value="banker" />
+			<action name="cancel" />
+		</atomic>
+		<atomic forbidden="false">
+			<role value="banker" />
+			<action name="validate" />
+		</atomic>
+		<atomic forbidden="false">
+			<role value="ca" />
+			<action name="cancel" />
+		</atomic>
+		<atomic forbidden="false">
+			<role value="ca" />
+			<action name="validate" />
+		</atomic>
+		<atomic forbidden="false">
+			<role value="clerk" />
+			<action name="modify" />
+		</atomic>
+		<atomic forbidden="false">
+			<role value="banker" />
+			<action name="modify" />
+		</atomic>
+
+	</permissions>
+
+	<bans>
+		<atomic forbidden="true">
+			<role value="clerk" />
+			<action name="validate" />
+		</atomic>
+	</bans>
+
+	<complex>
+		<parstrong>
+			<child>
+				<sod on="USER">
+					<left>
+						<atomic forbidden="false">
+							<user value="bob" />
+							<action name="deposit" />
+						</atomic>
+					</left>
+					<right>
+						<atomic forbidden="true">
+							<user value="bob" />
+							<action name="validate" />
+						</atomic>
+					</right>
+				</sod>
+			</child>
+			<child>
+				<sod on="USER">
+					<left>
+						<atomic forbidden="false">
+							<user value=".*" />
+							<action name="deposit" />
+						</atomic>
+					</left>
+					<right>
+						<atomic forbidden="true">
+							<user value=".*" />
+							<action name="cancel" />
+						</atomic>
+					</right>
+				</sod>
+			</child>
+			<child>
+				<sod on="USER">
+					<left>
+						<atomic forbidden="false">
+							<user value=".*" />
+							<action name="modify" />
+						</atomic>
+					</left>
+					<right>
+						<atomic forbidden="true">
+							<user value=".*" />
+							<action name="validate" />
+						</atomic>
+					</right>
+				</sod>
+			</child>
+			<child>
+				<sod on="USER">
+					<left>
+						<atomic forbidden="false">
+							<user value=".*" />
+							<action name="validate" />
+						</atomic>
+					</left>
+					<right>
+						<atomic forbidden="true">
+							<user value=".*" />
+							<action name="validate" />
+						</atomic>
+					</right>
+				</sod>
+			</child>
+			<child>
+				<obl on="ROLE">
+					<left>
+						<atomic forbidden="false">
+							<role value=".*" />
+							<action name="deposit" />
+						</atomic>
+					</left>
+					<right>
+						<atomic forbidden="false">
+							<role value=".*" />
+							<action name="modify" />
+						</atomic>
+					</right>
+				</obl>
+			</child>
+		</parstrong>
+	</complex>
+</processus>

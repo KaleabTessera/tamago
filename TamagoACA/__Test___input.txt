@@ -1,0 +1,32 @@
+play () ==
+  <andre,clerk,orga>
+& <andre,clerk,orgb>
+;
+
+
+permission () ==
+   <_,clerk,_,_,deposit()>
+& <_,banker,_,_,deposit()>
+& <_,banker,_,_,cancel()>
+& <_,banker,_,_,validate()>
+& <_,ca,_,_,cancel()>
+& <_,ca,_,_,validate()>
+& <_,clerk,_,_,modify()>
+& <_,banker,_,_,modify()>
+;
+
+interdiction () ==
+<_,!clerk, _,_,validate()>
+;
+
+sod () ==
+   SOD(user,<bob, _, _,_,deposit()>,<!bob, _, _,_ ,validate()>) 
+|| SOD(user,<user, _, _,_,deposit()>,<!user, _, _,_ ,cancel()>)
+|| SOD(user,<user, _, _,_,modify()>,<!user, _, _,_ ,validate()>)
+|| SOD(user,<user,_,org2,_,validate()>,<!user,_,org2,_,validate()>)
+;
+
+obligation () ==
+OBL(role,<_,role, _,_ ,deposit()>,<_,role, _,_ ,modify()>)
+;
+

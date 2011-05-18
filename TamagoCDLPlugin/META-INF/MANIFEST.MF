@@ -18,9 +18,7 @@ Require-Bundle: org.eclipse.ui,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6,
  J2SE-1.5
 Eclipse-AutoStart: true
-Export-Package: org,
- org.tamago,
- org.tamago.eclipse,
+Export-Package: 
  org.tamago.eclipse.cdl;
   uses:="org.eclipse.jface.action,
    org.eclipse.jface.resource,

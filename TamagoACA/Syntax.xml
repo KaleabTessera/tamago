@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<processus>
+	<permissions>
+			<atomic>
+				<user value="adrien" />
+				<role value="chef"  />
+				<org value="plouc" />
+			</atomic>
+			<atomic>
+				<user value="bob" />
+				<role value="chef"  />
+				<org value="plouc" />
+				<action name="action1">
+					<arguments>
+						<argument type="int" name="foo" />
+					</arguments>
+				</action>
+			</atomic>
+		
+	</permissions>
+	
+	<bans>
+		<ban>
+			<atomic>
+				<user value="bob" />
+				<role value="ouvrier"  />
+				<org value="*" />
+				<action name="action2">
+					<arguments>
+						<argument type="int" name="foo" />
+					</arguments>
+				</action>
+			</atomic>
+		</ban>
+	</bans>
+	
+	<complex>
+		<sod on="user" variable="u">
+			<child>
+				<atomic>
+					<userxx value="u" />
+					<action name="action1" />
+				</atomic>
+			</child>
+			<child>
+				<atomic>
+					<user value="u" />
+					<action name="valider" />
+				</atomic>
+			</child>
+		</sod>
+	</complex>
+</processus>

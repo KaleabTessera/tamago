@@ -46,6 +46,7 @@ public interface TamagoTestStrategy extends TamagoBuilderFactory {
 	 */
 	GExpression strategyForPrerequisite(GExpression expr) throws TamagoCCException;
 	GExpression strategyForOracle(GExpression expr) throws TamagoCCException;
+	GExpression strategyForInitialConstraint(GExpression expr) throws TamagoCCException;
 	// sert de filtrage dans l'exe de test
 	GExpression strategyForPrecondition(GExpression expr) throws TamagoCCException;
 	void setFixPoint(TamagoTestTransSelector fixpoint);
@@ -68,4 +69,6 @@ public interface TamagoTestStrategy extends TamagoBuilderFactory {
 	// if the strategy must be modify the CSP
 	// this one allow to the strategie to get CSPvalues
 	void registerTestCase(TamagoCSP csp);
+	
+	
 }
