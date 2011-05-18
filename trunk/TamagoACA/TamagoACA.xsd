@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:simpleType name="Ident">
+		<xs:restriction base="xs:string">
+			<xs:pattern
+				value="[A-Za-z_](.?[A-Za-z0-9_](&lt;)?(&gt;)?)*(\[\])?" />
+		</xs:restriction>
+	</xs:simpleType>
+
+
+
+	<xs:complexType name="user">
+				<xs:attribute name="value" type="xs:string"
+					use="required">
+				</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="role">
+			<xs:attribute name="value" type="xs:string"></xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="org">
+				<xs:attribute name="value" type="xs:string"
+					use="required">
+				</xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="atomic">
+		<xs:complexContent>
+			<xs:extension base="ACATerm">
+				<xs:sequence>
+					<xs:sequence maxOccurs="1" minOccurs="1">
+						<xs:element name="user" type="user" maxOccurs="1" minOccurs="0"></xs:element>
+						<xs:element name="role" type="role" maxOccurs="1" minOccurs="0"></xs:element>
+						<xs:element name="org" type="org" maxOccurs="1" minOccurs="0"></xs:element>
+					</xs:sequence>
+					<xs:sequence maxOccurs="1" minOccurs="1">
+						<xs:element name="action" type="action">
+						</xs:element>
+					</xs:sequence>
+				</xs:sequence>
+				<xs:attribute name="forbidden" type="xs:boolean" use="required"></xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="Term">
+		<xs:choice maxOccurs="1" minOccurs="1">
+			<xs:element name="atomic" type="atomic"></xs:element>
+			<xs:element name="sod" type="sod"></xs:element>
+			<xs:element name="obl" type="obl"></xs:element>
+			<xs:element name="parstrong" type="parstrong"></xs:element>
+			<xs:element name="parweak" type="parweak"></xs:element>
+		</xs:choice>
+	</xs:complexType>
+
+
+	<xs:complexType name="ACATerm" abstract="true">
+	</xs:complexType>
+
+	<xs:complexType name="sod">
+		<xs:complexContent>
+			<xs:extension base="ACATerm">
+				<xs:sequence>
+					<xs:element name="left" type="Term"></xs:element>
+					<xs:element name="right" type="Term"></xs:element>
+				</xs:sequence>
+				<xs:attribute name="on" type="onenum"></xs:attribute>
+				<xs:attribute name="variable" type="xs:string"></xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="obl">
+		<xs:complexContent>
+			<xs:extension base="ACATerm">
+				<xs:sequence>
+                    <xs:element name="left" type="Term"></xs:element>
+                    <xs:element name="right" type="Term"></xs:element>
+				</xs:sequence>
+				<xs:attribute name="on" type="onenum"></xs:attribute>
+				<xs:attribute name="variable" type="xs:string"></xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="parstrong">
+		<xs:complexContent>
+			<xs:extension base="ACATerm">
+				<xs:sequence maxOccurs="unbounded" minOccurs="0">
+					<xs:element name="child" type="Term"></xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="parweak">
+		<xs:complexContent>
+			<xs:extension base="ACATerm">
+				<xs:sequence maxOccurs="unbounded" minOccurs="0">
+					<xs:element name="child" type="Term"></xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+
+	<xs:complexType name="action">
+		<xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+	</xs:complexType>
+
+	<xs:simpleType name="onenum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="USER"></xs:enumeration>
+			<xs:enumeration value="ROLE"></xs:enumeration>
+			<xs:enumeration value="ORGANISATION"></xs:enumeration>
+			<xs:enumeration value="ACTION"></xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="processus">
+		<xs:sequence>
+			<xs:element name="permissions" type="permissions"></xs:element>
+			<xs:element name="bans" type="bans"></xs:element>
+			<xs:element name="complex" type="Term"></xs:element>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+	</xs:complexType>
+
+	<xs:complexType name="permissions">
+		<xs:sequence maxOccurs="unbounded" minOccurs="0">
+			<xs:element name="atomic" type="atomic"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="bans">
+		<xs:sequence maxOccurs="unbounded" minOccurs="0">
+			<xs:element name="atomic" type="atomic"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="processus" type="processus"></xs:element>
+</xs:schema>

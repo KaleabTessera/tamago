@@ -1,0 +1,40 @@
+module tamago.aca;
+
+service VBanque  {
+	property read int balance;
+	property read int temp;
+	
+	method void deposit(tamago.ext.aca.Quad quad) {
+		id deposit;
+	}
+	
+	method void modify(tamago.ext.aca.Quad quad) {
+		id modify;
+	}
+	
+	method void validate(tamago.ext.aca.Quad quad) {
+		id validate;
+	}
+		
+    behavior {
+    	default state adepose;
+    	states {
+    		state adepose {
+    			allow deposit;
+    		}
+    		
+    		state ballotage {
+    			allow modify;
+    			allow validate;
+    		}
+    		state final {
+    			
+    		}
+    	}
+    	transitions {
+    		transition from adepose to ballotage with deposit;
+    		transition from ballotage to ballotage with modify;
+    		transition from ballotage to final with validate; 
+    	}
+    }
+}

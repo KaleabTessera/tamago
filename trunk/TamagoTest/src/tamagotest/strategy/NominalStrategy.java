@@ -152,6 +152,11 @@ public class NominalStrategy implements TamagoTestStrategy {
 		// rien a faire a priori
 	}
 
+	@Override
+	public GExpression strategyForInitialConstraint(GExpression expr) throws TamagoCCException {
+		return expr;
+	}
+
 	
 	
 }

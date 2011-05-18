@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type="text/xsl" href="http://www-poleia.lip6.fr/~belhaouari/TamagoCDL.xsl" ?>
+<service name="VBanque" module="tamago.aca">
+    <extends>
+    </extends>
+    <coretypes>
+    </coretypes>
+    <properties>
+        <property name="balance" type="int" access="r"/>
+        <property name="temp" type="int" access="r"/>
+    </properties>
+    <invariants>
+    </invariants>
+    <methods>
+        <method name="deposit" rettype="void" id="deposit">
+            <parameters>
+                <parameter name="quad" type="tamago.ext.aca.Quad"/>
+            </parameters>
+        </method>
+        <method name="modify" rettype="void" id="modify">
+            <parameters>
+                <parameter name="quad" type="tamago.ext.aca.Quad"/>
+            </parameters>
+        </method>
+        <method name="validate" rettype="void" id="validate">
+            <parameters>
+                <parameter name="quad" type="tamago.ext.aca.Quad"/>
+            </parameters>
+        </method>
+    </methods>
+    <behavior default="adepose">
+        <states>
+            <state name="adepose" >
+                <allow method="deposit" />
+            </state>
+            <state name="ballotage" >
+                <allow method="modify" />
+                <allow method="validate" />
+            </state>
+            <state name="final" >
+            </state>
+        </states>
+        <transitions>
+            <transition from="adepose" to="ballotage" with="deposit">
+            </transition>
+            <transition from="ballotage" to="ballotage" with="modify">
+            </transition>
+            <transition from="ballotage" to="final" with="validate">
+            </transition>
+        </transitions>
+    </behavior>
+</service>

@@ -449,6 +449,111 @@ public class TamagoTest {
 		}
 	}
 
+	private static void followBackBehavior(GTamago contract, GState finalstate) throws TamagoCCException, TamagoTestException {
+		long step = 0; // display information
+		GState state = finalstate;
+
+		TamagoEnvironment env_props = new TamagoEnvironment();
+
+		extractProperties(contract,env_props);
+
+		
+		
+		GTransition transition = ctx.getFixPointDectector().getTransition(state, ctx);
+		// affect first contrainst.
+		
+		// from this contraints we want to instanciate an object
+		// and from method
+		
+		firstConstraintsProperties(contract, env_props);
+		
+		while(transition != null && ui().canContinue()){
+			
+			TamagoCCLogger.println(2, "Selection of transition: "+transition.toString());
+
+			try {
+
+				TamagoCCLogger.println(3, " **** **** BACK STEP : "+(++step)+" **** ****");
+
+				TamagoCCLogger.println(3," Properties states:");
+				for (Entry<String, TamagoBuilder> entry : env_props.entrySet()) {
+					TamagoCCLogger.println(3,"   "+entry.getKey()+" -> "+ entry.getValue().getCSPvar(null,null).toString());
+				}
+
+				// 1 on prepare la precondition ainsi que l'invariant
+				GMethod meth = contract.getMethod(transition.getMethodID());
+				TamagoCCLogger.println(3, "Call of the method: "+transition.getMethodID());
+
+				// on doit chercher l'oracle en premier pour renommer les prop necessaires
+				GExpression oracle = genPredictBehaviorExpression(contract,meth,transition,env_props);
+
+
+				// 2 regle de reecritures pour transforme en FND
+				GExpression constraints = genPrerequisiteExpression(contract, meth,transition,env_props);
+				try {
+					TamagoCCMakeReadableGExpression make = new TamagoCCMakeReadableGExpression(constraints);
+					TamagoCCLogger.println(3, "Expression : "+make.getStrExpression());
+				} catch (TamagoCCException e1) {
+					e1.printStackTrace();
+				}
+
+				GExpression precondition = genPreconditionExpression(contract,meth,transition,env_props);
+
+				TamagoEnvironment env = new TamagoEnvironment();
+
+				enrichEnvironment(env,env_props);
+				extractParameters(meth,env);
+
+				// Choisir aleatoirement une FNC et detecter les variables
+				TamagoCSPDNF dnf = new TamagoCSPDNF(constraints);
+				TamagoCCLogger.println(3, "DNF :" +dnf.size());
+				if(TamagoCCLogger.getLevel() >= 4) {
+					TamagoCCLogger.println(4,"---------");
+					for (GExpression expr : dnf) {
+						TamagoCCLogger.println(4,"\t DNF expression: "+TamagoCCMakeReadableGExpression.toString(expr));
+					}
+					TamagoCCLogger.println(4,"---------");
+				}
+
+				ArrayList<GExpression> arraydnf = new ArrayList<GExpression>(dnf.getCollection());
+				TamagoCSP csp_resolut = null;
+				do {
+					// TODO: ici peut etre un probleme d'initialisation du CSP.
+					// une solution serait de sauvegarder le CSP avant de lui ajouter les contraintes.
+					// DONE: la solution adopte est de limiter l'utilisation memoire, suite au not enough memory assez
+					// frequent lors des phases de tests, donc j'utilise la methode uninstallAllConstraints qui nettoie
+					// les dependances des strings et qui permet de retirer les sous-chaines des strings car elle agisse
+					// directement comme des contraintes juste par leur presence. (voir la fonction clearConstraints du csp)
+					GExpression gexpr = selector(arraydnf);
+					csp_resolut = solveParameters(env,gexpr);
+					if(csp_resolut == null) {
+						TamagoCCLogger.println(3, "I must take a new DNF");
+						TamagoCCLogger.println(3, "Call of the method: "+transition.getMethodID());
+					}
+				} while(csp_resolut == null && ui().canContinue());	
+
+				TamagoCCLogger.println(3, " --- Registering the current test case");
+
+				registerTestCase(transition,meth,csp_resolut,precondition,oracle);
+
+
+				//GExpression finaleff = genFinalEffPostcondition(contract,meth,transition);
+				//updateProperties(finaleff,env_props);
+
+				updateProperties(env,env_props);
+
+				TamagoCCLogger.println(3, "End Step : "+step);
+				ctx.getFixPointDectector().fetch();
+				ui().finishStep();
+				state = transition.getFinal();
+			}
+			catch(Exception e) {
+				TamagoCCLogger.println(2, "The transition "+transition.toString()+" failed, I try to take a new one");
+				TamagoCCLogger.infoln(3, e);
+			}
+			transition = ctx.getFixPointDectector().getTransition(state, ctx);
+		}
+	}
 
 
 	private static void updateProperties(TamagoEnvironment env, TamagoEnvironment env_props) {
@@ -851,6 +956,128 @@ public class TamagoTest {
 		for (GInvariant invariant : contract.getInvariants()) {
 			((GIOperator) constraints).addOperand(invariant.getExpression());
 		}
+
+		TamagoCSPFlatten flat = new TamagoCSPFlatten(constraints);
+		constraints = flat.flatten();
+
+		TamagoCSPDNF dnf = new TamagoCSPDNF(constraints);
+		TamagoCCLogger.println(3, "DNF :" +dnf.size());
+		if(TamagoCCLogger.getLevel() >= 4) {
+			TamagoCCLogger.println(4,"---------");
+			for (GExpression expr : dnf) {
+				TamagoCCLogger.println(4,"\t DNF expression: "+TamagoCCMakeReadableGExpression.toString(expr));
+			}
+			TamagoCCLogger.println(4,"---------");
+		}
+
+
+		boolean branchdnf = false;
+		ArrayList<GExpression> arraydnf = new ArrayList<GExpression>(dnf.getCollection());
+		if(dnf.size() == 0) {
+			TamagoCCLogger.println(3, "No invariant detected for minimization");
+			TamagoCSP csp = new TamagoCSP();
+
+			for (TamagoBuilder builder : env.values()) {
+				builder.setBacktrack(csp.getBacktrack());
+				CSPvar var = builder.getCSPvar(null,null);
+				var.uninstallAllConstraints();
+				csp.addVariable(var);
+			}
+			TamagoCCLogger.println(3, "Minimize properties...");
+			try {
+				csp.solve();
+				TamagoCCLogger.println(3, "Minimize [OK]");
+				TamagoCCLogger.println(3, csp.toString());
+				branchdnf = false;
+			}
+			catch(Exception e) {
+				TamagoCCLogger.println(3, "Error during minimization:");
+				TamagoCCLogger.infoln(3,e);
+				branchdnf = true;
+			}
+			return;
+		}
+
+		do {
+			GExpression expr = selector(arraydnf);
+			//ctx.setSelectedDNFInvariant(expr);
+			ctx.setSelectedDNFInvariant(constraints);
+			expr = TamagoCSPFlatten.flattern(expr);
+
+			TamagoCSP csp = new TamagoCSP();
+
+			for (TamagoBuilder builder : env.values()) {
+				builder.setBacktrack(csp.getBacktrack());
+				CSPvar var = builder.getCSPvar(null,null);
+				var.uninstallAllConstraints();
+				csp.addVariable(var);
+			}
+
+			TamagoCSPInferConstraint infer = new TamagoCSPInferConstraint(csp,env);
+			if((expr.getCategory() == GExprType.OPERATOR)
+					&& (((GOperator)expr).getOperator().equals(TOpeName.opAnd))) {
+				Iterator<GExpression> item = ((GOperator)expr).getOperands();
+				while(item.hasNext()) {
+					GExpression tmpexpr = item.next();
+					TamagoCCMakeReadableGExpression tccmrg = new TamagoCCMakeReadableGExpression(tmpexpr);
+					try {
+						TamagoCCLogger.print(3," -- Conversion sub expr : ");
+						TamagoCCLogger.println(3,tccmrg.getStrExpression());
+					} catch (TamagoCCException e) {		}
+
+					if(!infer.generate(tmpexpr)) {
+						//TamagoCCMakeReadableGExpression tccmrg = new TamagoCCMakeReadableGExpression(tmpexpr);
+						TamagoCCLogger.print(3,"  -- Problem to convert the sub expr ");
+						try {
+							TamagoCCLogger.print(3,": "+tccmrg.getStrExpression());
+						} catch (TamagoCCException e) {		}
+						TamagoCCLogger.println(3,"");
+					} 
+
+				}
+			}
+			else {
+				if(!infer.generate(expr)) {
+					TamagoCCMakeReadableGExpression tccmrg = new TamagoCCMakeReadableGExpression(expr);
+					TamagoCCLogger.print(3," -- Problem to convert the expr ");
+					try {
+						TamagoCCLogger.print(3,": "+tccmrg.getStrExpression());
+					} catch (TamagoCCException e) {		}
+					TamagoCCLogger.println(3,"");
+				}
+			}
+
+
+			TamagoCCLogger.println(3, "Minimize properties...");
+			try {
+				TamagoCCLogger.println(4, csp.toString());
+				csp.solve();
+				TamagoCCLogger.println(3, "Minimize [OK]");
+				TamagoCCLogger.println(3, csp.toString());
+				branchdnf = false;
+			}
+			catch(Exception e) {
+				TamagoCCLogger.println(3, "Error during minimization:");
+				TamagoCCLogger.infoln(3,e);
+				branchdnf = true;
+			}
+
+		} while(branchdnf);
+	}
+	
+	private static void firstConstraintsProperties(GTamago contract, TamagoEnvironment env) throws TamagoCCException {
+		if(env.size() == 0) {
+			TamagoCCLogger.println(3, "No property detected");
+			return;
+		}
+
+		TamagoCCLogger.println(3, "Minimisation of extracted properties");
+		GExpression constraints = new GIOperator(TOpeName.opAnd);
+		for (GInvariant invariant : contract.getInvariants()) {
+			((GIOperator) constraints).addOperand(invariant.getExpression());
+		}
+		
+		constraints = ctx.getStrategy().strategyForInitialConstraint(constraints);
 
 		TamagoCSPFlatten flat = new TamagoCSPFlatten(constraints);
 		constraints = flat.flatten();

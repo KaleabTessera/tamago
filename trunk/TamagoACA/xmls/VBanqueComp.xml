@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type="text/xsl" href="http://www-poleia.lip6.fr/~belhaouari/TamagoCDL.xsl" ?>
+<component name="VBanqueComp" module="tamago.aca">
+    <coretypes>
+    </coretypes>
+    <properties>
+    </properties>
+    <percolators>
+        <percolator name="*"/>
+    </percolators>
+    <provides>
+        <provide service="VBanque" module="tamago.aca"/>
+    </provides>
+    <requires>
+    </requires>
+    <invariants>
+    </invariants>
+    <methods>
+    </methods>
+</component>
