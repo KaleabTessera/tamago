@@ -34,7 +34,7 @@ public class Evenement extends Elem
 	{	
 	}
 
-	public String toSCD(boolean perePar,boolean pereInter)
+	public String toSCD()
 	{
 		String resultat = "";
 		resultat += "<action name";

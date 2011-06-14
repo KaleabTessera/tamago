@@ -43,7 +43,7 @@ public class Chaine  extends Elem
 		
 	}
 
-	public String toSCD(boolean perePar,boolean pereInter) 
+	public String toSCD() 
 	{
 		String resultat = "";
 		resultat += "=\"" + valeur + "\"";
