@@ -65,8 +65,18 @@ public class Parallele extends Elem
 		fils2.isFirstParallele();
 	}
 
-	public String toSCD(boolean perePar, boolean pereInter) 
+	public String toSCD() 
 	{
-		return null;
+		String resultat = "<parstrong>\n";
+		Iterator<Elem> itr = contenu.iterator();
+		while(itr.hasNext())
+			resultat += "<child>\n "+ itr.next().toSCD() + "</child>\n";
+		resultat+="</parstrong>\n\n";
+		return resultat;
+	}
+
+	@Override
+	public String getNom() {
+		throw new RuntimeException("methode non supportee");
 	}
 }

@@ -64,9 +64,20 @@ public class Entrelacement extends Elem
 	
 	}
 
-	public String toSCD(boolean perePar,boolean pereInter) 
+	public String toSCD() 
 	{
 		
-		return null;
+		String resultat = "<parweak>\n";
+		Iterator<Elem> itr = contenu.iterator();
+		while(itr.hasNext())
+			resultat += "<child>\n "+ itr.next().toSCD() + "</child>\n";
+		resultat+="</parweak>\n\n";
+		return resultat;
+	}
+
+	@Override
+	public String getNom() {
+		// TODO Auto-generated method stub
+		throw new RuntimeException("methode non supportee");
 	}
 }

@@ -57,5 +57,13 @@ public class Negation  extends Elem
 	{
 		return fils1.getNom();
 	}
+
+	@Override
+	public String toSCD() 
+	{
+		String resultat = "";
+		resultat += fils1.toSCD();
+		return resultat;
+	}
 	
 }

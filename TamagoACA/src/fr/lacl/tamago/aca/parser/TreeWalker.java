@@ -80,17 +80,19 @@ public class TreeWalker
 		{
 			System.out.println("prohibitions et permissions incompatibles");
 		}
-		if(Verification.contientDeadlock(fichier.play,fichier.permission,fichier.interdiction,((Parallele)(fichier.fullComplex()))))
-		{
-			System.out.println("prohibitions et permissions compatibles");
-		}
-		else
-		{
-			System.out.println("prohibitions et permissions incompatibles");
-		}
+//		if(Verification.contientDeadlock(fichier.play,fichier.permission,fichier.interdiction,((Parallele)(fichier.fullComplex()))))
+//		{
+//			System.out.println("prohibitions et permissions compatibles");
+//		}
+//		else
+//		{
+//			System.out.println("prohibitions et permissions incompatibles");
+//		}
 		
 		//			System.out.println();
 		//System.out.println(fichier.toSCD(false,false));
+		//System.out.println(fichier.toString());
+		System.out.println(fichier.toSCD());
 	}
 
 	public static void printTree()

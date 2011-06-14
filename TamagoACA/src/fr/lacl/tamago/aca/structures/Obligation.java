@@ -54,8 +54,26 @@ public class Obligation extends Elem
 		fils2.isFirstParallele();
 	}
 
-	public String toSCD(boolean perePar, boolean pereInter) 
+	public String toSCD() 
 	{
-		return null;
+		String resultat = "<obl on = \"";
+		resultat += valeur.toString() + "\">\n ";
+//		resultat += "<left>\n"+fils1.toSCD() + "</left>\n";
+//		resultat += "<right>\n"+fils2.toSCD() + "</right>\n";
+		resultat += "<left>\n"+"<atomic forbidden=\"false\">\n"+fils1.toSCD() +"</atomic>\n"+ "</left>\n";
+		resultat += "<right>\n"+"<atomic forbidden=\"false\">\n"+fils2.toSCD() +"</atomic>\n"+ "</right>\n";
+		resultat+="</obl>\n";
+		return resultat;
+	}
+
+	@Override
+	public void addElem(Elem t) {
+		throw new RuntimeException("methode non supportee");
+		
+	}
+
+	@Override
+	public String getNom() {
+		throw new RuntimeException("methode non supportee");
 	}
 }

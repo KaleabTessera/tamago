@@ -9,7 +9,7 @@ public abstract class Elem
 	public abstract boolean containNOT();
 	public abstract boolean containOnlyNOT();
 	public abstract void liste(List<Nuplet> listePermission);
-	public abstract String toSCD(boolean perePar,boolean pereInter);
+	public abstract String toSCD();
 	public abstract void isFirstParallele();
 	public abstract void addElem(Elem t);
 	public abstract String getNom();

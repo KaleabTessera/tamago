@@ -47,18 +47,27 @@ public class EnvironnementSecurite  extends Elem
 	{
 	}
 
-	public String toSCD(boolean perePar,boolean pereInter) 
+	public String toSCD() 
 	{
 		String resultat = "";
-		resultat += "<user value";
-		resultat += user.toSCD();
-		resultat += "/>\n";
-		resultat += "<role value";
-		resultat += role.toSCD();
-		resultat += "/>\n";
-		resultat += "<organisation value";
-		resultat += organisation.toSCD();
-		resultat += "/>\n";
+		if(!user.toString().equals("_"))
+		{
+			resultat += "<user value";
+			resultat += user.toSCD();
+			resultat += "/>\n";
+		}
+		if(!role.toString().equals("_"))
+		{
+			resultat += "<role value";
+			resultat += role.toSCD();
+			resultat += "/>\n";
+		}
+		if(!organisation.toString().equals("_"))
+		{
+			resultat += "<organisation value";
+			resultat += organisation.toSCD();
+			resultat += "/>\n";
+		}
 		return resultat;
 	}
 
@@ -70,5 +79,11 @@ public class EnvironnementSecurite  extends Elem
 	public void addElem(Elem t) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public String getNom() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

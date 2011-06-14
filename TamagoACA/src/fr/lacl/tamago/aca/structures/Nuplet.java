@@ -107,13 +107,13 @@ public class Nuplet extends Elem
 		return resultat;
 	}
 
-	public String toSCD(boolean perePar,boolean pereInter) 
+	public String toSCD() 
 	{
 		String resultat = "";
-		if(this.containNOT())
-			resultat += "<atomic forbidden=\"true\">\n";
-		else
-			resultat += "<atomic forbidden=\"false\">\n";
+//		if(this.containNOT())
+//			resultat += "<atomic forbidden=\"true\">\n";
+//		else
+//			resultat += "<atomic forbidden=\"false\">\n";
 		resultat += environnement.toSCD();
 		resultat += evenement.toSCD();
 		return resultat;
@@ -121,5 +121,17 @@ public class Nuplet extends Elem
 
 	public void isFirstParallele() 
 	{
+		throw new RuntimeException("methode non supportee");
+	}
+
+	@Override
+	public void addElem(Elem t) {
+		throw new RuntimeException("methode non supportee");
+		
+	}
+
+	@Override
+	public String getNom() {
+		throw new RuntimeException("methode non supportee");
 	}
 }
