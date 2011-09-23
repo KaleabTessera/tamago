@@ -1,6 +1,5 @@
-#summary One-sentence summary of this page.
+#summary How initialize a component with the Tamago framework?
 
-How initialize a component with the Tamago framework?
 
 = Prerequisite =
 
