@@ -51,7 +51,7 @@ try {
 }
 }}}
 
-
+In this case, Tamago gives your own component `mba` to a wrapper that checks the contract on it. Obviously the _MyBankAccount_ must herit of the component interface.
 
 
 = Remark =
