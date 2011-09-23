@@ -1,0 +1,6 @@
+#summary Presentation of the syntax of Tamago-CDL
+
+= Summary ==
+  * Le point d'entrée est la règle <tamago>.
+  * Les règles sont classées par ordre alphabtique
+  * La règle pour une expression est <a href="#expression">ici</a>.
