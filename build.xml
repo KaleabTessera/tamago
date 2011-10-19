@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<project name="TamagoCC" default="help">
+  <description>
+    Fichier Ant pour construction de toutes les bibliotheques de Tamago
+  </description>
+  
+  <target name="init" description="--> affect les variables d'environnement">
+    <property environment="myenv" />
+    <property name="distrib" value="distrib" />
+    <property name="TamagoCC" value="TamagoCC" />
+    <property name="Tamago" value="TamagoFramework/framework" />
+    <property name="TamagoCSP" value="TamagoCSP" />
+    <property name="TamagoTest" value="TamagoTest" />
+    <property name="TamagoCheck" value="TamagoCheck" />
+
+    <property name="TamagoCCsrc" value="TamagoCC/source" />
+    <property name="Tamagosrc" value="TamagoFramework/framework/src" />
+    <property name="TamagoCSPsrc" value="TamagoCSP/src" />
+    <property name="TamagoTestsrc" value="TamagoTest/src" />
+    <property name="TamagoChecksrc" value="TamagoCheck/src" />
+
+    <property name="TamagoCCdist" value="TamagoCC/distrib" />
+    <property name="Tamagodist" value="TamagoFramework/framework/dist" />
+    <property name="TamagoCSPdist" value="TamagoCSP/distrib" />
+    <property name="TamagoTestdist" value="TamagoTest/distrib" />
+    <property name="TamagoCheckdist" value="TamagoCheck/distrib" />
+
+    <property name="outdoc" value="docs" />
+  </target>
+
+  <target name="all">
+    <antcall target="clean" />
+    <antcall target="make" />
+    <antcall target="export" />
+    <antcall target="doc" />
+  </target>
+
+  
+  <target name="help">
+    <echo> Rules for the ant file:
+        -> clean: clean all projects of Tamago
+	    -> make: compile and generate jar for each projects
+	    -> export: copy all generated jar in the ${distrib} directory
+	    -> doc: generate javadoc for all projects at the same time in the ${outdir} directory
+	    -> help: print this help
+    </echo>
+  </target>
+
+  <target name="prepare" depends="init">
+    <mkdir dir="${distrib}" />
+  </target>
+
+  <target name="clean" depends="init">
+    <echo> === Begin Clean === </echo>
+    <delete failonerror="false">
+      <fileset dir="${distrib}">
+	<include name="**/*.jar" />
+      </fileset>
+    </delete>
+    <echo> === Tamago : Clean === </echo>
+    <ant dir="${Tamago}" target="clean" />
+    <echo> === TamagoCC : Clean === </echo>
+    <ant dir="${TamagoCC}" target="clean" />
+    <echo> === TamagoCSP : Clean === </echo>
+    <ant dir="${TamagoCSP}" target="clean" />
+    <echo> === TamagoTest : Clean === </echo>
+    <ant dir="${TamagoTest}" target="clean" />
+    <echo> === TamagoCheck : Clean === </echo>
+    <ant dir="${TamagoCheck}" target="clean" />
+    <echo> === Finish Clean === </echo>
+  </target>
+
+  <target name="make" depends="prepare,init">
+    <echo> === Begin MAKE === </echo>
+    <echo> === Tamago : dist === </echo>
+    <ant dir="${Tamago}" target="dist" />
+    <echo> === TamagoCC : makejar === </echo>
+    <ant dir="${TamagoCC}" target="makejar" />
+    <echo> === TamagoCSP : makejar === </echo>
+    <ant dir="${TamagoCSP}" target="makejar" />
+    <echo> === TamagoTest : makejar === </echo>
+    <ant dir="${TamagoTest}" target="makejar" />
+    <echo> === TamagoTest : makejarfull === </echo>
+    <ant dir="${TamagoTest}" target="makejarfull" />
+    <echo> === TamagoCheck : makejar === </echo>
+    <ant dir="${TamagoCheck}" target="makejar" />
+    <echo> === TamagoCheck : makejarfull === </echo>
+    <ant dir="${TamagoCheck}" target="makejarfull" />
+    <echo> === Finish MAKE === </echo>
+  </target>
+
+  <target name="doc" depends="init">
+    <echo>=== Lancement de la generation de la Documentation ===</echo>
+    <mkdir dir="${outdoc}" />
+    <javadoc destdir="${outdoc}" access="public"
+	     use="true" notree="false" nonavbar="false" noindex="false"
+	     splitindex="true" author="true" version="true"
+	     nodeprecatedlist="false" nodeprecated="false" 
+	     doctitle="Documentation TamagoCC" >
+      <fileset dir="${Tamagosrc}" includes="**/*.java"/>
+      <fileset dir="${TamagoCCsrc}" includes="**/*.java"/>
+      <fileset dir="${TamagoCSPsrc}" includes="**/*.java"/>
+      <fileset dir="${TamagoTestsrc}" includes="**/*.java"/>
+      <fileset dir="${TamagoChecksrc}" includes="**/*.java"/>
+      <link href="http://java.sun.com/j2se/1.5.0/docs/api/" />
+    </javadoc>
+    <echo>===== === Fin de la generation === =====</echo>
+  </target>
+
+  <target name="export" depends="make,prepare,init">
+    <echo> === Begin EXPORTATION === </echo>
+    <copy todir="${distrib}" overwrite="true" >
+      <fileset dir="${Tamagodist}" includes="**/*.jar"/>
+      <fileset dir="${TamagoCCdist}" includes="**/*.jar"/>
+      <fileset dir="${TamagoCSPdist}" includes="**/*.jar"/>
+      <fileset dir="${TamagoTestdist}" includes="**/*.jar"/>
+      <fileset dir="${TamagoCheckdist}" includes="**/*.jar"/>
+    </copy>
+    <echo> === Finish EXPORTATION === </echo>
+  </target>
+
+
+</project>
+
