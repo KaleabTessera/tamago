@@ -60,6 +60,7 @@ public class TamagoCCParser {
 
 
 	private TamagoCCPool pool;
+	private boolean noValidate;
 
 
 
@@ -110,37 +111,50 @@ public class TamagoCCParser {
 			}
 			else {
 				// on va la chercher sur le NET ou autre
-				TamagoCCLogger.println(1,"Connection to the site ...");
-				TamagoCCLogger.info(3,"Used URL = "+XSD_LOCATION);
-				TamagoCCLogger.println(3,"\tNo Proxy");
-				URL url = new URL(XSD_LOCATION);
-				URLConnection connection = url.openConnection();
-				TamagoCCLogger.println(1,"The XSD schema has been finded.");
-				saxParser.setProperty(JAXP_SCHEMA_SOURCE,connection.getInputStream());
+				TamagoCCLogger.println(1,"Connection to the site ... DISABLE!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				// TamagoCCLogger.info(3,"Used URL = "+XSD_LOCATION);
+				// TamagoCCLogger.println(3,"\tNo Proxy");
+				// URL url = new URL(XSD_LOCATION);
+				// URLConnection connection = url.openConnection();
+				// TamagoCCLogger.println(1,"The XSD schema has been finded.");
+				 // saxParser.setProperty(JAXP_SCHEMA_SOURCE,connection.getInputStream());
+				if(xml == null) // cas ne devant jamais se produire
+					throw new IOException("XML is null (DEBUG) ONLY" ); 
+				noValidate = true;
 
 			}
-			TamagoCCLogger.infoln(1,"The XSD schema has been binded to the parser");
+			if (!noValidate) {
+				TamagoCCLogger.infoln(1,
+						"The XSD schema has been binded to the parser");
 
-			// TODO : ajouter une detection pour savoir si c'est une uri
-			try {
-				File file = new File(xml);
-				TamagoCCLogger.infoln(1,"Start validation of "+file+"...");
-				saxParser.parse(file,new TamagoCCValidateHandler());
-				TamagoCCLogger.infoln(1,"Validation finish with success of "+xml);
-			}
-			catch(Exception e) {
-					TamagoCCLogger.infoln(1,"*Warning* : The argument is not a correct URI. I will deal as a direct string");
+				// TODO : ajouter une detection pour savoir si c'est une uri
+				try {
+					File file = new File(xml);
+					TamagoCCLogger.infoln(1, "Start validation of " + file
+							+ "...");
+					saxParser.parse(file, new TamagoCCValidateHandler());
+					TamagoCCLogger.infoln(1,
+							"Validation finish with success of " + xml);
+				} catch (Exception e) {
+					TamagoCCLogger
+							.infoln(1,
+									"*Warning* : The argument is not a correct URI. I will deal as a direct string");
 					try {
-						//StringBufferInputStream sb = new StringBufferInputStream(xml);
+						// StringBufferInputStream sb = new
+						// StringBufferInputStream(xml);
 						StringReader sr = new StringReader(xml);
 						InputSource is = new InputSource(sr);
-						saxParser.parse(is,new TamagoCCValidateHandler());
-						TamagoCCLogger.infoln(1,"Validation finish with *one warning*");
-					}
-					catch(Exception e2) {
+						saxParser.parse(is, new TamagoCCValidateHandler());
+						TamagoCCLogger.infoln(1,
+								"Validation finish with *one warning*");
+					} catch (Exception e2) {
 						throw new TamagoCCException(e);
 					}
+				}
 			}
+			else
+				TamagoCCLogger.infoln(1,
+						"Validation disabled");
 
 		}
 		catch(IOException use) {
