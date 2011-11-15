@@ -10,6 +10,9 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 
+import javapop.framework.DefaultParseContext;
+import javapop.framework.ParseContext;
+import javapop.framework.ParseError;
 import javapop.framework.ParseResult;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -80,9 +83,11 @@ public class CompileCDL implements IRunnableWithProgress {
 				String str = new String(b);
 				monitor.worked(1);
 				monitor.subTask("Parsing the CDL file...");
-				ParseResult<TTamago> result = cdlgrammar.parse(new javapop.framework.input.StringParseInput(str));
+				ParseContext<?> ctx = new DefaultParseContext();
+				ParseResult<TTamago> result = cdlgrammar.parse(ctx,new javapop.framework.input.StringParseInput(str));
 				if(result.isError()) {
 					CDLEditorPlugin.getDefault().log("Fin de la compilation sur Erreur de SYNTAXE");
+					
 					CDLEditorPlugin.getDefault().log(result.getErrorMessage());
 					CDLEditorPlugin.getDefault().log(result.getDetailedErrorMessage());
 					CDLEditorPlugin.getDefault().showConsole();
