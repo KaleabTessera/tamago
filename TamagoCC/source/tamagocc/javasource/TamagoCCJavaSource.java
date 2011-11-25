@@ -91,6 +91,7 @@ import tamagocc.ast.impl.AIVisibility;
 import tamagocc.exception.TamagoCCException;
 import tamagocc.generator.TamagoCCGeneratorSkel;
 import tamagocc.generator.TamagoCCGeneratorTargetLanguage;
+import tamagocc.generic.api.GNot;
 import tamagocc.generic.api.GType;
 import tamagocc.logger.TamagoCCLogger;
 import tamagocc.util.NilCollection;
@@ -1312,6 +1313,16 @@ public class TamagoCCJavaSource extends TamagoCCGeneratorTargetLanguage {
 					return new Pair<AExpression, AInstruction>(res, seq);
 				else
 					return null;
+			}
+		}
+		else if((e instanceof ANot) && (e != null)) {
+			ANot not = (ANot)e;
+			Pair<AExpression, AInstruction> cut = prepareCutLongExpression(AIType.typeBOOLEAN, not.getSubExpression());
+			if(cut == null) {
+				return null;
+			}
+			else {
+				return new Pair<AExpression, AInstruction>(new AINot(cut.getL()), cut.getR());
 			}
 		}
 		else
