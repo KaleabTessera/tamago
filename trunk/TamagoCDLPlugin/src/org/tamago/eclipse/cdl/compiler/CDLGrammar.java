@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javapop.framework.DefaultParseContext;
 import javapop.framework.Grammar;
 import javapop.framework.ParseContext;
 import javapop.framework.ParseInput;
@@ -1572,13 +1573,16 @@ public class CDLGrammar extends Grammar {
 		
 		ParseInput input;
 		try {
-			input = new StringParseInput(streamToString(args[0]));
+			input = new StringParseInput(streamToString("BankAccount.cdl"));
 			System.err.println("Flux a parser:"+input);
-			ParseResult<?> expr = gram.parse(input);
+			DefaultParseContext ctx = new DefaultParseContext();
+			ParseResult<?> expr = gram.parse(ctx,input);
 			if (expr.isError()) {
 				System.err
 						.println("Error: " + expr.asError().getErrorMessage());
 				System.err.println("==> " + input.show(0, 80));
+				
+				//System.err.println(ctx.toString());
 			} else {
 				try {
 					System.out.println(expr.toString());
@@ -1587,6 +1591,11 @@ public class CDLGrammar extends Grammar {
 							+ expr.toString());
 				}
 			}
+			System.err.println("---------------------");
+			System.err.println(ctx.deepest().getStart().getLinePos());
+			System.err.println(ctx.deepest().getEnd().getLinePos());
+			System.err.println(ctx.deepest().getDetailedErrorMessage());
+			
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -1600,9 +1609,10 @@ public class CDLGrammar extends Grammar {
 		DataInputStream dis =  new DataInputStream(new FileInputStream(string));
 		StringBuilder sb = new StringBuilder();
 		byte[] b = new byte[2048];
-		while((dis.read(b)) >= 0) {
-			sb.append(new String(b));
-		} ;
+		int lu = 0;
+		while((lu = dis.read(b)) >= 0) {
+			sb.append(new String(b,0,lu));
+		}
 		return sb.toString();
 	}
 	
