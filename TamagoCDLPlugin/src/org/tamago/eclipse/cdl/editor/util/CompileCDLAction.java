@@ -26,8 +26,8 @@ public class CompileCDLAction extends Action {
 	 * 
 	 */
 	public CompileCDLAction() {
-		super("Génération du Contrat XML");
-		String tooltip = "GÃ©nÃ¨re le Contrat dans le rÃ©pertoire '../xmls'. Cela suppose donc que votre fichier soit dans le rÃ©pertoire 'cdls'.";
+		super("XML Contract generation");
+		String tooltip = "Génère le Contrat dans le répertoire '../xmls'. Cela suppose donc que votre fichier soit dans le répertoire 'cdls'.";
 		this.setToolTipText(tooltip);
 		this.setDescription(tooltip);
 	}
@@ -43,6 +43,8 @@ public class CompileCDLAction extends Action {
 			CDLEditorPlugin.getDefault().clearConsole();
 			CDLEditorPlugin.getDefault().log("TamagoCC for CDL specification - version 0.3");
 			CDLEditorPlugin.getDefault().log("\tauthor: Hakim Belhaouari");
+			CDLEditorPlugin.getDefault().log("Parser: JavaPop2");
+			CDLEditorPlugin.getDefault().log("\tauthor: Frederic Peschanski");
 			
 			IWorkbench workbench = PlatformUI.getWorkbench();
 			IEditorPart editor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();

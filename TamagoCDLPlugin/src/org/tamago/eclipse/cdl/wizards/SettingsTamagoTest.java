@@ -4,13 +4,10 @@
 package org.tamago.eclipse.cdl.wizards;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DragDetectEvent;
-import org.eclipse.swt.events.DragDetectListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -124,8 +121,9 @@ public class SettingsTamagoTest extends Dialog {
 		typetest.add("Test outbound");
 		typetest.add("Test outbound deep");
 		typetest.add("Test bad scenario");
-		typetest.select(0);
-		res_strategy = SettingsStrategy.NOMINAL;
+		typetest.add("Test all transitions/conditions");
+		typetest.select(5);
+		res_strategy = SettingsStrategy.ALLTRANSITIONS;
 		typetest.addSelectionListener(new  SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -133,8 +131,9 @@ public class SettingsTamagoTest extends Dialog {
 				case 0: res_strategy = SettingsStrategy.NOMINAL;   break;
 				case 1: res_strategy = SettingsStrategy.LIMITTEST; break;
 				case 2: res_strategy = SettingsStrategy.OUTBOUND; break;
-				case 4: res_strategy = SettingsStrategy.SCENARIO; break;
 				case 3: res_strategy = SettingsStrategy.OUTBOUNDBEH; break;
+				case 4: res_strategy = SettingsStrategy.SCENARIO; break;
+				case 5: res_strategy = SettingsStrategy.ALLTRANSITIONS; break; 
 				default:
 					res_strategy = SettingsStrategy.NOMINAL;   break;
 				}
@@ -351,7 +350,8 @@ public class SettingsTamagoTest extends Dialog {
 		LIMITTEST,
 		OUTBOUND,
 		SCENARIO, 
-		OUTBOUNDBEH
+		OUTBOUNDBEH,
+		ALLTRANSITIONS
 	}
 	
 	public SettingsStrategy getStrategy() {

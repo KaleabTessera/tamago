@@ -54,6 +54,7 @@ public class TamagoCompileTest implements CDLActionner {
 				SettingsTamagoTest stt = new SettingsTamagoTest(workbench.getDisplay().getActiveShell());
 				if(stt.open() == SettingsTamagoTestAnswer.OK) {
 					
+					
 					CDLTest test = new CDLTest(file, stt.getComponentName(), stt.isBusinessCode(), stt.getQuantity(), stt.getScenarioSize(), stt.getStrategy());
 					//test.start();
 					ProgressMonitorDialog pmd = new ProgressMonitorDialog(workbench.getDisplay().getActiveShell());

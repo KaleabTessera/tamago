@@ -4,6 +4,7 @@
 package org.tamago.eclipse.cdl.editor;
 
 import org.eclipse.jface.text.ITextViewer;
+import org.eclipse.jface.text.contentassist.ContextInformation;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
@@ -27,7 +28,6 @@ public class CDLCompletionProcessor implements IContentAssistProcessor {
 	 */
 	public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer,
 			int offset) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -36,24 +36,22 @@ public class CDLCompletionProcessor implements IContentAssistProcessor {
 	 */
 	public IContextInformation[] computeContextInformation(ITextViewer viewer,
 			int offset) {
-		// TODO Auto-generated method stub
-		return null;
+		ContextInformation ci = new ContextInformation("TOTO", " je suis un toto");
+		return new IContextInformation[] {  ci };
 	}
 
 	/**
 	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getCompletionProposalAutoActivationCharacters()
 	 */
 	public char[] getCompletionProposalAutoActivationCharacters() {
-		// TODO Auto-generated method stub
-		return null;
+		return new char[] { '.', '(', '#' };
 	}
 
 	/**
 	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getContextInformationAutoActivationCharacters()
 	 */
 	public char[] getContextInformationAutoActivationCharacters() {
-		// TODO Auto-generated method stub
-		return null;
+		return new char[] { ';' };
 	}
 
 	/**

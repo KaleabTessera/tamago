@@ -8,12 +8,10 @@ import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.jface.action.SubMenuManager;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.part.EditorActionBarContributor;
 import org.tamago.eclipse.cdl.editor.util.CDLDebugLevel;
 import org.tamago.eclipse.cdl.editor.util.CDLGenericAction;
-import org.tamago.eclipse.cdl.editor.util.CDLHelpAction;
 import org.tamago.eclipse.cdl.editor.util.CompileCDLAction;
 import org.tamago.eclipse.cdl.editor.util.TamagoCompileContract;
 import org.tamago.eclipse.cdl.editor.util.TamagoCompileContractAndSkeleton;
@@ -39,9 +37,9 @@ public class CDLActionBarContributor extends EditorActionBarContributor {
 	}
 
 	protected IAction compileCDL = new CompileCDLAction();
-	protected IAction debug0 = new CDLDebugLevel("Debug - silencieux","Fournit aucune information",0,true);
-	protected IAction debug3 = new CDLDebugLevel("Debug - verbeux","Fournit les informations utiles sur les grandes etapes de la compilation",3,false);
-	protected IAction debug6 = new CDLDebugLevel("Debug - tres verbeux","Fournit beaucoup d'information (utile pour comprendre le parsing du xml)",6,false);
+	protected IAction debug0 = new CDLDebugLevel("Debug - silent","No information",0,true);
+	protected IAction debug3 = new CDLDebugLevel("Debug - normal","Give just big step or situation",3,false);
+	protected IAction debug6 = new CDLDebugLevel("Debug - verbose","Fournit beaucoup d'information (utile pour comprendre le parsing du xml)",6,false);
 	
 	
 	/**
@@ -65,10 +63,10 @@ public class CDLActionBarContributor extends EditorActionBarContributor {
         submenuManager.add(debug3);
         submenuManager.add(debug6);
         submenuManager.add(new Separator());
-        submenuManager.add(new CDLGenericAction("G√©n√©ration des Conteneurs/Interfaces","Reg√©n√®re les conteneurs pour la v√©rification dynamique des contrats.(n√©c√©ssite la g√©n√©ration des fichiers XML)",new TamagoCompileContract()));
-        submenuManager.add(new CDLGenericAction("G√©n√©ration des Conteneurs/Interfaces+ Squelette","Reg√©n√®re les conteneurs ainsi que les squelettes. ATTENTION: vous pouvez perdre les modifications que vous avez r√©alis√© jusqu'√† pr√©sent",new TamagoCompileContractAndSkeleton()));
+        submenuManager.add(new CDLGenericAction("GÈnÈration des Conteneurs/Interfaces","RegÈnËre les conteneurs pour la vÈrification dynamique des contrats.(nÈcÈssite la gÈnÈration des fichiers XML)",new TamagoCompileContract()));
+        submenuManager.add(new CDLGenericAction("GÈnÈration des Conteneurs/Interfaces+ Squelette","RegÈnËre les conteneurs ainsi que les squelettes. ATTENTION: vous pouvez perdre les modifications que vous avez rÈalisÈ jusqu'‡† prÈsent",new TamagoCompileContractAndSkeleton()));
         submenuManager.add(new Separator());
-        submenuManager.add(new CDLGenericAction("G√©n√©ration de Test","G√©n√®re des fichiers de test JUnit √©prouvant le contrat fonctionnel s√©lectionn√©",new TamagoCompileTest()));
+        submenuManager.add(new CDLGenericAction("GÈnÈration de Test","GÈnËre des fichiers de test JUnit Èprouvant le contrat fonctionnel sÈlectionnÈ",new TamagoCompileTest()));
         
         //submenuManager.add(new Separator());
         //submenuManager.add(new CDLGenericAction("G√©n√©ration de testcase","G√©n√®re un fichier de test avec les dernieres informations enregistre",new TamagoTestActionGen()));

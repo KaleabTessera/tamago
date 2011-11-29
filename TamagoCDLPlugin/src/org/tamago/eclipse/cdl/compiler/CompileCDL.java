@@ -12,7 +12,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import javapop.framework.DefaultParseContext;
 import javapop.framework.ParseContext;
-import javapop.framework.ParseError;
 import javapop.framework.ParseResult;
 
 import org.eclipse.core.runtime.IProgressMonitor;

@@ -74,7 +74,16 @@ public class CDLSourceViewerConfiguration extends TextSourceViewerConfiguration 
 		ContentAssistant ca = new ContentAssistant();
 		ca.setContentAssistProcessor(new CDLCompletionProcessor(), IDocument.DEFAULT_CONTENT_TYPE);
 		// ---
-		return super.getContentAssistant(sourceViewer);
+		ca.enableAutoActivation(true);
+		ca.setAutoActivationDelay(500);
+		
+		ca.setProposalPopupOrientation(IContentAssistant.PROPOSAL_OVERLAY);
+		ca.setContextInformationPopupOrientation(IContentAssistant.CONTEXT_INFO_ABOVE);
+		//ca.setContextInformationPopupBackground(JavaEditorEnvironment.getJavaColorProvider().getColor(new RGB(150, 150, 0)));
+
+
+		return ca;
+		// return super.getContentAssistant(sourceViewer);
 	}
 	
 }
