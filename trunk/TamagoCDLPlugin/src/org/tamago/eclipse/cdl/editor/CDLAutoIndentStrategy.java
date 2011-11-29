@@ -6,7 +6,6 @@ package org.tamago.eclipse.cdl.editor;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.DocumentCommand;
 import org.eclipse.jface.text.IAutoEditStrategy;
-import org.eclipse.jface.text.IAutoIndentStrategy;
 import org.eclipse.jface.text.IDocument;
 
 /**
@@ -190,9 +189,7 @@ public class CDLAutoIndentStrategy implements IAutoEditStrategy {
 		return false;
 	}	
 
-	/**
-	 * @see IAutoIndentStrategy#customizeDocumentCommand
-	 */
+
 	public void customizeDocumentCommand(IDocument d, DocumentCommand c) {
 		if (c.length == 0 && c.text != null && endsWithDelimiter(d, c.text))
 			smartIndentAfterNewLine(d, c);

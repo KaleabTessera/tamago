@@ -3,9 +3,9 @@
  */
 package org.tamago.eclipse.cdl.compiler.cdlast;
 
-import tamagocc.api.TExpression;
 import javapop.framework.parser.expr.ExprNode;
 import javapop.framework.parser.expr.PrefixNode;
+import tamagocc.api.TExpression;
 
 /**
  * @author Hakim Belhaouari
@@ -14,7 +14,6 @@ import javapop.framework.parser.expr.PrefixNode;
 public class CDLMinus extends CDLExpression implements PrefixNode {
 
 	private CDLExpression expr;
-	private String opname;
 	private int prio;
 	
 	
@@ -22,7 +21,6 @@ public class CDLMinus extends CDLExpression implements PrefixNode {
 	 * 
 	 */
 	public CDLMinus(String name) {
-		this.opname = name;
 		prio = -1;
 	}
 

@@ -8,9 +8,7 @@ import java.util.List;
 
 import tamagocc.api.TExpression;
 import tamagocc.api.TType;
-import tamagocc.impl.TIExistColl;
 import tamagocc.impl.TIExistSet;
-import tamagocc.impl.TIForallColl;
 import tamagocc.impl.TIForallSet;
 import tamagocc.impl.TISet;
 import tamagocc.impl.TIVariable;

@@ -30,6 +30,7 @@ import tamagotest.TamagoTestContext;
 import tamagotest.fixpoint.MaxDepth;
 import tamagotest.strategy.BadScenarioStrategy;
 import tamagotest.strategy.BoundedStrategy;
+import tamagotest.strategy.CoverageStrategy;
 import tamagotest.strategy.NominalStrategy;
 import tamagotest.strategy.UnboundBehStrategy;
 import tamagotest.strategy.UnboundStrategy;
@@ -112,7 +113,7 @@ public class CDLTest implements IRunnableWithProgress, TamagoTestUI {
 			CDLGrammar cdlgrammar = new CDLGrammar();
 			
 			try {
-				CDLEditorPlugin.getDefault().log("Génération du contrat abstrait...");
+				CDLEditorPlugin.getDefault().log("Generation of the abstract contract...");
 				FileInputStream fis = new FileInputStream(filecdl);
 				DataInputStream dis = new DataInputStream(fis);
 				byte[] b = new byte[dis.available()];
@@ -122,18 +123,18 @@ public class CDLTest implements IRunnableWithProgress, TamagoTestUI {
 				monitor.worked(1);
 				monitor.subTask("Parse file...");
 				if(result.isError()) {
-					CDLEditorPlugin.getDefault().log("Fin de la compilation sur Erreur de SYNTAXE");
+					CDLEditorPlugin.getDefault().log("End compilation with a SYNTAX ERROR.");
 					CDLEditorPlugin.getDefault().log(result.getErrorMessage());
 					CDLEditorPlugin.getDefault().log(result.getDetailedErrorMessage());
 					CDLEditorPlugin.getDefault().showConsole();
 					return;
 				}
 				else if(result.isNull()) {
-					CDLEditorPlugin.getDefault().log("Fin de la compilation sur un noeud NULL");
+					CDLEditorPlugin.getDefault().log("End compilation with a empty node");
 					return;
 				}
 				else {
-					CDLEditorPlugin.getDefault().log("Fin de la compilation avec succes");
+					CDLEditorPlugin.getDefault().log("End compilation with success");
 					tamago = result.getResult();
 					pool.remove(tamago);
 					TamagoCCGPool.getDefaultTamagoCCGPool().remove(tamago.getName(), tamago.getModule());
@@ -143,9 +144,9 @@ public class CDLTest implements IRunnableWithProgress, TamagoTestUI {
 				//				CDLEditorPlugin.getDefault().log(node.toString());
 			}
 			catch(Exception e) {
-				CDLEditorPlugin.getDefault().log("Fin de la compilation sur erreur");
+				CDLEditorPlugin.getDefault().log("End compilation with an exception");
 				IWorkbench workbench = PlatformUI.getWorkbench();
-				MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "Generation du contrat AST echoue", e.getMessage());
+				MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "AST Generation failed", e.getMessage());
 				//throw new CDLEditorException(e);
 				return;
 			}
@@ -186,6 +187,12 @@ public class CDLTest implements IRunnableWithProgress, TamagoTestUI {
 				strategy.initialize(ctx);
 				break;
 			}
+			case ALLTRANSITIONS: {
+				CoverageStrategy strategy = new CoverageStrategy();
+				ctx.setStrategy(strategy);
+				strategy.initialize(ctx);
+				break;
+			}
 			}
 			if(component != null && component.length() > 0) {
 				if(isbusiness)
@@ -201,13 +208,13 @@ public class CDLTest implements IRunnableWithProgress, TamagoTestUI {
 			monitor.worked(1);
 			
 			TamagoCCLogger.infoln(1,"---------------------------------------");
-			TamagoCCLogger.infoln(0,"Generation des tests réussit!");
+			TamagoCCLogger.infoln(0,"End test generation with success");
 		}
 		catch(Exception e) {
 			TamagoCCLogger.infoln(e);
-			TamagoCCLogger.infoln(0,"Generation des tests echoue!!!!");
+			TamagoCCLogger.infoln(0,"Test generation failed!!!!");
 			IWorkbench workbench = PlatformUI.getWorkbench();
-			MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "Generation des testsechoues", e.getMessage());
+			MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "Test generation failed!", e.getMessage());
 
 		}
 	}

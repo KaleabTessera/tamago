@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
 <jardesc>
     <jar path="TamagoCDLPlugin/dist/cdlpluginlibs.jar"/>
     <options buildIfNeeded="true" compress="true" descriptionLocation="/TamagoCDLPlugin/cdlplugins-depends-export.jardesc" exportErrors="false" exportWarnings="true" includeDirectoryEntries="true" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
@@ -11,29 +11,16 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework{ParseResult.java"/>
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework{Grammar.java"/>
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework{HistoricParsing.java"/>
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework.parser.expr"/>
-        <javaElement handleIdentifier="=TamagoCC/source"/>
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework{DefaultParseResult.java"/>
-        <javaElement handleIdentifier="=TamagoTest/src"/>
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework{ParseInput.java"/>
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework{ParseNull.java"/>
+        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework"/>
         <javaElement handleIdentifier="=Tamago/src"/>
         <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework.parser"/>
         <javaElement handleIdentifier="=TamagoCheck/src"/>
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework{TypeError.java"/>
+        <javaElement handleIdentifier="=TamagoCC/source"/>
+        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework.parser.expr"/>
         <javaElement handleIdentifier="=TamagoCSP/src"/>
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework{ParseContext.java"/>
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework{ParsePosition.java"/>
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework{Parser.java"/>
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework{DefaultParseBuilder.java"/>
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework{DefaultParseContext.java"/>
+        <javaElement handleIdentifier="=TamagoTest/src"/>
         <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.utils"/>
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework{ParseBuilder.java"/>
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework.parser.tuple"/>
         <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework.input"/>
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework{ParseError.java"/>
+        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework.parser.tuple"/>
     </selectedElements>
 </jardesc>
