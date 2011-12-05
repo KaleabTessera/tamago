@@ -23,16 +23,16 @@ public class TINamespace implements TNamespace {
 		this.namespace = namespace;
 		this.type = type;
 	}
-
-	public TINamespace(String content) {
-		int idx = content.lastIndexOf(".");
+	
+	public TINamespace(String fullname) {
+		int idx = fullname.lastIndexOf(".");
 		if(idx == -1) {
-			type = content;
+			type = fullname;
 			namespace = "";
 		}
 		else {
-			type = content.substring(idx+1);
-			namespace = content.substring(0,idx-1);
+			type = fullname.substring(idx+1);
+			namespace = fullname.substring(0, idx-1);
 		}
 	}
 
@@ -60,4 +60,5 @@ public class TINamespace implements TNamespace {
 	public Object visit(TamagoCCVisitor visitor) throws TamagoCCException {
 		return visitor.visitNamespace(this);
 	}
+
 }
