@@ -22,16 +22,16 @@ public class TIImplements implements TImplements {
 		this.name = name;
 		this.module = module;
 	}
-
-	public TIImplements(String content) {
-		int idx = content.lastIndexOf(".");
+	
+	public TIImplements(String fullname) {
+		int idx = fullname.lastIndexOf(".");
 		if(idx == -1) {
-			name = content;
+			name = fullname;
 			module = "";
 		}
-		else  {
-			name = content.substring(idx+1);
-			module = content.substring(idx-1);
+		else {
+			name = fullname.substring(idx+1);
+			module = fullname.substring(0, idx-1);
 		}
 	}
 
