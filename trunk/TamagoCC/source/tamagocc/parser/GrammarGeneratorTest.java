@@ -31,7 +31,7 @@ public class GrammarGeneratorTest {
 	
 	public static void main(String[] args) {
 		setUpBeforeClass();
-		testParseTarget("type", "int ");
+		testParseTarget("qualifident", "int int");
 		
 		
 		// <ident>
@@ -59,35 +59,36 @@ public class GrammarGeneratorTest {
 		
 		testParseTarget("real", "3.0");
 		testParseTarget("real", "-3.005");
+		testParseTarget("real", "3e2");
 		testParseTarget("real", "3e-2");
 		
 		testParseTarget("string", "\"toto\"");
 		
-		testParseTarget("sprop", "#toto");
-		testParseTarget("sprop", "#toto[3+2]");
-		
-		testParseTarget("nil", "nil");
-		testParseTarget("nil", "null");
-		
-		testParseTarget("quant", "forall");
-		testParseTarget("quant", "exists");
-		
-		testParseTarget("in", "in");
-		testParseTarget("in", "IN");
-		
-		testParseTarget("cast", "(int) toto");
-		testParseTarget("cast", "|int| toto");
-		
-		testParseTarget("callarith", "sqrt(3,3)");
-		testParseTarget("callarith", "sqrt(3,3.2)");
-		
-		testParseTarget("quantcoll", "forall albert : int in toto { true }");
-		
-		testParseTarget("defaultState", "default state toto ;");
-		
-		testParseTarget("allow", "allow foo;");
-		
-		testParseTarget("state", "state toto { allow foo; }");
+//		testParseTarget("sprop", "#toto");
+//		testParseTarget("sprop", "#toto[3+2]");
+//		
+//		testParseTarget("nil", "nil");
+//		testParseTarget("nil", "null");
+//		
+//		testParseTarget("quant", "forall");
+//		testParseTarget("quant", "exists");
+//		
+//		testParseTarget("in", "in");
+//		testParseTarget("in", "IN");
+//		
+//		testParseTarget("cast", "(int) toto");
+//		testParseTarget("cast", "|int| toto");
+//		
+//		testParseTarget("callarith", "sqrt(3,3)");
+//		testParseTarget("callarith", "sqrt(3,3.2)");
+//		
+//		testParseTarget("quantcoll", "forall albert : int in toto { true }");
+//		
+//		testParseTarget("defaultState", "default state toto ;");
+//		
+//		testParseTarget("allow", "allow foo;");
+//		
+//		testParseTarget("state", "state toto { allow foo; }");
 	}
 
 	private static String streamToString(String string) throws IOException {
