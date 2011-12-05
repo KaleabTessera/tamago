@@ -23,6 +23,18 @@ public class TIImplements implements TImplements {
 		this.module = module;
 	}
 
+	public TIImplements(String content) {
+		int idx = content.lastIndexOf(".");
+		if(idx == -1) {
+			name = content;
+			module = "";
+		}
+		else  {
+			name = content.substring(idx+1);
+			module = content.substring(idx-1);
+		}
+	}
+
 	/**
 	 * @see tamagocc.api.TImplements#getModule()
 	 */

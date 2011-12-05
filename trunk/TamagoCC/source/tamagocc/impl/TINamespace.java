@@ -24,6 +24,18 @@ public class TINamespace implements TNamespace {
 		this.type = type;
 	}
 
+	public TINamespace(String content) {
+		int idx = content.lastIndexOf(".");
+		if(idx == -1) {
+			type = content;
+			namespace = "";
+		}
+		else {
+			type = content.substring(idx+1);
+			namespace = content.substring(0,idx-1);
+		}
+	}
+
 	/**
 	 * @see tamagocc.api.TNamespace#getNamespace()
 	 */

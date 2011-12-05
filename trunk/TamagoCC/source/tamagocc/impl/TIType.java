@@ -189,4 +189,13 @@ public class TIType implements TType {
 	public boolean isParametric() {
 		return generics.size() > 0;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("TITYPE: ");
+		sb.append(category);
+		sb.append(" NAME:");
+		sb.append(this.type);
+		return sb.toString();
+	}
 }
