@@ -48,7 +48,12 @@ public class GrammarGeneratorTest {
 		testParseTarget("type", "int");
 		
 		// <preexpr>
-		testParseTarget("preexpr", "(3+2) <= a");
+		testParseTarget("preexpr", "a");
+		testParseTarget("arith", "a + 1");
+		testParseTarget("rel", "a < 1");
+		testParseTarget("rel", "a == null");
+		testParseTarget("rel", "(a+1) < 1");
+		testParseTarget("preexpr", "a * 1.2");
 		testParseTarget("postexpr", "a@pre");
 		
 		testParseTarget("bool", "true");

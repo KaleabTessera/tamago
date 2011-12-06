@@ -35,6 +35,7 @@ import tamagocc.parser.cdlast.CDLBool;
 import tamagocc.parser.cdlast.CDLCall;
 import tamagocc.parser.cdlast.CDLCast;
 import tamagocc.parser.cdlast.CDLExpression;
+import tamagocc.parser.cdlast.CDLInLabel;
 import tamagocc.parser.cdlast.CDLInfix;
 import tamagocc.parser.cdlast.CDLInteger;
 import tamagocc.parser.cdlast.CDLNil;
@@ -125,9 +126,13 @@ public class CDLGrammarConverter {
 		return new CDLCall(p.getFirst(), p.getSecond());
 	}
 
-	public tamagocc.parser.cdlast.CDLInLabel convInLabel(Object content) {
-		// TODO complete this method
-		return null;
+	public tamagocc.parser.cdlast.CDLExpression convInLabel(Object content) {
+		if(content instanceof Pair) {
+			Pair<CDLExpression,CDLExpression> p = (Pair<CDLExpression, CDLExpression>)content; 
+			return new CDLInLabel(p.getFirst(),p.getSecond());
+		}
+		else
+			return (CDLExpression) content;
 	}
 
 	public tamagocc.parser.cdlast.CDLQSet convQSet(Object content) {
