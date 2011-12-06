@@ -55,4 +55,8 @@ public class TIString implements TString {
 	public Object visitExpression(TamagoCCExpressionVisitor exprvisitor) throws TamagoCCException {
 		return exprvisitor.visitString(this);
 	}
+	
+	public String toString() {
+		return "TIString("+s+")"; 
+	}
 }

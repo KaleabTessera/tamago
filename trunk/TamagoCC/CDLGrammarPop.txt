@@ -61,7 +61,7 @@
 <int:org.tamago.eclipse.cdl.compiler.cdlast.CDLInteger> := @transform(convInteger,@regexp("(-)?([0-9]+)"));
 <real:org.tamago.eclipse.cdl.compiler.cdlast.CDLReal> := @transform(convReal,@regexp("(-)?[0-9]+[.][0-9]+((e|E)[+-]?[0-9]+)?")); 
 // TODO probleme des strings
-<string:org.tamago.eclipse.cdl.compiler.cdlast.CDLString> := @transform(convString,@regexp(".*"));
+<string:org.tamago.eclipse.cdl.compiler.cdlast.CDLString> := @transform(convString,@regexp("\"[\"]*\""));
 
 <sprop:org.tamago.eclipse.cdl.compiler.cdlast.CDLRead> := @transform(convRead,@seq(@ignore(@literal("#")),<ident>));
 <svar:org.tamago.eclipse.cdl.compiler.cdlast.CDLVariable> := @transform(convVar,<ident>);
@@ -86,12 +86,12 @@
 
 <callarith:org.tamago.eclipse.cdl.compiler.cdlast.CDLCall> := @transform(convCall, @seq(<ident>,@ignore(@literal("(")),@list(<expr>,","),@ignore(@literal(")")) ) );
 
-@def_expr_parser(subexpr);
-@expr_operand(subexpr,<prop>);
-@expr_operand(subexpr,<var>);
-@expr_operand(subexpr,<callarith>);
-@expr_operator(subexpr,infix,left,1000, @transform(convOperatorInfix,@literal(".")));
-<inlabel:org.tamago.eclipse.cdl.compiler.cdlast.CDLInLabel> := @transform(convInLabel, <subexpr> );
+//@def_expr_parser(subexpr);
+//@expr_operand(subexpr,<prop>);
+//@expr_operand(subexpr,<var>);
+//@expr_operand(subexpr,<callarith>);
+//@expr_operator(subexpr,infix,left,1000, @transform(convOperatorInfix,@literal(".")));
+<inlabel:org.tamago.eclipse.cdl.compiler.cdlast.CDLInLabel> := @transform(convInLabel, @seq(@choice(<prop>,<var>,<callarith>),@ignore(@literal(".")), @choice(<prop>,<var>,<callarith>,<inlabel>) ) );
 
 
 <quantset:org.tamago.eclipse.cdl.compiler.cdlast.CDLQSet> := @transform(convQSet,@seq(<quant>,<ident>,@ignore(@literal(":")),<qualifident>,@ignore(<in>),
@@ -107,13 +107,14 @@
 
 @expr_operand(arith,<int>);
 @expr_operand(arith,<real>);
+@expr_operand(arith,<nil>);
 @expr_operand(arith,<cast>);
-@expr_operand(arith,<string>);
-@expr_operand(arith,<inlabel>);
 @expr_operand(arith,<prop>);
 @expr_operand(arith,<var>);
 @expr_operand(arith,<callarith>);
-@expr_operand(arith,<nil>);
+@expr_operand(arith,<string>);
+@expr_operand(arith,<inlabel>);
+
 
 @expr_operator(arith,infix,left,30, @transform(convOperatorInfix,@literal("+")));
 @expr_operator(arith,infix,left,60, @transform(convOperatorInfix,@literal("*")));
@@ -121,6 +122,12 @@
 @expr_operator(arith,infix,left,30, @transform(convOperatorInfix,@literal("-")));
 @expr_operator(arith,infix,left,50, @transform(convOperatorInfix,@literal("%")));
 
+
+@expr_operand(rel,<nil>);
+@expr_operand(rel,<cast>);
+@expr_operand(rel,<callarith>);
+@expr_operand(rel,<prop>);
+@expr_operand(rel,<var>);
 @expr_operand(rel,<arith>);
 
 @expr_operator(rel,infix,left,20, @transform(convOperatorInfix,@literal("<")));
@@ -166,14 +173,8 @@
 
 <callpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLCall> := @transform(convCall, @seq(<ident>,@ignore(@literal("(")),@list(<exprpost>,","),@ignore(@literal(")")) ) );
 
-@def_expr_parser(subexprpost);
-@expr_operand(subexprpost,<proppost>);
-@expr_operand(subexprpost,<varpost>);
-@expr_operand(subexprpost,<callpost>);
-@expr_operator(subexprpost,infix,left,1000, @transform(convOperatorInfix,@literal(".")));
-@expr_operator(subexprpost,postfix,left,2000, @transform(convAtPre,@literal("@pre")));
-<inlabelpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLInLabel> := @transform(convInLabel, <subexprpost> );
 //<inlabelpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLInLabel> := @transform(convInLabel, @seq(<subexprpost>,@ignore(@literal(".")), <subexprpost>) );
+<inlabelpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLInLabel> := @transform(convInLabel, @seq(@choice(<proppost>,<varpost>,<callpost>),@ignore(@literal(".")), @choice(<proppost>,<varpost>,<callpost>,<inlabelpost>) ) );
 
 <return:org.tamago.eclipse.cdl.compiler.cdlast.CDLReturn> := @transform(convReturn,@literal("@return"));
 
@@ -192,19 +193,20 @@
 @expr_operand(arithpost,<real>);
 @expr_operand(arithpost,<castpost>);
 @expr_operand(arithpost,<string>);
-@expr_operand(arithpost,<inlabelpost>);
 @expr_operand(arithpost,<proppost>);
 @expr_operand(arithpost,<varpost>);
 @expr_operand(arithpost,<callpost>);
 @expr_operand(arithpost,<nil>);
 @expr_operand(arithpost,<return>);
+@expr_operand(arithpost,<inlabelpost>);
+
 
 @expr_operator(arithpost,infix,left,30, @transform(convOperatorInfix,@literal("+")));
 @expr_operator(arithpost,infix,left,60, @transform(convOperatorInfix,@literal("*")));
 @expr_operator(arithpost,infix,left,60, @transform(convOperatorInfix,@literal("/")));
 @expr_operator(arithpost,infix,left,30, @transform(convOperatorInfix,@literal("-")));
 @expr_operator(arithpost,infix,left,50, @transform(convOperatorInfix,@literal("%")));
-@expr_operator(arithpost,postfix,right,50, @transform(convAtPre,@literal("@pre")));
+@expr_operator(arithpost,postfix,right,200, @transform(convAtPre,@literal("@pre")));
 
 @expr_operand(relpost,<arithpost>);
 
@@ -215,6 +217,7 @@
 @expr_operator(relpost,infix,left,20, @transform(convOperatorInfix,@literal(">")));
 @expr_operator(relpost,infix,left,20, @transform(convOperatorInfix,@literal("<>")));
 @expr_operator(relpost,infix,left,20, @transform(convOperatorInfix,@literal("!=")));
+@expr_operator(relpost,postfix,right,150, @transform(convAtPre,@literal("@pre")));
 
 @expr_operand(exprpost,<relpost>);
 @expr_operand(exprpost,<quantsetpost>);

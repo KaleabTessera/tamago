@@ -142,4 +142,12 @@ public class CDLInfix extends CDLExpression implements InfixNode {
 			throw new RuntimeException("Unknown operator: "+o);
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(left.toString());
+		sb.append(opName);
+		sb.append(right.toString());
+		return sb.toString();
+	}
 }
