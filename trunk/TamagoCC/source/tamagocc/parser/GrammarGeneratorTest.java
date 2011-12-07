@@ -147,9 +147,9 @@ public class GrammarGeneratorTest {
 		String file = streamToString("Bucket.cdl");
 		testParseTarget("service", file);
 		
-		testParseTarget("expr", "0>2");
-		
+		testParseTarget("expr", "(0 > 2)");
 		testParseTarget("preexpr", "(0 > 2)");
+		testParseTarget("arith", "(0 > 2)");
 		
 	}
 
