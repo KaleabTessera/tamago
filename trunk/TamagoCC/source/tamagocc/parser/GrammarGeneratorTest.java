@@ -10,7 +10,18 @@ import java.io.IOException;
 import java.util.List;
 
 
+import tamagocc.exception.LineParserException;
+import tamagocc.logger.TamagoCCLogger;
 import tamagocc.util.TamagoCCMakeReadableGExpression;
+import tamagocc.util.lineparser.LineParser;
+import tamagocc.util.lineparser.TamagoCCDest;
+import tamagocc.util.lineparser.TamagoCCLogFile;
+import tamagocc.util.lineparser.TamagoCCLogLevel;
+import tamagocc.util.lineparser.TamagoCCNoServiceInterface;
+import tamagocc.util.lineparser.TamagoCCNoSkeleton;
+import tamagocc.util.lineparser.TamagoCCPathCmd;
+import tamagocc.util.lineparser.TamagoCCPercolator;
+import tamagocc.util.lineparser.TamagoCCSetXSD;
 
 import javapop.framework.DefaultParseContext;
 import javapop.framework.ParseInput;
@@ -29,8 +40,18 @@ public class GrammarGeneratorTest {
 
 	private static GrammarGenerator gen;
 	
-	public static void main(String[] args) {
-		setUpBeforeClass();
+	public static void main(String[] args) throws LineParserException, IOException {
+		prepareCDLGrammar();
+		
+		
+		
+//		System.out.println("3.230023".matches("(-)?[0-9]+((([.][0-9]+)|((e|E)[+-]?[0-9]+))|([.][0-9]+(e|E)[+-]?[0-9]+))?"));
+//		System.out.println("3e10".matches    ("(-)?[0-9]+((([.][0-9]+)|((e|E)[+-]?[0-9]+))|([.][0-9]+(e|E)[+-]?[0-9]+))?"));
+//		System.out.println("3.2e23".matches  ("(-)?[0-9]+((([.][0-9]+)|((e|E)[+-]?[0-9]+))|([.][0-9]+(e|E)[+-]?[0-9]+))?"));
+//		System.out.println("\"toto\"".matches("\"[^\"]*\""));
+//		
+//		if(3%2 == 1)
+//			throw new RuntimeException();
 		testParseTarget("qualifident", "int int");
 		
 		
@@ -50,11 +71,14 @@ public class GrammarGeneratorTest {
 		// <preexpr>
 		testParseTarget("preexpr", "a");
 		testParseTarget("arith", "a + 1");
-		testParseTarget("rel", "a < 1");
-		testParseTarget("rel", "a == null");
-		testParseTarget("rel", "(a+1) < 1");
-		testParseTarget("preexpr", "a * 1.2");
-		testParseTarget("postexpr", "a@pre");
+		testParseTarget("arith", "a < 1");
+		testParseTarget("arith", "a == null");
+		testParseTarget("arith", "(a + 1) < 1"); // erreur
+		testParseTarget("arith", "1 < (a + 1)"); // erreur
+		
+		testParseTarget("arith", "a * 1.2");
+		//testParseTarget("rel", "a * 1.2");
+		//testParseTarget("postexpr", "a@pre"); // erreur
 		
 		testParseTarget("bool", "true");
 		testParseTarget("bool", "false");
@@ -69,31 +93,64 @@ public class GrammarGeneratorTest {
 		
 		testParseTarget("string", "\"toto\"");
 		
-//		testParseTarget("sprop", "#toto");
-//		testParseTarget("sprop", "#toto[3+2]");
-//		
-//		testParseTarget("nil", "nil");
-//		testParseTarget("nil", "null");
-//		
-//		testParseTarget("quant", "forall");
-//		testParseTarget("quant", "exists");
-//		
-//		testParseTarget("in", "in");
-//		testParseTarget("in", "IN");
-//		
-//		testParseTarget("cast", "(int) toto");
-//		testParseTarget("cast", "|int| toto");
-//		
-//		testParseTarget("callarith", "sqrt(3,3)");
-//		testParseTarget("callarith", "sqrt(3,3.2)");
-//		
-//		testParseTarget("quantcoll", "forall albert : int in toto { true }");
-//		
-//		testParseTarget("defaultState", "default state toto ;");
-//		
-//		testParseTarget("allow", "allow foo;");
-//		
-//		testParseTarget("state", "state toto { allow foo; }");
+		testParseTarget("prop", "#toto");
+		testParseTarget("prop", "#toto[3+2]");
+		
+		testParseTarget("nil", "nil");
+		testParseTarget("nil", "null");
+		
+		
+		testParseTarget("in", "in");
+		testParseTarget("in", "IN");
+		
+		testParseTarget("cast", "(int) toto");
+		testParseTarget("cast", "|int| toto");
+		
+		testParseTarget("callarith", "sqrt(3,3)");
+		testParseTarget("callarith", "sqrt(3,3.2)");
+		
+		testParseTarget("quant", "forall");
+		testParseTarget("quant", "exists");
+		
+		testParseTarget("ident", "albert");
+		
+		testParseTarget("qualifident", "int");
+		
+		testParseTarget("ident", "toto");
+		
+		testParseTarget("expr", "true");
+		
+		
+		testParseTarget("quantcoll", "forall albert:int in toto { true }");
+		
+		testParseTarget("quantset", "forall albert:int in [ 1 ,2, 3 ,4]{ true }");
+		testParseTarget("quantset", "forall albert:int in [ 1 ] { true }");
+		
+		testParseTarget("quantrange", "forall albert:int in 0..10 { true }");
+		
+		testParseTarget("defaultState", "default state toto ;");
+		
+		testParseTarget("allow", "allow foo;");
+		
+		testParseTarget("state", "state toto { allow foo; }");
+		
+		testParseTarget("transition", "transition from start to end with func;");
+		testParseTarget("transition", "transition from start to end with func when true;");
+		
+		testParseTarget("behavior", "behavior { default state toto; states { state toto { allow foo; } } transitions { transition from toto to toto with foo; } }");
+		
+		testParseTarget("method", "method void foo(int a) { id foo; pre false; post true; }");
+		
+		
+		// Ici j'ai un probleme
+		// TODO les expressions c la cata j'essaye de faire quelque chose de compliqué
+		String file = streamToString("Bucket.cdl");
+		testParseTarget("service", file);
+		
+		testParseTarget("expr", "0>2");
+		
+		testParseTarget("preexpr", "(0 > 2)");
+		
 	}
 
 	private static String streamToString(String string) throws IOException {
@@ -109,7 +166,7 @@ public class GrammarGeneratorTest {
 	/**
 	 * @throws java.lang.Exception
 	 */
-	public static void setUpBeforeClass() {
+	public static void prepareCDLGrammar() {
 		try {
 			GenericGrammar generic = new GenericGrammar();
 			//generic.setMainParser(generic.fetch("keywords"));
@@ -161,8 +218,8 @@ public class GrammarGeneratorTest {
 				System.out.println( tree.getResult());
 			}
 		} 
-		catch (GrammarVisitorException e) {
-			e.printStackTrace();
+		catch (Exception e) {
+			e.printStackTrace(System.out);
 		}
 	}
 

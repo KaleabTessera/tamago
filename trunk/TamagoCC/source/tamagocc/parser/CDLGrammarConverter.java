@@ -1,14 +1,28 @@
 package tamagocc.parser;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import javapop.framework.parser.Maybe;
+import javapop.framework.parser.MaybeParse;
+import javapop.utils.Nonuple;
 import javapop.utils.Pair;
 import javapop.utils.Quadruple;
+import javapop.utils.Quintuple;
 import javapop.utils.Sixuple;
 import javapop.utils.Triple;
 import tamagocc.api.TAccess;
 import tamagocc.api.TAllow;
+import tamagocc.api.TBehavior;
 import tamagocc.api.TCondition;
+import tamagocc.api.TExpression;
+import tamagocc.api.TExtendService;
+import tamagocc.api.TImplements;
+import tamagocc.api.TInvariant;
+import tamagocc.api.TMethod;
+import tamagocc.api.TNamespace;
 import tamagocc.api.TParameter;
+import tamagocc.api.TProperty;
 import tamagocc.api.TService;
 import tamagocc.api.TState;
 import tamagocc.api.TTransition;
@@ -23,10 +37,12 @@ import tamagocc.impl.TIImplements;
 import tamagocc.impl.TIIncludeService;
 import tamagocc.impl.TIMethod;
 import tamagocc.impl.TINamespace;
+import tamagocc.impl.TINoContract;
 import tamagocc.impl.TIParameter;
 import tamagocc.impl.TIPercolator;
 import tamagocc.impl.TIProperty;
 import tamagocc.impl.TIRefineService;
+import tamagocc.impl.TIService;
 import tamagocc.impl.TIState;
 import tamagocc.impl.TITransition;
 import tamagocc.impl.TIType;
@@ -39,6 +55,9 @@ import tamagocc.parser.cdlast.CDLInLabel;
 import tamagocc.parser.cdlast.CDLInfix;
 import tamagocc.parser.cdlast.CDLInteger;
 import tamagocc.parser.cdlast.CDLNil;
+import tamagocc.parser.cdlast.CDLQColl;
+import tamagocc.parser.cdlast.CDLQRange;
+import tamagocc.parser.cdlast.CDLQSet;
 import tamagocc.parser.cdlast.CDLRead;
 import tamagocc.parser.cdlast.CDLReal;
 import tamagocc.parser.cdlast.CDLReturn;
@@ -136,18 +155,18 @@ public class CDLGrammarConverter {
 	}
 
 	public tamagocc.parser.cdlast.CDLQSet convQSet(Object content) {
-		// TODO complete this method
-		return null;
+		Quintuple<String, String, String, List<CDLExpression>, CDLExpression> s = (Quintuple<String, String, String, List<CDLExpression>, CDLExpression>)content;
+		return new CDLQSet(s.getFirst(), s.getSecond(), TIType.generateType(s.getThird()), s.getFifth(), s.getFourth());
 	}
 
 	public tamagocc.parser.cdlast.CDLQColl convQColl(Object content) {
-		// TODO complete this method
-		return null;
+		Quintuple<String, String, String, CDLExpression, CDLExpression> coll = (Quintuple<String, String, String, CDLExpression, CDLExpression>)content;
+		return new CDLQColl(coll.getFirst(), coll.getSecond(), TIType.generateType(coll.getThird()), coll.getFifth() , coll.getFourth());
 	}
 
 	public tamagocc.parser.cdlast.CDLQRange convQRange(Object content) {
-		// TODO complete this method
-		return null;
+		Sixuple<String, String, String, CDLExpression, CDLExpression, CDLExpression> r= (Sixuple<String, String, String, CDLExpression, CDLExpression, CDLExpression>)content;
+		return new CDLQRange(r.getFirst(), r.getSecond(), TIType.generateType(r.getThird()), r.getSixth(), r.getFourth(), r.getFifth());
 	}
 
 	public tamagocc.parser.cdlast.CDLAtPre convAtPre(Object content) {
@@ -159,12 +178,12 @@ public class CDLGrammarConverter {
 	}
 
 	public tamagocc.api.TBehavior convBehavior(Object content) {
-		Triple<String, Collection<TState>, Collection<TTransition>> p = (Triple<String, Collection<TState>, Collection<TTransition>>)content;
+		Triple<MaybeParse<String>, Collection<TState>, Collection<TTransition>> p = (Triple<MaybeParse<String>, Collection<TState>, Collection<TTransition>>)content;
 		TIBehavior t;
-		if(p.getFirst() == null)
+		if(!p.getFirst().hasResult())
 			t=  new TIBehavior(p.getSecond(),p.getThird(),"");
 		else
-			t = new TIBehavior(p.getSecond(),p.getThird(),p.getFirst());
+			t = new TIBehavior(p.getSecond(),p.getThird(),p.getFirst().getResult().getResult());
 		return t;
 	}
 
@@ -197,19 +216,33 @@ public class CDLGrammarConverter {
 
 	
 	public tamagocc.api.TMethod convMethod(Object content) {
-		Sixuple<String, String, Collection<TParameter>, String, TCondition, TCondition> s = (Sixuple<String, String, Collection<TParameter>, String, TCondition, TCondition>)content;
-		TIMethod m = new TIMethod(s.getSecond(), s.getFourth(), TIType.generateType(s.getFirst()), s.getThird(), s.getFifth(), s.getSixth());
+		Sixuple<String, String, Collection<TParameter>, MaybeParse<String>, MaybeParse<TCondition>, MaybeParse<TCondition>> s = (Sixuple<String, String, Collection<TParameter>, MaybeParse<String>, MaybeParse<TCondition>, MaybeParse<TCondition>>)content;
+		String name = s.getSecond();
+		String id = "";
+		TType type = TIType.generateType(s.getFirst());
+		Collection<TParameter> params = s.getThird();
+		TCondition pre = new TICondition(new TINoContract(), new TICategory(""), "");;
+		TCondition post = new TICondition(new TINoContract(), new TICategory(""), "");;
+		
+		if(s.getFourth().hasResult())
+			id = s.getFourth().getResult().getResult();
+		if(s.getFifth().hasResult())
+			pre = s.getFifth().getResult().getResult();
+		if(s.getSixth().hasResult())
+			post = s.getSixth().getResult().getResult();
+		
+		TIMethod m = new TIMethod(name,id,type,params,pre,post);
 		return m;
 	}
 
 	public tamagocc.api.TCondition convCondition(Object content) {
 		if(content instanceof Pair) {
-			Pair<CDLExpression, String> p = (Pair<CDLExpression, String>)content;
-			return new TICondition(p.getFirst().toTExpression(), TICategory.NoCategory, p.getSecond());
+			Pair<TExpression, String> p = (Pair<TExpression, String>)content;
+			return new TICondition(p.getFirst(), TICategory.NoCategory, p.getSecond());
 		}
 		else {
-			CDLExpression p = (CDLExpression)content;
-			return new TICondition(p.toTExpression(), TICategory.NoCategory, "");
+			TExpression p = (TExpression)content;
+			return new TICondition(p, TICategory.NoCategory, "");
 		}
 	}
 
@@ -219,8 +252,8 @@ public class CDLGrammarConverter {
 	}
 
 	public tamagocc.api.TProperty convProperty(Object content) {
-		Triple<TAccess, String, TType> p = (Triple<TAccess, String, TType>) content;
-		return new TIProperty(p.getSecond(), p.getThird(), p.getFirst());
+		Triple<TAccess, TType,String> p = (Triple<TAccess, TType,String>) content;
+		return new TIProperty(p.getThird(),p.getSecond(),p.getFirst());
 	}
 
 	public tamagocc.api.TAccess convAccess(Object content) {
@@ -240,7 +273,7 @@ public class CDLGrammarConverter {
 		return new TIImplements((String)content);
 	}
 
-	java.lang.String convModule(Object content) {
+	public java.lang.String convModule(Object content) {
 		return (String)content;
 	}
 
@@ -291,8 +324,21 @@ public class CDLGrammarConverter {
 	}
 
 	public tamagocc.api.TService convService(Object content) {
-		// TODO complete this method
-		return null;
+		@SuppressWarnings("unchecked")
+		Nonuple<String, Collection<TNamespace>, String, Collection<TImplements>, Collection<TExtendService>, Collection<TProperty>, Collection<TInvariant>, Collection<TMethod>, MaybeParse<TBehavior>> n = (Nonuple<String, Collection<TNamespace>, String, Collection<TImplements>, Collection<TExtendService>, Collection<TProperty>, Collection<TInvariant>, Collection<TMethod>, MaybeParse<TBehavior>>)content;
+		String name = n.getThird();
+		String module = n.getFirst();
+		Collection<TMethod> methods = n.getEighth();
+    	Collection<TProperty> properties = n.getSixth();
+    	Collection<TInvariant> invariants = n.getSeventh();
+    	Collection<TExtendService> extension = n.getFifth();
+    	Collection<TImplements> impls = n.getFourth();
+		Collection<TNamespace> namespaces = n.getSecond();
+		Collection<TType> paramtypes = new ArrayList<TType>();
+		TBehavior behavior = TIBehavior.NoBehavior;
+		if(n.getNinth().hasResult())
+			behavior = n.getNinth().getResult().getResult();
+		return new TIService(name, module, "", methods, properties, invariants, behavior, extension, impls, namespaces, paramtypes);
 	}
 
 	public tamagocc.api.TRequire convRequire(Object content) {

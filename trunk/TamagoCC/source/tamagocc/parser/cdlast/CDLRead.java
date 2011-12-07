@@ -55,7 +55,10 @@ public class CDLRead extends CDLExpression implements OperandNode {
 	
 	@Override
 	public String toString() {
-		return "#"+name;
+		if(index == null)
+			return "#"+name;
+		else
+			return "#"+name+"["+index.toString()+"]";
 	}
 	
 }

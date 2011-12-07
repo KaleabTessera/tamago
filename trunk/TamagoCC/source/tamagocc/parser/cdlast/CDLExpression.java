@@ -49,4 +49,14 @@ public abstract class CDLExpression implements ExprNode {
 	}
 
 	public abstract TExpression toTExpression();
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getClass().getSimpleName());
+		sb.append("[[[");
+		sb.append(this.getDescription());
+		sb.append("]]]");
+		return sb.toString();				
+	}
 }
