@@ -1,0 +1,25 @@
+module org.tamago.example;
+
+using java.lang.String;
+
+service Bucket {
+	implements MonService;
+	property read int quantity;
+	
+	invariant (0 > 2);
+	
+	method void foo(int a) {
+		id foo;
+		pre (a > 0);
+	}
+	
+	behavior {
+		default state toto;
+		states {
+			state toto { allow foo; }
+		}
+		transitions {
+			transition from toto to toto with foo when true;
+		}
+	}
+}
