@@ -70,15 +70,15 @@ public class GrammarGeneratorTest {
 		
 		// <preexpr>
 		testParseTarget("preexpr", "a");
-		testParseTarget("arith", "a + 1");
-		testParseTarget("arith", "a < 1");
-		testParseTarget("arith", "a == null");
-		testParseTarget("arith", "(a + 1) < 1"); // erreur
-		testParseTarget("arith", "1 < (a + 1)"); // erreur
+		testParseTarget("expr", "a + 1");
+		testParseTarget("expr", "a < 1");
+		testParseTarget("expr", "a == null");
+		testParseTarget("expr", "(a + 1) < 1"); // erreur
+		testParseTarget("expr", "1 < (a + 1)"); // erreur
 		
-		testParseTarget("arith", "a * 1.2");
-		//testParseTarget("rel", "a * 1.2");
-		//testParseTarget("postexpr", "a@pre"); // erreur
+		testParseTarget("expr", "a * 1.2");
+		testParseTarget("expr", "a * 1.2");
+		testParseTarget("postexpr", "a@pre"); // erreur
 		
 		testParseTarget("bool", "true");
 		testParseTarget("bool", "false");
@@ -149,7 +149,7 @@ public class GrammarGeneratorTest {
 		
 		testParseTarget("expr", "(0 > 2)");
 		testParseTarget("preexpr", "(0 > 2)");
-		testParseTarget("arith", "(0 > 2)");
+		testParseTarget("expr", "(0 > true)");
 		
 	}
 

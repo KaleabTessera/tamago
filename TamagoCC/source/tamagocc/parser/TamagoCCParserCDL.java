@@ -6,10 +6,16 @@ package tamagocc.parser;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import tamagocc.TamagoCC;
+import tamagocc.api.TTamago;
 import tamagocc.exception.LineParserException;
+import tamagocc.exception.TamagoCCException;
 import tamagocc.logger.TamagoCCLogger;
+import tamagocc.percolation.TamagoCCPercolation;
+import tamagocc.util.TamagoCCPool;
 import tamagocc.util.lineparser.LineParser;
 import tamagocc.util.lineparser.TamagoCCDest;
 import tamagocc.util.lineparser.TamagoCCLogFile;
@@ -83,12 +89,13 @@ public class TamagoCCParserCDL {
 	 * @param args
 	 * @throws LineParserException 
 	 * @throws IOException 
+	 * @throws TamagoCCException 
 	 */
-	public static void main(String[] args) throws LineParserException, IOException {
+	public static void main(String[] args) throws LineParserException, IOException, TamagoCCException {
 		prepareCDLGrammar();
 		DefCDLFile def = new DefCDLFile();
 		
-		/*LineParser lineparser = new LineParser("tamagocdl", "Compiler of textual CDL File into XML CDL file and more");
+		LineParser lineparser = new LineParser("tamagocdl", "Compiler of textual CDL File into XML CDL file and more");
 		lineparser.addSpec(new TamagoCCLogFile());
 		lineparser.addSpec(new TamagoCCLogLevel());
 		lineparser.addSpec(new TamagoCCDest("--d"));
@@ -104,13 +111,16 @@ public class TamagoCCParserCDL {
 		lineparser.addSpec(new TamagoCCNoServiceInterface());
 		
 		lineparser.parse(args);
-		*/
-		def.addItem("Bucket.cdl");
+		
+		//def.addItem("Bucket.cdl");
 		
 		if(def.getFiles().size() == 0) {
-			//TamagoCCLogger.println(1, lineparser.toString());
+			TamagoCCLogger.println(1, lineparser.toString());
 		}
 		else {
+			ArrayList<TTamago> tast = new ArrayList<TTamago>();
+			TamagoCCPercolation.initialisation();
+			
 			for (String string : def.getFiles()) {
 				ParseInput input = new StringParseInput(streamToString(string));
 				ParseResult<?> tree = gen.parse(input);
@@ -124,8 +134,24 @@ public class TamagoCCParserCDL {
 					System.out.println("C OK");
 					System.out.println(tree.getResult().getClass());
 					System.out.println( tree.getResult());
+					TTamago tamago = (TTamago) tree.getResult();
+					TamagoCCPool.getDefaultPool().addEntry(tamago.getName(), tamago.getModule(), tamago);
+					tast.add(tamago);
 				}
 			}
+			
+			for (TTamago t : tast) {
+				try {
+					TamagoCC.generate(t);
+				} catch (InstantiationException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+			
 		}
 	}
 

@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javapop.framework.parser.Maybe;
 import javapop.framework.parser.MaybeParse;
 import javapop.utils.Nonuple;
 import javapop.utils.Pair;
@@ -35,6 +34,7 @@ import tamagocc.impl.TICategory;
 import tamagocc.impl.TICondition;
 import tamagocc.impl.TIImplements;
 import tamagocc.impl.TIIncludeService;
+import tamagocc.impl.TIInvariant;
 import tamagocc.impl.TIMethod;
 import tamagocc.impl.TINamespace;
 import tamagocc.impl.TINoContract;
@@ -67,22 +67,15 @@ import tamagocc.util.TamagoCCPool;
 
 public class CDLGrammarConverter {
 	public CDLInteger convInteger(Object o) {
-		System.out.println(o);
 		return new CDLInteger(Integer.parseInt(o.toString()));
 	}
 
 	public CDLReal convReal(Object o) {
-		System.out.println(o);
 		return new CDLReal(Double.parseDouble((String) o));
 	}
 
 	public CDLInfix convOperatorInfix(Object o) {
-		System.out.println(o);
 		String s = (String) o;
-
-		// GExprOperator op =
-		// GrammarGenerator.getLastGenerator().getOperators(s);
-		// return new CInfixNode<Number>(op , null);
 		return new CDLInfix(s);
 	}
 
@@ -246,6 +239,17 @@ public class CDLGrammarConverter {
 		}
 	}
 
+	public tamagocc.api.TInvariant convInvariant(Object content) {
+		if(content instanceof Pair) {
+			Pair<TExpression, String> p = (Pair<TExpression, String>)content;
+			return new TIInvariant(p.getFirst(), TICategory.NoCategory, p.getSecond());
+		}
+		else {
+			TExpression p = (TExpression)content;
+			return new TIInvariant(p, TICategory.NoCategory, "");
+		}
+	}
+	
 	public tamagocc.api.TParameter convParameter(Object content) {
 		Pair<String, String> p = (Pair<String, String>)content;
 		return new TIParameter(p.getFirst(), TIType.generateType(p.getSecond()));
