@@ -13,6 +13,7 @@ import tamagocc.api.TExpression;
 import tamagocc.api.TOpeName;
 import tamagocc.api.TOperator;
 import tamagocc.impl.TIOperator;
+import tamagocc.parser.SearchTypeInfixOperator;
 
 /**
  * @author Hakim Belhaouari
@@ -51,11 +52,20 @@ public class CDLInfix extends CDLExpression implements InfixNode {
 	}
 
 	public void setLeftOperand(ExprNode operand) {
-		left = (CDLExpression) operand;		
+		left = (CDLExpression) operand;
+		checkType();
+	}
+
+	private void checkType() {
+		if(left != null && right != null) {
+			SearchTypeInfixOperator.getType(this);
+		}
+		
 	}
 
 	public void setRightOperand(ExprNode operand) {
 		right = (CDLExpression) operand;
+		checkType();
 	}
 
 	public int getPrio() {

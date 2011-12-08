@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 /**
  * 
  * This interface is the root of followed tamago entity (service, component, composite).
- * (this class DO NOT include the assembly) 
+ * (this class DOES NOT include the assembly) 
  * 
  * @author Hakim BELHAOUARI
  */
