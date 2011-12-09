@@ -4,7 +4,7 @@
 package tamago.lineparser;
 
 import tamagocc.exception.LineParserException;
-import tamagocc.util.lineparser.LineParserSpec;
+import tamagocc.util.lineparser.DefaultLineParserSpec;
 import tamagotest.TamagoTestContext;
 import tamagotest.strategy.BadScenarioStrategy;
 import tamagotest.strategy.BoundedStrategy;
@@ -18,7 +18,7 @@ import tamagotest.strategy.UnboundStrategy;
  * @author Hakim Belhaouari
  *
  */
-public class TamagoTestStrategySelector implements LineParserSpec {
+public class TamagoTestStrategySelector extends DefaultLineParserSpec {
 
 	private TamagoTestContext ctx;
 	private String name;
@@ -26,6 +26,7 @@ public class TamagoTestStrategySelector implements LineParserSpec {
 	 * 
 	 */
 	public TamagoTestStrategySelector(TamagoTestContext ctx) {
+		super("--strategy","Allow user to specify a test strategy among: nominal, bound, unbound, unboundbeh, badscenario, alltransitions");
 		this.ctx = ctx;
 		name = "nominal";
 	}
@@ -65,32 +66,12 @@ public class TamagoTestStrategySelector implements LineParserSpec {
 	}
 
 	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#getCommand()
-	 */
-	public String getCommand() {
-		return "--strategy";
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#getDescription()
-	 */
-	public String getDescription() {
-		return "Allow user to specify a test strategy among: nominal, bound, unbound, unboundbeh, badscenario, alltransitions";
-	}
-
-	/**
 	 * @see tamagocc.util.lineparser.LineParserSpec#immediateFire()
 	 */
 	public boolean immediateFire() {
 		return true;
 	}
 
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#isOptionnal()
-	 */
-	public boolean isOptionnal() {
-		return true;
-	}
 
 	/**
 	 * @see tamagocc.util.lineparser.LineParserSpec#setArgument(int, java.lang.String)

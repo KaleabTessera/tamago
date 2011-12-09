@@ -3,6 +3,9 @@
  */
 package tamago.check.lineparser;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import tamago.check.util.TamagoCheckContext;
 import tamagocc.exception.LineParserException;
 import tamagocc.util.lineparser.LineParserSpec;
@@ -76,6 +79,11 @@ public class CheckMaxDepth implements LineParserSpec {
 	
 	public void setArgument(int pos, String value) throws LineParserException {
 		ctx.setMaxDepth(Integer.parseInt(value));
+	}
+
+	@Override
+	public Collection<String> getAliases() {
+		return new ArrayList<String>();
 	}
 
 }
