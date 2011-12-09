@@ -1,7 +1,7 @@
 package tamago.lineparser;
 import tamagocc.exception.LineParserException;
 import tamagocc.logger.TamagoCCLogger;
-import tamagocc.util.lineparser.LineParserSpec;
+import tamagocc.util.lineparser.DefaultLineParserSpec;
 import tamagotest.TamagoTestContext;
 
 /**
@@ -12,7 +12,7 @@ import tamagotest.TamagoTestContext;
  * @author Hakim Belhaouari
  *
  */
-public class TamagoTestLengthScenario implements LineParserSpec {
+public class TamagoTestLengthScenario extends DefaultLineParserSpec {
 
 	private TamagoTestContext ctx;
 	private int length;
@@ -20,6 +20,7 @@ public class TamagoTestLengthScenario implements LineParserSpec {
 	 * 
 	 */
 	public TamagoTestLengthScenario(TamagoTestContext ctx) {
+		super("--scenario-size","Specify the maximal length of the generated scenario (use only if compatible)","-ss");
 		this.ctx = ctx;
 	}
 
@@ -41,34 +42,6 @@ public class TamagoTestLengthScenario implements LineParserSpec {
 	 */
 	public int getArity() {
 		return 1;
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#getCommand()
-	 */
-	public String getCommand() {
-		return "--scenario-size";
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#getDescription()
-	 */
-	public String getDescription() {
-		return "Specify the length of the generated scenario";
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#immediateFire()
-	 */
-	public boolean immediateFire() {
-		return false;
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#isOptionnal()
-	 */
-	public boolean isOptionnal() {
-		return true;
 	}
 
 	/**

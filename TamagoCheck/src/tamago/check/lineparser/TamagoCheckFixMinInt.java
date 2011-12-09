@@ -3,6 +3,9 @@
  */
 package tamago.check.lineparser;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import tamago.csp.var.Intvar;
 import tamagocc.exception.LineParserException;
 import tamagocc.util.lineparser.LineParserSpec;
@@ -74,4 +77,9 @@ public class TamagoCheckFixMinInt implements LineParserSpec {
 		}
 	}
 
+
+	@Override
+	public Collection<String> getAliases() {
+		return new ArrayList<String>();
+	}
 }
