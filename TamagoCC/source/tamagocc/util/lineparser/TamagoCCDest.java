@@ -11,17 +11,17 @@ import tamagocc.exception.LineParserException;
  * 
  * @author Hakim Belhaouari
  */
-public class TamagoCCDest implements LineParserSpec {
+public class TamagoCCDest extends DefaultLineParserSpec{
 
 	private String destdir;
-	private String cmd;
-	
-	/**
-	 * 
-	 */
-	public TamagoCCDest(String cmd) {
+
+	public TamagoCCDest() {
+		super("--destination","Output directory","-d");
 		destdir = ".";
-		this.cmd = cmd;
+	}
+	
+	public String getOutputDir() {
+		return destdir;
 	}
 
 	/**
@@ -37,40 +37,11 @@ public class TamagoCCDest implements LineParserSpec {
 	public int getArity() {
 		return 1;
 	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#getCommand()
-	 */
-	public String getCommand() {
-		return cmd;
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#getDescription()
-	 */
-	public String getDescription() {
-		return "Output directory";
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#immediateFire()
-	 */
-	public boolean immediateFire() {
-		return false;
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#isOptionnal()
-	 */
-	public boolean isOptionnal() {
-		return true;
-	}
-
+	
 	/**
 	 * @see tamagocc.util.lineparser.LineParserSpec#setArgument(int, java.lang.String)
 	 */
 	public void setArgument(int pos, String value) throws LineParserException {
 		destdir = value;
 	}
-
 }

@@ -3,7 +3,7 @@ module org.tamago.example;
 using java.lang.String;
 
 service Bucket {
-	implements MonService;
+	implements org.MonService;
 	property read int quantity;
 	
 	invariant (0 > 2);

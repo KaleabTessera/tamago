@@ -21,13 +21,13 @@ public class TIAccess implements TAccess {
      */
     public TIAccess(String rule) {
         super();
-        if("r".equals(rule.trim())) {
+        if("r".equals(rule.trim()) || "read".equals(rule.trim())) {
             isReadable = true; isWritable = false;
         }
-        else if("w".equals(rule.trim())) {
+        else if("w".equals(rule.trim())||"write".equals(rule.trim())) {
             isReadable = false; isWritable = true;
         }
-        else if(("rw".equals(rule.trim()))||("wr".equals(rule.trim()))) {
+        else if(("rw".equals(rule.trim()))||("wr".equals(rule.trim()))||"readwrite".equals(rule.trim())) {
             isReadable = true; isWritable = true;
         }
     }

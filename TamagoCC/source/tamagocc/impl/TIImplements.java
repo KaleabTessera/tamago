@@ -31,7 +31,7 @@ public class TIImplements implements TImplements {
 		}
 		else {
 			name = fullname.substring(idx+1);
-			module = fullname.substring(0, idx-1);
+			module = fullname.substring(0, idx);
 		}
 	}
 

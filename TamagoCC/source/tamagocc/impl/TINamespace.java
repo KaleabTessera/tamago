@@ -32,7 +32,7 @@ public class TINamespace implements TNamespace {
 		}
 		else {
 			type = fullname.substring(idx+1);
-			namespace = fullname.substring(0, idx-1);
+			namespace = fullname.substring(0, idx);
 		}
 	}
 

@@ -101,8 +101,7 @@ public class TamagoCC {
         TamagoCCPercolation.initialisation();
         cmdparser = new LineParser("tamagocc","TamagoCC : Tamago Contract Compiler\nAuthors : Hakim Belhaouari <hakim.belhaouari@lip6.fr>\n\tFrederic Peschanski <frederic.peschanski@lip6.fr>\nVersion : "+TAMAGOCC_VERSION);
         files = new TamagoCCFiles();
-        cmdparser.addSpec(new TamagoCCDest("-d"));
-        cmdparser.addSpec(new TamagoCCDest("--destination"));
+        cmdparser.addSpec(new TamagoCCDest());
         cmdparser.addSpec(new tamagocc.util.lineparser.TamagoCCGenerator());
         cmdparser.addSpec(new TamagoCCLogFile());
         cmdparser.addSpec(new TamagoCCLogLevel());
