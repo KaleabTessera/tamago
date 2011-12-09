@@ -28,7 +28,8 @@ public class LineParser {
 
 	/** hashtable of command */ 
 	private Hashtable<String, LineParserSpec> specs;
-	/** an array of all specs */
+	private ArrayList<LineParserSpec> allspecs;
+	/** an array of all visited specs, in order to make the fire operation */
 	private ArrayList<LineParserSpec> visited;
 	/** name of the executable */
 	private String exename;
@@ -47,42 +48,19 @@ public class LineParser {
 	 * 
 	 * @author Hakim Belhaouari
 	 */
-	class HelpCommand implements LineParserSpec {
-		private String cmd;
+	class HelpCommand extends DefaultLineParserSpec {
 		
-		HelpCommand(String cmd) {
-			this.cmd = cmd;
+		HelpCommand() {
+			super("--help","Print this help","-h");
 		}
 		
 		public void fire() throws LineParserException {
 			System.out.println(LineParser.this.toString());
 			askHelp = true;
 		}
-
-		public int getArity() {
-			return 0;
-		}
-
-		public String getCommand() {
-			return cmd;
-		}
-
-		public String getDescription() {
-			return "Print this help";
-		}
-
-		public void setArgument(int pos, String value) throws LineParserException {
-			
-		}
-
 		public boolean immediateFire() {
 			return true;
 		}
-
-		public boolean isOptionnal() {
-			return true;
-		}
-
 	}
 
 	
@@ -98,11 +76,11 @@ public class LineParser {
 		this.description = description;
 		defspec = null;
 		specs = new Hashtable<String, LineParserSpec>();
+		allspecs = new ArrayList<LineParserSpec>();
 		visited = new ArrayList<LineParserSpec>();
 		askHelp = false;
 		try {
-			addSpec(new HelpCommand("--help"));
-			addSpec(new HelpCommand("-h"));
+			addSpec(new HelpCommand());
 		} catch(LineParserException e) { }
 	}
 	
@@ -116,6 +94,12 @@ public class LineParser {
 		if(specs.containsKey(spec.getCommand()))
 			throw new LineParserException("Command already specified : "+spec.getCommand());
 		specs.put(spec.getCommand(), spec);
+		for (String cmd : spec.getAliases()) {
+			if(specs.containsKey(cmd))
+				throw new LineParserException("Command already specified : "+cmd);
+			specs.put(cmd, spec);
+		}
+		allspecs.add(spec);
 	}
 	
 	/**
@@ -210,10 +194,15 @@ public class LineParser {
 		sb.append(exename);
 		sb.append(" ");
 		
-		for (LineParserSpec spec : specs.values()) {
+		for (LineParserSpec spec : allspecs) {
 			if(spec.isOptionnal())
 				sb.append("[ ");
 			sb.append(spec.getCommand());
+			for (String alias : spec.getAliases()) {
+				sb.append("|");
+				sb.append(alias);
+			}
+			
 			switch(spec.getArity()) {
 			case 0:
 				break;
@@ -257,9 +246,13 @@ public class LineParser {
 		}
 		sb.append("\n");
 		sb.append("Options:");
-		for (LineParserSpec spec : specs.values()) {
+		for (LineParserSpec spec : allspecs) {
 			sb.append("\n\t");
 			sb.append(spec.getCommand());
+			for (String alias : spec.getAliases()) {
+				sb.append(",");
+				sb.append(alias);
+			}
 			sb.append(" : ");
 			sb.append(spec.getDescription());
 			

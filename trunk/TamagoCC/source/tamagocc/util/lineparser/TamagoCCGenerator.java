@@ -10,21 +10,14 @@ import tamagocc.exception.LineParserException;
  * @author Hakim Belhaouari
  *
  */
-public class TamagoCCGenerator implements LineParserSpec {
+public class TamagoCCGenerator  extends DefaultLineParserSpec {
 
+	
 	/**
 	 * 
 	 */
 	public TamagoCCGenerator() {
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#fire()
-	 */
-	public void fire() throws LineParserException {
-		// TODO Auto-generated method stub
-
+		super("--generator","Specify the full name of the generator, that define a target language","-g");
 	}
 
 	/**
@@ -32,34 +25,6 @@ public class TamagoCCGenerator implements LineParserSpec {
 	 */
 	public int getArity() {
 		return 1;
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#getCommand()
-	 */
-	public String getCommand() {
-		return "--generator";
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#getDescription()
-	 */
-	public String getDescription() {
-		return "Specify the full name of the generator, that define a target language"; 
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#immediateFire()
-	 */
-	public boolean immediateFire() {
-		return false;
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#isOptionnal()
-	 */
-	public boolean isOptionnal() {
-		return true;
 	}
 
 	/**

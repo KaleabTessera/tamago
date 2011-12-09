@@ -3,6 +3,8 @@
  */
 package tamagocc.util.lineparser;
 
+import java.util.Collection;
+
 import tamagocc.exception.LineParserException;
 
 /**
@@ -20,6 +22,8 @@ public interface LineParserSpec {
 	 * @return Return the name
 	 */
 	String getCommand();
+	
+	Collection<String> getAliases();
 	
 	/**
 	 * Specify the arity of the current command. In the current implementation

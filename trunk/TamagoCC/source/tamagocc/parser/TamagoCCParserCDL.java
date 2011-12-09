@@ -4,7 +4,9 @@
 package tamagocc.parser;
 
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,7 @@ import tamagocc.exception.TamagoCCException;
 import tamagocc.logger.TamagoCCLogger;
 import tamagocc.percolation.TamagoCCPercolation;
 import tamagocc.util.TamagoCCPool;
+import tamagocc.util.TamagoCCToXml;
 import tamagocc.util.lineparser.LineParser;
 import tamagocc.util.lineparser.TamagoCCDest;
 import tamagocc.util.lineparser.TamagoCCLogFile;
@@ -94,14 +97,14 @@ public class TamagoCCParserCDL {
 	public static void main(String[] args) throws LineParserException, IOException, TamagoCCException {
 		prepareCDLGrammar();
 		DefCDLFile def = new DefCDLFile();
-		
+		TamagoCCDest dest = new TamagoCCDest();
+		ProduceXMLContract xml = new ProduceXMLContract();
 		LineParser lineparser = new LineParser("tamagocdl", "Compiler of textual CDL File into XML CDL file and more");
 		lineparser.addSpec(new TamagoCCLogFile());
 		lineparser.addSpec(new TamagoCCLogLevel());
-		lineparser.addSpec(new TamagoCCDest("--d"));
-		lineparser.addSpec(new TamagoCCDest("--destination"));
-		lineparser.addSpec(new ShowGrammar("--show-grammar"));
-		lineparser.addSpec(new ShowGrammar("-grammar"));
+		lineparser.addSpec(dest);
+		lineparser.addSpec(xml);
+		lineparser.addSpec(new ShowGrammar());
 		lineparser.setDefaultSpec(def);
 		lineparser.addSpec(new tamagocc.util.lineparser.TamagoCCGenerator());
 		lineparser.addSpec(new TamagoCCPathCmd());
@@ -141,14 +144,20 @@ public class TamagoCCParserCDL {
 			}
 			
 			for (TTamago t : tast) {
-				try {
-					TamagoCC.generate(t);
-				} catch (InstantiationException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
+				if(xml.mustGenXML()) { 
+					FileOutputStream fos = new FileOutputStream(dest.getOutputDir()+File.separator+t.getName()+".xml");
+					TamagoCCToXml.generateXMLFile(t, fos);
+				}
+				else {
+					try {
+						TamagoCC.generate(t);
+					} catch (InstantiationException e) {
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 			

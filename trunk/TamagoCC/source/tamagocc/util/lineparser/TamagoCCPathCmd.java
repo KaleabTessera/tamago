@@ -13,24 +13,17 @@ import tamagocc.util.TamagoCCPool;
  * @author hakim
  *
  */
-public class TamagoCCPathCmd implements LineParserSpec {
+public class TamagoCCPathCmd extends DefaultLineParserSpec {
 	
 	
 	/**
 	 * 
 	 */
 	public TamagoCCPathCmd() {
+		super("--tamagoccpath","specify the path, where all CDL files are stocked (XML forms)","-p","--path","-tp");
 	}
 
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#fire()
-	 */
-	public void fire() throws LineParserException {
-		
-	}
-	public boolean isOptionnal() {
-		return true;
-	}
+	
 	/**
 	 * @see tamagocc.util.lineparser.LineParserSpec#getArity()
 	 */
@@ -38,43 +31,24 @@ public class TamagoCCPathCmd implements LineParserSpec {
 		return 1;
 	}
 
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#getCommand()
-	 */
-	public String getCommand() {
-		return "--tamagoccpath";
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#getDescription()
-	 */
-	public String getDescription() {
-		return "specify the path, where all CDL files are stocked"; 
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#immediateFire()
-	 */
-	public boolean immediateFire() {
-		return false;
-	}
 
 	/**
 	 * @see tamagocc.util.lineparser.LineParserSpec#setArgument(int, java.lang.String)
 	 */
 	public void setArgument(int pos, String value) throws LineParserException {
-		File directory = new File(value);
-		if(!directory.exists()) {
-			TamagoCCLogger.println(1,"The path does not exists : "+value);
-			return;
+		String[] strs = value.split(File.pathSeparator);
+		for (String string : strs) {
+			File directory = new File(string);
+			if(!directory.exists()) {
+				TamagoCCLogger.println(1,"The path does not exists : "+string);
+				return;
+			}
+			if(!directory.isDirectory()) {
+				TamagoCCLogger.println(1,"The path is not a directory : "+string);
+				return;
+			}
+			TamagoCCPool.getDefaultPool().addTamagoCCListPath(string);
 		}
-		
-		if(!directory.isDirectory()) {
-			TamagoCCLogger.println(1,"The path is not a directory : "+value);
-			return;
-		}
-		
-		TamagoCCPool.getDefaultPool().addTamagoCCListPath(value);
 	}
 
 }

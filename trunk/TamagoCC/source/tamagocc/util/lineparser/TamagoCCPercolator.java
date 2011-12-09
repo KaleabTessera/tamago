@@ -12,7 +12,7 @@ import tamagocc.percolation.TamagoCCPercolation;
  * @author Hakim Belhaouari
  *
  */
-public class TamagoCCPercolator implements LineParserSpec {
+public class TamagoCCPercolator extends DefaultLineParserSpec {
 
 	
 	private String name;
@@ -22,7 +22,7 @@ public class TamagoCCPercolator implements LineParserSpec {
 	 * 
 	 */
 	public TamagoCCPercolator() {
-		// TODO Auto-generated constructor stub
+		super("--percolator","Specify the name and the fullname of a new percolator","-pp","-perc");
 	}
 
 	/**
@@ -43,20 +43,6 @@ public class TamagoCCPercolator implements LineParserSpec {
 	 */
 	public int getArity() {
 		return 2;
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#getCommand()
-	 */
-	public String getCommand() {
-		return "--percolator";
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#getDescription()
-	 */
-	public String getDescription() {
-		return "Specify the name and the fullname of a new percolator"; 
 	}
 
 	/**

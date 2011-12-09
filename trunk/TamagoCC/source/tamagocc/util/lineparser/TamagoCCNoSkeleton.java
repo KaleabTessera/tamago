@@ -12,12 +12,12 @@ import tamagocc.exception.LineParserException;
  * @author Hakim Belhaouari
  *
  */
-public class TamagoCCNoSkeleton implements LineParserSpec {
+public class TamagoCCNoSkeleton extends DefaultLineParserSpec {
 	/**
 	 * 
 	 */
 	public TamagoCCNoSkeleton() {
-		// TODO Auto-generated constructor stub
+		super("-noskeleton","indicates to TamagoCC do not generate skeleton of component/composite");
 	}
 
 	/**
@@ -28,45 +28,9 @@ public class TamagoCCNoSkeleton implements LineParserSpec {
 	}
 
 	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#getArity()
-	 */
-	public int getArity() {
-		return 0;
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#getCommand()
-	 */
-	public String getCommand() {
-		return "-noskeleton";
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#getDescription()
-	 */
-	public String getDescription() {
-		return "indicates to TamagoCC do not generate skeleton of component/composite";
-	}
-
-	/**
 	 * @see tamagocc.util.lineparser.LineParserSpec#immediateFire()
 	 */
 	public boolean immediateFire() {
 		return true;
 	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#isOptionnal()
-	 */
-	public boolean isOptionnal() {
-		return true;
-	}
-
-	/**
-	 * @see tamagocc.util.lineparser.LineParserSpec#setArgument(int, java.lang.String)
-	 */
-	public void setArgument(int pos, String value) throws LineParserException {
-		
-	}
-
 }
