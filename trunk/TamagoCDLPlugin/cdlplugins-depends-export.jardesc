@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <jardesc>
     <jar path="TamagoCDLPlugin/dist/cdlpluginlibs.jar"/>
     <options buildIfNeeded="true" compress="true" descriptionLocation="/TamagoCDLPlugin/cdlplugins-depends-export.jardesc" exportErrors="false" exportWarnings="true" includeDirectoryEntries="true" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
@@ -11,16 +11,21 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework.generic"/>
         <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework"/>
-        <javaElement handleIdentifier="=Tamago/src"/>
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework.parser"/>
-        <javaElement handleIdentifier="=TamagoCheck/src"/>
-        <javaElement handleIdentifier="=TamagoCC/source"/>
         <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework.parser.expr"/>
-        <javaElement handleIdentifier="=TamagoCSP/src"/>
+        <javaElement handleIdentifier="=TamagoCC/source"/>
+        <file path="/TamagoCC/CDLGrammarPop.txt"/>
+        <file path="/TamagoCC/TamagoNS.xsd"/>
         <javaElement handleIdentifier="=TamagoTest/src"/>
+        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework.generic.tool"/>
+        <javaElement handleIdentifier="=TamagoCheck/src"/>
+        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework.parser"/>
+        <javaElement handleIdentifier="=TamagoCSP/src"/>
+        <file path="/TamagoCC/TamagoCDL.xsl"/>
+        <file path="/TamagoCC/wordlist.txt"/>
         <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.utils"/>
-        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework.input"/>
         <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework.parser.tuple"/>
+        <javaElement handleIdentifier="=JavaPop2/src&lt;javapop.framework.input"/>
     </selectedElements>
 </jardesc>

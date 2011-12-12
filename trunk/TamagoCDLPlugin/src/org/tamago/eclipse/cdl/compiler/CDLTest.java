@@ -23,6 +23,7 @@ import tamagocc.TamagoCCParser;
 import tamagocc.api.TTamago;
 import tamagocc.generic.TamagoCCGPool;
 import tamagocc.logger.TamagoCCLogger;
+import tamagocc.parser.TamagoCCParserCDL;
 import tamagocc.percolation.TamagoCCPercolation;
 import tamagocc.util.TamagoCCPool;
 import tamagotest.TamagoTest;
@@ -110,7 +111,6 @@ public class CDLTest implements IRunnableWithProgress, TamagoTestUI {
 			pool.addTamagoCCPath(tamagoccpath);
 			TTamago tamago = null;
 			// --- nouveau code
-			CDLGrammar cdlgrammar = new CDLGrammar();
 			
 			try {
 				CDLEditorPlugin.getDefault().log("Generation of the abstract contract...");
@@ -119,29 +119,10 @@ public class CDLTest implements IRunnableWithProgress, TamagoTestUI {
 				byte[] b = new byte[dis.available()];
 				dis.readFully(b);
 				String str = new String(b);
-				ParseResult<TTamago> result = cdlgrammar.parse(new javapop.framework.input.StringParseInput(str));
+				tamago = TamagoCCParserCDL.parse(new javapop.framework.input.StringParseInput(str));
 				monitor.worked(1);
 				monitor.subTask("Parse file...");
-				if(result.isError()) {
-					CDLEditorPlugin.getDefault().log("End compilation with a SYNTAX ERROR.");
-					CDLEditorPlugin.getDefault().log(result.getErrorMessage());
-					CDLEditorPlugin.getDefault().log(result.getDetailedErrorMessage());
-					CDLEditorPlugin.getDefault().showConsole();
-					return;
-				}
-				else if(result.isNull()) {
-					CDLEditorPlugin.getDefault().log("End compilation with a empty node");
-					return;
-				}
-				else {
-					CDLEditorPlugin.getDefault().log("End compilation with success");
-					tamago = result.getResult();
-					pool.remove(tamago);
-					TamagoCCGPool.getDefaultTamagoCCGPool().remove(tamago.getName(), tamago.getModule());
-					TamagoCCPool.getDefaultPool().addEntry(tamago.getName(), tamago.getModule(), tamago);
-
-				}
-				//				CDLEditorPlugin.getDefault().log(node.toString());
+				CDLEditorPlugin.getDefault().log("End compilation with success");
 			}
 			catch(Exception e) {
 				CDLEditorPlugin.getDefault().log("End compilation with an exception");

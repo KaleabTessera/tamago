@@ -3,11 +3,6 @@
 	<name>TamagoCDLPlugin</name>
 	<comment></comment>
 	<projects>
-		<project>JavaPop2</project>
-		<project>Tamago</project>
-		<project>TamagoCC</project>
-		<project>TamagoCSP</project>
-		<project>TamagoTest</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

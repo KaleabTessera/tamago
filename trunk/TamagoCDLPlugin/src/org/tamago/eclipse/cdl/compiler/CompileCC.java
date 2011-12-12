@@ -3,14 +3,15 @@
  */
 package org.tamago.eclipse.cdl.compiler;
 
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.InvocationTargetException;
-
-import javapop.framework.ParseResult;
+import java.util.ArrayList;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.IWorkbench;
@@ -20,13 +21,14 @@ import org.tamago.eclipse.cdl.CDLEditorPlugin;
 
 import tamagocc.TamagoCCParser;
 import tamagocc.api.TTamago;
+import tamagocc.ast.api.AEntity;
 import tamagocc.exception.TamagoCCException;
 import tamagocc.generator.TamagoCCGenerator;
-import tamagocc.generator.TamagoCCGeneratorTargetLanguageBuilder;
 import tamagocc.generic.TamagoCCGPool;
 import tamagocc.generic.api.GTamagoEntity;
-import tamagocc.javasource.TamagoCCJavaSourceBuilder;
+import tamagocc.javasource.TamagoCCJavaStringSourceBuilder;
 import tamagocc.logger.TamagoCCLogger;
+import tamagocc.parser.TamagoCCParserCDL;
 import tamagocc.percolation.TamagoCCPercolation;
 import tamagocc.util.TamagoCCPool;
 
@@ -86,7 +88,6 @@ public class CompileCC implements IRunnableWithProgress {
 			pool.addTamagoCCPath(tamagoccpath);
 			TTamago tamago = null;
 			// --- nouveau code
-			CDLGrammar cdlgrammar = new CDLGrammar();
 			try {
 				CDLEditorPlugin.getDefault().log("Debut de la compilation");
 				FileInputStream fis = new FileInputStream(filecdl);
@@ -96,28 +97,7 @@ public class CompileCC implements IRunnableWithProgress {
 				String str = new String(b);
 				monitor.worked(1);
 				monitor.subTask("Parsing the CDL file...");
-				ParseResult<TTamago> result = cdlgrammar.parse(new javapop.framework.input.StringParseInput(str));
-				if(result.isError()) {
-					CDLEditorPlugin.getDefault().log("Fin de la compilation sur Erreur de SYNTAXE");
-					CDLEditorPlugin.getDefault().log(result.getErrorMessage());
-					CDLEditorPlugin.getDefault().log(result.getDetailedErrorMessage());
-					CDLEditorPlugin.getDefault().showConsole();
-					return;
-				}
-				else if(result.isNull()) {
-					CDLEditorPlugin.getDefault().log("Fin de la compilation sur un noeud NULL");
-					CDLEditorPlugin.getDefault().showConsole();
-					return;
-				}
-				else {
-					CDLEditorPlugin.getDefault().log("Fin de la compilation avec succes");
-					tamago = result.getResult();
-					pool.remove(tamago);
-					TamagoCCGPool.getDefaultTamagoCCGPool().remove(tamago.getName(), tamago.getModule());
-					TamagoCCPool.getDefaultPool().addEntry(tamago.getName(), tamago.getModule(), tamago);
-					
-				}
-//				CDLEditorPlugin.getDefault().log(node.toString());
+				tamago = TamagoCCParserCDL.parse(new javapop.framework.input.StringParseInput(str)); 
 			}
 			catch(Exception e) {
 				CDLEditorPlugin.getDefault().log("Fin de la compilation sur erreur");
@@ -129,16 +109,18 @@ public class CompileCC implements IRunnableWithProgress {
 			}
 			monitor.worked(1);
 			monitor.subTask("Analyze the parsed contract...");
-			TamagoCCGeneratorTargetLanguageBuilder builder = new TamagoCCJavaSourceBuilder();
+			TamagoCCJavaStringSourceBuilder builder = new TamagoCCJavaStringSourceBuilder();
             TamagoCCGPool gpool = TamagoCCGPool.getDefaultTamagoCCGPool();
             GTamagoEntity entity =  gpool.getGTamagoEntity(tamago);
             TamagoCCGenerator generator = new TamagoCCGenerator(builder,entity,outputdir,true,!skel,false);
-            
             monitor.worked(1);
 			monitor.subTask("Generation of necessary file...");
-			generator.generate();
-            
-            TamagoCCLogger.infoln(1,"---------------------------------------");
+			ArrayList<AEntity> entities = generator.generateAST();
+			for (AEntity e : entities) {
+				ByteArrayOutputStream stream = new ByteArrayOutputStream();
+				builder.getTargetLanguage(e, stream);
+			}
+			TamagoCCLogger.infoln(1,"---------------------------------------");
             TamagoCCLogger.infoln(0,"Generation des conteneurs reussit!");
             monitor.worked(1);
         }
