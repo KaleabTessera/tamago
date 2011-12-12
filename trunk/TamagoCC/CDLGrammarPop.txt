@@ -17,8 +17,8 @@
 // DEFINITION DES DIFFERENTS PARSEURS DE BASE
 // ==============================================================
 
-<ident:java.lang.String> := @regexp("[a-zA-Z_][a-zA-Z_0-9]*");
-<qualifident:java.lang.String> := @regexp("[a-zA-Z_][a-zA-Z_0-9]*([.][a-zA-Z_][a-zA-Z_0-9]*)*(\\[\\])?");
+<ident:java.lang.String> := @regexpwithoutkeywords("[a-zA-Z_][a-zA-Z_0-9]*");
+<qualifident:java.lang.String> := @regexpwithoutkeywords("[a-zA-Z_][a-zA-Z_0-9]*([.][a-zA-Z_][a-zA-Z_0-9]*)*(\\[\\])?");
 //@regexp("[a-zA-Z_]\\w*([.][a-zA-Z_]\\w*)*((\\[\\])|(<\\s*[a-zA-Z_]\\w*([.][a-zA-Z_]\\w*)*(\\s*,\\s*[a-zA-Z_]\\w*([.][a-zA-Z_]\\w*)*)*\\s*>))?");
 <type:tamagocc.api.TType> := @transform(convType,<qualifident>);
 
@@ -343,7 +343,8 @@
 	  	@list(<method>,"")
 	),""
 ),
-@maybe(<behavior>,getNull) 
+@maybe(<behavior>),
+@ignore(@literal("}")) 
 ));
 
 // ==============================================================

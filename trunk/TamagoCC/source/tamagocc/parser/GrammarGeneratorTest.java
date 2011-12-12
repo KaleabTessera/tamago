@@ -5,23 +5,10 @@ package tamagocc.parser;
 
 
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
-
-
-import tamagocc.exception.LineParserException;
-import tamagocc.logger.TamagoCCLogger;
-import tamagocc.util.TamagoCCMakeReadableGExpression;
-import tamagocc.util.lineparser.LineParser;
-import tamagocc.util.lineparser.TamagoCCDest;
-import tamagocc.util.lineparser.TamagoCCLogFile;
-import tamagocc.util.lineparser.TamagoCCLogLevel;
-import tamagocc.util.lineparser.TamagoCCNoServiceInterface;
-import tamagocc.util.lineparser.TamagoCCNoSkeleton;
-import tamagocc.util.lineparser.TamagoCCPathCmd;
-import tamagocc.util.lineparser.TamagoCCPercolator;
-import tamagocc.util.lineparser.TamagoCCSetXSD;
 
 import javapop.framework.DefaultParseContext;
 import javapop.framework.ParseInput;
@@ -30,7 +17,10 @@ import javapop.framework.generic.GenericGrammar;
 import javapop.framework.generic.GrammarTree;
 import javapop.framework.generic.tool.GrammarGenerator;
 import javapop.framework.generic.tool.GrammarVisitorException;
+import javapop.framework.generic.tool.SampleGenerator;
+import javapop.framework.generic.tool.SampleGeneratorAcceptedWordProvider;
 import javapop.framework.input.StringParseInput;
+import tamagocc.exception.LineParserException;
 
 /**
  * @author Hakim Belhaouari
@@ -39,8 +29,39 @@ import javapop.framework.input.StringParseInput;
 public class GrammarGeneratorTest {
 
 	private static GrammarGenerator gen;
-	
 	public static void main(String[] args) throws LineParserException, IOException {
+		try {
+			GenericGrammar generic = new GenericGrammar();
+			StringParseInput input = new StringParseInput(streamToString("CDLGrammarPop.txt"));
+			DefaultParseContext ctx = new DefaultParseContext();
+			ParseResult<?> obj = generic.parse(ctx,input);
+			if(obj.isError()) {
+				System.out.println(ctx.deepest().getDetailedErrorMessage());
+				System.out.println(ctx.deepest().getErrorMessage());
+				return;
+			}
+			else if(obj.isNull()) {
+				System.out.println("C un NULL");
+				return;
+			}
+			else {
+				List<GrammarTree> result = (List<GrammarTree>) obj.getResult();
+				File f = new File("wordlist.txt");
+				SampleGeneratorAcceptedWordProvider provider = new SampleGeneratorAcceptedWordProvider(f);
+				SampleGenerator sg = new SampleGenerator(result, "method",provider);
+				System.out.println(sg);
+				sg.generate("build");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (GrammarVisitorException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	public static void test(String[] args) throws LineParserException, IOException {
 		prepareCDLGrammar();
 		
 		
