@@ -7,6 +7,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 
@@ -26,6 +27,7 @@ import tamagocc.TamagoCCParser;
 import tamagocc.api.TTamago;
 import tamagocc.generic.TamagoCCGPool;
 import tamagocc.logger.TamagoCCLogger;
+import tamagocc.parser.CDLGrammarProvider;
 import tamagocc.parser.TamagoCCParserCDL;
 import tamagocc.percolation.TamagoCCPercolation;
 import tamagocc.util.TamagoCCPool;
@@ -66,8 +68,30 @@ public class CompileCDL implements IRunnableWithProgress {
 			TamagoCCParser parser = TamagoCCParser.getDefaultParser();
 			TamagoCCPercolation.initialisation();
 			parser.setTamagoCCPool(pool);
+			// on prepare la lecture
+			InputStream input  = getClass().getResourceAsStream("/dist/cdlpluginlibs.jar/CDLGrammarPop.txt");
+			CDLGrammarProvider.setCDLGrammar(input);
+			System.err.println("************************************************************************************");
+			System.err.println("************************************************************************************");
+			System.err.println("************************************************************************************");
+			System.err.println("************************************************************************************");
+			System.err.println("************************************************************************************");
+			System.err.println("************************************************************************************");
+			System.err.println("************************************************************************************");
+			System.err.println(input);
+			System.err.println("************************************************************************************");
+			System.err.println("************************************************************************************");
+			System.err.println("************************************************************************************");
+			System.err.println("************************************************************************************");
+			System.err.println("************************************************************************************");
+			System.err.println("************************************************************************************");
+			System.err.println("************************************************************************************");
+			System.err.println("************************************************************************************");
+			System.err.println("************************************************************************************");
+			System.err.println("************************************************************************************");
+			System.err.println("************************************************************************************");
 			
-
+			
 			TamagoCCLogger.setOut(CDLEditorPlugin.getDefault().getOutputStreamConsole());
 			TamagoCCLogger.setLevel(CDLEditorPlugin.getDefault().getDebugLevel());
 
