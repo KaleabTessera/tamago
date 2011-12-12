@@ -6,15 +6,19 @@ package tamagocc.parser;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import tamagocc.TamagoCC;
 import tamagocc.api.TTamago;
 import tamagocc.exception.LineParserException;
+import tamagocc.exception.ParseException;
 import tamagocc.exception.TamagoCCException;
+import tamagocc.generic.TamagoCCGPool;
 import tamagocc.logger.TamagoCCLogger;
 import tamagocc.percolation.TamagoCCPercolation;
 import tamagocc.util.TamagoCCPool;
@@ -30,6 +34,7 @@ import tamagocc.util.lineparser.TamagoCCPercolator;
 import tamagocc.util.lineparser.TamagoCCSetXSD;
 
 import javapop.framework.DefaultParseContext;
+import javapop.framework.ParseError;
 import javapop.framework.ParseInput;
 import javapop.framework.ParseResult;
 import javapop.framework.generic.GenericGrammar;
@@ -49,19 +54,39 @@ public class TamagoCCParserCDL {
 	
 	
 	private static String streamToString(String string) throws IOException {
-		DataInputStream dis =  new DataInputStream(new FileInputStream(string));
+			DataInputStream dis =  new DataInputStream(new FileInputStream(string));
+			StringBuilder sb = new StringBuilder();
+			byte[] b = new byte[2048];
+			while((dis.read(b)) >= 0) {
+				sb.append(new String(b));
+			} ;
+			return sb.toString();
+		
+	}
+	
+	private static String parseInputFromStream(InputStream stream) throws IOException {
+		DataInputStream dis =  new DataInputStream(stream);
 		StringBuilder sb = new StringBuilder();
 		byte[] b = new byte[2048];
 		while((dis.read(b)) >= 0) {
 			sb.append(new String(b));
-		} ;
+		}
 		return sb.toString();
 	}
 
 	public static void prepareCDLGrammar() {
+		if(gen != null)
+			return;
 		try {
 			GenericGrammar generic = new GenericGrammar();
-			StringParseInput input = new StringParseInput(streamToString("CDLGrammarPop.txt"));
+			String cdlcontract = "";
+			// on recherche une ressource
+			InputStream stream = TamagoCCParserCDL.class.getResourceAsStream("CDLGrammarPop.txt");
+			if(stream == null)
+				cdlcontract = streamToString("CDLGrammarPop.txt");
+			else
+				cdlcontract = parseInputFromStream(stream);
+			StringParseInput input = new StringParseInput(cdlcontract);
 			DefaultParseContext ctx = new DefaultParseContext();
 			ParseResult<?> obj = generic.parse(ctx,input);
 			if(obj.isError()) {
@@ -86,7 +111,26 @@ public class TamagoCCParserCDL {
 		}
 	}
 	
-	
+	public static TTamago parse(ParseInput input) throws ParseException {
+		prepareCDLGrammar();
+		ParseResult<?> tree = gen.parse(input);
+		if(tree.isError()) {
+			TamagoCCLogger.println(1,tree.toString());
+			throw new ParseException("compilation failed :"+tree.toString());
+		}
+		else if(tree.isNull()){
+			
+			throw new ParseException("compilation end on a NULL node");
+		}
+		else {
+			TTamago tamago = (TTamago) tree.getResult();
+			TamagoCCPool.getDefaultPool().remove(tamago);
+			TamagoCCGPool.getDefaultTamagoCCGPool().remove(tamago.getName(), tamago.getModule());
+			TamagoCCPool.getDefaultPool().addEntry(tamago.getName(), tamago.getModule(), tamago);
+			return tamago;
+		}
+		
+	}
 	
 	/**
 	 * @param args

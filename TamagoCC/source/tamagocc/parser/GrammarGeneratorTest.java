@@ -48,7 +48,7 @@ public class GrammarGeneratorTest {
 				List<GrammarTree> result = (List<GrammarTree>) obj.getResult();
 				File f = new File("wordlist.txt");
 				SampleGeneratorAcceptedWordProvider provider = new SampleGeneratorAcceptedWordProvider(f);
-				SampleGenerator sg = new SampleGenerator(result, "method",provider);
+				SampleGenerator sg = new SampleGenerator(result, "states",provider);
 				System.out.println(sg);
 				sg.generate("build");
 			}
