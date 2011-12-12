@@ -79,14 +79,14 @@ public class TamagoCCParserCDL {
 			return;
 		try {
 			GenericGrammar generic = new GenericGrammar();
-			String cdlcontract = "";
-			// on recherche une ressource
-			InputStream stream = TamagoCCParserCDL.class.getResourceAsStream("CDLGrammarPop.txt");
+			ParseInput input = CDLGrammarProvider.getCDLGrammar();
+			/*// on recherche une ressource
+			InputStream stream = cdlcontract.getClass().getResourceAsStream("CDLGrammarPop.txt");
 			if(stream == null)
 				cdlcontract = streamToString("CDLGrammarPop.txt");
 			else
 				cdlcontract = parseInputFromStream(stream);
-			StringParseInput input = new StringParseInput(cdlcontract);
+			StringParseInput input = new StringParseInput(cdlcontract); */
 			DefaultParseContext ctx = new DefaultParseContext();
 			ParseResult<?> obj = generic.parse(ctx,input);
 			if(obj.isError()) {
@@ -104,8 +104,6 @@ public class TamagoCCParserCDL {
 				gen.init(result);
 				
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (GrammarVisitorException e) {
 			e.printStackTrace();
 		}
