@@ -4,7 +4,7 @@
 // DEFINITION DES META BALISES
 // ==============================================================
 
-@meta(grammar, "Testgrammar");
+@meta(grammar, "tamagocc.parser.CDLGrammarConverter");
 @meta(start, "tamago");
 
 // ==============================================================
@@ -17,28 +17,17 @@
 // DEFINITION DES DIFFERENTS PARSEURS DE BASE
 // ==============================================================
 
-<ident:java.lang.String> := @regexp("[a-zA-Z_]\w*");
-//<qualifident:java.lang.String> := @regexp("[a-zA-Z_]\w*([.][a-zA-Z_]\w*)*(\[\])?");
-<qualifident:java.lang.String> := @regexp("[a-zA-Z_]\\w*([.][a-zA-Z_]\\w*)*((\\[\\])|(<\\s*[a-zA-Z_]\\w*([.][a-zA-Z_]\\w*)*(\\s*,\\s*[a-zA-Z_]\\w*([.][a-zA-Z_]\\w*)*)*\\s*>))?");
+<ident:java.lang.String> := @regexpwithoutkeywords("[a-zA-Z_][a-zA-Z_0-9]*");
+<qualifident:java.lang.String> := @regexpwithoutkeywords("[a-zA-Z_][a-zA-Z_0-9]*([.][a-zA-Z_][a-zA-Z_0-9]*)*(\\[\\])?");
+//@regexp("[a-zA-Z_]\\w*([.][a-zA-Z_]\\w*)*((\\[\\])|(<\\s*[a-zA-Z_]\\w*([.][a-zA-Z_]\\w*)*(\\s*,\\s*[a-zA-Z_]\\w*([.][a-zA-Z_]\\w*)*)*\\s*>))?");
 <type:tamagocc.api.TType> := @transform(convType,<qualifident>);
 
 // ==============================================================
 // DEFINITION DES DIFFERENTS PARSEURS D'EXPRESSIONS (PRE/POST)
 // ==============================================================
 
-// expression arith simple
-@def_expr_parser(arith);
-@expr_bracket(arith,"(",")");
-
-@def_expr_parser(arithpost);
-@expr_bracket(arithpost,"(",")");
-
-// expression relationnel
-@def_expr_parser(rel);
-@expr_bracket(rel,"(",")");
-
-@def_expr_parser(relpost);
-@expr_bracket(relpost,"(",")");
+// expression arith simple -> finalement coulé dans les expressions pour pb de recursivité
+// expression relationnel -> finalement coulé dans les arith pour pb de recusivité a gauche
 
 // expression logique/booleenne (seule unite qui compte dans Tamago-CDL)
 @def_expr_parser(expr);
@@ -59,9 +48,8 @@
 
 <bool:org.tamago.eclipse.cdl.compiler.cdlast.CDLBool> := @transform(convBoolean,@choice(@literal("true"),@literal("false")));
 <int:org.tamago.eclipse.cdl.compiler.cdlast.CDLInteger> := @transform(convInteger,@regexp("(-)?([0-9]+)"));
-<real:org.tamago.eclipse.cdl.compiler.cdlast.CDLReal> := @transform(convReal,@regexp("[0-9]+([.][0-9]+((e|E)([+]|[-])?[0-9]+)?)?")); 
-// TODO probleme des strings
-<string:org.tamago.eclipse.cdl.compiler.cdlast.CDLString> := @transform(convString,@regexp(".*"));
+<real:org.tamago.eclipse.cdl.compiler.cdlast.CDLReal> := @transform(convReal,@regexp("(-)?[0-9]+((([.][0-9]+)|((e|E)[+-]?[0-9]+))|([.][0-9]+(e|E)[+-]?[0-9]+))")); 
+<string:org.tamago.eclipse.cdl.compiler.cdlast.CDLString> := @transform(convString,@regexp("\"[^\"]*\""));
 
 <sprop:org.tamago.eclipse.cdl.compiler.cdlast.CDLRead> := @transform(convRead,@seq(@ignore(@literal("#")),<ident>));
 <svar:org.tamago.eclipse.cdl.compiler.cdlast.CDLVariable> := @transform(convVar,<ident>);
@@ -74,25 +62,19 @@
 // DEFINITION DES PARSEURS D'EXPRESSIONS PRE/INVARIANT
 // ==============================================================
 
-<varidx:org.tamago.eclipse.cdl.compiler.cdlast.CDLVariable> := @transform(convVarIdx,@seq(<ident>,@ignore(@literal("[")), <arith>, @ignore(@literal("]")) ));
-<var:org.tamago.eclipse.cdl.compiler.cdlast.CDLVariable> := @choice(<svar>,<varidx>);
+<varidx:org.tamago.eclipse.cdl.compiler.cdlast.CDLVariable> := @transform(convVarIdx,@seq(<ident>,@ignore(@literal("[")), <expr>, @ignore(@literal("]")) ));
+<var:org.tamago.eclipse.cdl.compiler.cdlast.CDLVariable> := @choice(<varidx>,<svar>);
 
-<propidx:org.tamago.eclipse.cdl.compiler.cdlast.CDLRead> := @transform(convReadIdx,@seq(@ignore(@literal("#")),<ident>,@ignore(@literal("[")), <arith>, @ignore(@literal("]")) ));
-<prop:org.tamago.eclipse.cdl.compiler.cdlast.CDLRead> := @choice(<sprop>,<propidx>);
+<propidx:org.tamago.eclipse.cdl.compiler.cdlast.CDLRead> := @transform(convReadIdx,@seq(@ignore(@literal("#")),<ident>,@ignore(@literal("[")), <expr>, @ignore(@literal("]")) ));
+<prop:org.tamago.eclipse.cdl.compiler.cdlast.CDLRead> := @choice(<propidx>,<sprop>);
 
-<cast1:org.tamago.eclipse.cdl.compiler.cdlast.CDLCast> := @transform(convCast,@seq(@ignore(@literal("|")),<qualifident>,@ignore(@literal("|")),<arith>));
-<cast2:org.tamago.eclipse.cdl.compiler.cdlast.CDLCast> := @transform(convCast,@seq(@ignore(@literal("(")),<qualifident>,@ignore(@literal(")")),<arith>));
+<cast1:org.tamago.eclipse.cdl.compiler.cdlast.CDLCast> := @transform(convCast,@seq(@ignore(@literal("|")),<qualifident>,@ignore(@literal("|")),<expr>));
+<cast2:org.tamago.eclipse.cdl.compiler.cdlast.CDLCast> := @transform(convCast,@seq(@ignore(@literal("(")),<qualifident>,@ignore(@literal(")")),<expr>));
 <cast:org.tamago.eclipse.cdl.compiler.cdlast.CDLCast> := @choice(<cast1>,<cast2>);
 
 <callarith:org.tamago.eclipse.cdl.compiler.cdlast.CDLCall> := @transform(convCall, @seq(<ident>,@ignore(@literal("(")),@list(<expr>,","),@ignore(@literal(")")) ) );
 
-@def_expr_parser(subexpr);
-@expr_operand(subexpr,<prop>);
-@expr_operand(subexpr,<var>);
-@expr_operand(subexpr,<callarith>);
-@expr_operator(subexpr,infix,left,1000, @transform(convOperatorInfix,@literal(".")));
-<inlabel:org.tamago.eclipse.cdl.compiler.cdlast.CDLInLabel> := @transform(convInLabel, <subexpr> );
-
+<inlabel:org.tamago.eclipse.cdl.compiler.cdlast.CDLInLabel> := @transform(convInLabel, @seq(@choice(<prop>,<var>,<callarith>),@ignore(@literal(".")), @choice(<prop>,<var>,<callarith>,<inlabel>) ) );
 
 <quantset:org.tamago.eclipse.cdl.compiler.cdlast.CDLQSet> := @transform(convQSet,@seq(<quant>,<ident>,@ignore(@literal(":")),<qualifident>,@ignore(<in>),
 	@ignore(@literal("[")),@list(<expr>,","),@ignore(@literal("]")),@ignore(@literal("{")),<expr>,@ignore(@literal("}")) ));
@@ -101,40 +83,39 @@
 	<expr>,@ignore(@literal("{")),<expr>,@ignore(@literal("}")) ));
 
 <quantrange:org.tamago.eclipse.cdl.compiler.cdlast.CDLQRange> := @transform(convQRange,@seq(<quant>,<ident>,@ignore(@literal(":")),<qualifident>,@ignore(<in>),
-	<arith>,@ignore(@literal("..")),<arith>,@ignore(@literal("{")),<expr>,@ignore(@literal("}")) ));
+	<expr>,@ignore(@literal("..")),<expr>,@ignore(@literal("{")),<expr>,@ignore(@literal("}")) ));
 
 
+@expr_operand(expr,<bool>);
+@expr_operand(expr,<real>);
+@expr_operand(expr,<int>);
+@expr_operand(expr,<nil>);
+@expr_operand(expr,<cast>);
 
-@expr_operand(arith,<int>);
-@expr_operand(arith,<real>);
-@expr_operand(arith,<cast>);
-@expr_operand(arith,<string>);
-@expr_operand(arith,<inlabel>);
-@expr_operand(arith,<prop>);
-@expr_operand(arith,<var>);
-@expr_operand(arith,<callarith>);
-@expr_operand(arith,<nil>);
-
-@expr_operator(arith,infix,left,30, @transform(convOperatorInfix,@literal("+")));
-@expr_operator(arith,infix,left,60, @transform(convOperatorInfix,@literal("*")));
-@expr_operator(arith,infix,left,60, @transform(convOperatorInfix,@literal("/")));
-@expr_operator(arith,infix,left,30, @transform(convOperatorInfix,@literal("-")));
-@expr_operator(arith,infix,left,50, @transform(convOperatorInfix,@literal("%")));
-
-@expr_operand(rel,<arith>);
-
-@expr_operator(rel,infix,left,20, @transform(convOperatorInfix,@literal("<")));
-@expr_operator(rel,infix,left,20, @transform(convOperatorInfix,@literal("<=")));
-@expr_operator(rel,infix,left,20, @transform(convOperatorInfix,@literal("==")));
-@expr_operator(rel,infix,left,20, @transform(convOperatorInfix,@literal(">=")));
-@expr_operator(rel,infix,left,20, @transform(convOperatorInfix,@literal(">")));
-@expr_operator(rel,infix,left,20, @transform(convOperatorInfix,@literal("<>")));
-@expr_operator(rel,infix,left,20, @transform(convOperatorInfix,@literal("!=")));
-
-@expr_operand(expr,<rel>);
 @expr_operand(expr,<quantset>);
 @expr_operand(expr,<quantrange>);
 @expr_operand(expr,<quantcoll>);
+
+@expr_operand(expr,<inlabel>);
+@expr_operand(expr,<prop>);
+@expr_operand(expr,<var>);
+@expr_operand(expr,<callarith>);
+@expr_operand(expr,<string>);
+
+
+@expr_operator(expr,infix,left,30, @transform(convOperatorInfix,@literal("+")));
+@expr_operator(expr,infix,left,60, @transform(convOperatorInfix,@literal("*")));
+@expr_operator(expr,infix,left,60, @transform(convOperatorInfix,@literal("/")));
+@expr_operator(expr,infix,left,30, @transform(convOperatorInfix,@literal("-")));
+@expr_operator(expr,infix,left,50, @transform(convOperatorInfix,@literal("%")));
+
+@expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("<>")));
+@expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("<=")));
+@expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("<")));
+@expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("==")));
+@expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal(">=")));
+@expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal(">")));
+@expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("!=")));
 
 @expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("&&")));
 @expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("and")));
@@ -154,10 +135,10 @@
 // DEFINITION DES PARSEURS D'EXPRESSIONS POST
 // ==============================================================
 
-<varidxpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLVariable> := @transform(convVarIdx,@seq(<ident>,@ignore(@literal("[")), <arithpost>, @ignore(@literal("]")) ));
+<varidxpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLVariable> := @transform(convVarIdx,@seq(<ident>,@ignore(@literal("[")), <exprpost>, @ignore(@literal("]")) ));
 <varpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLVariable> := @choice(<svar>,<varidxpost>);
 
-<propidxpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLRead> := @transform(convReadIdx,@seq(@ignore(@literal("#")),<ident>,@ignore(@literal("[")), <arithpost>, @ignore(@literal("]")) ));
+<propidxpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLRead> := @transform(convReadIdx,@seq(@ignore(@literal("#")),<ident>,@ignore(@literal("[")), <exprpost>, @ignore(@literal("]")) ));
 <proppost:org.tamago.eclipse.cdl.compiler.cdlast.CDLRead> := @choice(<sprop>,<propidxpost>);
 
 <cast1post:org.CDLCast> := @transform(convCast,@seq(@ignore(@literal("|")),<qualifident>,@ignore(@literal("|")),<exprpost>));
@@ -166,14 +147,7 @@
 
 <callpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLCall> := @transform(convCall, @seq(<ident>,@ignore(@literal("(")),@list(<exprpost>,","),@ignore(@literal(")")) ) );
 
-@def_expr_parser(subexprpost);
-@expr_operand(subexprpost,<proppost>);
-@expr_operand(subexprpost,<varpost>);
-@expr_operand(subexprpost,<callpost>);
-@expr_operator(subexprpost,infix,left,1000, @transform(convOperatorInfix,@literal(".")));
-@expr_operator(subexprpost,postfix,left,2000, @transform(convAtPre,@literal("@pre")));
-<inlabelpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLInLabel> := @transform(convInLabel, <subexprpost> );
-//<inlabelpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLInLabel> := @transform(convInLabel, @seq(<subexprpost>,@ignore(@literal(".")), <subexprpost>) );
+<inlabelpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLInLabel> := @transform(convInLabel, @seq(@choice(<proppost>,<varpost>,<callpost>),@ignore(@literal(".")), @choice(<proppost>,<varpost>,<callpost>,<inlabelpost>) ) );
 
 <return:org.tamago.eclipse.cdl.compiler.cdlast.CDLReturn> := @transform(convReturn,@literal("@return"));
 
@@ -184,42 +158,39 @@
 	<exprpost>,@ignore(@literal("{")),<exprpost>,@ignore(@literal("}")) ));
 
 <quantrangepost:org.tamago.eclipse.cdl.compiler.cdlast.CDLQRange> := @transform(convQRange,@seq(<quant>,<ident>,@ignore(@literal(":")),<qualifident>,@ignore(<in>),
-	<arithpost>,@ignore(@literal("..")),<arithpost>,@ignore(@literal("{")),<exprpost>,@ignore(@literal("}")) ));
+	<exprpost>,@ignore(@literal("..")),<exprpost>,@ignore(@literal("{")),<exprpost>,@ignore(@literal("}")) ));
 
-
-
-@expr_operand(arithpost,<int>);
-@expr_operand(arithpost,<real>);
-@expr_operand(arithpost,<castpost>);
-@expr_operand(arithpost,<string>);
-@expr_operand(arithpost,<inlabelpost>);
-@expr_operand(arithpost,<proppost>);
-@expr_operand(arithpost,<varpost>);
-@expr_operand(arithpost,<callpost>);
-@expr_operand(arithpost,<nil>);
-@expr_operand(arithpost,<return>);
-
-@expr_operator(arithpost,infix,left,30, @transform(convOperatorInfix,@literal("+")));
-@expr_operator(arithpost,infix,left,60, @transform(convOperatorInfix,@literal("*")));
-@expr_operator(arithpost,infix,left,60, @transform(convOperatorInfix,@literal("/")));
-@expr_operator(arithpost,infix,left,30, @transform(convOperatorInfix,@literal("-")));
-@expr_operator(arithpost,infix,left,50, @transform(convOperatorInfix,@literal("%")));
-@expr_operator(arithpost,postfix,right,50, @transform(convAtPre,@literal("@pre")));
-
-@expr_operand(relpost,<arithpost>);
-
-@expr_operator(relpost,infix,left,20, @transform(convOperatorInfix,@literal("<")));
-@expr_operator(relpost,infix,left,20, @transform(convOperatorInfix,@literal("<=")));
-@expr_operator(relpost,infix,left,20, @transform(convOperatorInfix,@literal("==")));
-@expr_operator(relpost,infix,left,20, @transform(convOperatorInfix,@literal(">=")));
-@expr_operator(relpost,infix,left,20, @transform(convOperatorInfix,@literal(">")));
-@expr_operator(relpost,infix,left,20, @transform(convOperatorInfix,@literal("<>")));
-@expr_operator(relpost,infix,left,20, @transform(convOperatorInfix,@literal("!=")));
-
-@expr_operand(exprpost,<relpost>);
+@expr_operand(exprpost,<bool>);
+@expr_operand(exprpost,<real>);
+@expr_operand(exprpost,<int>);
+@expr_operand(exprpost,<castpost>);
+@expr_operand(exprpost,<nil>);
 @expr_operand(exprpost,<quantsetpost>);
 @expr_operand(exprpost,<quantrangepost>);
 @expr_operand(exprpost,<quantcollpost>);
+@expr_operand(exprpost,<inlabelpost>);
+@expr_operand(exprpost,<callpost>);
+@expr_operand(exprpost,<return>);
+@expr_operand(exprpost,<string>);
+@expr_operand(exprpost,<proppost>);
+@expr_operand(exprpost,<varpost>);
+
+
+@expr_operator(exprpost,infix,left,30, @transform(convOperatorInfix,@literal("+")));
+@expr_operator(exprpost,infix,left,60, @transform(convOperatorInfix,@literal("*")));
+@expr_operator(exprpost,infix,left,60, @transform(convOperatorInfix,@literal("/")));
+@expr_operator(exprpost,infix,left,30, @transform(convOperatorInfix,@literal("-")));
+@expr_operator(exprpost,infix,left,50, @transform(convOperatorInfix,@literal("%")));
+
+@expr_operator(exprpost,postfix,right,200, @transform(convAtPre,@literal("@pre")));
+
+@expr_operator(exprpost,infix,left,20, @transform(convOperatorInfix,@literal("<")));
+@expr_operator(exprpost,infix,left,20, @transform(convOperatorInfix,@literal("<=")));
+@expr_operator(exprpost,infix,left,20, @transform(convOperatorInfix,@literal("==")));
+@expr_operator(exprpost,infix,left,20, @transform(convOperatorInfix,@literal(">=")));
+@expr_operator(exprpost,infix,left,20, @transform(convOperatorInfix,@literal(">")));
+@expr_operator(exprpost,infix,left,20, @transform(convOperatorInfix,@literal("<>")));
+@expr_operator(exprpost,infix,left,20, @transform(convOperatorInfix,@literal("!=")));
 
 @expr_operator(exprpost,infix,left,10, @transform(convOperatorInfix,@literal("&&")));
 @expr_operator(exprpost,infix,left,10, @transform(convOperatorInfix,@literal("and")));
@@ -239,7 +210,7 @@
 // DEFINITION DES PARSEURS DE BEHAVIOR
 // ==============================================================
 <behavior:tamagocc.api.TBehavior> := @transform(convBehavior,@seq(@ignore(@literal("behavior")),
-	@ignore(@literal("{")),@maybe(<defaultState>,getNull),<states>,<transitions>,@ignore(@literal("}")) ));
+	@ignore(@literal("{")),@maybe(<defaultState>),<states>,<transitions>,@ignore(@literal("}")) ));
 <defaultState:java.lang.String> := @seq(@ignore(@literal("default")),@ignore(@literal("state")),<ident>,@ignore(@literal(";")) );
 
 <states:java.util.Collection<tamagocc.api.TState>> := @transform(convStates,@seq(@ignore(@literal("states")), @ignore(@literal("{")), @list(<state>,""), @ignore(@literal("}")) ) );
@@ -248,7 +219,7 @@
 
 <transitions:java.util.Collection<tamagocc.api.TTransition>> := @transform(convTransitions,@seq(@ignore(@literal("transitions")),
 	@ignore(@literal("{")), @list(<transition>,""), @ignore(@literal("}")) )); 
-<transition1:tamagocc.api.TTransition> := @transform(convTransition,@seq(@ignore(@literal("transition")),@ignore(@literal("from")),<ident>,
+<transition1:tamagocc.api.TTransition> := @transform(convTransitionG,@seq(@ignore(@literal("transition")),@ignore(@literal("from")),<ident>,
 	@ignore(@literal("to")), <ident>,@ignore(@literal("with")),<ident>, @ignore(@literal("when")),<expr>, @ignore(@literal(";")) ));
 <transition2:tamagocc.api.TTransition> := @transform(convTransition,@seq(@ignore(@literal("transition")),@ignore(@literal("from")),<ident>,
 	@ignore(@literal("to")), <ident>,@ignore(@literal("with")),<ident>, @ignore(@literal(";")) ));
@@ -259,7 +230,7 @@
 // ==============================================================
 <method:tamagocc.api.TMethod> := @transform(convMethod,@seq(@ignore(@literal("method")), <qualifident>,<ident>,@ignore(@literal("(")),
 	@list(<parameter>,","),@ignore(@literal(")")),@ignore(@literal("{")),
-	@maybe(<methodid>,getNull),@maybe(<precondition>,getNull),@maybe(<postcondition>,getNull),@ignore(@literal("}"))));
+	@maybe(<methodid>),@maybe(<precondition>),@maybe(<postcondition>),@ignore(@literal("}"))));
 	
 <precondition:tamagocc.api.TCondition> := @transform(convCondition,@choice(
 	@seq( @ignore(@literal("pre")), <preexpr>, @ignore(@literal("fail")), <string>, @ignore(@literal(";")) ),
@@ -277,7 +248,7 @@
 // DEFINITION DES PARSEURS DE PROPRIETES
 // ==============================================================
 
-<property:tamagocc.api.TProperty> := @transform(convProperty,@seq(@ignore(@literal("property")),<access>,<type>,<ident>));
+<property:tamagocc.api.TProperty> := @transform(convProperty,@seq(@ignore(@literal("property")),<access>,<type>,<ident>, @ignore(@literal(";")) ));
 	
 <access:tamagocc.api.TAccess> := @transform(convAccess,@regexp("readwrite|read|write"));
 
@@ -295,7 +266,7 @@
 
 <module:java.lang.String> := @transform(convModule, @seq(@ignore(@literal("module")), <qualifident>, @ignore(@literal(";")) ));
 
-<invariant:tamagocc.api.TCondition> := @transform(convCondition,@choice(
+<invariant:tamagocc.api.TInvariant> := @transform(convInvariant,@choice(
 	@seq( @ignore(@literal("invariant")), <preexpr>, @ignore(@literal("fail")), <string>, @ignore(@literal(";")) ),
 	@seq( @ignore(@literal("invariant")), <preexpr>, @ignore(@literal(";"))) ));
 
@@ -305,7 +276,7 @@
 <include:tamagocc.api.TIncludeService> := @transform(convInclude,@seq(@ignore(@literal("include")),
 	@ignore(@literal("service")), <ident>,@ignore(@literal("module")), <qualifident>,@ignore(@literal(";")) ));
 
-<refine:tamagocc.api.TRefineService> := @transform(convRefine,@seq(@ignore(@literal("include")),
+<refine:tamagocc.api.TRefineService> := @transform(convRefine,@seq(@ignore(@literal("refine")),
 	@ignore(@literal("service")), <ident>,@ignore(@literal("module")), <qualifident>,@ignore(@literal(";")) ));
 
 <extension:tamagocc.api.TExtendService> := @choice(<refine>,<include>);
@@ -323,17 +294,15 @@
 
 <service:tamagocc.api.TService> := @transform(convService,@seq(
 <module>, @list(<usingnamespace>,""),
-@ignore(@literal("service")),<ident>, @ignore(@literal("{")),
-@list(
-	@choice(
-		@list(<impl>,"") , 
-	  	@list(<extension>,""),
-	  	@list(<property>,""),
-	  	@list(<invariant>,""),
-	  	@list(<method>,"")
-	),""
-),
-@maybe(<behavior>,getNull) 
+@ignore(@literal("service")),<ident>, 
+@ignore(@literal("{")),
+	@list(<impl>,"") , 
+	@list(<extension>,""),
+	@list(<property>,""),
+	@list(<invariant>,""),
+	@list(<method>,""),
+	@maybe(<behavior>),
+@ignore(@literal("}")) 
 ));
 
 // ==============================================================
@@ -374,7 +343,8 @@
 	  	@list(<method>,"")
 	),""
 ),
-@maybe(<behavior>,getNull) 
+@maybe(<behavior>),
+@ignore(@literal("}")) 
 ));
 
 // ==============================================================

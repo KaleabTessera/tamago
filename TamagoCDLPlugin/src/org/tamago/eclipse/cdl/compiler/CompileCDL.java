@@ -26,6 +26,7 @@ import tamagocc.TamagoCCParser;
 import tamagocc.api.TTamago;
 import tamagocc.generic.TamagoCCGPool;
 import tamagocc.logger.TamagoCCLogger;
+import tamagocc.parser.TamagoCCParserCDL;
 import tamagocc.percolation.TamagoCCPercolation;
 import tamagocc.util.TamagoCCPool;
 import tamagocc.util.TamagoCCToXml;
@@ -73,7 +74,6 @@ public class CompileCDL implements IRunnableWithProgress {
 			pool.addTamagoCCPath(outputdir);
 			TTamago tamago = null;
 			// --- nouveau code
-			CDLGrammar cdlgrammar = new CDLGrammar();
 				CDLEditorPlugin.getDefault().log("Debut de la génération du fichier XML");
 				FileInputStream fis = new FileInputStream(in);
 				DataInputStream dis = new DataInputStream(fis);
@@ -82,35 +82,15 @@ public class CompileCDL implements IRunnableWithProgress {
 				String str = new String(b);
 				monitor.worked(1);
 				monitor.subTask("Parsing the CDL file...");
-				ParseContext<?> ctx = new DefaultParseContext();
-				ParseResult<TTamago> result = cdlgrammar.parse(ctx,new javapop.framework.input.StringParseInput(str));
-				if(result.isError()) {
-					CDLEditorPlugin.getDefault().log("Fin de la compilation sur Erreur de SYNTAXE");
-					
-					CDLEditorPlugin.getDefault().log(result.getErrorMessage());
-					CDLEditorPlugin.getDefault().log(result.getDetailedErrorMessage());
-					CDLEditorPlugin.getDefault().showConsole();
-					return;
-				}
-				else if(result.isNull()) {
-					CDLEditorPlugin.getDefault().log("Fin de la compilation sur un noeud NULL");
-					CDLEditorPlugin.getDefault().showConsole();
-					return;
-				}
-				else {
-					CDLEditorPlugin.getDefault().log("Fin de la compilation avec succes");
-					tamago = result.getResult();
-					pool.remove(tamago);
-					TamagoCCGPool.getDefaultTamagoCCGPool().remove(tamago.getName(), tamago.getModule());
-					TamagoCCPool.getDefaultPool().addEntry(tamago.getName(), tamago.getModule(), tamago);
-					FileOutputStream fos = new FileOutputStream(output);
-					monitor.worked(1);
-					monitor.subTask("Generation of the abstract contract...");
-					TamagoCCToXml.generateXMLFile(tamago, fos);
-					TamagoCCLogger.infoln(1,"---------------------------------------");
-					TamagoCCLogger.infoln(0,"Generation du contrat XML réussit!");
-					monitor.worked(1);
-				}
+				tamago = TamagoCCParserCDL.parse(new javapop.framework.input.StringParseInput(str));
+				CDLEditorPlugin.getDefault().log("Fin de la compilation avec succes");
+				FileOutputStream fos = new FileOutputStream(output);
+				monitor.worked(1);
+				monitor.subTask("Generation of the abstract contract...");
+				TamagoCCToXml.generateXMLFile(tamago, fos);
+				TamagoCCLogger.infoln(1,"---------------------------------------");
+				TamagoCCLogger.infoln(0,"Generation du contrat XML réussit!");
+				monitor.worked(1);
 		}
 		catch(Throwable e) {
 			CDLEditorPlugin.getDefault().log("Fin de la compilation sur erreur");
