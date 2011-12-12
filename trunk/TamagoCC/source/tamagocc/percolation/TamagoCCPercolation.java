@@ -50,6 +50,9 @@ public abstract class TamagoCCPercolation {
 	private static Hashtable<String,Class<TamagoCCPercolation>> tablepercolator;
 	
 	public static void initialisation() throws TamagoCCException {
+		if(tablepercolator != null)
+			return;
+		
 		tablepercolator = new Hashtable<String,Class<TamagoCCPercolation>>();
 		// Ajout des percolators interne a la plate forme
 		addPercolator("plugin","tamagocc.percolation.TamagoCCPercolatorplugin");

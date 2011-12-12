@@ -3,8 +3,8 @@
  */
 package tamagocc.javasource;
  
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -100,7 +100,7 @@ import tamagocc.util.TamagoFreshVar;
  * @author Hakim Belhaouari
  *
  */
-public class TamagoCCJavaSource extends TamagoCCGeneratorTargetLanguage {
+public class TamagoCCJavaStringSource extends TamagoCCGeneratorTargetLanguage {
 
 	
 	private static int num = 0;
@@ -110,47 +110,22 @@ public class TamagoCCJavaSource extends TamagoCCGeneratorTargetLanguage {
 	
 	public enum PrintResult { COMMENT,BLOCK,INSTRUCTION,EXPRESSION,NOINSTRUCTION }
 	
-	File source;
-	OutputStream fos;
-	File directory;
 	TamagoCCIndentator indent;
 	
-	private transient AMethod visit; 
+	private transient AMethod visit;
+
+	private OutputStream fos; 
 	/**
 	 * @param entity
 	 */
-	public TamagoCCJavaSource(AEntity entity,File directory)
+	public TamagoCCJavaStringSource(AEntity entity,OutputStream stream)
 		throws TamagoCCException
 	{
 		super(entity);
 	
-		this.directory = directory;
-		
 		visit = null;
-		
-		source = null;
-		fos = null;
 		indent = null;
-		
-		try {
-			getIndent();
-		}
-		catch(TamagoCCException te) {
-			throw te;
-		}
-		catch(Exception exc) {
-			throw new TamagoCCException(exc);
-		}
-	}
-
-	public TamagoCCJavaSource(AEntity entity, OutputStream stream)
-		throws TamagoCCException
-	{
-		super(entity);
-		this.directory = null;
-		source = null;
 		fos = stream;
-		indent = null;
 		
 		try {
 			getIndent();
@@ -165,8 +140,6 @@ public class TamagoCCJavaSource extends TamagoCCGeneratorTargetLanguage {
 
 	private String convertModuleToDirectory() {
 		String module = this.target.getModule().getFullName();
-		
-
 		String path = module.replace('.',File.separatorChar);
 		return path;
 	}
@@ -203,7 +176,8 @@ public class TamagoCCJavaSource extends TamagoCCGeneratorTargetLanguage {
 	 * @see tamagocc.generator.TamagoCCGeneratorTargetLanguage#getFinalDestination()
 	 */
 	public File getFinalDestination() throws TamagoCCException {
-		if(source == null) {
+		return null;
+		/*if(source == null) {
 			File rep = new File(directory,convertModuleToDirectory());
 			rep.mkdirs();
 			source = new File(rep,generateFilename()+".java"); 
@@ -220,7 +194,7 @@ public class TamagoCCJavaSource extends TamagoCCGeneratorTargetLanguage {
 				throw new TamagoCCException(ioe);
 			}
 		}
-		return source;
+		return source;*/
 	}
 
 	/**
@@ -228,7 +202,7 @@ public class TamagoCCJavaSource extends TamagoCCGeneratorTargetLanguage {
 	 */
 	public OutputStream getFinalDestinationStream() throws TamagoCCException,IOException{
 		if(fos == null) {
-			fos = new FileOutputStream(getFinalDestination());
+			fos = new ByteArrayOutputStream();
 		}
 		return fos;
 	}

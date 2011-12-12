@@ -22,9 +22,10 @@
 		<property name="build" value="bin" />
 		<property name="source" value="source" />
 		<property name="jarjaxp" value="jars" />
-		<property name="javaclasspath" value="${jarjaxp}/junit.jar:${jarjaxp}/dom.jar:${jarjaxp}/jaxp-api.jar:${jarjaxp}/sax.jar:${jarjaxp}/xalan.jar:${jarjaxp}/xercesImpl.jar:${jarjaxp}/velocity-dep-1.4.jar:${jarjaxp}/javassist.jar:${jarjaxp}/log4j-core.jar:${jarjaxp}/openjgraph.jar:${source}:${build}" />
+		<property name="javaclasspath" value="${jarjaxp}/JavaPop.jar:${jarjaxp}/junit.jar:${jarjaxp}/dom.jar:${jarjaxp}/jaxp-api.jar:${jarjaxp}/sax.jar:${jarjaxp}/xalan.jar:${jarjaxp}/xercesImpl.jar:${jarjaxp}/velocity-dep-1.4.jar:${jarjaxp}/javassist.jar:${jarjaxp}/log4j-core.jar:${jarjaxp}/openjgraph.jar:${source}:${build}" />
 		<property name="TamagoCC_Schema" value="TamagoNS.xsd" />
 		<property name="TamagoCC_Manifest" value="tamagoccmanifest" />
+		<property name="TamagoCCCDL_Manifest" value="tamagocccdlmanifest" />
 		<property name="distrib" value="distrib" />
 		<property name="outdoc" value="doc" />
 	</target>
@@ -90,6 +91,15 @@
 		<echo>===== === Creation du jar TERMINE === =====</echo>
 	</target>
 
+	<target name="makejarcdl" depends="compile">
+		<echo>===== === Creation du jar de TamagoCC version CDL=== =====</echo>
+		<jar destfile="${distrib}/tamagoCCCDL.jar" manifest="${TamagoCCCDL_Manifest}" excludes=".project,.classpath">
+			<fileset file="${TamagoCC_Schema}" />
+			<fileset dir="${build}" excludes=".project,.classpath,build.xml" />
+		</jar>
+		<echo>===== === Creation du jar TERMINE === =====</echo>
+	</target>
+
 	<target name="compiledebug" depends="clean,prepare">
 		<echo>===== ==== Compilation des Fichiers Sources vers le repertoire Build === =====</echo>
 		<javac srcdir="${source}" debug="yes" destdir="${build}" classpath="${javaclasspath}" />
@@ -105,8 +115,18 @@
 		<echo>===== === Creation du jar TERMINE === =====</echo>
 	</target>
 
+	<target name="makejarcdldebug" depends="compiledebug">
+		<echo>===== === Creation du jar de TamagoCC === =====</echo>
+		<jar destfile="${distrib}/tamagoCCCDL.jar" manifest="${TamagoCCCDL_Manifest}" excludes=".project,.classpath">
+			<fileset file="${TamagoCC_Schema}" />
+			<fileset dir="${build}" excludes=".project,.classpath,build.xml" />
+		</jar>
+		<echo>===== === Creation du jar TERMINE === =====</echo>
+	</target>
+
+
 	<target name="runjar" depends="makejar">
-		<echo>===== === Lancement du jar de TamagoCC === [${testXML1}]=====</echo>
+		<echo>===== === Lancement du jar de TamagoCC vCDL === [${testXML1}]=====</echo>
 		<java jar="${distrib}/tamagoCC.jar" classpath="${javaclasspath}" fork="true">
 			<arg value="../${testXML1}" />
 		</java>
