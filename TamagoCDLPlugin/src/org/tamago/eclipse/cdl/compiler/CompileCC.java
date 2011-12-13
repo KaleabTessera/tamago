@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
@@ -28,6 +29,7 @@ import tamagocc.generic.TamagoCCGPool;
 import tamagocc.generic.api.GTamagoEntity;
 import tamagocc.javasource.TamagoCCJavaStringSourceBuilder;
 import tamagocc.logger.TamagoCCLogger;
+import tamagocc.parser.CDLGrammarProvider;
 import tamagocc.parser.TamagoCCParserCDL;
 import tamagocc.percolation.TamagoCCPercolation;
 import tamagocc.util.TamagoCCPool;
@@ -81,6 +83,9 @@ public class CompileCC implements IRunnableWithProgress {
 		}
 		parser.setTamagoCCPool(pool);
 		
+		InputStream input  = getClass().getResourceAsStream("/CDLGrammarPop.txt");
+		CDLGrammarProvider.setCDLGrammar(input);
+		
 		TamagoCCLogger.setOut(CDLEditorPlugin.getDefault().getOutputStreamConsole());
 		TamagoCCLogger.setLevel(CDLEditorPlugin.getDefault().getDebugLevel());
 		try {
@@ -119,6 +124,8 @@ public class CompileCC implements IRunnableWithProgress {
 			for (AEntity e : entities) {
 				ByteArrayOutputStream stream = new ByteArrayOutputStream();
 				builder.getTargetLanguage(e, stream);
+				
+				
 			}
 			TamagoCCLogger.infoln(1,"---------------------------------------");
             TamagoCCLogger.infoln(0,"Generation des conteneurs reussit!");
