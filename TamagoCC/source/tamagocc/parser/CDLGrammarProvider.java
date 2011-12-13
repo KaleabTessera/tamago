@@ -27,6 +27,14 @@ public final class CDLGrammarProvider {
 	}
 	
 	public static ParseInput getCDLGrammar() {
+		if(grammar == null) {
+			InputStream stream = CDLGrammarProvider.class.getResourceAsStream("CDLGrammarPop.txt");
+			try {
+				grammar = new StringParseInput(parseInputFromStream(stream));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		return grammar;
 	}
 	
