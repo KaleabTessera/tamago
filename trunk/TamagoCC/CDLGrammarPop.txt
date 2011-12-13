@@ -202,8 +202,8 @@
 @expr_operator(exprpost,infix,left,10, @transform(convOperatorInfix,@literal("-->")));
 @expr_operator(exprpost,infix,left,10, @transform(convOperatorInfix,@literal("<-->")));
 @expr_operator(exprpost,infix,left,10, @transform(convOperatorInfix,@literal("<===>")));
-@expr_operator(exprpost,prefix,right,15, @transform(convOperatorInfix,@literal("not")));
-@expr_operator(exprpost,prefix,right,15, @transform(convOperatorInfix,@literal("!")));
+@expr_operator(exprpost,prefix,right,15, @transform(convNot,@literal("not")));
+@expr_operator(exprpost,prefix,right,15, @transform(convNot,@literal("!")));
 
 // fin des parseurs d'expressions enfin
 // ==============================================================

@@ -127,8 +127,8 @@
 @expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("-->")));
 @expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("<-->")));
 @expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("<===>")));
-@expr_operator(expr,prefix,right,15, @transform(convOperatorInfix,@literal("not")));
-@expr_operator(expr,prefix,right,15, @transform(convOperatorInfix,@literal("!")));
+@expr_operator(expr,prefix,right,15, @transform(convNot,@literal("not")));
+@expr_operator(expr,prefix,right,15, @transform(convNot,@literal("!")));
 
 
 // ==============================================================

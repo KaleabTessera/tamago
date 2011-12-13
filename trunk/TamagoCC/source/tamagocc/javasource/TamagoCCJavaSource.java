@@ -147,7 +147,7 @@ public class TamagoCCJavaSource extends TamagoCCGeneratorTargetLanguage {
 		throws TamagoCCException
 	{
 		super(entity);
-		this.directory = null;
+		this.directory = new File(".");
 		source = null;
 		fos = stream;
 		indent = null;
@@ -171,7 +171,7 @@ public class TamagoCCJavaSource extends TamagoCCGeneratorTargetLanguage {
 		return path;
 	}
 	
-	private String generateFilename() {
+	public String generateFilename() {
 		String name = target.getName();
 		name = (name.substring(0,1).toUpperCase()+name.substring(1));
 		TamagoCCLogger.println(3, "////////////////////Sortie GENERER:"+name);
