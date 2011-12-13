@@ -12,7 +12,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Platform;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.dom.AST;
+import org.eclipse.jdt.core.dom.ASTParser;
+import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.IWorkbench;
@@ -27,7 +31,8 @@ import tamagocc.exception.TamagoCCException;
 import tamagocc.generator.TamagoCCGenerator;
 import tamagocc.generic.TamagoCCGPool;
 import tamagocc.generic.api.GTamagoEntity;
-import tamagocc.javasource.TamagoCCJavaStringSourceBuilder;
+import tamagocc.javasource.TamagoCCJavaSource;
+import tamagocc.javasource.TamagoCCJavaSourceBuilder;
 import tamagocc.logger.TamagoCCLogger;
 import tamagocc.parser.CDLGrammarProvider;
 import tamagocc.parser.TamagoCCParserCDL;
@@ -114,7 +119,7 @@ public class CompileCC implements IRunnableWithProgress {
 			}
 			monitor.worked(1);
 			monitor.subTask("Analyze the parsed contract...");
-			TamagoCCJavaStringSourceBuilder builder = new TamagoCCJavaStringSourceBuilder();
+			TamagoCCJavaSourceBuilder builder = new TamagoCCJavaSourceBuilder();
             TamagoCCGPool gpool = TamagoCCGPool.getDefaultTamagoCCGPool();
             GTamagoEntity entity =  gpool.getGTamagoEntity(tamago);
             TamagoCCGenerator generator = new TamagoCCGenerator(builder,entity,outputdir,true,!skel,false);
@@ -123,8 +128,13 @@ public class CompileCC implements IRunnableWithProgress {
 			ArrayList<AEntity> entities = generator.generateAST();
 			for (AEntity e : entities) {
 				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				builder.getTargetLanguage(e, stream);
+				TamagoCCJavaSource tl = (TamagoCCJavaSource) builder.getTargetLanguage(e, stream);
+				tl.generate();
+				IPackageFragment project;
+				//ASTParser p = ASTParser.newParser(AST.JLS3);
+				//p.setSource(stream.toString().toCharArray());
 				
+				ICompilationUnit unit = project.createCompilationUnit(tl.getFinalDestination().getName(), stream.toString(), true, monitor);
 				
 			}
 			TamagoCCLogger.infoln(1,"---------------------------------------");

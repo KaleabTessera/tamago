@@ -55,6 +55,7 @@ import tamagocc.parser.cdlast.CDLInLabel;
 import tamagocc.parser.cdlast.CDLInfix;
 import tamagocc.parser.cdlast.CDLInteger;
 import tamagocc.parser.cdlast.CDLNil;
+import tamagocc.parser.cdlast.CDLNot;
 import tamagocc.parser.cdlast.CDLQColl;
 import tamagocc.parser.cdlast.CDLQRange;
 import tamagocc.parser.cdlast.CDLQSet;
@@ -77,6 +78,10 @@ public class CDLGrammarConverter {
 	public CDLInfix convOperatorInfix(Object o) {
 		String s = (String) o;
 		return new CDLInfix(s);
+	}
+	
+	public CDLNot convNot(Object o) {
+		return new CDLNot((String)o);
 	}
 
 	// -- Methods for default method values
