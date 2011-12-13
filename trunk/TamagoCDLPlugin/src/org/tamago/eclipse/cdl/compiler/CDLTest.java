@@ -6,6 +6,7 @@ package org.tamago.eclipse.cdl.compiler;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 
 import javapop.framework.ParseResult;
@@ -23,6 +24,7 @@ import tamagocc.TamagoCCParser;
 import tamagocc.api.TTamago;
 import tamagocc.generic.TamagoCCGPool;
 import tamagocc.logger.TamagoCCLogger;
+import tamagocc.parser.CDLGrammarProvider;
 import tamagocc.parser.TamagoCCParserCDL;
 import tamagocc.percolation.TamagoCCPercolation;
 import tamagocc.util.TamagoCCPool;
@@ -107,7 +109,9 @@ public class CDLTest implements IRunnableWithProgress, TamagoTestUI {
 			TamagoCCLogger.setOut(CDLEditorPlugin.getDefault().getOutputStreamConsole());
 			TamagoCCLogger.setLevel(CDLEditorPlugin.getDefault().getDebugLevel());
 
-
+			InputStream input  = getClass().getResourceAsStream("/CDLGrammarPop.txt");
+			CDLGrammarProvider.setCDLGrammar(input);
+			
 			pool.addTamagoCCPath(tamagoccpath);
 			TTamago tamago = null;
 			// --- nouveau code
