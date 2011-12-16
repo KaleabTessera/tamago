@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
 Main-Class: tamagocc.TamagoCCMain
-Class-Path: dom.jar jaxp-api.jar sax.jar xercesImpl.jar xalan.jar velocity-dep-1.4.jar javassist.jar jars/dom.jar jars/jaxp-api.jar jars/sax.jar jars/xercesImpl.jar jars/xalan.jar jars/velocity-dep-1.4.jar jars/javassist.jar ../jars/dom.jar ../jars/jaxp-api.jar ../jars/sax.jar ../jars/xercesImpl.jar ../jars/xalan.jar ../jars/velocity-dep-1.4.jar ../jars/javassist.jar
+Class-Path: /JavaPop2.jar openjgraph.jar /openjgraph.jar

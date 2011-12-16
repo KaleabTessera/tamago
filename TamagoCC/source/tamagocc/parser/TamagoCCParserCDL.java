@@ -6,13 +6,20 @@ package tamagocc.parser;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javapop.framework.DefaultParseContext;
+import javapop.framework.ParseInput;
+import javapop.framework.ParseResult;
+import javapop.framework.generic.GenericGrammar;
+import javapop.framework.generic.GrammarTree;
+import javapop.framework.generic.tool.GrammarGenerator;
+import javapop.framework.generic.tool.GrammarVisitorException;
+import javapop.framework.input.StringParseInput;
 import tamagocc.TamagoCC;
 import tamagocc.api.TTamago;
 import tamagocc.exception.LineParserException;
@@ -32,16 +39,6 @@ import tamagocc.util.lineparser.TamagoCCNoSkeleton;
 import tamagocc.util.lineparser.TamagoCCPathCmd;
 import tamagocc.util.lineparser.TamagoCCPercolator;
 import tamagocc.util.lineparser.TamagoCCSetXSD;
-
-import javapop.framework.DefaultParseContext;
-import javapop.framework.ParseError;
-import javapop.framework.ParseInput;
-import javapop.framework.ParseResult;
-import javapop.framework.generic.GenericGrammar;
-import javapop.framework.generic.GrammarTree;
-import javapop.framework.generic.tool.GrammarGenerator;
-import javapop.framework.generic.tool.GrammarVisitorException;
-import javapop.framework.input.StringParseInput;
 
 /**
  * @author Hakim Belhaouari
@@ -64,7 +61,7 @@ public class TamagoCCParserCDL {
 		
 	}
 	
-	private static String parseInputFromStream(InputStream stream) throws IOException {
+	public static String parseInputFromStream(InputStream stream) throws IOException {
 		DataInputStream dis =  new DataInputStream(stream);
 		StringBuilder sb = new StringBuilder();
 		byte[] b = new byte[2048];
@@ -100,6 +97,7 @@ public class TamagoCCParserCDL {
 			}
 			else {
 				gen = new GrammarGenerator();
+				@SuppressWarnings("unchecked")
 				List<GrammarTree> result = (List<GrammarTree>) obj.getResult();
 				gen.init(result);
 				

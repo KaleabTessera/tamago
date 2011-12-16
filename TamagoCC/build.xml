@@ -28,6 +28,8 @@
 		<property name="TamagoCCCDL_Manifest" value="tamagocccdlmanifest" />
 		<property name="distrib" value="distrib" />
 		<property name="outdoc" value="doc" />
+		<property name="JAVAPOPBUILD" value="../../JavaPop2/bin"/>
+
 	</target>
 
 	<!-- ==============================
@@ -39,8 +41,12 @@
 		<antcall target="run" />
 	</target>
 
+	<target name="copyjavapop" depends="compile" description="description">
+    	<ant antfile="../../JavaPop2/build.xml" target="dist"  />
+		<copy todir="${jarjaxp}" overwrite="true" file="../../JavaPop2/dist/JavaPop.jar" />
+    </target>
 
-
+	
 	<!-- - - - - - - - - - - - - - - - - - 
           target: prepare                      
          - - - - - - - - - - - - - - - - - -->
@@ -87,6 +93,9 @@
 		<jar destfile="${distrib}/tamagoCC.jar" manifest="${TamagoCC_Manifest}" excludes=".project,.classpath">
 			<fileset file="${TamagoCC_Schema}" />
 			<fileset dir="${build}" excludes=".project,.classpath,build.xml" />
+			<!-- <fileset file="${jarjaxp}/JavaPop.jar" /> -->
+			<fileset file="CDLGrammarPop.txt" />
+			<fileset file="wordlist.txt" />
 		</jar>
 		<echo>===== === Creation du jar TERMINE === =====</echo>
 	</target>
@@ -96,6 +105,9 @@
 		<jar destfile="${distrib}/tamagoCCCDL.jar" manifest="${TamagoCCCDL_Manifest}" excludes=".project,.classpath">
 			<fileset file="${TamagoCC_Schema}" />
 			<fileset dir="${build}" excludes=".project,.classpath,build.xml" />
+			<fileset dir="${JAVAPOPBUILD}" includes="javapop" /> 
+			<fileset file="CDLGrammarPop.txt" />
+			<fileset file="wordlist.txt" />
 		</jar>
 		<echo>===== === Creation du jar TERMINE === =====</echo>
 	</target>
