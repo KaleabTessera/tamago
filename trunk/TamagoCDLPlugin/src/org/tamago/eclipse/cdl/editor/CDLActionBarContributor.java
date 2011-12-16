@@ -11,6 +11,7 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.part.EditorActionBarContributor;
 import org.tamago.eclipse.cdl.editor.util.CDLDebugLevel;
+import org.tamago.eclipse.cdl.editor.util.CDLEssai;
 import org.tamago.eclipse.cdl.editor.util.CDLGenericAction;
 import org.tamago.eclipse.cdl.editor.util.CompileCDLAction;
 import org.tamago.eclipse.cdl.editor.util.TamagoCompileContract;
@@ -63,10 +64,12 @@ public class CDLActionBarContributor extends EditorActionBarContributor {
         submenuManager.add(debug3);
         submenuManager.add(debug6);
         submenuManager.add(new Separator());
-        submenuManager.add(new CDLGenericAction("GÈnÈration des Conteneurs/Interfaces","RegÈnËre les conteneurs pour la vÈrification dynamique des contrats.(nÈcÈssite la gÈnÈration des fichiers XML)",new TamagoCompileContract()));
-        submenuManager.add(new CDLGenericAction("GÈnÈration des Conteneurs/Interfaces+ Squelette","RegÈnËre les conteneurs ainsi que les squelettes. ATTENTION: vous pouvez perdre les modifications que vous avez rÈalisÈ jusqu'‡† prÈsent",new TamagoCompileContractAndSkeleton()));
+        submenuManager.add(new CDLGenericAction("G√©n√©ration des Conteneurs/Interfaces","Reg√©n√®re les conteneurs pour la v√©rification dynamique des contrats.(n√©c√©ssite la g√©n√©ration des fichiers XML)",new TamagoCompileContract()));
+        submenuManager.add(new CDLGenericAction("G√©n√©ration des Conteneurs/Interfaces+ Squelette","Reg√©n√®re les conteneurs ainsi que les squelettes. ATTENTION: vous pouvez perdre les modifications que vous avez r√©alis√© jusqu'√† pr√©sent",new TamagoCompileContractAndSkeleton()));
         submenuManager.add(new Separator());
-        submenuManager.add(new CDLGenericAction("GÈnÈration de Test","GÈnËre des fichiers de test JUnit Èprouvant le contrat fonctionnel sÈlectionnÈ",new TamagoCompileTest()));
+        submenuManager.add(new CDLGenericAction("G√©n√©ration de Test","G√©n√©re des fichiers de test JUnit √©prouvant le contrat fonctionnel s√©lectionn√©",new TamagoCompileTest()));
+        submenuManager.add(new Separator());
+        submenuManager.add(new CDLEssai("Print Project"));
         
         //submenuManager.add(new Separator());
         //submenuManager.add(new CDLGenericAction("G√©n√©ration de testcase","G√©n√®re un fichier de test avec les dernieres informations enregistre",new TamagoTestActionGen()));

@@ -12,9 +12,23 @@ public final class CDLGrammarProvider {
 	private static StringParseInput grammar;
 	
 	private CDLGrammarProvider() {
-		
+		findDefaultPath();
 	}
 	
+	private void findDefaultPath() {
+		InputStream stream = CDLGrammarProvider.class.getResourceAsStream("/CDLGrammarPop.txt");
+		if(stream == null) {
+			stream = CDLGrammarProvider.class.getResourceAsStream("CDLGrammarPop.txt");
+		}
+		
+		if(stream != null) {
+			try {
+				grammar = new StringParseInput(parseInputFromStream(stream));
+			} catch (IOException e) {
+			}
+		}
+	}
+
 	public static boolean setCDLGrammar(InputStream input) {
 		grammar = null;
 		try {
@@ -28,7 +42,7 @@ public final class CDLGrammarProvider {
 	
 	public static ParseInput getCDLGrammar() {
 		if(grammar == null) {
-			InputStream stream = CDLGrammarProvider.class.getResourceAsStream("CDLGrammarPop.txt");
+			InputStream stream = CDLGrammarProvider.class.getResourceAsStream("/CDLGrammarPop.txt");
 			try {
 				grammar = new StringParseInput(parseInputFromStream(stream));
 			} catch (IOException e) {

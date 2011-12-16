@@ -11,11 +11,16 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
+import org.eclipse.core.internal.resources.Workspace;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
-import org.eclipse.jdt.core.dom.AST;
-import org.eclipse.jdt.core.dom.ASTParser;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -112,7 +117,7 @@ public class CompileCC implements IRunnableWithProgress {
 			catch(Exception e) {
 				CDLEditorPlugin.getDefault().log("Fin de la compilation sur erreur");
 				IWorkbench workbench = PlatformUI.getWorkbench();
-				MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "Generation du contrat XML echoue", e.getMessage());
+				MessageDialog.openError(null, "Generation du contrat XML echoue", e.getMessage());
 				CDLEditorPlugin.getDefault().showConsole();
 				return;
 				//throw new CDLEditorException(e);
@@ -130,12 +135,8 @@ public class CompileCC implements IRunnableWithProgress {
 				ByteArrayOutputStream stream = new ByteArrayOutputStream();
 				TamagoCCJavaSource tl = (TamagoCCJavaSource) builder.getTargetLanguage(e, stream);
 				tl.generate();
-				IPackageFragment project;
-				//ASTParser p = ASTParser.newParser(AST.JLS3);
-				//p.setSource(stream.toString().toCharArray());
-				
-				ICompilationUnit unit = project.createCompilationUnit(tl.getFinalDestination().getName(), stream.toString(), true, monitor);
-				
+				//IPackageFragment project;
+				//ICompilationUnit unit = project.createCompilationUnit(tl.getFinalDestination().getName(), stream.toString(), true, monitor);
 			}
 			TamagoCCLogger.infoln(1,"---------------------------------------");
             TamagoCCLogger.infoln(0,"Generation des conteneurs reussit!");
@@ -150,6 +151,8 @@ public class CompileCC implements IRunnableWithProgress {
         }
 	}
 
+
+	
 
 	@Override
 	public void run(IProgressMonitor monitor) throws InvocationTargetException,
