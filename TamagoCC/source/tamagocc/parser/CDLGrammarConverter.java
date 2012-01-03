@@ -3,7 +3,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javapop.framework.ParseResult;
 import javapop.framework.parser.MaybeParse;
+import javapop.framework.parser.tuple.Ten;
 import javapop.utils.Nonuple;
 import javapop.utils.Pair;
 import javapop.utils.Quadruple;
@@ -21,7 +23,10 @@ import tamagocc.api.TInvariant;
 import tamagocc.api.TMethod;
 import tamagocc.api.TNamespace;
 import tamagocc.api.TParameter;
+import tamagocc.api.TPercolator;
 import tamagocc.api.TProperty;
+import tamagocc.api.TProvide;
+import tamagocc.api.TRequire;
 import tamagocc.api.TService;
 import tamagocc.api.TState;
 import tamagocc.api.TTransition;
@@ -31,6 +36,7 @@ import tamagocc.impl.TIAccess;
 import tamagocc.impl.TIAllow;
 import tamagocc.impl.TIBehavior;
 import tamagocc.impl.TICategory;
+import tamagocc.impl.TIComposant;
 import tamagocc.impl.TICondition;
 import tamagocc.impl.TIImplements;
 import tamagocc.impl.TIIncludeService;
@@ -41,7 +47,9 @@ import tamagocc.impl.TINoContract;
 import tamagocc.impl.TIParameter;
 import tamagocc.impl.TIPercolator;
 import tamagocc.impl.TIProperty;
+import tamagocc.impl.TIProvide;
 import tamagocc.impl.TIRefineService;
+import tamagocc.impl.TIRequire;
 import tamagocc.impl.TIService;
 import tamagocc.impl.TIState;
 import tamagocc.impl.TITransition;
@@ -351,18 +359,48 @@ public class CDLGrammarConverter {
 	}
 
 	public tamagocc.api.TRequire convRequire(Object content) {
-		// TODO complete this method
-		return null;
+		Triple<String, String, String> p = (Triple<String, String, String>) content;
+		TService service;
+		try {
+			service = (TService) TamagoCCPool.getDefaultPool().getTreeAbstractSyntax(p.getFirst(), p.getSecond());
+		} catch (TamagoCCException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return new TIRequire(p.getThird(), p.getFirst(), p.getThird(), service, new TIType[0]);
 	}
 
 	public tamagocc.api.TProvide convProvide(Object content) {
-		// TODO complete this method
-		return null;
+		Pair<String, String> couple = (Pair<String, String>) content;
+		TService service;
+		try {
+			service = (TService) TamagoCCPool.getDefaultPool().getTreeAbstractSyntax(couple.getFirst(), couple.getSecond());
+		} catch (TamagoCCException e) {
+			e.printStackTrace();
+			return null;
+		} 
+		return new TIProvide(couple.getFirst(), couple.getSecond(), service);
 	}
 
+	@SuppressWarnings("unchecked")
 	public tamagocc.api.TComponent convComponent(Object content) {
-		// TODO complete this method
-		return null;
+		ArrayList<Object> n = new ArrayList<Object>((Collection<Object>) content);
+		String name = (String) n.get(2);
+		String module = (String) n.get(0);
+		Collection<TImplements> impls = (Collection<TImplements>) n.get(4);
+		Collection<TProperty> properties = (Collection<TProperty>) n.get(7);
+    	Collection<TMethod> methods = (Collection<TMethod>) n.get(9);
+    	Collection<TInvariant> invariants = (Collection<TInvariant>) n.get(8);
+    	Collection<TProvide> provides = (Collection<TProvide>) n.get(6);
+    	Collection<TRequire> requires = (Collection<TRequire>) n.get(5);
+    	Collection<TPercolator> percolators = (Collection<TPercolator>) n.get(3);
+    	Collection<TNamespace> namespaces = (Collection<TNamespace>) n.get(1);
+		Collection<TType> paramtypes = new ArrayList<TType>();
+		TBehavior behavior = TIBehavior.NoBehavior;
+		if(((MaybeParse<TBehavior>)n.get(10)).hasResult())
+			behavior = ((MaybeParse<TBehavior>)n.get(10)).getResult().getResult();
+		return new TIComposant(name, module, properties, provides, requires, invariants,
+				methods, behavior, percolators, impls, namespaces, paramtypes);
 	}
 
 	
