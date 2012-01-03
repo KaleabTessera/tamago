@@ -109,13 +109,13 @@
 @expr_operator(expr,infix,left,30, @transform(convOperatorInfix,@literal("-")));
 @expr_operator(expr,infix,left,50, @transform(convOperatorInfix,@literal("%")));
 
-@expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("<>")));
-@expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("<=")));
-@expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("<")));
-@expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("==")));
-@expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal(">=")));
-@expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal(">")));
-@expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("!=")));
+@expr_operator(expr,infix,left,20, @transform(convOperatorInfix,@literal("<>")));
+@expr_operator(expr,infix,left,20, @transform(convOperatorInfix,@literal("<=")));
+@expr_operator(expr,infix,left,20, @transform(convOperatorInfix,@literal("<")));
+@expr_operator(expr,infix,left,20, @transform(convOperatorInfix,@literal("==")));
+@expr_operator(expr,infix,left,20, @transform(convOperatorInfix,@literal(">=")));
+@expr_operator(expr,infix,left,20, @transform(convOperatorInfix,@literal(">")));
+@expr_operator(expr,infix,left,20, @transform(convOperatorInfix,@literal("!=")));
 
 @expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("&&")));
 @expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("and")));
@@ -127,8 +127,8 @@
 @expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("-->")));
 @expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("<-->")));
 @expr_operator(expr,infix,left,10, @transform(convOperatorInfix,@literal("<===>")));
-@expr_operator(expr,prefix,right,15, @transform(convOperatorInfix,@literal("not")));
-@expr_operator(expr,prefix,right,15, @transform(convOperatorInfix,@literal("!")));
+@expr_operator(expr,prefix,right,25, @transform(convNot,@literal("not")));
+@expr_operator(expr,prefix,right,25, @transform(convNot,@literal("!")));
 
 
 // ==============================================================
@@ -317,7 +317,7 @@
 	<qualifident>,
 	@ignore(@literal("as")),
 	<ident>,
-	@ignore(@literal(";")),
+	@ignore(@literal(";"))
 ));
 
 <provide:tamagocc.api.TProvide> := @transform(convProvide,@seq(
@@ -326,25 +326,24 @@
 	<ident>,
 	@ignore(@literal("in")),
 	<qualifident>,
-	@ignore(@literal(";")),
+	@ignore(@literal(";"))
 ));
 
 <component:tamagocc.api.TComponent> := @transform(convComponent,@seq(
-<module>, @list(<usingnamespace>,""),
-@ignore(@literal("component")),<ident>, @ignore(@literal("{")),
-<percolator>,
-@list(
-	@choice(
-		@list(<impl>,"") , 
-	  	@list(<require>,""),
-	  	@list(<provide>,""),
-	  	@list(<property>,""),
-	  	@list(<invariant>,""),
-	  	@list(<method>,"")
-	),""
-),
+<module>,
+@list(<usingnamespace>,""),
+@ignore(@literal("component")),
+<ident>, 
+@ignore(@literal("{")),
+@list(<percolator>,""),
+@list(<impl>,""), 
+@list(<require>,""),
+@list(<provide>,""),
+@list(<property>,""),
+@list(<invariant>,""),
+@list(<method>,""),
 @maybe(<behavior>),
-@ignore(@literal("}")) 
+@ignore(@literal("}"))
 ));
 
 // ==============================================================

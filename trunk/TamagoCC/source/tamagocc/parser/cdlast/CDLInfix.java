@@ -28,6 +28,7 @@ public class CDLInfix extends CDLExpression implements InfixNode {
 	
 	public CDLInfix(String opName) {
 		this.opName = opName;
+		generate(opName);
 		prio = -1;
 	}
 	
@@ -149,7 +150,7 @@ public class CDLInfix extends CDLExpression implements InfixNode {
 		else if("equiv".equals(o)|| "<=>".equals(o) || "<==>".equals(o)|| "<->".equals(o) || "<-->".equals(o))
 			return TOpeName.opEquiv;
 		else
-			throw new RuntimeException("Unknown operator: "+o);
+			throw new RuntimeException("Unknown binary operator: "+o);
 	}
 
 	@Override

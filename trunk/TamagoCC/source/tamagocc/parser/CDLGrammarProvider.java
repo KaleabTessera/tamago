@@ -42,12 +42,7 @@ public final class CDLGrammarProvider {
 	
 	public static ParseInput getCDLGrammar() {
 		if(grammar == null) {
-			InputStream stream = CDLGrammarProvider.class.getResourceAsStream("/CDLGrammarPop.txt");
-			try {
-				grammar = new StringParseInput(parseInputFromStream(stream));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			throw new RuntimeException("Unfound CDL Grammar, you must specify one by yourself!");
 		}
 		return grammar;
 	}
