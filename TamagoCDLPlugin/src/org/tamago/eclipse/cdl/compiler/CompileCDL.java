@@ -104,17 +104,17 @@ public class CompileCDL implements IRunnableWithProgress {
 		catch(NullPointerException e) {
 			CDLEditorPlugin.getDefault().log("Fin de la compilation sur NullPointerException");
 			e.printStackTrace(new PrintStream(CDLEditorPlugin.getDefault().getOutputStreamConsole()));
-			IWorkbench workbench = PlatformUI.getWorkbench();
 			CDLEditorPlugin.getDefault().showConsole();
-			MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "Generation du contrat AST echoue", "Generation of the XML contract fail with the following message: NullPointerException");
+			//IWorkbench workbench = PlatformUI.getWorkbench();
+			//MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "Generation du contrat AST echoue", "Generation of the XML contract fail with the following message: NullPointerException");
 		}
 		catch(Throwable e) {
 			CDLEditorPlugin.getDefault().log("Fin de la compilation sur erreur");
 			CDLEditorPlugin.getDefault().log(e.getMessage());
 			e.printStackTrace(new PrintStream(CDLEditorPlugin.getDefault().getOutputStreamConsole()));
-			IWorkbench workbench = PlatformUI.getWorkbench();
 			CDLEditorPlugin.getDefault().showConsole();
-			MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "Generation du contrat AST echoue", "Generation of the XML contract fail with the following message:\n"+e.getMessage());
+			//IWorkbench workbench = PlatformUI.getWorkbench();
+			//MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "Generation du contrat AST echoue", "Generation of the XML contract fail with the following message:\n"+e.getMessage());
 		}
 	
 }

@@ -86,8 +86,8 @@ public class CompileCC implements IRunnableWithProgress {
 		} catch (TamagoCCException e1) {
 			CDLEditorPlugin.getDefault().log("ERROR during initialisation!!");
 			e1.printStackTrace();
-			IWorkbench workbench = PlatformUI.getWorkbench();
-			MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "Generation du contrat XML echoue", e1.getMessage());
+			//IWorkbench workbench = PlatformUI.getWorkbench();
+			//MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "Generation du contrat XML echoue", e1.getMessage());
 			CDLEditorPlugin.getDefault().showConsole();
 			return;
 		}
@@ -116,11 +116,10 @@ public class CompileCC implements IRunnableWithProgress {
 			}
 			catch(Exception e) {
 				CDLEditorPlugin.getDefault().log("Fin de la compilation sur erreur");
-				IWorkbench workbench = PlatformUI.getWorkbench();
-				MessageDialog.openError(null, "Generation du contrat XML echoue", e.getMessage());
+				//IWorkbench workbench = PlatformUI.getWorkbench();
+				//MessageDialog.openError(null, "Generation du contrat XML echoue", e.getMessage());
 				CDLEditorPlugin.getDefault().showConsole();
 				return;
-				//throw new CDLEditorException(e);
 			}
 			monitor.worked(1);
 			monitor.subTask("Analyze the parsed contract...");
@@ -145,9 +144,9 @@ public class CompileCC implements IRunnableWithProgress {
         catch(Exception e) {
             TamagoCCLogger.infoln(e);
             TamagoCCLogger.infoln(0,"Generation des conteneurs echoue!!!!");
-            IWorkbench workbench = PlatformUI.getWorkbench();
-			MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "Generation des conteneurs echoues", e.getMessage());
-			CDLEditorPlugin.getDefault().showConsole();
+            CDLEditorPlugin.getDefault().showConsole();
+			//IWorkbench workbench = PlatformUI.getWorkbench();
+            //MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "Generation des conteneurs echoues", e.getMessage());
         }
 	}
 
