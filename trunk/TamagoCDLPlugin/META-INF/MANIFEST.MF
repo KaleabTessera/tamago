@@ -49,6 +49,5 @@ Export-Package:
    org.eclipse.ui,
    org.eclipse.jface.viewers,
    org.eclipse.swt.widgets"
-Bundle-ClassPath: .,
- dist/cdlpluginlibs.jar
+Bundle-ClassPath: .
 

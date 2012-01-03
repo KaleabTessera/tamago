@@ -130,9 +130,8 @@ public class CDLTest implements IRunnableWithProgress, TamagoTestUI {
 			}
 			catch(Exception e) {
 				CDLEditorPlugin.getDefault().log("End compilation with an exception");
-				IWorkbench workbench = PlatformUI.getWorkbench();
-				MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "AST Generation failed", e.getMessage());
-				//throw new CDLEditorException(e);
+				//IWorkbench workbench = PlatformUI.getWorkbench();
+				//MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "AST Generation failed", e.getMessage());
 				return;
 			}
 			TamagoTest.resetContext();
@@ -198,9 +197,8 @@ public class CDLTest implements IRunnableWithProgress, TamagoTestUI {
 		catch(Exception e) {
 			TamagoCCLogger.infoln(e);
 			TamagoCCLogger.infoln(0,"Test generation failed!!!!");
-			IWorkbench workbench = PlatformUI.getWorkbench();
-			MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "Test generation failed!", e.getMessage());
-
+			//IWorkbench workbench = PlatformUI.getWorkbench();
+			//MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "Test generation failed!", e.getMessage());
 		}
 	}
 

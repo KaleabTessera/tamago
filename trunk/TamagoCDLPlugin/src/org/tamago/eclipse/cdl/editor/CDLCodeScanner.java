@@ -35,7 +35,7 @@ public class CDLCodeScanner extends RuleBasedScanner {
 		"exists",		"naming",		"implements",	"coreinterfaces",
 		"percolator",	"percolators",	"null",			"invariant",
 		"pre",			"post",			"fail",			"@pre",
-		"@return",		"true",			"false",
+		"@return",		"true",			"false",		"not",
 
 		"String",		"string",		"void",		"bool",
 		"int",			"real"
