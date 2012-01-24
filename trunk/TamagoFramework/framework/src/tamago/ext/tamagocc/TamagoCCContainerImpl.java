@@ -9,7 +9,7 @@ import java.util.Hashtable;
 import tamago.TamagoException;
 
 /**
- * @author Hakim Belhaouari and Frederic Peschanski
+ * @author Hakim Belhaouari
  *
  */
 public abstract class TamagoCCContainerImpl implements TamagoCCContainer {

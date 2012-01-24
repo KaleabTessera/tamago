@@ -1,0 +1,48 @@
+model Bank
+
+user :=	adrien,boris,calvin, daria,elisa,franck ;
+
+role := customer, clerk,banker, director ;
+
+organisation := Montreal, Toronto ;
+
+action := deposit(int clid,int d, int m),cancel,validate,credit;
+
+
+play :=
+ <adrian, clerk, Montreal>,
+ <boris,banker, Montreal>,
+ <calvin, director, Montreal>,
+ <daria,clerk,Toronto>,
+ <elisa,banker,Toronto>,
+ <franck,director,Toronto>
+ ;
+ 
+ permissions :=
+ <_,clerk,_,deposit>,
+ <_,clerk,_,credit>,
+ <_,banker,_,deposit>,
+ <_,banker,_,credit>,
+ <_,banker,_,cancel>,
+ <_,banker,_,validate>,
+ <_,director,_,cancel>,
+ <_,director,_,validate>
+ ;
+ 
+ prohibitions :=
+ <!elisa,_,_,cancel>,
+ <_,_,!Toronto,validate>,
+ <_,!customer,_,deposit>,
+ <_,!customer,_,cancel>,
+ <_,!customer,_,validate>
+;
+ 
+ obligations :=
+ 	OBL(user,<user,_,_,deposit(c,d,m)>,<user,_,_,credit(c,d,m)>)*
+ ;
+ 
+ separations = 
+ 	SOD(user,<user,_,_,deposit(c,d,m)>,<!user,_,_,validate(c,d,m)>) *
+;
+ 
+ 

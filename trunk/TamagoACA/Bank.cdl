@@ -1,0 +1,58 @@
+module toto;
+
+
+service BankSecurity {
+	property read bool initialized;
+	property read string[] users;
+	property read string[] roles;
+	property read string[] orgs;
+	property read string[] actions;
+	
+	property read PlayItem[] play;
+	property read Historic hist;
+	
+	method void init() {
+		id init;
+		post (users.length == 6) && (users[0] == "adrien") && (users[1] == "boris") && (users[2] == "calvin") && (users[3] == "daria") && (users[4] == "elisa") && (users[5] == "franck")
+		(hist.size() == 0);
+	}
+	
+	method void deposit(int clid, int d, int m,String u, String r, String o) {	
+		id deposit;
+		pre (u != null) && (r != null) && (o != null)
+		 && ((u ==  "adrien") || (u == "boris") || (u == "calvin")) // u,r,o existes
+		 && ((r == "clerk") || (r == "banker") || (r == "director")) // permissions forces
+		 && ((r != "customer")); // interdictions
+		post (hist.lastaction == "deposit" && hist.lastuser == u && hist.lastrole == r &&
+			hist.lastorg == o && hist.length == (hist.length + 1));
+	}
+	method void cancel(String u, String r, String o) { 
+		id cancel; 
+	}
+	method void validate(String u, String r, String o) { 
+		id validate; 
+	}
+	method void credit(String u, String r, String o) { 
+		id credit; 
+	}
+	
+	
+	behavior {
+		default state ninit;
+		states {
+			state ninit {
+				allow init;
+			}
+			state ready {
+				allow deposit;
+				allow cancel;
+				allow validate;
+				allow credit;
+			}
+			
+		}
+		transitions {
+			transition from ninit to ready with init;
+		}
+	} 
+}

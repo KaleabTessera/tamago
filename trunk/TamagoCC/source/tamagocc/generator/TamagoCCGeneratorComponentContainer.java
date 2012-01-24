@@ -8,6 +8,7 @@ import tamagocc.api.TOpeName;
 import tamagocc.ast.api.AEntity;
 import tamagocc.ast.api.AExpression;
 import tamagocc.ast.api.AIdent;
+import tamagocc.ast.api.AIfThenElse;
 import tamagocc.ast.api.AImplements;
 import tamagocc.ast.api.AInLabel;
 import tamagocc.ast.api.AInitialisation;
@@ -25,7 +26,9 @@ import tamagocc.ast.api.AVisibility;
 import tamagocc.ast.impl.AConstructor;
 import tamagocc.ast.impl.AIAffectation;
 import tamagocc.ast.impl.AIBodyMethodContainer;
+import tamagocc.ast.impl.AIBool;
 import tamagocc.ast.impl.AICall;
+import tamagocc.ast.impl.AICatchBlock;
 import tamagocc.ast.impl.AIConvertType;
 import tamagocc.ast.impl.AIDocComment;
 import tamagocc.ast.impl.AIIdent;
@@ -53,6 +56,7 @@ import tamagocc.ast.impl.AISequence;
 import tamagocc.ast.impl.AIString;
 import tamagocc.ast.impl.AIThrowException;
 import tamagocc.ast.impl.AIThrowsException;
+import tamagocc.ast.impl.AITryCatchFinal;
 import tamagocc.ast.impl.AIType;
 import tamagocc.ast.impl.AIVariable;
 import tamagocc.ast.impl.AIVisibility;
@@ -81,6 +85,7 @@ import tamagocc.generic.api.GInState;
 import tamagocc.generic.api.GInitialisation;
 import tamagocc.generic.api.GInteger;
 import tamagocc.generic.api.GInvariant;
+import tamagocc.generic.api.GIsBound;
 import tamagocc.generic.api.GLanguageExpr;
 import tamagocc.generic.api.GMethod;
 import tamagocc.generic.api.GNamespace;
@@ -479,6 +484,11 @@ public class TamagoCCGeneratorComponentContainer extends TamagoCCGeneratorCommon
 		public Object visitInState(GInState giInState) throws TamagoCCException {
 			return giInState;
 		}
+
+		@Override
+		public Object visitIsBound(GIsBound giIsBound) throws TamagoCCException {
+			return giIsBound;
+		}
 		
 		
 		
@@ -514,6 +524,7 @@ public class TamagoCCGeneratorComponentContainer extends TamagoCCGeneratorCommon
 		ast.addMethod(getRequiredServices((GComponentContainer)entity));
 		ast.addMethod(Bind());
 		ast.addMethod(isBinded((GComponentContainer)entity));
+		ast.addMethod(isBound((GComponentContainer)entity));
 		ast.addMethod(set_core_property((GComponentContainer)entity));
 		ast.addMethod(hotswapping());
 		
@@ -907,6 +918,11 @@ public class TamagoCCGeneratorComponentContainer extends TamagoCCGeneratorCommon
 		return null;
 	}
 
+	private AICall callRequiredService(GRequire require) {
+		AIdent ident = new AIIdent(require.getLabel());
+		return new AICall(ident);
+	}
+	
 	/**
 	 * @see tamagocc.generic.TamagoCCGVisitor#visitRequire(tamagocc.generic.api.GRequire)
 	 */
@@ -922,7 +938,7 @@ public class TamagoCCGeneratorComponentContainer extends TamagoCCGeneratorCommon
 		AIMethod accesseur = new AIMethod(AMethod.IMPLEMENTED,ident,type,AIVisibility.PUBLIC_VISIBILITY);
 		accesseur.setComment(doccomment);
 				
-		AICall sublabel = new AICall(ident);
+		AICall sublabel = callRequiredService(require);
 		AExpression scope = new AIInLabel(component.getCallMe(),sublabel);
 		AReturn ret = new AIReturn(scope);
 		accesseur.setBody(ret);
@@ -1012,6 +1028,37 @@ public class TamagoCCGeneratorComponentContainer extends TamagoCCGeneratorCommon
 		return method;
 	}
 	
+	private AMethod isBound(GComponentContainer container) {
+		AIMethod method = new AIMethod(AMethod.IMPLEMENTED,ident("isBound"),(AIType) AIType.generateType("bool"),AIVisibility.PUBLIC_VISIBILITY);
+		AIdent label = ident("label");
+		method.addParameters(new AIParameter(label, AIType.typeSTRING));
+		
+		AISequence seq = new AISequence();
+		method.setBody(seq);
+		
+		
+		
+		Iterator<GRequire> requires = container.getAllRequire();
+		while(requires.hasNext()) {
+			GRequire req = requires.next();
+			
+			// label.equals("label");
+			AICall eg = new AICall(ident("equals"));
+			eg.addArgument(new AIString(req.getLabel()));
+			AIInLabel equals = new AIInLabel(new AIVariable(label), eg);
+			
+			// return req != null
+			AIOperator res = new AIOperator(TOpeName.opNe);
+			res.addOperand(callRequiredService(req));
+			res.addOperand(new AINil());
+			
+			AIIfThenElse cons = new AIIfThenElse(eg, new AIReturn(res), AINoInstruction.getNoInstruction());
+			seq.addInstruction(cons);
+		}
+		
+		seq.addInstruction(new AIReturn(new AIBool(false)));
+		return method;
+	}
 	
 	private AMethod set_core_property(GComponentContainer container) {
 		AIMethod method = new AIMethod(AMethod.IMPLEMENTED,ident("core_set_properties"),AIType.typeVOID,AIVisibility.PUBLIC_VISIBILITY);

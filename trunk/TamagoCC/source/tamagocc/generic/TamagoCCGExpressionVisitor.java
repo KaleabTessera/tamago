@@ -12,6 +12,7 @@ import tamagocc.generic.api.GExpression;
 import tamagocc.generic.api.GInLabel;
 import tamagocc.generic.api.GInState;
 import tamagocc.generic.api.GInteger;
+import tamagocc.generic.api.GIsBound;
 import tamagocc.generic.api.GLanguageExpr;
 import tamagocc.generic.api.GNil;
 import tamagocc.generic.api.GNoContract;
@@ -61,5 +62,6 @@ public interface TamagoCCGExpressionVisitor {
 	 */
 	Object visitCast(GCast cast) throws TamagoCCException;
 	Object visitInState(GInState giInState) throws TamagoCCException;
+	Object visitIsBound(GIsBound giIsBound) throws TamagoCCException;
 	
 }

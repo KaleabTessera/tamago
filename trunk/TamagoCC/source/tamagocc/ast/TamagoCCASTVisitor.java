@@ -20,6 +20,7 @@ import tamagocc.ast.api.AInitialisation;
 import tamagocc.ast.api.AInlineComment;
 import tamagocc.ast.api.AInstExpression;
 import tamagocc.ast.api.AInteger;
+import tamagocc.ast.api.AIsBound;
 import tamagocc.ast.api.ALanguageExpr;
 import tamagocc.ast.api.ALongComment;
 import tamagocc.ast.api.AMemberVariable;
@@ -236,6 +237,8 @@ public interface TamagoCCASTVisitor {
 	Object visitRead(AIRead read) throws TamagoCCException;
 
 	Object visitInState(AInState instate) throws TamagoCCException;
+
+	Object visitIsBound(AIsBound aiIsBound) throws TamagoCCException;
 }
 
 

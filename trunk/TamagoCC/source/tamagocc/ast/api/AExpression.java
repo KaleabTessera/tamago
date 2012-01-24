@@ -6,7 +6,7 @@ package tamagocc.ast.api;
 import tamagocc.ast.TamagoCCAST;
 
 /**
- * @author Hakim Belhaouari and Frederic Peschanski
+ * @author Hakim Belhaouari
  *
  */
 public interface AExpression extends TamagoCCAST {
@@ -40,6 +40,7 @@ public interface AExpression extends TamagoCCAST {
 	
 	public static final int LANGEXPR = 23;
 	public static final int INSTATE = 24;
+	public static final int ISBOUND = 25;
 	
 	int getExpressionType();
 }

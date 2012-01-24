@@ -29,6 +29,7 @@ import tamagocc.api.TInState;
 import tamagocc.api.TIncludeService;
 import tamagocc.api.TInteger;
 import tamagocc.api.TInvariant;
+import tamagocc.api.TIsBound;
 import tamagocc.api.TLanguageExpr;
 import tamagocc.api.TMethod;
 import tamagocc.api.TNamespace;
@@ -125,4 +126,5 @@ public interface TamagoCCVisitor {
 	Object visitLanguageExpr(TLanguageExpr languageExpr) throws TamagoCCException;
 	
 	Object visitCast(TCast cast) throws TamagoCCException;
+	Object visitIsBound(TIsBound tiIsBound) throws TamagoCCException;
 }
