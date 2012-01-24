@@ -1052,7 +1052,7 @@ public class TamagoCCGeneratorComponentContainer extends TamagoCCGeneratorCommon
 			res.addOperand(callRequiredService(req));
 			res.addOperand(new AINil());
 			
-			AIIfThenElse cons = new AIIfThenElse(eg, new AIReturn(res), AINoInstruction.getNoInstruction());
+			AIIfThenElse cons = new AIIfThenElse(equals, new AIReturn(res), AINoInstruction.getNoInstruction());
 			seq.addInstruction(cons);
 		}
 		
