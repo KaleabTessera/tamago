@@ -19,6 +19,7 @@ import tamagocc.generic.api.GForallRange;
 import tamagocc.generic.api.GInLabel;
 import tamagocc.generic.api.GInState;
 import tamagocc.generic.api.GInteger;
+import tamagocc.generic.api.GIsBound;
 import tamagocc.generic.api.GLanguageExpr;
 import tamagocc.generic.api.GNil;
 import tamagocc.generic.api.GNoContract;
@@ -222,6 +223,11 @@ public class TamagoTestRename implements TamagoCCGExpressionVisitor{
 	@Override
 	public Object visitInState(GInState giInState) throws TamagoCCException {
 		return giInState;
+	}
+
+	@Override
+	public Object visitIsBound(GIsBound giIsBound) throws TamagoCCException {
+		return giIsBound;
 	}
 
 	/*private TamagoBuilder searchBuilder(String name,GType param) throws TamagoCCException{

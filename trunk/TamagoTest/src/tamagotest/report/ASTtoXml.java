@@ -28,6 +28,7 @@ import tamagocc.ast.api.AInlineComment;
 import tamagocc.ast.api.AInstExpression;
 import tamagocc.ast.api.AInstruction;
 import tamagocc.ast.api.AInteger;
+import tamagocc.ast.api.AIsBound;
 import tamagocc.ast.api.ALanguageExpr;
 import tamagocc.ast.api.ALongComment;
 import tamagocc.ast.api.AMemberVariable;
@@ -624,6 +625,12 @@ public class ASTtoXml implements TamagoCCASTVisitor {
 			indent.openclose("state", "name",st);
 		}
 		indent.close("instate");
+		return null;
+	}
+
+	@Override
+	public Object visitIsBound(AIsBound aiIsBound) throws TamagoCCException {
+		indent.openclose("isbound", "label",aiIsBound.getLabel());
 		return null;
 	}
 
