@@ -55,8 +55,9 @@
 <svar:tamago.parser.cdlast.CDLVariable> := @transform(convVar,<ident>);
 <nil:tamago.parser.cdlast.CDLNil> := @transform(convNil,@choice(@literal("nil"),@literal("null")) );
 
-<instate:tamago.parser.cdlast.CDLInState> := @transform(convInState,@seq(@ignore(@literal("@instate")) , @ignore(@literal("(")),
-	@list(<ident>,",") , @ignore(@literal(")")) ) );
+<instate:tamago.parser.cdlast.CDLInState> := @transform(convInState,@seq(@ignore(@literal("@instate")) , @ignore(@literal("(")),@list(<ident>,",") , @ignore(@literal(")")) ) );
+
+<isbound:tamago.parser.cdlast.CDLIsBound> := @transform(convIsBound,@seq(@ignore(@literal("@isbound")), @ignore(@literal("(")),	<ident>, @ignore(@literal(")")) ) );
 
 <quant:java.lang.String> := @choice(@literal("forall"),@literal("exists"),@literal("FORALL"),@literal("EXISTS"));
 <in:java.lang.String> := @choice(@literal("in"),@literal("IN"));
@@ -108,6 +109,7 @@
 @expr_operand(expr,<string>);
 
 @expr_operand(expr,<instate>);
+@expr_operand(expr,<isbound>);
 
 @expr_operator(expr,infix,left,30, @transform(convOperatorInfix,@literal("+")));
 @expr_operator(expr,infix,left,60, @transform(convOperatorInfix,@literal("*")));
@@ -182,6 +184,7 @@
 @expr_operand(exprpost,<varpost>);
 
 @expr_operand(exprpost,<instate>);
+@expr_operand(exprpost,<isbound>);
 
 
 @expr_operator(exprpost,infix,left,30, @transform(convOperatorInfix,@literal("+")));
