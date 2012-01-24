@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -131,9 +132,15 @@ public class CompileCC implements IRunnableWithProgress {
 			monitor.subTask("Generation of necessary file...");
 			ArrayList<AEntity> entities = generator.generateAST();
 			for (AEntity e : entities) {
-				ByteArrayOutputStream stream = new ByteArrayOutputStream();
+				//ByteArrayOutputStream stream = new ByteArrayOutputStream();
+				//FileOutputStream stream = new FileOutputStream(outputdir+File.separator+e.getName()+".java");
+				File stream = new File(outputdir);
+				if(stream.exists())
+					stream.mkdirs();
 				TamagoCCJavaSource tl = (TamagoCCJavaSource) builder.getTargetLanguage(e, stream);
 				tl.generate();
+				
+				
 				//IPackageFragment project;
 				//ICompilationUnit unit = project.createCompilationUnit(tl.getFinalDestination().getName(), stream.toString(), true, monitor);
 			}

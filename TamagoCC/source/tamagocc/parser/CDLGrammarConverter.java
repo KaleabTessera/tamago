@@ -3,9 +3,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javapop.framework.ParseResult;
 import javapop.framework.parser.MaybeParse;
-import javapop.framework.parser.tuple.Ten;
 import javapop.utils.Nonuple;
 import javapop.utils.Pair;
 import javapop.utils.Quadruple;
@@ -279,7 +277,7 @@ public class CDLGrammarConverter {
 	
 	public tamagocc.api.TParameter convParameter(Object content) {
 		Pair<String, String> p = (Pair<String, String>)content;
-		return new TIParameter(p.getFirst(), TIType.generateType(p.getSecond()));
+		return new TIParameter(p.getSecond(), TIType.generateType(p.getFirst()));
 	}
 
 	public tamagocc.api.TProperty convProperty(Object content) {

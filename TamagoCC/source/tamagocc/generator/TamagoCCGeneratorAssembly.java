@@ -16,7 +16,6 @@ import tamagocc.ast.api.AVariable;
 import tamagocc.ast.impl.AConstructor;
 import tamagocc.ast.impl.AIAffectation;
 import tamagocc.ast.impl.AICall;
-import tamagocc.ast.impl.AIConvertType;
 import tamagocc.ast.impl.AIDocComment;
 import tamagocc.ast.impl.AIInLabel;
 import tamagocc.ast.impl.AIInlineComment;

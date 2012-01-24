@@ -48,6 +48,7 @@ public class CDLActionBarContributor extends EditorActionBarContributor {
 	 */
 	public CDLActionBarContributor() {
 		// TODO Auto-generated constructor stub
+		
 	}
 
 	public void contributeToMenu(IMenuManager menuManager) {
