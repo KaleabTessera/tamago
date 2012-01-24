@@ -10,26 +10,14 @@
      ====================================================================== -->
 <project name="TamagoCC" default="makejar">
 	<description>
-		Projet de stage de master 2 de recherche pour la conception d'un modele
-		de composant
+		Contract compiler for the Tamago platform
     </description>
 
 	<!-- ================================= 
 	          target: init             
 	         ================================= -->
 	<target name="init" description="--> affect les variables d'environnement">
-		<property environment="myenv" />
-		<property name="build" value="bin" />
-		<property name="source" value="source" />
-		<property name="jarjaxp" value="jars" />
-		<property name="javaclasspath" value="${jarjaxp}/JavaPop.jar:${jarjaxp}/junit.jar:${jarjaxp}/dom.jar:${jarjaxp}/jaxp-api.jar:${jarjaxp}/sax.jar:${jarjaxp}/xalan.jar:${jarjaxp}/xercesImpl.jar:${jarjaxp}/velocity-dep-1.4.jar:${jarjaxp}/javassist.jar:${jarjaxp}/log4j-core.jar:${jarjaxp}/openjgraph.jar:${source}:${build}" />
-		<property name="TamagoCC_Schema" value="TamagoNS.xsd" />
-		<property name="TamagoCC_Manifest" value="tamagoccmanifest" />
-		<property name="TamagoCCCDL_Manifest" value="tamagocccdlmanifest" />
-		<property name="distrib" value="distrib" />
-		<property name="outdoc" value="doc" />
-		<property name="JAVAPOPBUILD" value="../../JavaPop2/bin"/>
-
+		<property file="build.properties" />
 	</target>
 
 	<!-- ==============================
@@ -42,8 +30,8 @@
 	</target>
 
 	<target name="copyjavapop" depends="compile" description="description">
-    	<ant antfile="../../JavaPop2/build.xml" target="dist"  />
-		<copy todir="${jarjaxp}" overwrite="true" file="../../JavaPop2/dist/JavaPop.jar" />
+    	<ant antfile="${JAVAPOPDIR}/build.xml" target="dist"  />
+		<copy todir="${jarjaxp}" overwrite="true" file="${JAVAPOPDIR}/dist/JavaPop.jar" />
     </target>
 
 	
