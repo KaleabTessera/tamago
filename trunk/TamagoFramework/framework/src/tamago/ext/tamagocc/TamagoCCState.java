@@ -81,6 +81,11 @@ public class TamagoCCState {
 	}
 
 	public boolean isInState(String name) {
-		return names.contains(name);
+		String[] splitted = name.split("/");
+		boolean res = true;
+		for (String n : splitted) {
+			names.contains(n);
+		}
+		return res;
 	}
 }

@@ -60,6 +60,7 @@ import tamagocc.parser.cdlast.CDLCall;
 import tamagocc.parser.cdlast.CDLCast;
 import tamagocc.parser.cdlast.CDLExpression;
 import tamagocc.parser.cdlast.CDLInLabel;
+import tamagocc.parser.cdlast.CDLInState;
 import tamagocc.parser.cdlast.CDLInfix;
 import tamagocc.parser.cdlast.CDLInteger;
 import tamagocc.parser.cdlast.CDLNil;
@@ -106,7 +107,8 @@ public class CDLGrammarConverter {
 		CDLExpression expr = (CDLExpression)content;
 		return expr.toTExpression();
 	}
-
+	
+	
 	public tamagocc.parser.cdlast.CDLBool convBoolean(Object content) {
 		if("false".equals(content))
 			return new CDLBool(false);
@@ -151,6 +153,12 @@ public class CDLGrammarConverter {
 		return new CDLCall(p.getFirst(), p.getSecond());
 	}
 
+	public CDLInState convInState(Object content) {
+		Collection<String> names = (Collection<String>)content;
+		return new CDLInState(names);
+	}
+
+	
 	public tamagocc.parser.cdlast.CDLExpression convInLabel(Object content) {
 		if(content instanceof Pair) {
 			Pair<CDLExpression,CDLExpression> p = (Pair<CDLExpression, CDLExpression>)content; 
@@ -393,12 +401,16 @@ public class CDLGrammarConverter {
     	Collection<TInvariant> invariants = (Collection<TInvariant>) n.get(8);
     	Collection<TProvide> provides = (Collection<TProvide>) n.get(6);
     	Collection<TRequire> requires = (Collection<TRequire>) n.get(5);
-    	Collection<TPercolator> percolators = (Collection<TPercolator>) n.get(3);
+    	ArrayList<TPercolator> percolators = new ArrayList<TPercolator>((Collection<TPercolator>) n.get(3));
     	Collection<TNamespace> namespaces = (Collection<TNamespace>) n.get(1);
 		Collection<TType> paramtypes = new ArrayList<TType>();
 		TBehavior behavior = TIBehavior.NoBehavior;
 		if(((MaybeParse<TBehavior>)n.get(10)).hasResult())
 			behavior = ((MaybeParse<TBehavior>)n.get(10)).getResult().getResult();
+		
+		if(percolators.isEmpty()) {
+			percolators.add(TIPercolator.getAllPercolator());
+		}
 		return new TIComposant(name, module, properties, provides, requires, invariants,
 				methods, behavior, percolators, impls, namespaces, paramtypes);
 	}

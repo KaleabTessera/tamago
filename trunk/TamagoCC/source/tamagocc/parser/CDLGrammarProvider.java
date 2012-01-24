@@ -1,8 +1,12 @@
 package tamagocc.parser;
 
 import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+
+import tamagocc.logger.TamagoCCLogger;
 
 import javapop.framework.ParseInput;
 import javapop.framework.input.StringParseInput;
@@ -12,13 +16,24 @@ public final class CDLGrammarProvider {
 	private static StringParseInput grammar;
 	
 	private CDLGrammarProvider() {
+		
+	}
+	
+	static {
 		findDefaultPath();
 	}
 	
-	private void findDefaultPath() {
+	private static void findDefaultPath() {
 		InputStream stream = CDLGrammarProvider.class.getResourceAsStream("/CDLGrammarPop.txt");
 		if(stream == null) {
 			stream = CDLGrammarProvider.class.getResourceAsStream("CDLGrammarPop.txt");
+		}
+		if(stream == null) {
+			try {
+				stream = new FileInputStream("CDLGrammarPop.txt");
+			} catch (FileNotFoundException e) {
+				TamagoCCLogger.println(3, "unfound CDLGrammarPop");
+			}
 		}
 		
 		if(stream != null) {
