@@ -27,6 +27,7 @@ import tamagocc.api.TForallSet;
 import tamagocc.api.TInLabel;
 import tamagocc.api.TInState;
 import tamagocc.api.TInteger;
+import tamagocc.api.TIsBound;
 import tamagocc.api.TLanguageExpr;
 import tamagocc.api.TMethod;
 import tamagocc.api.TNil;
@@ -363,6 +364,11 @@ public class TamagoCCSearchType implements TamagoCCExpressionVisitor {
 
 	@Override
 	public Object visitInState(TInState tiInState) throws TamagoCCException {
+		return TIType.generateType("bool");
+	}
+
+	@Override
+	public Object visitIsBound(TIsBound tiIsBound) throws TamagoCCException {
 		return TIType.generateType("bool");
 	}
 }

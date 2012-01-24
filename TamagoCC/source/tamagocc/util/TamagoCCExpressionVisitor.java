@@ -13,6 +13,7 @@ import tamagocc.api.TForallSet;
 import tamagocc.api.TInLabel;
 import tamagocc.api.TInState;
 import tamagocc.api.TInteger;
+import tamagocc.api.TIsBound;
 import tamagocc.api.TLanguageExpr;
 import tamagocc.api.TNil;
 import tamagocc.api.TNoContract;
@@ -61,4 +62,5 @@ public interface TamagoCCExpressionVisitor {
 
 	Object visitCast(TCast cast) throws TamagoCCException;
 	Object visitInState(TInState tiInState) throws TamagoCCException;
+	Object visitIsBound(TIsBound tiIsBound) throws TamagoCCException;
 }

@@ -24,7 +24,8 @@ public interface GExpression extends GPreExpression {
      NIL,
      LANGEXPR,
      CAST,
-     INSTATE
+     INSTATE,
+     ISBOUND
 	}
     
 	

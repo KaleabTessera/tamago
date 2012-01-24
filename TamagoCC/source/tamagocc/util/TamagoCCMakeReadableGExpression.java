@@ -19,6 +19,7 @@ import tamagocc.generic.api.GForallSet;
 import tamagocc.generic.api.GInLabel;
 import tamagocc.generic.api.GInState;
 import tamagocc.generic.api.GInteger;
+import tamagocc.generic.api.GIsBound;
 import tamagocc.generic.api.GLanguageExpr;
 import tamagocc.generic.api.GNil;
 import tamagocc.generic.api.GNoContract;
@@ -413,5 +414,13 @@ public class TamagoCCMakeReadableGExpression implements
 		}
 		sb.append(")");
 		return null;
+	}
+
+	@Override
+	public Object visitIsBound(GIsBound giIsBound) throws TamagoCCException {
+		sb.append("@isBound(");
+		sb.append(giIsBound.getLabel());
+		sb.append(")");
+		return sb.toString();
 	}
 }

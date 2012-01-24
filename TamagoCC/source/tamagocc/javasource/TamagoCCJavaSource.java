@@ -34,6 +34,7 @@ import tamagocc.ast.api.AInlineComment;
 import tamagocc.ast.api.AInstExpression;
 import tamagocc.ast.api.AInstruction;
 import tamagocc.ast.api.AInteger;
+import tamagocc.ast.api.AIsBound;
 import tamagocc.ast.api.ALanguageExpr;
 import tamagocc.ast.api.ALongComment;
 import tamagocc.ast.api.AMemberVariable;
@@ -1659,6 +1660,13 @@ public class TamagoCCJavaSource extends TamagoCCGeneratorTargetLanguage {
 		//callInState.addArgument(new AIString(state));
 		callInState.addArgument(new AIString(sb.toString()));
 		return callInState.visit(this);
+	}
+
+	@Override
+	public Object visitIsBound(AIsBound aiIsBound) throws TamagoCCException {
+		AICall callIsBound = new AICall(ident("isBound"));
+		callIsBound.addArgument(new AIString(aiIsBound.getLabel()));
+		return callIsBound.visit(this);
 	}
 
 }

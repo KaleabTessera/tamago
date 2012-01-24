@@ -35,6 +35,7 @@ import tamagocc.api.TInState;
 import tamagocc.api.TIncludeService;
 import tamagocc.api.TInteger;
 import tamagocc.api.TInvariant;
+import tamagocc.api.TIsBound;
 import tamagocc.api.TLanguageExpr;
 import tamagocc.api.TMethod;
 import tamagocc.api.TNamespace;
@@ -905,6 +906,12 @@ public class TamagoCCToXml  {
 				indent.openclose("state", "name",st);
 			}
 			indent.close("instate");
+			return null;
+		}
+
+		@Override
+		public Object visitIsBound(TIsBound tiIsBound) throws TamagoCCException {
+			indent.openclose("isbound","label",tiIsBound.getLabel());
 			return null;
 		}
 

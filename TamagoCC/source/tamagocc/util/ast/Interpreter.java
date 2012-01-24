@@ -31,6 +31,7 @@ import tamagocc.ast.api.AInlineComment;
 import tamagocc.ast.api.AInstExpression;
 import tamagocc.ast.api.AInstruction;
 import tamagocc.ast.api.AInteger;
+import tamagocc.ast.api.AIsBound;
 import tamagocc.ast.api.ALanguageExpr;
 import tamagocc.ast.api.ALongComment;
 import tamagocc.ast.api.AMemberVariable;
@@ -624,6 +625,11 @@ public class Interpreter implements TamagoCCASTVisitor {
 
 	@Override
 	public Object visitInState(AInState instate) throws TamagoCCException {
-		throw new TamagoCCException("(InState) Not yet implemented instrument foreach");
+		throw new TamagoCCException("(InState) Not yet implemented");
+	}
+
+	@Override
+	public Object visitIsBound(AIsBound aiIsBound) throws TamagoCCException {
+		throw new TamagoCCException("(IsBound) Not yet implemented");
 	}
 }

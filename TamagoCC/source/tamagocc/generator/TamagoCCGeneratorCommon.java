@@ -28,6 +28,7 @@ import tamagocc.ast.impl.AIInLabel;
 import tamagocc.ast.impl.AIInState;
 import tamagocc.ast.impl.AIInitialisation;
 import tamagocc.ast.impl.AIInteger;
+import tamagocc.ast.impl.AIIsBound;
 import tamagocc.ast.impl.AILanguageExpr;
 import tamagocc.ast.impl.AILongComment;
 import tamagocc.ast.impl.AIModule;
@@ -63,6 +64,7 @@ import tamagocc.generic.api.GExistRange;
 import tamagocc.generic.api.GExistSet;
 import tamagocc.generic.api.GExport;
 import tamagocc.generic.api.GExpression;
+import tamagocc.generic.api.GExpression.GExprType;
 import tamagocc.generic.api.GExtendService;
 import tamagocc.generic.api.GForallColl;
 import tamagocc.generic.api.GForallRange;
@@ -74,6 +76,7 @@ import tamagocc.generic.api.GInitialisation;
 import tamagocc.generic.api.GInstantiateComponent;
 import tamagocc.generic.api.GInteger;
 import tamagocc.generic.api.GInvariant;
+import tamagocc.generic.api.GIsBound;
 import tamagocc.generic.api.GLanguageExpr;
 import tamagocc.generic.api.GMethod;
 import tamagocc.generic.api.GModule;
@@ -100,7 +103,6 @@ import tamagocc.generic.api.GTamagoEntity;
 import tamagocc.generic.api.GTransition;
 import tamagocc.generic.api.GType;
 import tamagocc.generic.api.GVariable;
-import tamagocc.generic.api.GExpression.GExprType;
 import tamagocc.generic.impl.GIQuantifierVariable;
 import tamagocc.logger.TamagoCCLogger;
 import tamagocc.util.TamagoCCGenUtil;
@@ -828,5 +830,10 @@ public class TamagoCCGeneratorCommon implements TamagoCCGVisitor {
 	@Override
 	public Object visitInState(GInState giInState) throws TamagoCCException {
 		return new AIInState(giInState.getInState());
+	}
+
+	@Override
+	public Object visitIsBound(GIsBound giIsBound) throws TamagoCCException {
+		return new  AIIsBound(giIsBound.getLabel());
 	}
 }

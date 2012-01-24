@@ -40,7 +40,8 @@ public interface TExpression extends TObject {
 	    NIL,
 	    LANGEXPR,
 	    CAST,
-	    INSTATE
+	    INSTATE,
+	    ISBOUND
 	}
 	
 	/*

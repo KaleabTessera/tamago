@@ -37,6 +37,7 @@ import tamagocc.api.TInState;
 import tamagocc.api.TIncludeService;
 import tamagocc.api.TInteger;
 import tamagocc.api.TInvariant;
+import tamagocc.api.TIsBound;
 import tamagocc.api.TLanguageExpr;
 import tamagocc.api.TMethod;
 import tamagocc.api.TNamespace;
@@ -124,6 +125,7 @@ import tamagocc.generic.impl.GIIncludeService;
 import tamagocc.generic.impl.GIInstantiateComponent;
 import tamagocc.generic.impl.GIInteger;
 import tamagocc.generic.impl.GIInvariant;
+import tamagocc.generic.impl.GIIsBound;
 import tamagocc.generic.impl.GILanguageExpr;
 import tamagocc.generic.impl.GIMethod;
 import tamagocc.generic.impl.GIModule;
@@ -1327,5 +1329,10 @@ TamagoCCVisitor {
 	public Object visitInState(TInState instate) throws TamagoCCException {
 		GIInState e = new GIInState(instate.getInState());
 		return e;
+	}
+
+	@Override
+	public Object visitIsBound(TIsBound tiIsBound) throws TamagoCCException {
+		return new GIIsBound(tiIsBound.getLabel());
 	}
 }
