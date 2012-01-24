@@ -46,43 +46,48 @@
 // DEFINITION DES PARSEURS COMMUNS A TOUTES EXPRESSIONS
 // ==============================================================
 
-<bool:org.tamago.eclipse.cdl.compiler.cdlast.CDLBool> := @transform(convBoolean,@choice(@literal("true"),@literal("false")));
-<int:org.tamago.eclipse.cdl.compiler.cdlast.CDLInteger> := @transform(convInteger,@regexp("(-)?([0-9]+)"));
-<real:org.tamago.eclipse.cdl.compiler.cdlast.CDLReal> := @transform(convReal,@regexp("(-)?[0-9]+((([.][0-9]+)|((e|E)[+-]?[0-9]+))|([.][0-9]+(e|E)[+-]?[0-9]+))")); 
-<string:org.tamago.eclipse.cdl.compiler.cdlast.CDLString> := @transform(convString,@regexp("\"[^\"]*\""));
+<bool:tamago.parser.cdlast.CDLBool> := @transform(convBoolean,@choice(@literal("true"),@literal("false")));
+<int:tamago.parser.cdlast.CDLInteger> := @transform(convInteger,@regexp("(-)?([0-9]+)"));
+<real:tamago.parser.cdlast.CDLReal> := @transform(convReal,@regexp("(-)?[0-9]+((([.][0-9]+)|((e|E)[+-]?[0-9]+))|([.][0-9]+(e|E)[+-]?[0-9]+))")); 
+<string:tamago.parser.cdlast.CDLString> := @transform(convString,@regexp("\"[^\"]*\""));
 
-<sprop:org.tamago.eclipse.cdl.compiler.cdlast.CDLRead> := @transform(convRead,@seq(@ignore(@literal("#")),<ident>));
-<svar:org.tamago.eclipse.cdl.compiler.cdlast.CDLVariable> := @transform(convVar,<ident>);
-<nil:org.tamago.eclipse.cdl.compiler.cdlast.CDLNil> := @transform(convNil,@choice(@literal("nil"),@literal("null")) );
+<sprop:tamago.parser.cdlast.CDLRead> := @transform(convRead,@seq(@ignore(@literal("#")),<ident>));
+<svar:tamago.parser.cdlast.CDLVariable> := @transform(convVar,<ident>);
+<nil:tamago.parser.cdlast.CDLNil> := @transform(convNil,@choice(@literal("nil"),@literal("null")) );
+
+<instate:tamago.parser.cdlast.CDLInState> := @transform(convInState,@seq(@ignore(@literal("@instate")) , @ignore(@literal("(")),
+	@list(<ident>,",") , @ignore(@literal(")")) ) );
 
 <quant:java.lang.String> := @choice(@literal("forall"),@literal("exists"),@literal("FORALL"),@literal("EXISTS"));
 <in:java.lang.String> := @choice(@literal("in"),@literal("IN"));
+
+
 
 // ==============================================================
 // DEFINITION DES PARSEURS D'EXPRESSIONS PRE/INVARIANT
 // ==============================================================
 
-<varidx:org.tamago.eclipse.cdl.compiler.cdlast.CDLVariable> := @transform(convVarIdx,@seq(<ident>,@ignore(@literal("[")), <expr>, @ignore(@literal("]")) ));
-<var:org.tamago.eclipse.cdl.compiler.cdlast.CDLVariable> := @choice(<varidx>,<svar>);
+<varidx:tamago.parser.cdlast.CDLVariable> := @transform(convVarIdx,@seq(<ident>,@ignore(@literal("[")), <expr>, @ignore(@literal("]")) ));
+<var:tamago.parser.cdlast.CDLVariable> := @choice(<varidx>,<svar>);
 
-<propidx:org.tamago.eclipse.cdl.compiler.cdlast.CDLRead> := @transform(convReadIdx,@seq(@ignore(@literal("#")),<ident>,@ignore(@literal("[")), <expr>, @ignore(@literal("]")) ));
-<prop:org.tamago.eclipse.cdl.compiler.cdlast.CDLRead> := @choice(<propidx>,<sprop>);
+<propidx:tamago.parser.cdlast.CDLRead> := @transform(convReadIdx,@seq(@ignore(@literal("#")),<ident>,@ignore(@literal("[")), <expr>, @ignore(@literal("]")) ));
+<prop:tamago.parser.cdlast.CDLRead> := @choice(<propidx>,<sprop>);
 
-<cast1:org.tamago.eclipse.cdl.compiler.cdlast.CDLCast> := @transform(convCast,@seq(@ignore(@literal("|")),<qualifident>,@ignore(@literal("|")),<expr>));
-<cast2:org.tamago.eclipse.cdl.compiler.cdlast.CDLCast> := @transform(convCast,@seq(@ignore(@literal("(")),<qualifident>,@ignore(@literal(")")),<expr>));
-<cast:org.tamago.eclipse.cdl.compiler.cdlast.CDLCast> := @choice(<cast1>,<cast2>);
+<cast1:tamago.parser.cdlast.CDLCast> := @transform(convCast,@seq(@ignore(@literal("|")),<qualifident>,@ignore(@literal("|")),<expr>));
+<cast2:tamago.parser.cdlast.CDLCast> := @transform(convCast,@seq(@ignore(@literal("(")),<qualifident>,@ignore(@literal(")")),<expr>));
+<cast:tamago.parser.cdlast.CDLCast> := @choice(<cast1>,<cast2>);
 
-<callarith:org.tamago.eclipse.cdl.compiler.cdlast.CDLCall> := @transform(convCall, @seq(<ident>,@ignore(@literal("(")),@list(<expr>,","),@ignore(@literal(")")) ) );
+<callarith:tamago.parser.cdlast.CDLCall> := @transform(convCall, @seq(<ident>,@ignore(@literal("(")),@list(<expr>,","),@ignore(@literal(")")) ) );
 
-<inlabel:org.tamago.eclipse.cdl.compiler.cdlast.CDLInLabel> := @transform(convInLabel, @seq(@choice(<prop>,<var>,<callarith>),@ignore(@literal(".")), @choice(<prop>,<var>,<callarith>,<inlabel>) ) );
+<inlabel:tamago.parser.cdlast.CDLInLabel> := @transform(convInLabel, @seq(@choice(<prop>,<var>,<callarith>),@ignore(@literal(".")), @choice(<prop>,<var>,<callarith>,<inlabel>) ) );
 
-<quantset:org.tamago.eclipse.cdl.compiler.cdlast.CDLQSet> := @transform(convQSet,@seq(<quant>,<ident>,@ignore(@literal(":")),<qualifident>,@ignore(<in>),
+<quantset:tamago.parser.cdlast.CDLQSet> := @transform(convQSet,@seq(<quant>,<ident>,@ignore(@literal(":")),<qualifident>,@ignore(<in>),
 	@ignore(@literal("[")),@list(<expr>,","),@ignore(@literal("]")),@ignore(@literal("{")),<expr>,@ignore(@literal("}")) ));
 
-<quantcoll:org.tamago.eclipse.cdl.compiler.cdlast.CDLQColl> := @transform(convQColl,@seq(<quant>,<ident>,@ignore(@literal(":")),<qualifident>,@ignore(<in>),
+<quantcoll:tamago.parser.cdlast.CDLQColl> := @transform(convQColl,@seq(<quant>,<ident>,@ignore(@literal(":")),<qualifident>,@ignore(<in>),
 	<expr>,@ignore(@literal("{")),<expr>,@ignore(@literal("}")) ));
 
-<quantrange:org.tamago.eclipse.cdl.compiler.cdlast.CDLQRange> := @transform(convQRange,@seq(<quant>,<ident>,@ignore(@literal(":")),<qualifident>,@ignore(<in>),
+<quantrange:tamago.parser.cdlast.CDLQRange> := @transform(convQRange,@seq(<quant>,<ident>,@ignore(@literal(":")),<qualifident>,@ignore(<in>),
 	<expr>,@ignore(@literal("..")),<expr>,@ignore(@literal("{")),<expr>,@ignore(@literal("}")) ));
 
 
@@ -102,6 +107,7 @@
 @expr_operand(expr,<callarith>);
 @expr_operand(expr,<string>);
 
+@expr_operand(expr,<instate>);
 
 @expr_operator(expr,infix,left,30, @transform(convOperatorInfix,@literal("+")));
 @expr_operator(expr,infix,left,60, @transform(convOperatorInfix,@literal("*")));
@@ -135,29 +141,29 @@
 // DEFINITION DES PARSEURS D'EXPRESSIONS POST
 // ==============================================================
 
-<varidxpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLVariable> := @transform(convVarIdx,@seq(<ident>,@ignore(@literal("[")), <exprpost>, @ignore(@literal("]")) ));
-<varpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLVariable> := @choice(<svar>,<varidxpost>);
+<varidxpost:tamago.parser.cdlast.CDLVariable> := @transform(convVarIdx,@seq(<ident>,@ignore(@literal("[")), <exprpost>, @ignore(@literal("]")) ));
+<varpost:tamago.parser.cdlast.CDLVariable> := @choice(<svar>,<varidxpost>);
 
-<propidxpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLRead> := @transform(convReadIdx,@seq(@ignore(@literal("#")),<ident>,@ignore(@literal("[")), <exprpost>, @ignore(@literal("]")) ));
-<proppost:org.tamago.eclipse.cdl.compiler.cdlast.CDLRead> := @choice(<sprop>,<propidxpost>);
+<propidxpost:tamago.parser.cdlast.CDLRead> := @transform(convReadIdx,@seq(@ignore(@literal("#")),<ident>,@ignore(@literal("[")), <exprpost>, @ignore(@literal("]")) ));
+<proppost:tamago.parser.cdlast.CDLRead> := @choice(<sprop>,<propidxpost>);
 
 <cast1post:org.CDLCast> := @transform(convCast,@seq(@ignore(@literal("|")),<qualifident>,@ignore(@literal("|")),<exprpost>));
 <cast2post:org.CDLCast> := @transform(convCast,@seq(@ignore(@literal("(")),<qualifident>,@ignore(@literal(")")),<exprpost>));
 <castpost:org.CDLCast> := @choice(<cast1post>,<cast2post>);
 
-<callpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLCall> := @transform(convCall, @seq(<ident>,@ignore(@literal("(")),@list(<exprpost>,","),@ignore(@literal(")")) ) );
+<callpost:tamago.parser.cdlast.CDLCall> := @transform(convCall, @seq(<ident>,@ignore(@literal("(")),@list(<exprpost>,","),@ignore(@literal(")")) ) );
 
-<inlabelpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLInLabel> := @transform(convInLabel, @seq(@choice(<proppost>,<varpost>,<callpost>),@ignore(@literal(".")), @choice(<proppost>,<varpost>,<callpost>,<inlabelpost>) ) );
+<inlabelpost:tamago.parser.cdlast.CDLInLabel> := @transform(convInLabel, @seq(@choice(<proppost>,<varpost>,<callpost>),@ignore(@literal(".")), @choice(<proppost>,<varpost>,<callpost>,<inlabelpost>) ) );
 
-<return:org.tamago.eclipse.cdl.compiler.cdlast.CDLReturn> := @transform(convReturn,@literal("@return"));
+<return:tamago.parser.cdlast.CDLReturn> := @transform(convReturn,@literal("@return"));
 
-<quantsetpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLQSet> := @transform(convQSet,@seq(<quant>,<ident>,@ignore(@literal(":")),<qualifident>,@ignore(<in>),
+<quantsetpost:tamago.parser.cdlast.CDLQSet> := @transform(convQSet,@seq(<quant>,<ident>,@ignore(@literal(":")),<qualifident>,@ignore(<in>),
 	@ignore(@literal("[")),@list(<exprpost>,","),@ignore(@literal("]")),@ignore(@literal("{")),<exprpost>,@ignore(@literal("}")) ));
 
-<quantcollpost:org.tamago.eclipse.cdl.compiler.cdlast.CDLQColl> := @transform(convQColl,@seq(<quant>,<ident>,@ignore(@literal(":")),<qualifident>,@ignore(<in>),
+<quantcollpost:tamago.parser.cdlast.CDLQColl> := @transform(convQColl,@seq(<quant>,<ident>,@ignore(@literal(":")),<qualifident>,@ignore(<in>),
 	<exprpost>,@ignore(@literal("{")),<exprpost>,@ignore(@literal("}")) ));
 
-<quantrangepost:org.tamago.eclipse.cdl.compiler.cdlast.CDLQRange> := @transform(convQRange,@seq(<quant>,<ident>,@ignore(@literal(":")),<qualifident>,@ignore(<in>),
+<quantrangepost:tamago.parser.cdlast.CDLQRange> := @transform(convQRange,@seq(<quant>,<ident>,@ignore(@literal(":")),<qualifident>,@ignore(<in>),
 	<exprpost>,@ignore(@literal("..")),<exprpost>,@ignore(@literal("{")),<exprpost>,@ignore(@literal("}")) ));
 
 @expr_operand(exprpost,<bool>);
@@ -174,6 +180,8 @@
 @expr_operand(exprpost,<string>);
 @expr_operand(exprpost,<proppost>);
 @expr_operand(exprpost,<varpost>);
+
+@expr_operand(exprpost,<instate>);
 
 
 @expr_operator(exprpost,infix,left,30, @transform(convOperatorInfix,@literal("+")));

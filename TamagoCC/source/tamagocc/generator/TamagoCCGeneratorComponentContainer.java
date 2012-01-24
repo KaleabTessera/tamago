@@ -1002,7 +1002,7 @@ public class TamagoCCGeneratorComponentContainer extends TamagoCCGeneratorCommon
 	}
 	
 	private AMethod isBinded(GComponentContainer container) {
-		AIMethod method = new AIMethod(AMethod.IMPLEMENTED,ident("isBinded"),(AIType) AIType.generateType("bool"),AIVisibility.PUBLIC_VISIBILITY);
+		AIMethod method = new AIMethod(AMethod.IMPLEMENTED,ident("isBound"),(AIType) AIType.generateType("bool"),AIVisibility.PUBLIC_VISIBILITY);
 		
 		AIOperator ope = new AIOperator(TOpeName.opEg);
 		ope.addOperand(component.getCallMe());

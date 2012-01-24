@@ -1,0 +1,9 @@
+module org.tamago.example;
+
+using java.lang.String;
+
+component CompBucket {
+	
+	provide service Bucket in org.tamago.example;
+	
+}

@@ -964,7 +964,7 @@ public class TamagoCCJavaSource extends TamagoCCGeneratorTargetLanguage {
 	 * @see tamagocc.ast.TamagoCCASTVisitor#visitString(tamagocc.ast.api.AString)
 	 */
 	public Object visitString(AString string) throws TamagoCCException {
-		indent.print("\""+string.getValue()+"\"");
+		indent.print("\""+string.getValue().replaceAll("\"", "\\\\\"")+"\"");
 		return PrintResult.EXPRESSION;
 	}
 
@@ -1647,10 +1647,17 @@ public class TamagoCCJavaSource extends TamagoCCGeneratorTargetLanguage {
 
 	@Override
 	public Object visitInState(AInState instate) throws TamagoCCException {
-		AICall callInState = new AICall(ident("isInState"));
+		// ALTERNATIVE BEAUCOUP MIEUX A LONG TERME: faire une demande au framework TamagoCC qui lui va chercher 
+		// le bon conteneur realisant la verif de l'automate, la solution actuelle fonctionne uniquement dans le cas ou le conteneur
+		// fait la verif de contrat et la verif de l'automate en meme temps
+		AICall callInState = new AICall(ident("isInState")); // deja definit dans les conteneurs abstraits
+		StringBuilder sb = new StringBuilder();
 		for (String state : instate.getStates()) {
-			callInState.addArgument(new AIString(state));
+			sb.append(state);
+			sb.append("/");
 		}
+		//callInState.addArgument(new AIString(state));
+		callInState.addArgument(new AIString(sb.toString()));
 		return callInState.visit(this);
 	}
 

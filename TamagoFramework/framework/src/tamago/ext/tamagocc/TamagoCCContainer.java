@@ -4,11 +4,11 @@ import tamago.ServiceBindException;
 import tamago.TamagoException;
 
 /**
- * @author Hakim Belhaouari and Frederic Peschanski
+ * @author Hakim Belhaouari
  *
  */
 public interface TamagoCCContainer extends TamagoCCComponent,RequireServiceNaming {
-	public boolean isBinded();
+	public boolean isBound();
 	
 	public RequiredService[] getRequiredServices();
 	public void bind(String label, TamagoCCService instance) throws ServiceBindException;

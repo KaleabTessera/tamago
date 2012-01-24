@@ -3,14 +3,10 @@ module org.tamago.example;
 using java.lang.String;
 
 service Bucket {
-	implements org.MonService;
 	property read int quantity;
-	
-	invariant (0 > 2);
-	
 	method void foo(int a) {
 		id foo;
-		pre (a > 0);
+		pre @instate(toto);
 	}
 	
 	behavior {
