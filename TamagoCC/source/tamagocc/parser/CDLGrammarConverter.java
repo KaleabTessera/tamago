@@ -63,6 +63,7 @@ import tamagocc.parser.cdlast.CDLInLabel;
 import tamagocc.parser.cdlast.CDLInState;
 import tamagocc.parser.cdlast.CDLInfix;
 import tamagocc.parser.cdlast.CDLInteger;
+import tamagocc.parser.cdlast.CDLIsBound;
 import tamagocc.parser.cdlast.CDLNil;
 import tamagocc.parser.cdlast.CDLNot;
 import tamagocc.parser.cdlast.CDLQColl;
@@ -156,6 +157,11 @@ public class CDLGrammarConverter {
 	public CDLInState convInState(Object content) {
 		Collection<String> names = (Collection<String>)content;
 		return new CDLInState(names);
+	}
+	
+	public CDLIsBound convIsBound(Object content) {
+		String label = (String) content;
+		return new CDLIsBound(label);
 	}
 
 	
