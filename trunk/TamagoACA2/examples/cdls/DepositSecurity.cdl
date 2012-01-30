@@ -1,0 +1,45 @@
+model Deposit in tamago.aca.bank;
+
+
+users := alphonse,boris,catherine,damien,elise,franck;
+roles := customer,clerk,bankder,director;
+organisitions := montreal, toronto;
+
+actions := deposit,cancel,check,validate,validate_dir,register;
+
+
+play :=
+	<alphonse,customer,montreal>,
+	<boris,clerk,montreal>,
+	<catherine,director,montreal>,
+	<damien, banker,montreal>,
+	<elise,clerk,toronto>,
+	<franck,director,toronto>
+;
+
+ permissions :=
+<_,clerk,_,deposit>,
+ <_,clerk,_,credit>,
+ <_,banker,_,deposit>,
+ <_,banker,_,credit>,
+ <_,banker,_,cancel>,
+ <_,banker,_,validate>,
+ <_,director,_,cancel>,
+ <_,director,_,validate>
+ ;
+ 
+ prohibitions :=
+ <!elisa,_,_,cancel>,
+ <_,_,!Toronto,validate>,
+ <_,!customer,_,deposit>,
+ <_,!customer,_,cancel>,
+ <_,!customer,_,validate>
+;
+ 
+ obligations :=
+ 	OBL(user,<user,_,_,deposit(c,d,m)>,<user,_,_,credit(c,d,m)>)
+ ;
+ 
+ separations = 
+ 	SOD(user,<user,_,_,deposit(c,d,m)>,<!user,_,_,validate(c,d,m)>)
+;
