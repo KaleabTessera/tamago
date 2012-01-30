@@ -4,7 +4,7 @@
 // DEFINITION DES META BALISES
 // ==============================================================
 
-@meta(grammar, "tamago.aca.ACAGrammarConverter");
+@meta(grammar, "tamago.aca.parser.ACAGrammarConverter");
 @meta(start, "aca");
 
 
