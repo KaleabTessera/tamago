@@ -89,11 +89,36 @@
 @ignore(@literal(";"))
 ) );
 
+
+<obl:tamago.aca.term.Obl> := @transform(convObl,
+@seq(
+	@ignore(@literal("obl")),
+	@ignore(@literal("(")),
+	<uro>,
+	@ignore(@literal(",")),
+	<quad>,
+	@ignore(@literal(",")),
+	<quad>,
+	@ignore(@literal(")"))
+) );
+
 <obligations:tamago.aca.term.Obls> := @transform(convObls,
 @seq( @ignore(@literal("obligations")),
 @ignore(@literal(":=")),
 @list(<obl>,","),
 @ignore(@literal(";"))
+) );
+
+<sod:tamago.aca.term.Obl> := @transform(convSod,
+@seq(
+	@ignore(@literal("sod")),
+	@ignore(@literal("(")),
+	<uro>,
+	@ignore(@literal(",")),
+	<quad>,
+	@ignore(@literal(",")),
+	<quad>,
+	@ignore(@literal(")"))
 ) );
 
 <separations:tamago.aca.term.Sods> := @transform(convSods,
