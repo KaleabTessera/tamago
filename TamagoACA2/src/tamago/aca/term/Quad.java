@@ -56,6 +56,10 @@ public class Quad {
 	public boolean isNegOrg() {
 		return org.startsWith("!");
 	}
+
+	public boolean hasNegField() {
+		return isNegOrg() || isNegRole() || isNegUser();
+	}
 	
 }
 

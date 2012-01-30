@@ -7,6 +7,13 @@ public class Obl implements ACATerm{
 	private Quad right;
 	private OnCA target;
 
+	public Obl(OnCA ca, Quad second, Quad third) {
+		target = ca;
+		left = second;
+		right = third;
+	}
+
+
 	/**
 	 * @see tamago.aca.term.ACATerm#visit(tamago.aca.visitor.ACAVisitor)
 	 */
