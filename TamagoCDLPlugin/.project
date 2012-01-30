@@ -35,27 +35,27 @@
 		<link>
 			<name>javapop-src</name>
 			<type>2</type>
-			<location>/home/SIC/hbelhaou/recherche/JavaPop2/src</location>
+			<location>D:/recherche/JavaPop2/src</location>
 		</link>
 		<link>
 			<name>source</name>
 			<type>2</type>
-			<location>/home/SIC/hbelhaou/recherche/Tamago/TamagoCC/source</location>
+			<location>D:/recherche/Tamago/TamagoCC/source</location>
 		</link>
 		<link>
 			<name>tamago-src</name>
 			<type>2</type>
-			<location>/home/SIC/hbelhaou/recherche/Tamago/TamagoFramework/framework/src</location>
+			<location>D:/recherche/Tamago/TamagoFramework/framework/src</location>
 		</link>
 		<link>
 			<name>tamagocsp-src</name>
 			<type>2</type>
-			<location>/home/SIC/hbelhaou/recherche/Tamago/TamagoCSP/src</location>
+			<location>D:/recherche/Tamago/TamagoCSP/src</location>
 		</link>
 		<link>
 			<name>tamagotest-src</name>
 			<type>2</type>
-			<location>/home/SIC/hbelhaou/recherche/Tamago/TamagoTest/src</location>
+			<location>D:/recherche/Tamago/TamagoTest/src</location>
 		</link>
 	</linkedResources>
 </projectDescription>

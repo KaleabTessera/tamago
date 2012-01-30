@@ -1,0 +1,130 @@
+@start
+
+// ==============================================================
+// DEFINITION DES META BALISES
+// ==============================================================
+
+@meta(grammar, "tamago.aca.ACAGrammarConverter");
+@meta(start, "aca");
+
+
+// ==============================================================
+// DEFINITION DES MOTS-CLES
+// ==============================================================
+
+
+@keywords(SOD,sod, OBL,obl,user,role,org,organisation,actions, model);
+
+// ==============================================================
+// DEFINITION DES DIFFERENTS PARSEURS DE BASE
+// ==============================================================
+
+<ident:java.lang.String> := @regexpwithoutkeywords("[a-zA-Z][a-zA-Z_0-9]*");
+<qualifident:java.lang.String> := @regexpwithoutkeywords("[a-zA-Z_][a-zA-Z_0-9]*([.][a-zA-Z_][a-zA-Z_0-9]*)*(\\[\\])?");
+
+<quadident:java.lang.String> := @transform(convQuadIdent,
+ @choice(@literal("_"),@transform(convNegQuadIdent,@seq( @maybe(@literal("!")),<ident>)) ) );
+
+
+<user:java.lang.String> := @choice(@literal("user"), @literal("USER"));
+<role:java.lang.String> := @choice(@literal("role"), @literal("ROLE"));
+<org:java.lang.String> := @choice(@literal("org"), @literal("ORG"), @literal("ORGANISATION"));
+
+<uro:java.lang.String> :=  @choice(<user>,<role>,<org>);
+
+
+<users:tamago.aca.term.Users> := @transform(convUsers,
+	@seq(@ignore(@literal("users")),@ignore(@literal(":=")), @list(<ident>, ","),@ignore(@literal(";")) ) );
+
+<roles:tamago.aca.term.Roles> := @transform(convRoles,
+	@seq(@ignore(@literal("roles")),@ignore(@literal(":=")), @list(<ident>, ","),@ignore(@literal(";")) ) );
+
+<orgs:tamago.aca.term.Orgs> := @transform(convOrgs,
+	@seq(@ignore(@literal("organisations")),@ignore(@literal(":=")), @list(<ident>, ","),@ignore(@literal(";")) ) );
+
+<actions:tamago.aca.term.Actions> := @transform(convActions,
+	@seq(@ignore(@literal("actions")),@ignore(@literal(":=")), @list(<ident>, ","),@ignore(@literal(";")) ) );
+
+
+<playitem:tamago.aca.term.PlayItem> := @transform(convPlayItem, @seq(
+	@ignore(@literal("<")),
+	<ident>,
+	@ignore(@literal(",")),
+	<ident>,
+	@ignore(@literal(",")),
+	<ident>,
+	@ignore(@literal(">"))
+) );
+
+<play:tamago.aca.term.Play> := @transform(convPlay, @seq(
+	@ignore(@literal("play")),
+	@ignore(@literal(":=")),
+	@list(<playitem>,","),
+	@ignore(@literal(";"))
+));
+
+<quad:tamago.aca.term.Quad> := @transform(convQuad, @seq(
+	@ignore(@literal("<")),
+	<quadident>,
+	@ignore(@literal(",")),
+	<quadident>,
+	@ignore(@literal(",")),
+	<quadident>,
+	@ignore(@literal(",")),
+	<ident>,
+	@ignore(@literal(">"))
+) );
+
+<permissions:tamago.aca.term.Perms> := @transform(convPerms,
+@seq( @ignore(@literal("permissions")),
+@ignore(@literal(":=")),
+@list(<quad>,","),
+@ignore(@literal(";"))
+) );
+
+<prohibitions:tamago.aca.term.Bans> := @transform(convBans,
+@seq( @ignore(@literal("prohibitions")),
+@ignore(@literal(":=")),
+@list(<quad>,","),
+@ignore(@literal(";"))
+) );
+
+<obligations:tamago.aca.term.Obls> := @transform(convObls,
+@seq( @ignore(@literal("obligations")),
+@ignore(@literal(":=")),
+@list(<obl>,","),
+@ignore(@literal(";"))
+) );
+
+<separations:tamago.aca.term.Sods> := @transform(convSods,
+@seq( @ignore(@literal("separations")),
+@ignore(@literal(":=")),
+@list(<sod>,","),
+@ignore(@literal(";"))
+) );
+
+<info:tamago.aca.term.Info> := 
+@transform(convInfo,@seq(@ignore(@literal("model")), <ident>,@ignore(@literal("in")), <qualifident>, @ignore(@literal(";")) ) );
+
+// ==============================================================
+// DEFINITION DU PARSEUR PRINCIPAL
+// ==============================================================
+
+<aca:tamago.aca.term.ACA> := 
+ @transform(convertAcaTerm,
+ 	@seq(
+ 		<info>,
+ 		<users>,
+ 		<roles>,
+ 		<orgs>,
+ 		<actions>,
+ 		<play>,
+ 		<permissions>,
+ 		<prohibitions>,
+ 		<obligations>,
+ 		<separations>
+ 	)
+ )
+;
+
+@end

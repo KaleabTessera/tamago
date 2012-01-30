@@ -1,0 +1,26 @@
+module tamago.aca.bank;
+
+
+service Deposit {
+	
+	method void deposit(int clid, int cid) {
+	       id deposit;
+	}
+	method void cancel(int clid, int cid) {
+	       id cancel;
+	}
+	method void validate(int clid, int cid) {
+		id validate;
+	}
+	method void validate_director(int clid, int cid) {
+		id validate_dir;
+	}
+	
+	method void check(int clid, int cid) {
+		id check;
+	}
+	
+	method void register(int clid, int cid) {
+		id register;
+	}
+}
