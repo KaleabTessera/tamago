@@ -110,7 +110,7 @@ public class ACAGrammarConverter {
 		return new Info(r.getFirst(), r.getSecond());
 	}
 	 public tamago.aca.term.ACA convertAcaTerm(Object content) {
-		Decuple<Info, Users, Roles, Orgs, Actions, Play, Perms, Bans, Obls, Sods> r = (Decuple<Info, Users, Roles, Orgs, Actions, Play, Perms, Bans, Obls, Sods>)content;
+		Decuple<Info, MaybeParse<Users>, MaybeParse<Roles>, MaybeParse<Orgs>, MaybeParse< Actions>, MaybeParse< Play>, MaybeParse< Perms>, MaybeParse< Bans>, MaybeParse< Obls>, MaybeParse< Sods>> r = (Decuple<Info, MaybeParse<Users>, MaybeParse<Roles>, MaybeParse<Orgs>, MaybeParse<Actions>, MaybeParse<Play>, MaybeParse<Perms>, MaybeParse<Bans>, MaybeParse<Obls>, MaybeParse<Sods>>)content;
 		return new ACA(r);
 	}
 
