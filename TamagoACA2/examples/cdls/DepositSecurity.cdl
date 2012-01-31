@@ -3,7 +3,7 @@ model Deposit in tamago.aca.bank;
 
 users := alphonse,boris,catherine,damien,elise,franck;
 roles := customer,clerk,bankder,director;
-organisitions := montreal, toronto;
+organisations := montreal, toronto;
 
 actions := deposit,cancel,check,validate,validate_dir,register;
 

@@ -1,5 +1,6 @@
 package tamago.aca.term;
 
+import javapop.framework.parser.MaybeParse;
 import javapop.utils.Decuple;
 import tamago.aca.visitor.ACAVisitor;
 
@@ -18,17 +19,28 @@ public class ACA {
 	
 	
 	public ACA(
-			Decuple<Info, Users, Roles, Orgs, Actions, Play, Perms, Bans, Obls, Sods> r) {
+			Decuple<Info, MaybeParse<Users>, MaybeParse<Roles>, MaybeParse<Orgs>, MaybeParse<Actions>, MaybeParse<Play>, MaybeParse<Perms>, MaybeParse<Bans>, MaybeParse<Obls>, MaybeParse<Sods>> r) {
 		info = r.getFirst();
-		users = r.getSecond();
-		roles = r.getThird();
-		orgs = r.getFourth();
-		actions = r.getFifth();
-		play = r.getSixth();
-		perms = r.getSeventh();
-		bans = r.getEighth();
-		obls = r.getNinth();
-		sods = r.getTenth();
+		if(r.getSecond().hasResult())
+			users = r.getSecond().getResult().getResult();
+		
+		if(r.getThird().hasResult())
+			roles = r.getThird().getResult().getResult();
+		
+		if(r.getFourth().hasResult())
+			orgs = r.getFourth().getResult().getResult();
+		if(r.getFifth().hasResult())
+			actions = r.getFifth().getResult().getResult();
+		if(r.getSixth().hasResult())
+			play = r.getSixth().getResult().getResult();
+		if(r.getSeventh().hasResult())
+			perms = r.getSeventh().getResult().getResult();
+		if(r.getEighth().hasResult())
+			bans = r.getEighth().getResult().getResult();
+		if(r.getNinth().hasResult())
+			obls = r.getNinth().getResult().getResult();
+		if(r.getTenth().hasResult())
+			sods = r.getTenth().getResult().getResult();
 	}
 	public Info getInfo() {
 		return info;
