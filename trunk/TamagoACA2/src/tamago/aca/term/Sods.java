@@ -11,4 +11,12 @@ public class Sods extends ArrayList<Sod>{
 		super(content);
 	}
 
+	public Sods() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "sods := "+super.toString();
+	}
 }

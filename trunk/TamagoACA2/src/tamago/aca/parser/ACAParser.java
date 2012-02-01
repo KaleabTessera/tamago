@@ -35,6 +35,7 @@ public class ACAParser {
 		else {
 			ACA aca = paca.getResult();
 			System.out.println("OK");
+			System.out.println(aca);
 		}
 	}
 }

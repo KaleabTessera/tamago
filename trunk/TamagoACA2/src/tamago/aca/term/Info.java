@@ -24,4 +24,13 @@ public class Info {
 	public void setModelModule(String modelModule) {
 		this.modelModule = modelModule;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("model ");
+		sb.append(modelName);
+		sb.append(" in ");
+		sb.append(modelModule);
+		return sb.toString();
+	}
 }

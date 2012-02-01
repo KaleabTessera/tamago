@@ -8,6 +8,14 @@ public class Orgs extends ArrayList<String>{
 		super(content);
 	}
 
+	public Orgs() {
+		// TODO Auto-generated constructor stub
+	}
+
 	private static final long serialVersionUID = 6218866703622950304L;
 
+	@Override
+	public String toString() {
+		return "orgs := " +super.toString();
+	}
 }

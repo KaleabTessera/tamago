@@ -9,6 +9,14 @@ public class Actions extends ArrayList<String>{
 		super(content);
 	}
 
+	public Actions() {
+		// TODO Auto-generated constructor stub
+	}
+
 	private static final long serialVersionUID = -2976039190090134402L;
 
+	@Override
+	public String toString() {
+		return "actions := " +super.toString();
+	}
 }
