@@ -59,4 +59,15 @@ public class Sod implements ACATerm {
 		this.target = target;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("SOD(");
+		sb.append(target);
+		sb.append(",");
+		sb.append(left.toString());
+		sb.append(",");
+		sb.append(right.toString());
+		sb.append(")");
+		return sb.toString();
+	}
 }

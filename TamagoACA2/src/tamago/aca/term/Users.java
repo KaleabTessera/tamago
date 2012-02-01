@@ -10,5 +10,17 @@ public class Users extends ArrayList<String>{
 	public Users(Collection<String> content) {
 		super(content);
 	}
+	
+	
+	
+	public Users() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	@Override
+	public String toString() {
+		return "users := " +super.toString();
+	}
 
 }

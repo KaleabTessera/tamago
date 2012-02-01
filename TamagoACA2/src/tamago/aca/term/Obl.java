@@ -47,4 +47,15 @@ public class Obl implements ACATerm{
 		this.target = target;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("OBL(");
+		sb.append(target);
+		sb.append(",");
+		sb.append(left);
+		sb.append(",");
+		sb.append(right);
+		sb.append(")");
+		return sb.toString();
+	}
 }

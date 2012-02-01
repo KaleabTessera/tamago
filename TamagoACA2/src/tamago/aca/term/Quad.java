@@ -61,6 +61,19 @@ public class Quad {
 		return isNegOrg() || isNegRole() || isNegUser();
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("<");
+		sb.append(user);
+		sb.append(",");
+		sb.append(role);
+		sb.append(",");
+		sb.append(org);
+		sb.append(",");
+		sb.append(action);
+		sb.append(">");
+		return sb.toString();
+	}
 }
 
 

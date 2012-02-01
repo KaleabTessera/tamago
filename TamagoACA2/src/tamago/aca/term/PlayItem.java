@@ -37,4 +37,15 @@ public class PlayItem {
 		
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("<");
+		sb.append(user);
+		sb.append(",");
+		sb.append(role);
+		sb.append(",");
+		sb.append(org);
+		sb.append(">");
+		return sb.toString();
+	}
 }

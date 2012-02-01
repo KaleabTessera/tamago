@@ -30,11 +30,13 @@ public class ACAGrammarConverter {
 
 	// -- Methods for default method values
 	public String convNegQuadIdent(Object content) {
-		Pair<MaybeParse<String>, String> r = ((Pair<MaybeParse<String>, String>)content);
+		/*Pair<MaybeParse<String>, String> r = ((Pair<MaybeParse<String>, String>)content);
 		if(r.getFirst().hasResult())
 			return r.getFirst().getResult().getResult() + r.getSecond();
 		else
 			return r.getSecond();
+			*/
+		return (String)content;
 	}
 	 public java.lang.String convQuadIdent(Object content) {
 		return (String)content;
