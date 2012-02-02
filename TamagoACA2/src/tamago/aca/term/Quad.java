@@ -1,5 +1,7 @@
 package tamago.aca.term;
 
+import tamago.aca.visitor.ACAVisitor;
+
 public class Quad {
 	private String user;
 	private String role;
@@ -14,7 +16,10 @@ public class Quad {
 	}
 	
 	public String getUser() {
-		return user;
+		if(isNegUser())
+			return user.substring(1);
+		else
+			return user;
 	}
 
 	public void setUser(String user) {
@@ -22,7 +27,10 @@ public class Quad {
 	}
 
 	public String getRole() {
-		return role;
+		if(isNegRole())
+			return role.substring(1);
+		else					
+			return role;
 	}
 
 	public void setRole(String role) {
@@ -30,7 +38,10 @@ public class Quad {
 	}
 
 	public String getOrg() {
-		return org;
+		if(isNegOrg())
+			return org.substring(1);
+		else
+			return org;
 	}
 
 	public void setOrg(String org) {
@@ -73,6 +84,10 @@ public class Quad {
 		sb.append(action);
 		sb.append(">");
 		return sb.toString();
+	}
+	
+	public <R,E extends Exception> R visitTerm(ACAVisitor<R,E> visitor) throws E {
+		return visitor.visitQuad(this);
 	}
 }
 

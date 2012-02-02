@@ -3,6 +3,8 @@ package tamago.aca.term;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import tamago.aca.visitor.ACAVisitor;
+
 public class Actions extends ArrayList<String>{
 
 	public Actions(Collection<String> content) {
@@ -18,5 +20,9 @@ public class Actions extends ArrayList<String>{
 	@Override
 	public String toString() {
 		return "actions := " +super.toString();
+	}
+	
+	public <R,E extends Exception> R visitTerm(ACAVisitor<R,E> visitor) throws E {
+		return visitor.visitActions(this);
 	}
 }

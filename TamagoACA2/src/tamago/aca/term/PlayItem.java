@@ -1,5 +1,7 @@
 package tamago.aca.term;
 
+import tamago.aca.visitor.ACAVisitor;
+
 public class PlayItem {
 
 	private String user;
@@ -47,5 +49,9 @@ public class PlayItem {
 		sb.append(org);
 		sb.append(">");
 		return sb.toString();
+	}
+	
+	public <R,E extends Exception> R visitTerm(ACAVisitor<R,E> visitor) throws E {
+		return visitor.visitPlayItem(this);
 	}
 }

@@ -1,8 +1,10 @@
 package tamago.aca.term;
 
+import java.util.ArrayList;
+
 import javapop.framework.parser.MaybeParse;
-import javapop.utils.Decuple;
 import tamago.aca.visitor.ACAVisitor;
+import tamago.aca.parser.Process;
 
 public class ACA {
 	protected Info info;
@@ -15,55 +17,60 @@ public class ACA {
 	protected Bans bans;
 	protected Obls obls;
 	protected Sods sods;
+	protected Process process;
 	
 	
 	
-	public ACA(
-			Decuple<Info, MaybeParse<Users>, MaybeParse<Roles>, MaybeParse<Orgs>, MaybeParse<Actions>, MaybeParse<Play>, MaybeParse<Perms>, MaybeParse<Bans>, MaybeParse<Obls>, MaybeParse<Sods>> r) {
-		info = r.getFirst();
-		if(r.getSecond().hasResult())
-			users = r.getSecond().getResult().getResult();
+	public ACA(ArrayList r) {
+		info = (Info) r.get(0);
+		if( ((MaybeParse<Users>)r.get(1)).hasResult())
+			users = ((MaybeParse<Users>)r.get(1)).getResult().getResult();
 		else
 			users = new Users();
 		
-		if(r.getThird().hasResult())
-			roles = r.getThird().getResult().getResult();
+		if(((MaybeParse<Roles>) r.get(2)).hasResult())
+			roles =((MaybeParse<Roles>) r.get(2)).getResult().getResult();
 		else
 			roles = new Roles();
 		
-		if(r.getFourth().hasResult())
-			orgs = r.getFourth().getResult().getResult();
+		if( ((MaybeParse<Orgs>) r.get(3)).hasResult())
+			orgs = ((MaybeParse<Orgs>) r.get(3)).getResult().getResult();
 		else
 			orgs = new Orgs();
 		
-		if(r.getFifth().hasResult())
-			actions = r.getFifth().getResult().getResult();
+		if( ((MaybeParse<Actions> ) r.get(4)).hasResult())
+			actions = ((MaybeParse<Actions> ) r.get(4)).getResult().getResult();
 		else
 			actions = new Actions();
 		
-		if(r.getSixth().hasResult())
-			play = r.getSixth().getResult().getResult();
+		if(((MaybeParse<Play>) r.get(5)).hasResult())
+			play = ((MaybeParse<Play>) r.get(5)).getResult().getResult();
 		else
 			play = new Play();
 		
-		if(r.getSeventh().hasResult())
-			perms = r.getSeventh().getResult().getResult();
+		if(((MaybeParse<Perms>) r.get(6)).hasResult())
+			perms = ((MaybeParse<Perms>) r.get(6)).getResult().getResult();
 		else
 			perms = new Perms();
 		
-		if(r.getEighth().hasResult())
-			bans = r.getEighth().getResult().getResult();
+		if(((MaybeParse<Bans>) r.get(7)).hasResult())
+			bans = ((MaybeParse<Bans>) r.get(7)).getResult().getResult();
 		else
 			bans = new Bans();
 		
-		if(r.getNinth().hasResult())
-			obls = r.getNinth().getResult().getResult();
+		if(((MaybeParse<Obls>) r.get(8)).hasResult())
+			obls = ((MaybeParse<Obls>) r.get(8)).getResult().getResult();
 		else
 			obls = new Obls();
-		if(r.getTenth().hasResult())
-			sods = r.getTenth().getResult().getResult();
+		if(((MaybeParse<Sods>) r.get(9)).hasResult())
+			sods = ((MaybeParse<Sods>) r.get(9)).getResult().getResult();
 		else
 			sods = new Sods();
+		
+		if(((MaybeParse<Process>)r.get(10)).hasResult())
+			process = ((MaybeParse<Process>)r.get(10)).getResult().getResult();
+		else
+			process = null;
 	}
 	public Info getInfo() {
 		return info;
@@ -125,7 +132,14 @@ public class ACA {
 	public void setSods(Sods sods) {
 		this.sods = sods;
 	}
-	
+
+	public Process getProcess() {
+		return process;
+	}
+	public void setProcess(Process process) {
+		this.process = process;
+	}
+		
 	public <R,E extends Exception> R visitTerm(ACAVisitor<R,E> visitor) throws E {
 		return visitor.visitACA(this);
 	}
@@ -153,6 +167,8 @@ public class ACA {
 		sb.append(obls);
 		sb.append("\n");
 		sb.append(sods);
+		sb.append("\n");
+		sb.append(process);
 		sb.append("\n");
 		return sb.toString();
 	}

@@ -133,6 +133,29 @@
 
 <info:tamago.aca.term.Info> := 
 @transform(convInfo,@seq(@ignore(@literal("model")), <ident>,@ignore(@literal("in")), <qualifident>, @ignore(@literal(";")) ) );
+// ==============================================================
+// DEFINITION DU PARSEUR EXPRESSION POUR LE PROCESSUS
+// ==============================================================
+
+@def_expr_parser(process);
+@expr_bracket(process,"(",")");
+
+
+<processaction:tamago.aca.parser.Process> := @transform(convOperandAction,<ident>);
+
+@expr_operand(process,<processaction>);
+
+@expr_operator(process,infix,right, 30,@transform(convOperatorInfix,@literal(".")));
+@expr_operator(process,infix,right, 60,@transform(convOperatorInfix,@literal("|||")));
+@expr_operator(process,infix,right, 90,@transform(convOperatorInfix,@literal("||")));
+@expr_operator(process,infix,right,120,@transform(convOperatorInfix,@literal("|")));
+
+
+<defprocess:tamago.aca.parser.Process> := 
+@seq(@ignore(@literal("process")),
+     @ignore(@literal(":=")),
+     <process>,
+     @ignore(@literal(";")) );
 
 // ==============================================================
 // DEFINITION DU PARSEUR PRINCIPAL
@@ -151,9 +174,13 @@
  		@maybe(<prohibitions>),
  		@maybe(<obligations>),
  		@maybe(<separations>),
- 		@ignore(@literal("@end")),
+ 		@maybe(<defprocess>),
+ 		@ignore(@literal("@end"))
  	)
  )
 ;
+
+
+
 
 @end
