@@ -5,7 +5,7 @@ model Deposit in tamago.aca.bank;
 
 users := alphonse,boris,catherine,damien,elise,franck;
 roles := customer,clerk,banker,director;
-organisations := montreal ,                              toronto;
+organisations := montreal , toronto;
 
 
 actions := deposit,cancel,check,validate,validate_dir,register;
@@ -40,12 +40,15 @@ play :=
 ;
  
  obligations :=
- 	OBL(user,<user,_,_,deposit>,<user,_,_,credit>)
+ 	OBL(user,<user,_,_,deposit>,<user,_,_,register>),
+ 	OBL(user,<user,_,_,deposit>,<user,_,_,cancel>)
  ;
  
 separations := 
-	SOD(user,<user,_,_,deposit>,<!user,_,_,validate>)
+	SOD(user,<user,_,_,deposit>,<!user,_,_,validate>),
+	SOD(user,<user,_,_,validate>,<!user,_,_,validate_dir>),
 ;
 
+process := deposit.(check || register).(cancel | (validate || validate_dir));
 
 @end

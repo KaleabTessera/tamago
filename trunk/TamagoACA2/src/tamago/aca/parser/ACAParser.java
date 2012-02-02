@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import tamago.aca.term.ACA;
+import tamago.aca.visitor.ConvertACAtoCDL;
+import tamagocc.exception.TamagoCCException;
 
 import javapop.framework.ParseResult;
 import javapop.framework.generic.tool.GrammarGenerator;
@@ -24,7 +26,7 @@ public class ACAParser {
 
 	}
 
-	public static void main(String[] args) throws GrammarGeneratorException, IOException {
+	public static void main(String[] args) throws GrammarGeneratorException, IOException, TamagoCCException {
 		FileInputStream grammar = new FileInputStream("ACAGrammarPop.txt");
 		GrammarGenerator gen = GrammarGenerator.buildGrammarGenerator(grammar);
 		String saca = streamToString("examples/cdls/DepositSecurity.cdl");
@@ -36,6 +38,9 @@ public class ACAParser {
 			ACA aca = paca.getResult();
 			System.out.println("OK");
 			System.out.println(aca);
+			
+			ConvertACAtoCDL conv = new ConvertACAtoCDL(aca);
+			conv.convert();
 		}
 	}
 }

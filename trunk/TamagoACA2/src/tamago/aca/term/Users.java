@@ -3,6 +3,8 @@ package tamago.aca.term;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import tamago.aca.visitor.ACAVisitor;
+
 public class Users extends ArrayList<String>{
 
 	private static final long serialVersionUID = 7139214004101253530L;
@@ -21,6 +23,10 @@ public class Users extends ArrayList<String>{
 	@Override
 	public String toString() {
 		return "users := " +super.toString();
+	}
+	
+	public <R,E extends Exception> R visitTerm(ACAVisitor<R,E> visitor) throws E {
+		return visitor.visitUsers(this);
 	}
 
 }

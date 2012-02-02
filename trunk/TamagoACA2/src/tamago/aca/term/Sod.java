@@ -31,7 +31,7 @@ public class Sod implements ACATerm {
 	 */
 	@Override
 	public <R, E extends Exception> R visit(ACAVisitor<R, E> visitor) throws E {
-		return visitor.visitSOD(this);
+		return (R) visitor.visitSod(this);
 	}
 
 	

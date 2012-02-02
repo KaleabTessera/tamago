@@ -1,5 +1,7 @@
 package tamago.aca.term;
 
+import tamago.aca.visitor.ACAVisitor;
+
 public class Info {
 	private String modelName;
 	private String modelModule;
@@ -32,5 +34,9 @@ public class Info {
 		sb.append(" in ");
 		sb.append(modelModule);
 		return sb.toString();
+	}
+	
+	public <R,E extends Exception> R visitTerm(ACAVisitor<R,E> visitor) throws E {
+		return visitor.visitInfo(this);
 	}
 }

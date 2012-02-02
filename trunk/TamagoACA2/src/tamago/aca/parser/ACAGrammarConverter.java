@@ -1,5 +1,6 @@
 package tamago.aca.parser;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import tamago.aca.term.ACA;
@@ -19,6 +20,9 @@ import tamago.aca.term.Sod;
 import tamago.aca.term.Sods;
 import tamago.aca.term.Users;
 import javapop.framework.parser.MaybeParse;
+import javapop.framework.parser.expr.InfixNode;
+import javapop.framework.parser.expr.OperandNode;
+import javapop.framework.parser.expr.generic.CInfixNode;
 import javapop.utils.Decuple;
 import javapop.utils.Pair;
 import javapop.utils.Quadruple;
@@ -112,9 +116,17 @@ public class ACAGrammarConverter {
 		return new Info(r.getFirst(), r.getSecond());
 	}
 	 public tamago.aca.term.ACA convertAcaTerm(Object content) {
-		Decuple<Info, MaybeParse<Users>, MaybeParse<Roles>, MaybeParse<Orgs>, MaybeParse< Actions>, MaybeParse< Play>, MaybeParse< Perms>, MaybeParse< Bans>, MaybeParse< Obls>, MaybeParse< Sods>> r = (Decuple<Info, MaybeParse<Users>, MaybeParse<Roles>, MaybeParse<Orgs>, MaybeParse<Actions>, MaybeParse<Play>, MaybeParse<Perms>, MaybeParse<Bans>, MaybeParse<Obls>, MaybeParse<Sods>>)content;
+		ArrayList r = (ArrayList) content;
 		return new ACA(r);
 	}
+	 
+	 public InfixNode convOperatorInfix(Object op) {
+		 return new ProcessOperator((String) op);
+	 }
+	 
+	 public OperandNode convOperandAction(Object action) {
+		 return new ProcesOpAction((String)action);
+	 }
 
 }
 

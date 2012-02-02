@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type="text/xsl" href="http://www-poleia.lip6.fr/~belhaouari/TamagoCDL.xsl" ?>
+<service name="Deposit" module="tamago.aca.bank" >
+   <extends>
+   </extends>
+   <coretypes>
+   </coretypes>
+   <properties>
+      <property name="foo" type="int" access="r" />
+   </properties>
+   <invariants>
+   </invariants>
+   <methods>
+      <method name="deposit" rettype="void" id="deposit" >
+         <parameters>
+            <parameter name="clid" type="int" />
+            <parameter name="cid" type="int" />
+            <parameter name="aca" type="tamago.ext.aca2.ACA" />
+         </parameters>
+      </method>
+      <method name="cancel" rettype="void" id="cancel" >
+         <parameters>
+            <parameter name="clid" type="int" />
+            <parameter name="cid" type="int" />
+            <parameter name="aca" type="tamago.ext.aca2.ACA" />
+         </parameters>
+      </method>
+      <method name="validate" rettype="void" id="validate" >
+         <parameters>
+            <parameter name="clid" type="int" />
+            <parameter name="cid" type="int" />
+            <parameter name="aca" type="tamago.ext.aca2.ACA" />
+         </parameters>
+      </method>
+      <method name="validate_director" rettype="void" id="validate_dir" >
+         <parameters>
+            <parameter name="clid" type="int" />
+            <parameter name="cid" type="int" />
+            <parameter name="aca" type="tamago.ext.aca2.ACA" />
+         </parameters>
+      </method>
+      <method name="check" rettype="void" id="check" >
+         <parameters>
+            <parameter name="clid" type="int" />
+            <parameter name="cid" type="int" />
+            <parameter name="aca" type="tamago.ext.aca2.ACA" />
+         </parameters>
+      </method>
+      <method name="register" rettype="void" id="register" >
+         <parameters>
+            <parameter name="clid" type="int" />
+            <parameter name="cid" type="int" />
+            <parameter name="aca" type="tamago.ext.aca2.ACA" />
+         </parameters>
+      </method>
+   </methods>
+</service>

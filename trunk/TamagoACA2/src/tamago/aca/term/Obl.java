@@ -19,7 +19,7 @@ public class Obl implements ACATerm{
 	 */
 	@Override
 	public <R, E extends Exception> R visit(ACAVisitor<R, E> visitor) throws E {
-		return visitor.visitOBL(this);
+		return visitor.visitObl(this);
 	}
 
 	
