@@ -4,6 +4,14 @@ using java.lang.String;
 
 component CompBucket {
 	
+	require service Bucket in org.tamago.example as a;
+	require service Bucket in org.tamago.example as b;
+	require service Bucket in org.tamago.example as c;
+	
 	provide service Bucket in org.tamago.example;
+	
+	method void foo() {
+		pre @isbound(a);
+	}
 	
 }

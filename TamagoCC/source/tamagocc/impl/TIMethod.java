@@ -1,6 +1,8 @@
 package tamagocc.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 import tamagocc.api.TCondition;
 import tamagocc.api.TMethod;
@@ -9,7 +11,6 @@ import tamagocc.api.TType;
 import tamagocc.exception.TamagoCCException;
 import tamagocc.generic.api.GMethod;
 import tamagocc.generic.api.GParameter;
-import tamagocc.generic.impl.GIType;
 import tamagocc.util.NilIterator;
 import tamagocc.util.TamagoCCVisitor;
 
@@ -20,7 +21,7 @@ public class TIMethod implements TMethod {
 
     private String name;
     private String id;
-    private Collection<TParameter> params;
+    private ArrayList<TParameter> params;
     private TType type;
     private TCondition precond;
     private TCondition postcond;
@@ -37,7 +38,7 @@ public class TIMethod implements TMethod {
     {
         super();
         name = n;
-        params = a;
+        params = new ArrayList<TParameter>(a);
         type = t;
         this.id = id;
         precond = e;
@@ -202,5 +203,10 @@ public class TIMethod implements TMethod {
 		}
 		builder.append("]");
 		return builder.toString();
+	}
+
+	@Override
+	public TParameter getParameter(int p) {
+		return params.get(p);
 	}
 }

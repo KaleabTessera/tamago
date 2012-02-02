@@ -4,7 +4,6 @@
 package tamagocc.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.Stack;
 
@@ -28,7 +27,7 @@ import tamagocc.util.TamagoCCVisitor;
 public class TISimilarMethod implements TMethod {
 
     private String name;
-    private Collection<TParameter> params;
+    private ArrayList<TParameter> params;
     private TCondition precond;
     private TCondition postcond; 
 	/**
@@ -120,6 +119,11 @@ public class TISimilarMethod implements TMethod {
 	 */
 	public Object visit(TamagoCCVisitor visitor) throws TamagoCCException {
 		throw new TamagoCCException("TISimilarMethod : impossible feature");
+	}
+
+	@Override
+	public TParameter getParameter(int p) {
+		return params.get(p);
 	}
 
 }

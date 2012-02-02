@@ -42,6 +42,15 @@ public interface TMethod extends TObject {
      */
     int getParameterNumber();
     
+    
+    /**
+     * Accessor to the p^{th} parameter 
+     * @param p the position of the parameter
+     * @return The parameter.
+     */
+    TParameter getParameter(int p);
+    
+    
     /**
      * 
      * @return Return the local precondition associate to the functionality

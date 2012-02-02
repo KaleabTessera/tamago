@@ -59,6 +59,15 @@ public interface TTamago extends TTamagoEntity {
      */
     TMethod[] getMethods(String name);
     
+    
+    /**
+     * This method searches among declared method in the current entity, one with the specified ID. 
+     * @param id: id of the searched method
+     * @return the selected method
+     * @throws java.util.NoSuchElementException this exception is thrown if a such method doesn't exist
+     */
+    TMethod getDeclaredMethodID(String id);
+    
     /**
      * This method search all method declared in this entity, with the same signature as the argument
      * @param m : the signature of the searched method

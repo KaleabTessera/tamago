@@ -26,6 +26,14 @@ public class TIRequire implements TRequire {
         this.generics = types;
     }
 
+    public TIRequire(String l,String s,String m,TService service) {
+        super();
+        label = l;
+        module = m;
+        nom = s;
+        this.service = service;
+        this.generics = new TIType[0];
+    }
     /**
      * @see tamagocc.api.TRequire#getServiceName()
      */

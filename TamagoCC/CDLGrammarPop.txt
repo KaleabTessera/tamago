@@ -18,7 +18,20 @@
 // ==============================================================
 
 <ident:java.lang.String> := @regexpwithoutkeywords("[a-zA-Z_][a-zA-Z_0-9]*");
-<qualifident:java.lang.String> := @regexpwithoutkeywords("[a-zA-Z_][a-zA-Z_0-9]*([.][a-zA-Z_][a-zA-Z_0-9]*)*(\\[\\])?");
+
+<qualifident:java.lang.String> := 
+@transform(convQualifIdent, 
+	@seq(
+		@regexpwithoutkeywords(
+		"[a-zA-Z_][a-zA-Z_0-9]*([.][a-zA-Z_][a-zA-Z_0-9]*)*"
+		),
+		@maybe(
+			@literal("[]")
+		)
+	)
+);
+
+
 //@regexp("[a-zA-Z_]\\w*([.][a-zA-Z_]\\w*)*((\\[\\])|(<\\s*[a-zA-Z_]\\w*([.][a-zA-Z_]\\w*)*(\\s*,\\s*[a-zA-Z_]\\w*([.][a-zA-Z_]\\w*)*)*\\s*>))?");
 <type:tamagocc.api.TType> := @transform(convType,<qualifident>);
 
@@ -55,9 +68,18 @@
 <svar:tamago.parser.cdlast.CDLVariable> := @transform(convVar,<ident>);
 <nil:tamago.parser.cdlast.CDLNil> := @transform(convNil,@choice(@literal("nil"),@literal("null")) );
 
-<instate:tamago.parser.cdlast.CDLInState> := @transform(convInState,@seq(@ignore(@literal("@instate")) , @ignore(@literal("(")),@list(<ident>,",") , @ignore(@literal(")")) ) );
-
-<isbound:tamago.parser.cdlast.CDLIsBound> := @transform(convIsBound,@seq(@ignore(@literal("@isbound")), @ignore(@literal("(")),	<ident>, @ignore(@literal(")")) ) );
+//<isbound:tamago.parser.cdlast.CDLIsBound> := @transform(convIsBound,@seq(@ignore(@literal("@isbound")), @ignore(@literal("(")),   <ident>       , @ignore(@literal(")")) ) );
+  <isbound:tamago.parser.cdlast.CDLIsBound> := 
+@transform(convIsBound,
+	@seq(
+		@ignore(@literal("@bound")),
+		@ignore(@literal("(")),
+		@list(<ident>,","),
+		@ignore(@literal(")"))
+	)
+);
+  
+<instate:tamago.parser.cdlast.CDLInState> := @transform(convInState,@seq(@ignore(@literal("@instate")), @ignore(@literal("(")),@list(<ident>,","), @ignore(@literal(")")) ) );
 
 <quant:java.lang.String> := @choice(@literal("forall"),@literal("exists"),@literal("FORALL"),@literal("EXISTS"));
 <in:java.lang.String> := @choice(@literal("in"),@literal("IN"));
@@ -108,8 +130,8 @@
 @expr_operand(expr,<callarith>);
 @expr_operand(expr,<string>);
 
-@expr_operand(expr,<instate>);
 @expr_operand(expr,<isbound>);
+@expr_operand(expr,<instate>);
 
 @expr_operator(expr,infix,left,30, @transform(convOperatorInfix,@literal("+")));
 @expr_operator(expr,infix,left,60, @transform(convOperatorInfix,@literal("*")));
