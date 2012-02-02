@@ -230,7 +230,7 @@ public class TamagoCCMakeReadableGExpression implements
 	 * @see tamagocc.generic.TamagoCCGExpressionVisitor#visitString(tamagocc.generic.api.GString)
 	 */
 	public Object visitString(GString string) throws TamagoCCException {
-		sb.append("\\\""+string.getValue()+"\\\"");
+		sb.append("\""+string.getValue()+"\"");
 		return null;
 	}
 

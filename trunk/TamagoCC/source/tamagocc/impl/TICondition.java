@@ -4,7 +4,6 @@ import tamagocc.api.TCategory;
 import tamagocc.api.TCondition;
 import tamagocc.api.TExpression;
 import tamagocc.exception.TamagoCCException;
-import tamagocc.util.TamagoCCMakeReadableGExpression;
 import tamagocc.util.TamagoCCVisitor;
 
 public class TICondition implements TCondition {
@@ -18,6 +17,13 @@ public class TICondition implements TCondition {
 		this.expression = expression;
 		this.message = message;
 		this.category = category;
+	}
+	
+	public TICondition(TExpression expression) {
+		super();
+		this.expression = expression;
+		this.message = "";
+		this.category = TICategory.NoCategory;
 	}
 
 	public TExpression getExpression() {

@@ -91,6 +91,14 @@ public class CDLGrammarConverter {
 	public CDLNot convNot(Object o) {
 		return new CDLNot((String)o);
 	}
+	
+	public String convQualifIdent(Object o) {
+		Pair<String, MaybeParse<String>> c = (Pair<String, MaybeParse<String>>)o;
+		if(c.getSecond().hasResult())
+			return c.getFirst() + c.getSecond().getResult().getResult();
+		else
+			return c.getFirst();
+	}
 
 	// -- Methods for default method values
 	public Object getNull() {
@@ -158,8 +166,18 @@ public class CDLGrammarConverter {
 	}
 	
 	public CDLIsBound convIsBound(Object content) {
-		String label = (String) content;
-		return new CDLIsBound(label);
+		if(content instanceof ArrayList) {
+			ArrayList<String> al = (ArrayList<String>)content;
+			if(al.size() != 1)
+				throw new RuntimeException("wrong cardinality of @isbound operator, it must have 1 argument exactly");
+			else
+				return new CDLIsBound(al.get(0));
+		}
+		else if(content instanceof String) {
+			String label = (String) content;
+			return new CDLIsBound(label);
+		}
+		throw new RuntimeException("wrong cardinality of @isbound operator: unknow argument");
 	}
 
 	

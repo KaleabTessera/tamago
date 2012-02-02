@@ -119,6 +119,17 @@ public abstract class TITamago implements TTamago {
         }
         throw new NoSuchElementException("Unfound a method with name : "+name);
     }
+    
+    public TMethod getDeclaredMethodID(String id) {
+        //      TODO : peut etre l'optimiser un peu pas urgent
+        Iterator<TMethod> ite = getMethods();
+        while(ite.hasNext()) {
+            TMethod n = ite.next();
+            if(id.equals(n.getID()))
+                return n;
+        }
+        throw new NoSuchElementException("Unfound a declared method with id : "+id);
+    }
 
     /**
      * @see tamagocc.api.TTamago#getMethods(java.lang.String)

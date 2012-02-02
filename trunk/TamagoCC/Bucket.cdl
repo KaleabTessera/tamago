@@ -6,7 +6,7 @@ service Bucket {
 	property read int quantity;
 	method void foo(int a) {
 		id foo;
-		pre @instate(toto);
+		//pre @instate(toto);
 	}
 	
 	behavior {
