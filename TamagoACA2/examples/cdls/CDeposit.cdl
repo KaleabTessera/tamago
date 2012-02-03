@@ -1,0 +1,12 @@
+module tamago.aca.bank;
+
+component CDeposit {
+
+	provide service ACASecurity in tamago.aca.core;
+	provide service Deposit in tamago.aca.bank;
+	
+	require service Client in tamago.aca.bank as client;
+	require service Cheque in tamago.aca.bank as cheque;
+	
+	
+}
