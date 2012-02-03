@@ -2,6 +2,12 @@ module tamago.aca.bank;
 
 
 service Deposit {
+
+	refine service ACASecurity in tamago.aca.core;
+	
+	method void init() {
+		id init;
+	}
 	
 	method void deposit(int clid, int cid,tamago.ext.aca2.ACA aca) {
 	       id deposit;
@@ -18,9 +24,12 @@ service Deposit {
 	
 	method void check(int clid, int cid,tamago.ext.aca2.ACA aca) {
 		id check;
+		//verifie que le client est ok
+		// cheque en bois
 	}
 	
 	method void register(int clid, int cid,tamago.ext.aca2.ACA aca) {
 		id register;
+		// historique de la banque
 	}
 }

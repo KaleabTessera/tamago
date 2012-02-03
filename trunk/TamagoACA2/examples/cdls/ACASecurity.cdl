@@ -1,0 +1,9 @@
+module tamago.aca.core;
+
+
+service ACASecurity {
+	property read bool acaInitialised;
+	method void init() {
+		id init;
+	}
+}
