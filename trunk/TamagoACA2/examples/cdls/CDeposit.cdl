@@ -2,11 +2,46 @@ module tamago.aca.bank;
 
 component CDeposit {
 
-	provide service ACASecurity in tamago.aca.core;
+	provide service ACASecurity in tamago.aca.core; //useless
 	provide service Deposit in tamago.aca.bank;
 	
-	require service Client in tamago.aca.bank as client;
-	require service Cheque in tamago.aca.bank as cheque;
+	require service Client in tamago.aca.bank as user;
+	require service Cheque in tamago.aca.bank as cheq;
+	require service Bank in tamago.aca.bank as bank;
 	
+	method void init() {
+		id init;
+	}
 	
+	method void deposit(tamago.ext.aca2.ACA aca) {
+	       id deposit;
+	}
+	method void cancel(tamago.ext.aca2.ACA aca) {
+	       id cancel;
+	}
+	method void validate(tamago.ext.aca2.ACA aca) {
+		id validate;
+		pre (aca.user != user.getName()); // n'importe qui ne valide pas son propre cheque
+	}
+	
+	method void validate_director(tamago.ext.aca2.ACA aca) {
+		id validate_dir;
+		
+	}
+	
+	method void check(tamago.ext.aca2.ACA aca) {
+		id check;
+		pre user.isSafe() && (cheq.getAmount() > 0);
+		post (bank.isOperationChecked(this));
+		//verifie que le client est ok
+		// cheque en bois
+	}
+	
+	method void register(tamago.ext.aca2.ACA aca) {
+		id register;
+		post (bank.getHistoric().exists(this));
+		// historique de la banque
+	}
 }
+// faire une partie: discussion sur l'utilité de faire soit un service soit un composant. En fait c la meme chose on fait juste que repousser le moment ou on peut mettre des contrats interessants
+// d'ailleurs l'outil doit pouvoir produire toutes les structures.
