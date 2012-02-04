@@ -1,0 +1,96 @@
+module tamago.aca.bank;
+
+
+service GenDepositSecurity {
+
+	refine service Deposit in tamago.aca.bank;
+	
+	property read int opNumber; // numero d'ordre
+	property read Historic historic; 
+	property read Play play;
+	
+	invariant (#historic.size() == 0 && #play.size() == 0) || (#historic.size() >= 0) && (#play.size() > 0)
+	
+	method void init() {
+		id init;
+		pre (#historic.size() == 0);
+		post (#historic != null) && (#historic.size() == 0) && (#play.size() == 1) && #play.get(0).user == "bob" && #play.get(0).role == "clerk" && #play.get(0).org == "montreal";
+	}
+	
+	method void deposit(tamago.ext.aca2.ACA aca) {
+	       id deposit;
+	       pre (perms on this action) && (autorized secu param in argument) && (specific action sod and obl depending of the state);
+	       post (historic.getLastSecuParam() == aca) && (historic.getLastAction() == "deposit");
+	}
+	method void cancel(tamago.ext.aca2.ACA aca) {
+	       id cancel;
+	       pre (perms on this action) && (autorized secu param in argument) && (historic.mustDone("deposit") && historic.getSecuParamFromID("deposit").getUser() == aca.user);
+	       post (historic.getLastSecuParam() == aca) && (historic.getLastAction() == "deposit");
+	       // la postcond aurait ete beaucoup plus dur si on avait eu l'interleaving (l'entrelacement)
+	}
+	method void validate(tamago.ext.aca2.ACA aca) {
+		id validate;
+	}
+	method void validate_director(tamago.ext.aca2.ACA aca) {
+		id validate_dir;
+	}
+	
+	method void check(tamago.ext.aca2.ACA aca) {
+		id check;
+		//verifie que le client est ok
+		// cheque en bois
+	}
+	
+	method void register(int clid, int cid,tamago.ext.aca2.ACA aca) {
+		id register;
+		// historique de la banque
+	}
+	
+	behavior {
+		default state ninit;
+		states {
+		state ninit {
+			allow init;
+		}
+		state initialized {
+			allow deposit;
+		}
+		state deposed {
+			allow check;
+			allow register;
+		}
+		state checked {
+			allow register;
+		}
+		state registered {
+			allow check;
+		}
+		state checkedregistered {
+			allow cancel;
+			allow validate;
+			allow validate_dir;
+		}
+		
+		state cancelled {
+			allow init;
+		}
+		state validated {
+			allow validate_dir;
+		}
+		state validatedDir {
+			allow validate;
+		}
+		}
+		transitions {
+			transition from ninit to initialized with init;
+			transition from initialized to deposed with deposit;
+			transition from deposed to checked with check;
+			transition from deposed to registered with register;
+			transition from checked to checkedregistered with register;
+			transition from registered to checkedregistered with check;
+			transition from checkedregistered to cancelled with cancel;
+			transition from checkedregistered to validated with validate;
+			transition from checkedregistered to validatedDir with validate_dir;
+		}
+	}
+}

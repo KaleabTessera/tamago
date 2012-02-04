@@ -51,6 +51,7 @@ public class ConvertACAtoCDL{
 	}
 	
 	public GTamagoEntity convert() throws TamagoCCException {
+		// Transformation de base
 		Info info = aca.getInfo();
 		TTamago tamago = TamagoCCPool.getDefaultPool().getTreeAbstractSyntax(info.getModelName(), info.getModelModule());
 		tamagoaca.addRequire(new TIRequire("acamodel", tamago.getName()	, tamago.getModule(), (TService)tamago));
@@ -58,6 +59,8 @@ public class ConvertACAtoCDL{
 		
 		TIProperty property = new TIProperty("historic", TIType.generateType("tamago.ext.aca2.Historic"), new TIAccess("read"));
 		tamagoaca.addProperty(property);
+		
+		
 		
 		TIOperator pre_user = new TIOperator(TOpeName.opOr);
 		TIOperator pre_role = new TIOperator(TOpeName.opOr);
