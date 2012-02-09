@@ -1,0 +1,34 @@
+\begin{program}
+\kw{com}\=  \kw{ponent} CDeposit\{\\
+\>  \kw{pro}\=  \kw{vide} \kw{service} tamago.aca.core.ACASecurity;\\
+\>  \kw{pro}\=  \kw{vide} \kw{service} tamago.aca.bank.Deposit;\\
+\>  \kw{req}\=  \kw{uire} \kw{service} tamago.aca.bank.Client \kw{label} user;\\
+\>  \kw{req}\=  \kw{uire} \kw{service} tamago.aca.bank.Cheque \kw{label} cheq;\\
+\>  \kw{req}\=  \kw{uire} \kw{service} tamago.aca.bank.Bank \kw{label} bank;\\
+\>  \kw{met}\=  \kw{hod} \kw{void}  init() \{\\
+\>  \>  \kw{id} i\= nit;\\
+\>  \}\\
+\>  \kw{met}\=  \kw{hod} \kw{void}  deposit(tamago.ext.aca2.ACA aca) \{\\
+\>  \>  \kw{id} d\= eposit;\\
+\>  \}\\
+\>  \kw{met}\=  \kw{hod} \kw{void}  cancel(tamago.ext.aca2.ACA aca) \{\\
+\>  \>  \kw{id} c\= ancel;\\
+\>  \}\\
+\>  \kw{met}\=  \kw{hod} \kw{void}  validate(tamago.ext.aca2.ACA aca) \{\\
+\>  \>  \kw{id} v\= alidate;\\
+\>  \>  \kw{pre} \= aca.user $\neq$ user.getName();\\
+\>  \}\\
+\>  \kw{met}\=  \kw{hod} \kw{void}  validate_director(tamago.ext.aca2.ACA aca) \{\\
+\>  \>  \kw{id} v\= alidate_dir;\\
+\>  \}\\
+\>  \kw{met}\=  \kw{hod} \kw{void}  check(tamago.ext.aca2.ACA aca) \{\\
+\>  \>  \kw{id} c\= heck;\\
+\>  \>  \kw{pre} \= user.isSafe() $\land$ cheq.getAmount() $>$ 0;\\
+\>  \>  \kw{pos}\=  \kw{t} bank.isOperationChecked(this);\\
+\>  \}\\
+\>  \kw{met}\=  \kw{hod} \kw{void}  register(tamago.ext.aca2.ACA aca) \{\\
+\>  \>  \kw{id} r\= egister;\\
+\>  \>  \kw{pos}\=  \kw{t} bank.getHistoric().contains(this);\\
+\>  \}\\
+\}
+\end{program}

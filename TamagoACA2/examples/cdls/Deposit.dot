@@ -1,0 +1,29 @@
+digraph fsm_deposit {
+
+N [label="ninit"]
+I [label="initialized"]
+D [label="deposed"]
+C [label="checked"]
+R [label="registered"]
+W [label="waited"]
+V [label="validated"]
+VD [label="validatedDir"]
+A [label="cancelled"]
+F [label="completed"]
+
+N->I [label="init"]
+I->D [label="deposit"]
+D->C [label="check"]
+D->R [label="register"]
+C->W [label="register"]
+R->W [label="check"]
+W->A [label="cancel"]
+W->V [label="validate"]
+W->VD [label="validate_dir"]
+VD->F [label="validate"]
+V->F [label="validate_dir"]
+A->I [label="init"]
+F->I [label="init"]
+
+
+}

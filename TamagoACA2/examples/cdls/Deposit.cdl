@@ -10,6 +10,7 @@ service Deposit {
 	
 	method void init() {
 		id init;
+		post (opNumber < 0);
 	}
 	
 	method void deposit(tamago.ext.aca2.ACA aca) {
@@ -29,11 +30,14 @@ service Deposit {
 		id check;
 		//verifie que le client est ok
 		// cheque en bois
+		post (opNumber > 0);
+		
 	}
 	
 	method void register(tamago.ext.aca2.ACA aca) {
 		id register;
 		// historique de la banque
+		post (opNumber > 0);
 	}
 	
 	behavior {
@@ -70,6 +74,9 @@ service Deposit {
 		state validatedDir {
 			allow validate;
 		}
+		state completed {
+			allow init;
+		}
 		}
 		transitions {
 			transition from ninit to initialized with init;
@@ -81,6 +88,8 @@ service Deposit {
 			transition from checkedregistered to cancelled with cancel;
 			transition from checkedregistered to validated with validate;
 			transition from checkedregistered to validatedDir with validate_dir;
+			transition from validatedDir to completed with validate;
+			transition from validated to completed with validate_dir;
 		}
 	}
 }
