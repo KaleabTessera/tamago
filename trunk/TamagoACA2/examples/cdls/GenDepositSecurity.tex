@@ -1,0 +1,80 @@
+\begin{program}
+\kw{ser}\=  \kw{vice} GenDepositSecurity \{\\
+\>  \kw{ref}\=  \kw{ine} \kw{service} tamago.aca.bank.Deposit;\\
+\>  \kw{pro}\=  \kw{perty} \kw{read}  \kw{int}  opNumber;\\
+\>  \kw{pro}\=  \kw{perty} \kw{read}  Historic historic;\\
+\>  \kw{pro}\=  \kw{perty} \kw{read}  Play play;\\
+\>  \kw{inv}\=  \kw{ariant} $historic$.size() $=$ 0 $\land$ $play$.size() $=$ 0 $\lor$ $historic$.size() $\geq$ 0 $\land$ $play$.size() $>$ 0;\\
+\>  \kw{met}\=  \kw{hod} \kw{void}  init() \{\\
+\>  \>  \kw{id} i\= nit;\\
+\>  \>  \kw{pre} \= $historic$.size() $=$ 0;\\
+\>  \>  \kw{pos}\=  \kw{t} $historic$ $\neq$ \kw{$null$}  $\land$ $historic$.size() $=$ 0 $\land$ $play$.size() $=$ 1 $\land$ $play$.get(0).user $=$ "bob" $\land$ $play$.get(0).role $=$ "clerk" $\land$ $play$.get(0).org $=$ "montreal";\\
+\>  \}\\
+\>  \kw{met}\=  \kw{hod} \kw{void}  deposit(tamago.ext.aca2.ACA aca) \{\\
+\>  \>  \kw{id} d\= eposit;\\
+\>  \>  \kw{pos}\=  \kw{t} historic.getLastSecuParam() $=$ aca $\land$ historic.getLastAction() $=$ "deposit";\\
+\>  \}\\
+\>  \kw{met}\=  \kw{hod} \kw{void}  cancel(tamago.ext.aca2.ACA aca) \{\\
+\>  \>  \kw{id} c\= ancel;\\
+\>  \>  \kw{pos}\=  \kw{t} historic.getLastSecuParam() $=$ aca $\land$ historic.getLastAction() $=$ "deposit";\\
+\>  \}\\
+\>  \kw{met}\=  \kw{hod} \kw{void}  validate(tamago.ext.aca2.ACA aca) \{\\
+\>  \>  \kw{id} v\= alidate;\\
+\>  \}\\
+\>  \kw{met}\=  \kw{hod} \kw{void}  validate_director(tamago.ext.aca2.ACA aca) \{\\
+\>  \>  \kw{id} v\= alidate_dir;\\
+\>  \}\\
+\>  \kw{met}\=  \kw{hod} \kw{void}  check(tamago.ext.aca2.ACA aca) \{\\
+\>  \>  \kw{id} c\= heck;\\
+\>  \}\\
+\>  \kw{met}\=  \kw{hod} \kw{void}  register(\kw{int}  clid, \kw{int}  cid, tamago.ext.aca2.ACA aca) \{\\
+\>  \>  \kw{id} r\= egister;\\
+\>  \}\\
+\>  \kw{beh}\=  \kw{avior} \{\\
+\>  \>  \kw{def}\=  \kw{ault} \kw{state} ninit;\\
+\>  \>  \kw{sta}\=  \kw{tes} \{\\
+\>  \>  \>  \kw{sta}\=  \kw{te} ninit \{\\
+\>  \>  \>  \>  \kw{all}\=  \kw{ow} \kw{method} init;\\
+\>  \>  \>  \}\\
+\>  \>  \>  \kw{sta}\=  \kw{te} initialized \{\\
+\>  \>  \>  \>  \kw{all}\=  \kw{ow} \kw{method} deposit;\\
+\>  \>  \>  \}\\
+\>  \>  \>  \kw{sta}\=  \kw{te} deposed \{\\
+\>  \>  \>  \>  \kw{all}\=  \kw{ow} \kw{method} check;\\
+\>  \>  \>  \>  \kw{all}\=  \kw{ow} \kw{method} register;\\
+\>  \>  \>  \}\\
+\>  \>  \>  \kw{sta}\=  \kw{te} checked \{\\
+\>  \>  \>  \>  \kw{all}\=  \kw{ow} \kw{method} register;\\
+\>  \>  \>  \}\\
+\>  \>  \>  \kw{sta}\=  \kw{te} registered \{\\
+\>  \>  \>  \>  \kw{all}\=  \kw{ow} \kw{method} check;\\
+\>  \>  \>  \}\\
+\>  \>  \>  \kw{sta}\=  \kw{te} checkedregistered \{\\
+\>  \>  \>  \>  \kw{all}\=  \kw{ow} \kw{method} cancel;\\
+\>  \>  \>  \>  \kw{all}\=  \kw{ow} \kw{method} validate;\\
+\>  \>  \>  \>  \kw{all}\=  \kw{ow} \kw{method} validate_dir;\\
+\>  \>  \>  \}\\
+\>  \>  \>  \kw{sta}\=  \kw{te} cancelled \{\\
+\>  \>  \>  \>  \kw{all}\=  \kw{ow} \kw{method} init;\\
+\>  \>  \>  \}\\
+\>  \>  \>  \kw{sta}\=  \kw{te} validated \{\\
+\>  \>  \>  \>  \kw{all}\=  \kw{ow} \kw{method} validate_dir;\\
+\>  \>  \>  \}\\
+\>  \>  \>  \kw{sta}\=  \kw{te} validatedDir \{\\
+\>  \>  \>  \>  \kw{all}\=  \kw{ow} \kw{method} validate;\\
+\>  \>  \>  \}\\
+\>  \>  \}\\
+\>  \>  \kw{tra}\=  \kw{nsitions} \{\\
+\>  \>  \>  \kw{tra}\=  \kw{nsition} \kw{from} ninit \kw{to} initialized \kw{with} init;\\
+\>  \>  \>  \kw{tra}\=  \kw{nsition} \kw{from} initialized \kw{to} deposed \kw{with} deposit;\\
+\>  \>  \>  \kw{tra}\=  \kw{nsition} \kw{from} deposed \kw{to} checked \kw{with} check;\\
+\>  \>  \>  \kw{tra}\=  \kw{nsition} \kw{from} deposed \kw{to} registered \kw{with} register;\\
+\>  \>  \>  \kw{tra}\=  \kw{nsition} \kw{from} checked \kw{to} checkedregistered \kw{with} register;\\
+\>  \>  \>  \kw{tra}\=  \kw{nsition} \kw{from} registered \kw{to} checkedregistered \kw{with} check;\\
+\>  \>  \>  \kw{tra}\=  \kw{nsition} \kw{from} checkedregistered \kw{to} cancelled \kw{with} cancel;\\
+\>  \>  \>  \kw{tra}\=  \kw{nsition} \kw{from} checkedregistered \kw{to} validated \kw{with} validate;\\
+\>  \>  \>  \kw{tra}\=  \kw{nsition} \kw{from} checkedregistered \kw{to} validatedDir \kw{with} validate_dir;\\
+\>  \>  \}\\
+\>  \}\\
+\}
+\end{program}

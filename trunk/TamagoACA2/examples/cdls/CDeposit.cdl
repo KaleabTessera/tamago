@@ -39,7 +39,7 @@ component CDeposit {
 	
 	method void register(tamago.ext.aca2.ACA aca) {
 		id register;
-		post (bank.getHistoric().exists(this));
+		post (bank.getHistoric().contains(this));
 		// historique de la banque
 	}
 }
