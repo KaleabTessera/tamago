@@ -307,10 +307,10 @@
 // DEFINITION DES PARSEURS EXTENSION DE SERVICES
 // ==============================================================
 <include:tamagocc.api.TIncludeService> := @transform(convInclude,@seq(@ignore(@literal("include")),
-	@ignore(@literal("service")), <ident>,@ignore(@literal("module")), <qualifident>,@ignore(@literal(";")) ));
+	@ignore(@literal("service")), <ident>,@ignore(@choice(@literal("module"),@literal("in"))), <qualifident>,@ignore(@literal(";")) ));
 
 <refine:tamagocc.api.TRefineService> := @transform(convRefine,@seq(@ignore(@literal("refine")),
-	@ignore(@literal("service")), <ident>,@ignore(@literal("module")), <qualifident>,@ignore(@literal(";")) ));
+	@ignore(@literal("service")), <ident>,@ignore(@choice(@literal("module"),@literal("in"))), <qualifident>,@ignore(@literal(";")) ));
 
 <extension:tamagocc.api.TExtendService> := @choice(<refine>,<include>);
 
@@ -370,8 +370,8 @@
 @ignore(@literal("{")),
 @list(<percolator>,""),
 @list(<impl>,""), 
-@list(<require>,""),
 @list(<provide>,""),
+@list(<require>,""),
 @list(<property>,""),
 @list(<invariant>,""),
 @list(<method>,""),

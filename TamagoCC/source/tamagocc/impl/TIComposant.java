@@ -51,8 +51,8 @@ public class TIComposant extends TITamago implements TComponent {
     		    		Collection<TType> paramtypes)
     {
         super(name,module,methods,properties,invariants,behavior,impls,namespaces,paramtypes);
-        this.provides = provides;
-        this.requires = requires;
+        this.provides = new ArrayList<TProvide>(provides);
+        this.requires = new ArrayList<TRequire>(requires);
         percolator = new ArrayList<TPercolator>();
         percolator.addAll(percolators);
     }
