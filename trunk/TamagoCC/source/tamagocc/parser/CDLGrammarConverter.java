@@ -325,16 +325,18 @@ public class CDLGrammarConverter {
 	}
 
 	public tamagocc.api.TIncludeService convInclude(Object content) {
-		String name = (String)content;
-		String module = "";
-		int idx = name.lastIndexOf(".");
+		Pair<String,String> pair = (Pair<String,String>)content;
+		String name = pair.getFirst();
+		String module = pair.getSecond();
+		
+		/*int idx = name.lastIndexOf(".");
 		if(idx == -1) {
 			
 		}
 		else {
 			module = name.substring(1,idx-1);
 			name = name.substring(idx+1);
-		}
+		}*/
 		TService service;
 		try {
 			service = (TService) TamagoCCPool.getDefaultPool().getTreeAbstractSyntax(name, module);
@@ -346,16 +348,18 @@ public class CDLGrammarConverter {
 	}
 
 	public tamagocc.api.TRefineService convRefine(Object content) {
-		String name = (String)content;
-		String module = "";
-		int idx = name.lastIndexOf(".");
+		Pair<String,String> pair = (Pair<String,String>)content;
+		
+		String name = pair.getFirst();
+		String module = pair.getSecond();
+		/*int idx = name.lastIndexOf(".");
 		if(idx == -1) {
 			
 		}
 		else {
 			module = name.substring(1,idx-1);
 			name = name.substring(idx+1);
-		}
+		}*/
 		TService service;
 		try {
 			service = (TService) TamagoCCPool.getDefaultPool().getTreeAbstractSyntax(name, module);
