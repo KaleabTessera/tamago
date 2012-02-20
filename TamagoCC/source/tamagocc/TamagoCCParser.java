@@ -54,7 +54,7 @@ public class TamagoCCParser {
 	 * <br>
 	 * <em>Caution:</em> This variable needn't be modified in the JAR release of Tamago.
 	 */
-	public static String XSD_LOCATION = "http://www-poleia.lip6.fr/~belhaouari/TamagoNS.xsd";
+	public static String XSD_LOCATION = "http://tamago.googlecode.com/svn/trunk/TamagoCC/TamagoNS.xsd";
 	//static final String XSD_LOCATION = "file:///home/aliquando/Tamago/TamagoCC/TamagoNS.xsd";
 
 

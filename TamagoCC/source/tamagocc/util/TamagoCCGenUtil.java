@@ -38,7 +38,7 @@ public abstract class TamagoCCGenUtil {
 		sb.append(" * THIS FILE IS GENERATED AUTOMATICALLY BY TAMAGOCC\n");
 		sb.append(" * Created date : "+now.toString()+"\n");
 		sb.append(" * authors : Hakim Belhaouari and Frederic Peschanski\n");
-		sb.append(" * site : http://www-poleia.lip6.fr/~belhaouari/Tamago/\n");
+		sb.append(" * site : http://code.google.com/p/tamago/\n");
 		return sb.toString();
 	}
 	
@@ -58,7 +58,7 @@ public abstract class TamagoCCGenUtil {
 		sb.append(" * TAMAGOCC GENERATES AUTOMATICALLY THE SKELETON.\n");
 		sb.append(" * Created date : "+now.toString()+"\n");
 		sb.append(" * authors : Hakim Belhaouari and Frederic Peschanski\n");
-		sb.append(" * site : http://www-poleia.lip6.fr/~belhaouari/Tamago/\n");
+		sb.append(" * site : http://code.google.com/p/tamago/\n");
 		return sb.toString();
 	}
 }

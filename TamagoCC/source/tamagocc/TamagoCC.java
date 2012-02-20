@@ -52,7 +52,7 @@ public class TamagoCC {
     /**
      * Default address of the last XSD Schema
      */
-    static String defaultXSD_LOCATION = "http://www-poleia.lip6.fr/~belhaouari/TamagoNS.xsd"; 
+    static String defaultXSD_LOCATION = "http://tamago.googlecode.com/svn/trunk/TamagoCC/TamagoNS.xsd"; 
     
     
     private static String destdir = ".";

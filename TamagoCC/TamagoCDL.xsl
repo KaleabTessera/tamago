@@ -34,7 +34,14 @@
     
     <h2>Methods:</h2>
     <table class="methods" border="1">
+      <thead>
+	<tr>
+	  <th>Name</th><th>Type</th><th>ID</th><th>Precondition</th><th>Postcondition</th>
+	</tr>
+      </thead>
+      <tbody>
       <xsl:apply-templates select="//method" />
+      </tbody>
     </table>
   </xsl:template>
   
@@ -67,7 +74,7 @@
 	</td><td class="ident">
 	<xsl:value-of select="@id" />
 	</td><td class="preexpr">
-	<xsl:apply-templates select="pre" />
+	<xsl:apply-templates select="//pre" />
 	</td><td class="postexpr">		
 	<xsl:apply-templates select="post" />
       </td>
@@ -93,7 +100,7 @@
 	  <xsl:when test="$operateur = 'add'"><span class="exproperateur">+</span></xsl:when>
 	  <xsl:when test="$operateur = 'sub'"><span class="exproperateur">-</span></xsl:when>
 	  <xsl:when test="$operateur = 'mul'"><span class="exproperateur">*</span></xsl:when>
-	  <xsl:when test="$operateur = 'quo'"><span class="exproperateur">/</span></xsl:when>
+	  <xsl:when test="$operateur = 'quo'"><span class="exproperateur">%/</span></xsl:when>
 	  <xsl:when test="$operateur = 'div'"><span class="exproperateur">/</span></xsl:when>
 	  <xsl:when test="$operateur = 'and'"><span class="exproperateur">and</span></xsl:when>
 	  <xsl:when test="$operateur = 'or'"><span class="exproperateur">or</span></xsl:when>
@@ -109,8 +116,7 @@
   </xsl:template>
   
   <xsl:template match="not">
-    !<xsl:apply-templates />
-    
+    !<xsl:apply-templates />    
   </xsl:template>
   
   <xsl:template match="variable">
