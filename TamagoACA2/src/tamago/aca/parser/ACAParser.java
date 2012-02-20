@@ -2,17 +2,26 @@ package tamago.aca.parser;
 
 import java.io.DataInputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-
-import tamago.aca.term.ACA;
-import tamago.aca.visitor.ConvertACAtoCDL;
-import tamagocc.exception.TamagoCCException;
 
 import javapop.framework.ParseResult;
 import javapop.framework.generic.tool.GrammarGenerator;
 import javapop.framework.generic.tool.GrammarGeneratorException;
 import javapop.framework.input.StringParseInput;
+import tamago.aca.generator.ACASecurityGenerator;
+import tamago.aca.term.ACA;
+import tamago.aca.visitor.ConvertACAtoCDL;
+import tamagocc.api.TTamago;
+import tamagocc.ast.api.AEntity;
+import tamagocc.exception.TamagoCCException;
+import tamagocc.generator.TamagoCCGeneratorTargetLanguage;
+import tamagocc.generator.TamagoCCIGenerator;
+import tamagocc.generic.api.GTamagoEntity;
+import tamagocc.generic.impl.GIPercolator;
+import tamagocc.javasource.TamagoCCJavaSourceBuilder;
+import tamagocc.percolation.TamagoCCPercolation;
+import tamagocc.util.TamagoCCToXml;
 
 public class ACAParser {
 	private static String streamToString(String string) throws IOException {
@@ -27,6 +36,9 @@ public class ACAParser {
 	}
 
 	public static void main(String[] args) throws GrammarGeneratorException, IOException, TamagoCCException {
+		TamagoCCPercolation.initialisation();
+		
+		
 		FileInputStream grammar = new FileInputStream("ACAGrammarPop.txt");
 		GrammarGenerator gen = GrammarGenerator.buildGrammarGenerator(grammar);
 		String saca = streamToString("examples/cdls/DepositSecurity.cdl");
@@ -39,8 +51,25 @@ public class ACAParser {
 			System.out.println("OK");
 			System.out.println(aca);
 			
-			ConvertACAtoCDL conv = new ConvertACAtoCDL(aca);
-			conv.convert();
+			ConvertACAtoCDL convCDL = new ConvertACAtoCDL(aca);
+			convCDL.convert();
+			
+			GTamagoEntity entity = convCDL.getGEntity();
+			TTamago tentity = convCDL.getTEntity();
+			FileOutputStream fos = new FileOutputStream("TEntity.xml");
+			TamagoCCToXml.generateXMLFile(tentity, fos);
+			
+			ACASecurityGenerator gencontainer = new ACASecurityGenerator(entity);
+			AEntity container = gencontainer.getASTEntity();
+			
+			TamagoCCJavaSourceBuilder builder = new TamagoCCJavaSourceBuilder();
+			builder.generateContainerImplementationName(entity, new GIPercolator("plugin"));
+			FileOutputStream genstream = new FileOutputStream("Container.java");
+			TamagoCCGeneratorTargetLanguage language = builder.getTargetLanguage(container, genstream);
+			language.generate();
+			//TamagoCCGenerator generator = new TamagoCCGenerator(builder, entity, "examples", true, true, true);
+			//generator.generate();
+			
 		}
 	}
 }
