@@ -150,6 +150,12 @@ public class TamagoCCGeneratorCommon implements TamagoCCGVisitor {
 	
 	public TamagoCCGeneratorCommon(TamagoCCIGenerator owner,GTamagoEntity entity) {
 		this.entity = entity;
+		this.owner = owner;
+		if(owner == null) {
+			this.owner = TamagoCCDefaultIGeneratorJava.getInstance();
+		}
+		
+		
 		GType[] types = entity.getParametrizedTypes();
 		AType[] atypes = new AType[types.length];
 		for(int i = 0; i < types.length; i++) {
@@ -158,7 +164,6 @@ public class TamagoCCGeneratorCommon implements TamagoCCGVisitor {
 		
 		this.ast = new AIEntity(entity.getName(),module(entity.getModule()),atypes);
 		TamagoCCLogger.println(5, "///////////////////////////AIEntity avec :"+entity.getName());
-		this.owner = owner;
 		
 		ast.setComment(new AILongComment(TamagoCCGenUtil.headerFile(entity.getName())));
 		visited = false;

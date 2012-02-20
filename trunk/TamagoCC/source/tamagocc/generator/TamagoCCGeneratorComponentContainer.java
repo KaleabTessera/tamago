@@ -491,10 +491,10 @@ public class TamagoCCGeneratorComponentContainer extends TamagoCCGeneratorCommon
 		
 	}
 	
-	public TamagoCCGeneratorComponentContainer(TamagoCCIGenerator owner, GTamagoEntity entity,GPercolator percolator)
+	public TamagoCCGeneratorComponentContainer(TamagoCCIGenerator gowner, GTamagoEntity entity,GPercolator percolator)
 		throws TamagoCCException
 	{
-		super(owner,entity);
+		super(gowner,entity);
 		astpreinvariants = new ArrayList<AInstruction>();
 		astpostinvariants = new ArrayList<AInstruction>();
 		cscope = new ChangerScope("tamago_decorated_component",entity.getNameAsType());

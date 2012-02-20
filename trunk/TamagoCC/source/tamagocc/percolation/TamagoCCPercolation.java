@@ -57,6 +57,7 @@ public abstract class TamagoCCPercolation {
 		// Ajout des percolators interne a la plate forme
 		addPercolator("plugin","tamagocc.percolation.TamagoCCPercolatorplugin");
 		addPercolator("exact","tamagocc.percolation.TamagoCCPercolatorexact");
+		addPercolator("aca","tamagocc.percolation.TamagoCCPercolatoraca");
 	}
 	
 	public static String[] getAllPercolatorName() {

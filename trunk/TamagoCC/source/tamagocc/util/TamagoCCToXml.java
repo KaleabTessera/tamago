@@ -87,7 +87,7 @@ public class TamagoCCToXml  {
 		public XMLGeneratorVisitor(OutputStream os) throws TamagoCCException {
 			indent = new TamagoCCIndentator(os);
 			indent.println("<?xml version=\"1.0\" ?>");
-			indent.println("<?xml-stylesheet type=\"text/xsl\" href=\"http://www-poleia.lip6.fr/~belhaouari/TamagoCDL.xsl\" ?>");
+			indent.println("<?xml-stylesheet type=\"text/xsl\" href=\"http://tamago.googlecode.com/svn/trunk/TamagoCC/TamagoCDL.xsl\" ?>");
 		}
 
 		/**
