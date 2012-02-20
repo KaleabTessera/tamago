@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 
 import tamago.check.fixpoint.TamagoCheckState;
-import tamago.check.model.Node;
 import tamago.check.model.NodeDNF;
 import tamago.check.model.NodeDNFResult;
 import tamago.check.model.NodeEmpty;
@@ -144,7 +143,7 @@ public class TamagoCheckReportOpt implements GenericTamagoCheckReport {
 		
 		try {
 			indent.println("<?xml version=\"1.0\" ?>");
-			indent.println("<?xml-stylesheet type=\"text/xsl\" href=\"http://www-poleia.lip6.fr/~belhaouari/TamagoCheck.xsl\" ?>");
+			indent.println("<?xml-stylesheet type=\"text/xsl\" href=\"http://tamago.googlecode.com/svn/trunk/TamagoCC/TamagoCDL.xsl\" ?>");
 			indent.print("<tamagocheck contract=\"");
 			indent.print(contract.getName());
 			indent.print("\" module=\"");
