@@ -10,13 +10,14 @@ import tamago.aca.term.Quad;
 import tamagocc.api.TExpression;
 import tamagocc.api.TMethod;
 import tamagocc.api.TOpeName;
+import tamagocc.api.TOperator;
 import tamagocc.api.TService;
 import tamagocc.api.TTamago;
 import tamagocc.exception.TamagoCCException;
-import tamagocc.generator.TamagoCCGenerator;
 import tamagocc.generic.TamagoCCGPool;
 import tamagocc.generic.api.GTamagoEntity;
 import tamagocc.impl.TIAccess;
+import tamagocc.impl.TICall;
 import tamagocc.impl.TIComposant;
 import tamagocc.impl.TICondition;
 import tamagocc.impl.TIInLabel;
@@ -24,12 +25,11 @@ import tamagocc.impl.TIMethod;
 import tamagocc.impl.TIOperator;
 import tamagocc.impl.TIPercolator;
 import tamagocc.impl.TIProperty;
+import tamagocc.impl.TIRead;
 import tamagocc.impl.TIRequire;
 import tamagocc.impl.TIString;
 import tamagocc.impl.TIType;
 import tamagocc.impl.TIVariable;
-import tamagocc.javasource.TamagoCCJavaSourceBuilder;
-import tamagocc.percolation.TamagoCCPercolation;
 import tamagocc.util.TamagoCCPool;
 
 
@@ -41,26 +41,47 @@ public class ConvertACAtoCDL{
 
 	private ACA aca;
 	private TIComposant tamagoaca;
+	private GTamagoEntity gentity;
+	private boolean done;
 	
 	/**
 	 * 
 	 */
 	public ConvertACAtoCDL(ACA aca) {
 		this.aca = aca;
-		tamagoaca = new TIComposant(aca.getInfo().getModelName()+"ACA", aca.getInfo().getModelModule());
+		done = false;
+		tamagoaca = new TIComposant(aca.getInfo().getModelName(), aca.getInfo().getModelModule());
 	}
 	
-	public GTamagoEntity convert() throws TamagoCCException {
+	public ACA getAca() {
+		return aca;
+	}
+
+	public TIComposant getTEntity() {
+		if(done)
+			return tamagoaca;
+		else
+			return null;
+	}
+
+	public GTamagoEntity getGEntity() {
+		return gentity;
+	}
+
+	public void convert() throws TamagoCCException {
+		if(done)
+			return;
 		// Transformation de base
 		Info info = aca.getInfo();
 		TTamago tamago = TamagoCCPool.getDefaultPool().getTreeAbstractSyntax(info.getModelName(), info.getModelModule());
 		tamagoaca.addRequire(new TIRequire("acamodel", tamago.getName()	, tamago.getModule(), (TService)tamago));
-		tamagoaca.addAllowedPercolators(new TIPercolator("plugin"));
+		tamagoaca.addAllowedPercolators(new TIPercolator("aca"));
 		
 		TIProperty property = new TIProperty("historic", TIType.generateType("tamago.ext.aca2.Historic"), new TIAccess("read"));
 		tamagoaca.addProperty(property);
 		
-		
+		TIProperty propPlay = new TIProperty("play", TIType.generateType("tamago.ext.aca2.Play"), new TIAccess("read"));
+		tamagoaca.addProperty(propPlay);
 		
 		TIOperator pre_user = new TIOperator(TOpeName.opOr);
 		TIOperator pre_role = new TIOperator(TOpeName.opOr);
@@ -110,7 +131,6 @@ public class ConvertACAtoCDL{
 			
 			TIMethod methsec = new TIMethod(method);
 			TIOperator and = new TIOperator(TOpeName.opAnd);
-			methsec.setPrecond(new TICondition(and));
 			
 			Perms perms = aca.getPerms();
 			for (Quad quad : perms) {
@@ -125,17 +145,36 @@ public class ConvertACAtoCDL{
 				}
 			}
 			and.addOperand(and_pre);
+			methsec.setPrecond(new TICondition(and));
+			
+			// make postcondition
+			// post (historic.getLastSecuParam() == aca) && (historic.getLastAction() == "deposit");
+			and = new TIOperator(TOpeName.opAnd);
+			TIRead historic = new TIRead("historic");
+			{
+				TICall lastAction = new TICall("lastAction");
+				TIInLabel historicDOTlastAction = new TIInLabel(historic, lastAction);
+				TIString action = new TIString(mid);
+				TIOperator op = new TIOperator(TOpeName.opEg);
+				op.addOperand(action);
+				op.addOperand(historicDOTlastAction);
+				and.addOperand(op);
+				// ----------------
+				
+				TICall lastSecuParam = new TICall("lastSecuParam");
+				TIVariable aca = new TIVariable("aca",true,"tamago.ext.aca2.ACA");
+				TIInLabel historicDOTlastSecuParam = new TIInLabel(historic, lastSecuParam);
+				op = new TIOperator(TOpeName.opEg);
+				op.addOperand(aca);
+				op.addOperand(historicDOTlastSecuParam);
+				and.addOperand(op);
+			}
+			methsec.setPostcond(new TICondition(and));
 			tamagoaca.addMethod(methsec);
 		}
 		
-		GTamagoEntity entity = TamagoCCGPool.getDefaultTamagoCCGPool().getGTamagoEntity(tamagoaca);
-		
-		TamagoCCPercolation.initialisation();
-		TamagoCCJavaSourceBuilder builder = new TamagoCCJavaSourceBuilder();
-		TamagoCCGenerator generator = new TamagoCCGenerator(builder, entity, "examples", true, true, true);
-		generator.generate();
-		
-		return entity;
+		gentity = TamagoCCGPool.getDefaultTamagoCCGPool().getGTamagoEntity(tamagoaca);
+		done = true;
 	}
 
 	
