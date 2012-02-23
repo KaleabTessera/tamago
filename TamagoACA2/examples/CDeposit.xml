@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type="text/xsl" href="http://www-poleia.lip6.fr/~belhaouari/TamagoCDL.xsl" ?>
+<component name="CDeposit" module="tamago.aca.bank">
+    <coretypes>
+    </coretypes>
+    <properties>
+    </properties>
+    <percolators>
+        <percolator name="*"/>
+    </percolators>
+    <provides>
