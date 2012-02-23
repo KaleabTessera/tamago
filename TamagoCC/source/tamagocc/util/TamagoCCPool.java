@@ -11,6 +11,7 @@ import org.xml.sax.SAXException;
 
 import tamagocc.api.TTamago;
 import tamagocc.exception.*;
+import tamagocc.logger.TamagoCCLogger;
 
 /**
  * This class is the pool of all parsed contract. This class optimize the compilation and avoid the
@@ -22,10 +23,14 @@ public class TamagoCCPool {
 
 		/* *** DECLARATION STATIQUE DE L'OUTIL PAR DEFAUT *** */
 	
-	private static TamagoCCPool defaultPool = new TamagoCCPool(TamagoCCParser.getDefaultParser());
+	private static TamagoCCPool defaultPool = null;
 	public static TamagoCCPool getDefaultPool() {
-		if(defaultPool == null)
+		if(defaultPool == null) {
+			TamagoCCLogger.print(3, "NEW POOL CREATED !!! ");
 			defaultPool = new TamagoCCPool(TamagoCCParser.getDefaultParser());
+			if(TamagoCCParser.getDefaultParser().getPool() == null)
+				TamagoCCParser.getDefaultParser().setTamagoCCPool(defaultPool);
+		}
 		return defaultPool;
 	}
 
@@ -53,7 +58,7 @@ public class TamagoCCPool {
      * pour generer l'arbre de syntaxe abstraite.
      * Les chemins de recherche sont limite au repertoire courant.
      */
-    public TamagoCCPool(TamagoCCParser parser) {
+    private TamagoCCPool(TamagoCCParser parser) {
         super();
         hash = new Hashtable<String,TTamago>();
         tamagoccpath = new ArrayList<String>();
@@ -67,7 +72,7 @@ public class TamagoCCPool {
      * @param parser : parser qui sera utiliser pour parser les fichiers tamagoCC
      * @see TamagoCCPool#TamagoCCPool(TamagoCCParser)
      */
-    public TamagoCCPool(Iterator<String> path,TamagoCCParser parser) {
+    private TamagoCCPool(Iterator<String> path,TamagoCCParser parser) {
         super();
         hash = new Hashtable<String,TTamago>();
         tamagoccpath = new ArrayList<String>();
@@ -87,7 +92,7 @@ public class TamagoCCPool {
      * @param parser : parser qui sera utiliser pour parser les fichiers tamagoCC
      * @see TamagoCCPool#TamagoCCPool(TamagoCCParser)
      */
-    public TamagoCCPool(String listpath,TamagoCCParser parser) {
+    private TamagoCCPool(String listpath,TamagoCCParser parser) {
         super();
         hash = new Hashtable<String,TTamago>();
         tamagoccpath = new ArrayList<String>();
@@ -224,13 +229,18 @@ public class TamagoCCPool {
     private TTamago searchAndParse(String name,String namepackage)
     	throws ParserConfigurationException,IOException,SAXException,TamagoCCException
     {
+    	TamagoCCLogger.println(3, "POOL:"+this.hashCode());
+    	TamagoCCLogger.println(3, "COUNT TAMAGOCCPATH:"+tamagoccpath.size());
+    	
         Iterator<String> iterator = tamagoccpath.iterator();
         String key1 = namepackage+"."+name;
         while(iterator.hasNext()) {
             String path = (String)iterator.next();
+            TamagoCCLogger.println(3, "TAMAGOCCPATH:"+path);
             // TODO verifier ici
             // ancienne version : File file[] = searchFile(path,name+".xml");
             File file[] = searchFile(path,name);
+            TamagoCCLogger.println(0, "FOUND COUNT:"+file.length);
             for(int i=0;i < file.length;++i) {
                 TTamago tree = (TTamago)parser.parse(file[i].getAbsolutePath());
                 String key2 = tree.getModule()+"."+tree.getName();
@@ -255,6 +265,7 @@ public class TamagoCCPool {
             this.filename = filename;
         }
         public boolean accept(File dir,String name) {
+        	TamagoCCLogger.println(3, "WANTED:"+filename+"    FOUND:"+name);
             if((name.startsWith(filename))&&(name.endsWith(".xml"))) {
                 char c = name.charAt(filename.length());
                 if((c== '.')||(c=='$'))
