@@ -12,11 +12,35 @@
     </html>
   </xsl:template>
   
-  <xsl:template match="service">
-    <h1 class="service">
+  <xsl:template match="component">
+    <h1 class="component">
       <xsl:value-of select="@module" />.<xsl:value-of select="@name" />
     </h1>
     
+    <xsl:if test="count(//require) &gt; 0">
+    <h2>Required Services:</h2>
+    <table class="requires" border="1">
+      <tr>
+	<th class="titrename">Name</th>
+	<th class="titretype">Module</th>
+	<th class="titrelabel">Label</th>
+      </tr>
+      <xsl:apply-templates select="//require" />
+    </table>
+    </xsl:if>
+
+    <xsl:if test="count(//provide) &gt; 0">
+    <h2>Provided Services:</h2>
+    <table class="provides" border="1">
+      <tr>
+	<th class="titrename">Name</th>
+	<th class="titretype">Module</th>
+      </tr>
+      <xsl:apply-templates select="//provide" />
+    </table>
+    </xsl:if>
+
+    <xsl:if test="count(//property) &gt; 0">
     <h2>Properties:</h2>
     <table class="properties" border="1">
       <tr>
@@ -26,11 +50,14 @@
       </tr>
       <xsl:apply-templates select="//property" />
     </table>
+    </xsl:if>
     
+  <xsl:if test="count(//invariant) &gt; 0">
     <h2>Invariants:</h2>
     <table class="invariants" border="1">
       <xsl:apply-templates select="//invariant" />
     </table>
+  </xsl:if>
     
     <h2>Methods:</h2>
     <table class="methods" border="1">
@@ -44,6 +71,56 @@
       </tbody>
     </table>
   </xsl:template>
+
+  <xsl:template match="provide">
+    <tr><td><xsl:value-of select="@service" /></td>
+            <td><xsl:value-of select="@module" /></td></tr>
+  </xsl:template>
+
+  <xsl:template match="require">
+    <tr><td><xsl:value-of select="@service" /></td>
+            <td><xsl:value-of select="@module" /></td>
+           <td><xsl:value-of select="@label" /></td></tr>
+  </xsl:template>
+
+<xsl:template match="service">
+    <h1 class="service">
+      <xsl:value-of select="@name" />
+    </h1>
+    <h2 class="service">
+      Module: <xsl:value-of select="@module" />
+    </h2>
+    
+    <h2>Properties:</h2>
+    <table class="properties" border="1">
+      <tr>
+	<th class="titrename">Name</th>
+	<th class="titretype">Type</th>
+	<th class="titreaccess">Acces</th>
+      </tr>
+      <xsl:apply-templates select="//property" />
+    </table>
+    
+  <xsl:if test="count(//invariant) &gt; 0">
+    <h2>Invariants:</h2>
+    <table class="invariants" border="1">
+      <xsl:apply-templates select="//invariant" />
+    </table>
+  </xsl:if>
+    
+    <h2>Methods:</h2>
+    <table class="methods" border="1">
+      <thead>
+	<tr>
+	  <th>Name</th><th>Type</th><th>ID</th><th>Precondition</th><th>Postcondition</th>
+	</tr>
+      </thead>
+      <tbody>
+      <xsl:apply-templates select="//method" />
+      </tbody>
+    </table>
+  </xsl:template>
+
   
   <xsl:template match="property">
     <tr>
@@ -155,8 +232,14 @@
   </xsl:template>
   
   <xsl:template match="in">
-    <span class="exprin"><xsl:value-of select="@label" />::</span>
-    <xsl:apply-templates />
+    <span class="exprin">
+      <xsl:apply-templates  select="scope"/>.<xsl:apply-templates  select="target"/>
+    </span>
+    
   </xsl:template>
   
+  <xsl:template match="string">
+    &quot;<xsl:value-of select="." />&quot;
+  </xsl:template>
+
 </xsl:stylesheet>
