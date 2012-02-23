@@ -1,6 +1,6 @@
 @start
 
-model Deposit in tamago.aca.bank;
+model DepositService in tamago.aca.bank;
 
 
 users := alphonse,boris,catherine,damien,elise,franck;

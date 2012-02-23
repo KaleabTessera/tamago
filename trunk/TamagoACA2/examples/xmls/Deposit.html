@@ -1,0 +1,104 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TamagoCDL Viewer</title>
+<link rel="stylesheet" href="tamagoCDL.css" type="text/css">
+</head>
+<body>
+<h1 class="service">tamago.aca.bank.Deposit</h1>
+<h2>Properties:</h2>
+<table class="properties" border="1">
+<tr>
+<th class="titrename">Name</th>
+<th class="titretype">Type</th>
+<th class="titreaccess">Acces</th>
+</tr>
+<tr>
+<td class="name">opNumber</td>
+<td class="type">int</td>
+<td class="access">r</td>
+</tr>
+</table>
+<h2>Invariants:</h2>
+<table class="invariants" border="1"></table>
+<h2>Methods:</h2>
+<table class="methods" border="1">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>ID</th>
+<th>Precondition</th>
+<th>Postcondition</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="name">init</td>
+<td class="type">void</td>
+<td class="ident">init</td>
+<td class="preexpr"></td>
+<td class="postexpr">
+            
+    (
+    opNumber<span class="exproperateur">&lt;</span><span class="exprvalue">0</span>
+    )
+  
+         </td>
+</tr>
+<tr>
+<td class="name">deposit</td>
+<td class="type">void</td>
+<td class="ident">deposit</td>
+<td class="preexpr"></td>
+<td class="postexpr"></td>
+</tr>
+<tr>
+<td class="name">cancel</td>
+<td class="type">void</td>
+<td class="ident">cancel</td>
+<td class="preexpr"></td>
+<td class="postexpr"></td>
+</tr>
+<tr>
+<td class="name">validate</td>
+<td class="type">void</td>
+<td class="ident">validate</td>
+<td class="preexpr"></td>
+<td class="postexpr"></td>
+</tr>
+<tr>
+<td class="name">validate_director</td>
+<td class="type">void</td>
+<td class="ident">validate_dir</td>
+<td class="preexpr"></td>
+<td class="postexpr"></td>
+</tr>
+<tr>
+<td class="name">check</td>
+<td class="type">void</td>
+<td class="ident">check</td>
+<td class="preexpr"></td>
+<td class="postexpr">
+            
+    (
+    opNumber<span class="exproperateur">&gt;</span><span class="exprvalue">0</span>
+    )
+  
+         </td>
+</tr>
+<tr>
+<td class="name">register</td>
+<td class="type">void</td>
+<td class="ident">register</td>
+<td class="preexpr"></td>
+<td class="postexpr">
+            
+    (
+    opNumber<span class="exproperateur">&gt;</span><span class="exprvalue">0</span>
+    )
+  
+         </td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

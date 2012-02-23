@@ -12,7 +12,6 @@ import tamago.aca.term.Sod;
 import tamagocc.api.TExpression;
 import tamagocc.api.TMethod;
 import tamagocc.api.TOpeName;
-import tamagocc.api.TOperator;
 import tamagocc.api.TService;
 import tamagocc.api.TTamago;
 import tamagocc.exception.TamagoCCException;
@@ -27,6 +26,7 @@ import tamagocc.impl.TIMethod;
 import tamagocc.impl.TIOperator;
 import tamagocc.impl.TIPercolator;
 import tamagocc.impl.TIProperty;
+import tamagocc.impl.TIProvide;
 import tamagocc.impl.TIRead;
 import tamagocc.impl.TIRequire;
 import tamagocc.impl.TIString;
@@ -47,12 +47,13 @@ public class ConvertACAtoCDL{
 	private boolean done;
 	
 	/**
+	 * @param name 
 	 * 
 	 */
-	public ConvertACAtoCDL(ACA aca) {
+	public ConvertACAtoCDL(String name, ACA aca) {
 		this.aca = aca;
 		done = false;
-		tamagoaca = new TIComposant(aca.getInfo().getModelName(), aca.getInfo().getModelModule());
+		tamagoaca = new TIComposant(name, aca.getInfo().getModelModule());
 	}
 	
 	public ACA getAca() {
@@ -76,7 +77,7 @@ public class ConvertACAtoCDL{
 		// Transformation de base
 		Info info = aca.getInfo();
 		TTamago tamago = TamagoCCPool.getDefaultPool().getTreeAbstractSyntax(info.getModelName(), info.getModelModule());
-		tamagoaca.addRequire(new TIRequire("acamodel", tamago.getName()	, tamago.getModule(), (TService)tamago));
+		tamagoaca.addProvide(new TIProvide(tamago.getName()	, tamago.getModule(), (TService)tamago));
 		tamagoaca.addAllowedPercolators(new TIPercolator("aca"));
 		
 		TIProperty property = new TIProperty("historic", TIType.generateType("tamago.ext.aca2.Historic"), new TIAccess("read"));

@@ -12,6 +12,7 @@ import javapop.framework.input.StringParseInput;
 import tamago.aca.generator.ACASecurityGenerator;
 import tamago.aca.term.ACA;
 import tamago.aca.visitor.ConvertACAtoCDL;
+import tamagocc.TamagoCCParser;
 import tamagocc.api.TTamago;
 import tamagocc.ast.api.AEntity;
 import tamagocc.exception.TamagoCCException;
@@ -20,7 +21,9 @@ import tamagocc.generator.TamagoCCIGenerator;
 import tamagocc.generic.api.GTamagoEntity;
 import tamagocc.generic.impl.GIPercolator;
 import tamagocc.javasource.TamagoCCJavaSourceBuilder;
+import tamagocc.logger.TamagoCCLogger;
 import tamagocc.percolation.TamagoCCPercolation;
+import tamagocc.util.TamagoCCPool;
 import tamagocc.util.TamagoCCToXml;
 
 public class ACAParser {
@@ -36,12 +39,14 @@ public class ACAParser {
 	}
 
 	public static void main(String[] args) throws GrammarGeneratorException, IOException, TamagoCCException {
+		TamagoCCLogger.setLevel(4);
+		
 		TamagoCCPercolation.initialisation();
 		
 		
 		FileInputStream grammar = new FileInputStream("ACAGrammarPop.txt");
 		GrammarGenerator gen = GrammarGenerator.buildGrammarGenerator(grammar);
-		String saca = streamToString("examples/cdls/DepositSecurity.cdl");
+		String saca = streamToString("ICECCS/cdls/DepositSecurity.aca");
 		ParseResult<ACA> paca = (ParseResult<ACA>) gen.parse(new StringParseInput(saca));
 		if(paca.isError() || paca.isNull()) {
 			System.out.println(paca.getDetailedErrorMessage());
@@ -51,12 +56,17 @@ public class ACAParser {
 			System.out.println("OK");
 			System.out.println(aca);
 			
-			ConvertACAtoCDL convCDL = new ConvertACAtoCDL(aca);
+			
+			TamagoCCPool.getDefaultPool().addTamagoCCListPath("ICECCS/xmls/");
+			TamagoCCParser.getDefaultParser();
+			TamagoCCPool.getDefaultPool().addTamagoCCListPath("ICECCS/xmls/");
+			
+			ConvertACAtoCDL convCDL = new ConvertACAtoCDL("DepositSecurity",aca);
 			convCDL.convert();
 			
 			GTamagoEntity entity = convCDL.getGEntity();
 			TTamago tentity = convCDL.getTEntity();
-			FileOutputStream fos = new FileOutputStream("DepositSecurity.xml");
+			FileOutputStream fos = new FileOutputStream("ICECCS/xmls/DepositSecurity.xml");
 			TamagoCCToXml.generateXMLFile(tentity, fos);
 			
 			ACASecurityGenerator gencontainer = new ACASecurityGenerator(entity);

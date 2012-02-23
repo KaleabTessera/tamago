@@ -1,0 +1,121 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type="text/xsl" href="http://www-poleia.lip6.fr/~belhaouari/TamagoCDL.xsl" ?>
+<component name="CDeposit" module="tamago.aca.bank" >
+   <coretypes>
+   </coretypes>
+   <properties>
+   </properties>
+   <percolators>
+   </percolators>
+   <provides>
+      <provide service="DepositService" module="tamago.aca.bank" />
+   </provides>
+   <requires>
+      <require service="Client" module="tamago.aca.bank" label="user" />
+      <require service="Cheque" module="tamago.aca.bank" label="cheq" />
+      <require service="Bank" module="tamago.aca.bank" label="bank" />
+   </requires>
+   <methods>
+      <method name="init" rettype="void" id="init" >
+         <parameters>
+         </parameters>
+      </method>
+      <method name="deposit" rettype="void" id="deposit" >
+         <parameters>
+            <parameter name="aca" type="tamago.ext.aca2.ACA" />
+         </parameters>
+      </method>
+      <method name="cancel" rettype="void" id="cancel" >
+         <parameters>
+            <parameter name="aca" type="tamago.ext.aca2.ACA" />
+         </parameters>
+      </method>
+      <method name="validate" rettype="void" id="validate" >
+         <parameters>
+            <parameter name="aca" type="tamago.ext.aca2.ACA" />
+         </parameters>
+      </method>
+      <method name="validate_director" rettype="void" id="validate_dir" >
+         <parameters>
+            <parameter name="aca" type="tamago.ext.aca2.ACA" />
+         </parameters>
+      </method>
+      <method name="check" rettype="void" id="check" >
+         <parameters>
+            <parameter name="aca" type="tamago.ext.aca2.ACA" />
+         </parameters>
+         <pre message="" >
+            <operator name="and" >
+               <in>
+                  <scope>
+                     <variable name="user" />
+                  </scope>
+                  <target>
+                     <call method="isCreditworthy" >
+                        <arguments>
+                        </arguments>
+                     </call>
+                  </target>
+               </in>
+               <operator name="gt" >
+                  <in>
+                     <scope>
+                        <variable name="cheq" />
+                     </scope>
+                     <target>
+                        <call method="getAmount" >
+                           <arguments>
+                           </arguments>
+                        </call>
+                     </target>
+                  </in>
+                  <int value="0" />
+               </operator>
+            </operator>
+         </pre>
+         <post message="" >
+            <in>
+               <scope>
+                  <variable name="bank" />
+               </scope>
+               <target>
+                  <call method="isOperationChecked" >
+                     <arguments>
+                        <read property="opNumber" />
+                     </arguments>
+                  </call>
+               </target>
+            </in>
+         </post>
+      </method>
+      <method name="register" rettype="void" id="register" >
+         <parameters>
+            <parameter name="aca" type="tamago.ext.aca2.ACA" />
+         </parameters>
+         <post message="" >
+            <in>
+               <scope>
+                  <variable name="bank" />
+               </scope>
+               <target>
+                  <in>
+                     <scope>
+                        <call method="getHistoric" >
+                           <arguments>
+                           </arguments>
+                        </call>
+                     </scope>
+                     <target>
+                        <call method="contains" >
+                           <arguments>
+                              <read property="opNumber" />
+                           </arguments>
+                        </call>
+                     </target>
+                  </in>
+               </target>
+            </in>
+         </post>
+      </method>
+   </methods>
+</component>

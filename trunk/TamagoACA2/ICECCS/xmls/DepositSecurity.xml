@@ -1,0 +1,1427 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type="text/xsl" href="http://tamago.googlecode.com/svn/trunk/TamagoCC/TamagoCDL.xsl" ?>
+<component name="DepositSecurity" module="tamago.aca.bank">
+    <coretypes>
+    </coretypes>
+    <properties>
+        <property name="historic" type="tamago.ext.aca2.Historic" access="r"/>
+        <property name="play" type="tamago.ext.aca2.Play" access="r"/>
+    </properties>
+    <percolators>
+        <percolator name="aca"/>
+    </percolators>
+    <provides>
+        <provide service="DepositService" module="tamago.aca.bank"/>
+    </provides>
+    <requires>
+    </requires>
+    <invariants>
+    </invariants>
+    <methods>
+        <method name="deposit" rettype="void" id="deposit">
+            <parameters>
+                <parameter name="aca" type="tamago.ext.aca2.ACA"/>
+            </parameters>
+            <pre message="">
+                <operator name="and">
+                    <operator name="and">
+                        <operator name="eq">
+                            <in>
+                                <scope>
+                                    <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                </scope>
+                                <target>
+                                    <variable name="role" type="String"/>
+                                </target>
+                            </in>
+                            <string>clerk</string>
+                        </operator>
+                    </operator>
+                    <operator name="and">
+                        <operator name="eq">
+                            <in>
+                                <scope>
+                                    <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                </scope>
+                                <target>
+                                    <variable name="role" type="String"/>
+                                </target>
+                            </in>
+                            <string>banker</string>
+                        </operator>
+                    </operator>
+                    <operator name="and">
+                        <operator name="ne">
+                            <in>
+                                <scope>
+                                    <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                </scope>
+                                <target>
+                                    <variable name="role" type="String"/>
+                                </target>
+                            </in>
+                            <string>customer</string>
+                        </operator>
+                    </operator>
+                    <operator name="and">
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>alphonse</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>boris</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>catherine</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>damien</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>elise</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>franck</string>
+                            </operator>
+                        </operator>
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>customer</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>clerk</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>banker</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>director</string>
+                            </operator>
+                        </operator>
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="org" type="String"/>
+                                    </target>
+                                </in>
+                                <string>montreal</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="org" type="String"/>
+                                    </target>
+                                </in>
+                                <string>toronto</string>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </pre>
+            <post message="">
+                <operator name="and">
+                    <operator name="eq">
+                        <string>deposit</string>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastAction">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <operator name="eq">
+                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastSecuParam">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                </operator>
+            </post>
+        </method>
+        <method name="cancel" rettype="void" id="cancel">
+            <parameters>
+                <parameter name="aca" type="tamago.ext.aca2.ACA"/>
+            </parameters>
+            <pre message="">
+                <operator name="and">
+                    <operator name="and">
+                        <operator name="eq">
+                            <in>
+                                <scope>
+                                    <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                </scope>
+                                <target>
+                                    <variable name="role" type="String"/>
+                                </target>
+                            </in>
+                            <string>banker</string>
+                        </operator>
+                    </operator>
+                    <operator name="and">
+                        <operator name="eq">
+                            <in>
+                                <scope>
+                                    <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                </scope>
+                                <target>
+                                    <variable name="role" type="String"/>
+                                </target>
+                            </in>
+                            <string>director</string>
+                        </operator>
+                    </operator>
+                    <operator name="and">
+                        <operator name="ne">
+                            <in>
+                                <scope>
+                                    <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                </scope>
+                                <target>
+                                    <variable name="user" type="String"/>
+                                </target>
+                            </in>
+                            <string>elisa</string>
+                        </operator>
+                    </operator>
+                    <operator name="and">
+                        <operator name="ne">
+                            <in>
+                                <scope>
+                                    <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                </scope>
+                                <target>
+                                    <variable name="role" type="String"/>
+                                </target>
+                            </in>
+                            <string>customer</string>
+                        </operator>
+                    </operator>
+                    <operator name="and">
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>alphonse</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>boris</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>catherine</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>damien</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>elise</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>franck</string>
+                            </operator>
+                        </operator>
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>customer</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>clerk</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>banker</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>director</string>
+                            </operator>
+                        </operator>
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="org" type="String"/>
+                                    </target>
+                                </in>
+                                <string>montreal</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="org" type="String"/>
+                                    </target>
+                                </in>
+                                <string>toronto</string>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </pre>
+            <post message="">
+                <operator name="and">
+                    <operator name="eq">
+                        <string>cancel</string>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastAction">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <operator name="eq">
+                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastSecuParam">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <in>
+                        <scope>
+                            <read property="historic"/>
+                        </scope>
+                        <target>
+                            <call method="mustDone">
+                                <arguments>
+                                    <string>deposit</string>
+                                </arguments>
+                            </call>
+                        </target>
+                    </in>
+                    <operator name="eq">
+                        <in>
+                            <scope>
+                                <in>
+                                    <scope>
+                                        <read property="historic"/>
+                                    </scope>
+                                    <target>
+                                        <call method="getSecuParamFromID">
+                                            <arguments>
+                                                <string>deposit</string>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </scope>
+                            <target>
+                                <call method="getUser">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                        <in>
+                            <scope>
+                                <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                            </scope>
+                            <target>
+                                <variable name="user" type="java.lang.String"/>
+                            </target>
+                        </in>
+                    </operator>
+                </operator>
+            </post>
+        </method>
+        <method name="check" rettype="void" id="check">
+            <parameters>
+                <parameter name="aca" type="tamago.ext.aca2.ACA"/>
+            </parameters>
+            <pre message="">
+                <operator name="and">
+                    <operator name="and">
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>alphonse</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>boris</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>catherine</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>damien</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>elise</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>franck</string>
+                            </operator>
+                        </operator>
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>customer</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>clerk</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>banker</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>director</string>
+                            </operator>
+                        </operator>
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="org" type="String"/>
+                                    </target>
+                                </in>
+                                <string>montreal</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="org" type="String"/>
+                                    </target>
+                                </in>
+                                <string>toronto</string>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </pre>
+            <post message="">
+                <operator name="and">
+                    <operator name="eq">
+                        <string>check</string>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastAction">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <operator name="eq">
+                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastSecuParam">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                </operator>
+            </post>
+        </method>
+        <method name="validate" rettype="void" id="validate">
+            <parameters>
+                <parameter name="aca" type="tamago.ext.aca2.ACA"/>
+            </parameters>
+            <pre message="">
+                <operator name="and">
+                    <operator name="and">
+                        <operator name="eq">
+                            <in>
+                                <scope>
+                                    <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                </scope>
+                                <target>
+                                    <variable name="role" type="String"/>
+                                </target>
+                            </in>
+                            <string>banker</string>
+                        </operator>
+                    </operator>
+                    <operator name="and">
+                        <operator name="eq">
+                            <in>
+                                <scope>
+                                    <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                </scope>
+                                <target>
+                                    <variable name="role" type="String"/>
+                                </target>
+                            </in>
+                            <string>director</string>
+                        </operator>
+                    </operator>
+                    <operator name="and">
+                        <operator name="ne">
+                            <in>
+                                <scope>
+                                    <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                </scope>
+                                <target>
+                                    <variable name="org" type="String"/>
+                                </target>
+                            </in>
+                            <string>Toronto</string>
+                        </operator>
+                    </operator>
+                    <operator name="and">
+                        <operator name="ne">
+                            <in>
+                                <scope>
+                                    <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                </scope>
+                                <target>
+                                    <variable name="role" type="String"/>
+                                </target>
+                            </in>
+                            <string>customer</string>
+                        </operator>
+                    </operator>
+                    <operator name="and">
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>alphonse</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>boris</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>catherine</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>damien</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>elise</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>franck</string>
+                            </operator>
+                        </operator>
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>customer</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>clerk</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>banker</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>director</string>
+                            </operator>
+                        </operator>
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="org" type="String"/>
+                                    </target>
+                                </in>
+                                <string>montreal</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="org" type="String"/>
+                                    </target>
+                                </in>
+                                <string>toronto</string>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </pre>
+            <post message="">
+                <operator name="and">
+                    <operator name="eq">
+                        <string>validate</string>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastAction">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <operator name="eq">
+                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastSecuParam">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <in>
+                        <scope>
+                            <read property="historic"/>
+                        </scope>
+                        <target>
+                            <call method="mustDone">
+                                <arguments>
+                                    <string>deposit</string>
+                                </arguments>
+                            </call>
+                        </target>
+                    </in>
+                    <operator name="ne">
+                        <in>
+                            <scope>
+                                <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                            </scope>
+                            <target>
+                                <variable name="user" type="java.lang.String"/>
+                            </target>
+                        </in>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <in>
+                                    <scope>
+                                        <call method="getSecuParamFromID">
+                                            <arguments>
+                                                <string>deposit</string>
+                                            </arguments>
+                                        </call>
+                                    </scope>
+                                    <target>
+                                        <call method="getUser">
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </target>
+                        </in>
+                    </operator>
+                </operator>
+            </post>
+        </method>
+        <method name="validate_director" rettype="void" id="validate_dir">
+            <parameters>
+                <parameter name="aca" type="tamago.ext.aca2.ACA"/>
+            </parameters>
+            <pre message="">
+                <operator name="and">
+                    <operator name="and">
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>alphonse</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>boris</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>catherine</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>damien</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>elise</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>franck</string>
+                            </operator>
+                        </operator>
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>customer</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>clerk</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>banker</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>director</string>
+                            </operator>
+                        </operator>
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="org" type="String"/>
+                                    </target>
+                                </in>
+                                <string>montreal</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="org" type="String"/>
+                                    </target>
+                                </in>
+                                <string>toronto</string>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </pre>
+            <post message="">
+                <operator name="and">
+                    <operator name="eq">
+                        <string>validate_dir</string>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastAction">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <operator name="eq">
+                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastSecuParam">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <in>
+                        <scope>
+                            <read property="historic"/>
+                        </scope>
+                        <target>
+                            <call method="mustDone">
+                                <arguments>
+                                    <string>validate</string>
+                                </arguments>
+                            </call>
+                        </target>
+                    </in>
+                    <operator name="ne">
+                        <in>
+                            <scope>
+                                <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                            </scope>
+                            <target>
+                                <variable name="user" type="java.lang.String"/>
+                            </target>
+                        </in>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <in>
+                                    <scope>
+                                        <call method="getSecuParamFromID">
+                                            <arguments>
+                                                <string>validate</string>
+                                            </arguments>
+                                        </call>
+                                    </scope>
+                                    <target>
+                                        <call method="getUser">
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </target>
+                        </in>
+                    </operator>
+                </operator>
+            </post>
+        </method>
+        <method name="register" rettype="void" id="register">
+            <parameters>
+                <parameter name="aca" type="tamago.ext.aca2.ACA"/>
+            </parameters>
+            <pre message="">
+                <operator name="and">
+                    <operator name="and">
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>alphonse</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>boris</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>catherine</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>damien</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>elise</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="user" type="String"/>
+                                    </target>
+                                </in>
+                                <string>franck</string>
+                            </operator>
+                        </operator>
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>customer</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>clerk</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>banker</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="role" type="String"/>
+                                    </target>
+                                </in>
+                                <string>director</string>
+                            </operator>
+                        </operator>
+                        <operator name="or">
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="org" type="String"/>
+                                    </target>
+                                </in>
+                                <string>montreal</string>
+                            </operator>
+                            <operator name="eq">
+                                <in>
+                                    <scope>
+                                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                    </scope>
+                                    <target>
+                                        <variable name="org" type="String"/>
+                                    </target>
+                                </in>
+                                <string>toronto</string>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </pre>
+            <post message="">
+                <operator name="and">
+                    <operator name="eq">
+                        <string>register</string>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastAction">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <operator name="eq">
+                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastSecuParam">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <in>
+                        <scope>
+                            <read property="historic"/>
+                        </scope>
+                        <target>
+                            <call method="mustDone">
+                                <arguments>
+                                    <string>deposit</string>
+                                </arguments>
+                            </call>
+                        </target>
+                    </in>
+                    <operator name="eq">
+                        <in>
+                            <scope>
+                                <in>
+                                    <scope>
+                                        <read property="historic"/>
+                                    </scope>
+                                    <target>
+                                        <call method="getSecuParamFromID">
+                                            <arguments>
+                                                <string>deposit</string>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </scope>
+                            <target>
+                                <call method="getUser">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                        <in>
+                            <scope>
+                                <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                            </scope>
+                            <target>
+                                <variable name="user" type="java.lang.String"/>
+                            </target>
+                        </in>
+                    </operator>
+                </operator>
+            </post>
+        </method>
+    </methods>
+</component>
