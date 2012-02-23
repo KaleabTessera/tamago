@@ -1,0 +1,5 @@
+module tamago.aca.bank;
+
+service Cheque {
+
+}

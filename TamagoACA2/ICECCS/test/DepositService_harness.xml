@@ -1,0 +1,2475 @@
+<?xml version="1.0" ?>
+<tamagotest>
+    <version major="0" minor="1" />
+    <contract type="component" name="DepositService" module="tamago.aca.bank" />
+    <percolator name="plugin" />
+    <scenarios count="1" />
+    <scenario size="10" >
+        <testcase num="0" >
+            <call name="deposit" />
+            <datatest>
+                <unknown-parameter name="aca" map="0" />
+            </datatest>
+            <precondition>
+                <operator name="and" >
+                    <operator name="or" >
+                        <operator name="and" >
+                            <operator name="and" >
+                                <operator name="eg" >
+                                    <in>
+                                        <scope>
+                                            <variable name="aca" />
+                                        </scope>
+                                        <target>
+                                            <variable name="role" />
+                                        </target>
+                                    </in>
+                                    <string>clerk</string>
+                                </operator>
+                            </operator>
+                            <operator name="and" >
+                                <operator name="eg" >
+                                    <in>
+                                        <scope>
+                                            <variable name="aca" />
+                                        </scope>
+                                        <target>
+                                            <variable name="role" />
+                                        </target>
+                                    </in>
+                                    <string>banker</string>
+                                </operator>
+                            </operator>
+                            <operator name="and" >
+                                <operator name="ne" >
+                                    <in>
+                                        <scope>
+                                            <variable name="aca" />
+                                        </scope>
+                                        <target>
+                                            <variable name="role" />
+                                        </target>
+                                    </in>
+                                    <string>customer</string>
+                                </operator>
+                            </operator>
+                            <operator name="and" >
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>alphonse</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>boris</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>catherine</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>damien</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>elise</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>franck</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>customer</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>clerk</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>banker</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>director</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>montreal</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>toronto</string>
+                                    </operator>
+                                </operator>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </precondition>
+            <init-precondition>
+                <sequence>
+                </sequence>
+            </init-precondition>
+            <pre-oracle>
+                <sequence>
+                </sequence>
+            </pre-oracle>
+            <init-oracle>
+                <sequence>
+                </sequence>
+            </init-oracle>
+            <oracle>
+                <operator name="and" >
+                    <operator name="and" >
+                        <operator name="and" >
+                            <operator name="eg" >
+                                <string>deposit</string>
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastAction" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                            <operator name="eg" >
+                                <variable name="aca" />
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastSecuParam" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </oracle>
+        </testcase>
+        <testcase num="1" >
+            <call name="check" />
+            <datatest>
+                <unknown-parameter name="aca" map="1" />
+            </datatest>
+            <precondition>
+                <operator name="and" >
+                    <operator name="or" >
+                        <operator name="and" >
+                            <operator name="and" >
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>alphonse</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>boris</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>catherine</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>damien</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>elise</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>franck</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>customer</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>clerk</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>banker</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>director</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>montreal</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>toronto</string>
+                                    </operator>
+                                </operator>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </precondition>
+            <init-precondition>
+                <sequence>
+                </sequence>
+            </init-precondition>
+            <pre-oracle>
+                <sequence>
+                </sequence>
+            </pre-oracle>
+            <init-oracle>
+                <sequence>
+                </sequence>
+            </init-oracle>
+            <oracle>
+                <operator name="and" >
+                    <operator name="and" >
+                        <operator name="and" >
+                            <operator name="eg" >
+                                <string>check</string>
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastAction" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                            <operator name="eg" >
+                                <variable name="aca" />
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastSecuParam" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </oracle>
+        </testcase>
+        <testcase num="2" >
+            <call name="validate_dir" />
+            <datatest>
+                <unknown-parameter name="aca" map="2" />
+            </datatest>
+            <precondition>
+                <operator name="and" >
+                    <operator name="or" >
+                        <operator name="and" >
+                            <operator name="and" >
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>alphonse</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>boris</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>catherine</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>damien</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>elise</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>franck</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>customer</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>clerk</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>banker</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>director</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>montreal</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>toronto</string>
+                                    </operator>
+                                </operator>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </precondition>
+            <init-precondition>
+                <sequence>
+                </sequence>
+            </init-precondition>
+            <pre-oracle>
+                <sequence>
+                </sequence>
+            </pre-oracle>
+            <init-oracle>
+                <sequence>
+                </sequence>
+            </init-oracle>
+            <oracle>
+                <operator name="and" >
+                    <operator name="and" >
+                        <operator name="and" >
+                            <operator name="eg" >
+                                <string>validate_dir</string>
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastAction" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                            <operator name="eg" >
+                                <variable name="aca" />
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastSecuParam" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                            <in>
+                                <scope>
+                                    <read property="historic" />
+                                </scope>
+                                <target>
+                                    <call name="mustDone" >
+                                        <arguments>
+                                            <string>validate</string>
+                                        </arguments>
+                                    </call>
+                                </target>
+                            </in>
+                            <operator name="ne" >
+                                <in>
+                                    <scope>
+                                        <variable name="aca" />
+                                    </scope>
+                                    <target>
+                                        <variable name="user" />
+                                    </target>
+                                </in>
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <in>
+                                            <scope>
+                                                <call name="getSecuParamFromID" >
+                                                    <arguments>
+                                                        <string>validate</string>
+                                                    </arguments>
+                                                </call>
+                                            </scope>
+                                            <target>
+                                                <call name="getUser" >
+                                                    <arguments>
+                                                    </arguments>
+                                                </call>
+                                            </target>
+                                        </in>
+                                    </target>
+                                </in>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </oracle>
+        </testcase>
+        <testcase num="3" >
+            <call name="validate" />
+            <datatest>
+                <unknown-parameter name="aca" map="3" />
+            </datatest>
+            <precondition>
+                <operator name="and" >
+                    <operator name="or" >
+                        <operator name="and" >
+                            <operator name="and" >
+                                <operator name="eg" >
+                                    <in>
+                                        <scope>
+                                            <variable name="aca" />
+                                        </scope>
+                                        <target>
+                                            <variable name="role" />
+                                        </target>
+                                    </in>
+                                    <string>banker</string>
+                                </operator>
+                            </operator>
+                            <operator name="and" >
+                                <operator name="eg" >
+                                    <in>
+                                        <scope>
+                                            <variable name="aca" />
+                                        </scope>
+                                        <target>
+                                            <variable name="role" />
+                                        </target>
+                                    </in>
+                                    <string>director</string>
+                                </operator>
+                            </operator>
+                            <operator name="and" >
+                                <operator name="ne" >
+                                    <in>
+                                        <scope>
+                                            <variable name="aca" />
+                                        </scope>
+                                        <target>
+                                            <variable name="org" />
+                                        </target>
+                                    </in>
+                                    <string>Toronto</string>
+                                </operator>
+                            </operator>
+                            <operator name="and" >
+                                <operator name="ne" >
+                                    <in>
+                                        <scope>
+                                            <variable name="aca" />
+                                        </scope>
+                                        <target>
+                                            <variable name="role" />
+                                        </target>
+                                    </in>
+                                    <string>customer</string>
+                                </operator>
+                            </operator>
+                            <operator name="and" >
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>alphonse</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>boris</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>catherine</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>damien</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>elise</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>franck</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>customer</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>clerk</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>banker</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>director</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>montreal</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>toronto</string>
+                                    </operator>
+                                </operator>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </precondition>
+            <init-precondition>
+                <sequence>
+                </sequence>
+            </init-precondition>
+            <pre-oracle>
+                <sequence>
+                </sequence>
+            </pre-oracle>
+            <init-oracle>
+                <sequence>
+                </sequence>
+            </init-oracle>
+            <oracle>
+                <operator name="and" >
+                    <operator name="and" >
+                        <operator name="and" >
+                            <operator name="eg" >
+                                <string>validate</string>
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastAction" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                            <operator name="eg" >
+                                <variable name="aca" />
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastSecuParam" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                            <in>
+                                <scope>
+                                    <read property="historic" />
+                                </scope>
+                                <target>
+                                    <call name="mustDone" >
+                                        <arguments>
+                                            <string>deposit</string>
+                                        </arguments>
+                                    </call>
+                                </target>
+                            </in>
+                            <operator name="ne" >
+                                <in>
+                                    <scope>
+                                        <variable name="aca" />
+                                    </scope>
+                                    <target>
+                                        <variable name="user" />
+                                    </target>
+                                </in>
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <in>
+                                            <scope>
+                                                <call name="getSecuParamFromID" >
+                                                    <arguments>
+                                                        <string>deposit</string>
+                                                    </arguments>
+                                                </call>
+                                            </scope>
+                                            <target>
+                                                <call name="getUser" >
+                                                    <arguments>
+                                                    </arguments>
+                                                </call>
+                                            </target>
+                                        </in>
+                                    </target>
+                                </in>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </oracle>
+        </testcase>
+        <testcase num="4" >
+            <call name="validate_dir" />
+            <datatest>
+                <unknown-parameter name="aca" map="4" />
+            </datatest>
+            <precondition>
+                <operator name="and" >
+                    <operator name="or" >
+                        <operator name="and" >
+                            <operator name="and" >
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>alphonse</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>boris</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>catherine</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>damien</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>elise</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>franck</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>customer</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>clerk</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>banker</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>director</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>montreal</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>toronto</string>
+                                    </operator>
+                                </operator>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </precondition>
+            <init-precondition>
+                <sequence>
+                </sequence>
+            </init-precondition>
+            <pre-oracle>
+                <sequence>
+                </sequence>
+            </pre-oracle>
+            <init-oracle>
+                <sequence>
+                </sequence>
+            </init-oracle>
+            <oracle>
+                <operator name="and" >
+                    <operator name="and" >
+                        <operator name="and" >
+                            <operator name="eg" >
+                                <string>validate_dir</string>
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastAction" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                            <operator name="eg" >
+                                <variable name="aca" />
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastSecuParam" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                            <in>
+                                <scope>
+                                    <read property="historic" />
+                                </scope>
+                                <target>
+                                    <call name="mustDone" >
+                                        <arguments>
+                                            <string>validate</string>
+                                        </arguments>
+                                    </call>
+                                </target>
+                            </in>
+                            <operator name="ne" >
+                                <in>
+                                    <scope>
+                                        <variable name="aca" />
+                                    </scope>
+                                    <target>
+                                        <variable name="user" />
+                                    </target>
+                                </in>
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <in>
+                                            <scope>
+                                                <call name="getSecuParamFromID" >
+                                                    <arguments>
+                                                        <string>validate</string>
+                                                    </arguments>
+                                                </call>
+                                            </scope>
+                                            <target>
+                                                <call name="getUser" >
+                                                    <arguments>
+                                                    </arguments>
+                                                </call>
+                                            </target>
+                                        </in>
+                                    </target>
+                                </in>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </oracle>
+        </testcase>
+        <testcase num="5" >
+            <call name="deposit" />
+            <datatest>
+                <unknown-parameter name="aca" map="5" />
+            </datatest>
+            <precondition>
+                <operator name="and" >
+                    <operator name="or" >
+                        <operator name="and" >
+                            <operator name="and" >
+                                <operator name="eg" >
+                                    <in>
+                                        <scope>
+                                            <variable name="aca" />
+                                        </scope>
+                                        <target>
+                                            <variable name="role" />
+                                        </target>
+                                    </in>
+                                    <string>clerk</string>
+                                </operator>
+                            </operator>
+                            <operator name="and" >
+                                <operator name="eg" >
+                                    <in>
+                                        <scope>
+                                            <variable name="aca" />
+                                        </scope>
+                                        <target>
+                                            <variable name="role" />
+                                        </target>
+                                    </in>
+                                    <string>banker</string>
+                                </operator>
+                            </operator>
+                            <operator name="and" >
+                                <operator name="ne" >
+                                    <in>
+                                        <scope>
+                                            <variable name="aca" />
+                                        </scope>
+                                        <target>
+                                            <variable name="role" />
+                                        </target>
+                                    </in>
+                                    <string>customer</string>
+                                </operator>
+                            </operator>
+                            <operator name="and" >
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>alphonse</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>boris</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>catherine</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>damien</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>elise</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>franck</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>customer</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>clerk</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>banker</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>director</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>montreal</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>toronto</string>
+                                    </operator>
+                                </operator>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </precondition>
+            <init-precondition>
+                <sequence>
+                </sequence>
+            </init-precondition>
+            <pre-oracle>
+                <sequence>
+                </sequence>
+            </pre-oracle>
+            <init-oracle>
+                <sequence>
+                </sequence>
+            </init-oracle>
+            <oracle>
+                <operator name="and" >
+                    <operator name="and" >
+                        <operator name="and" >
+                            <operator name="eg" >
+                                <string>deposit</string>
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastAction" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                            <operator name="eg" >
+                                <variable name="aca" />
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastSecuParam" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </oracle>
+        </testcase>
+        <testcase num="6" >
+            <call name="check" />
+            <datatest>
+                <unknown-parameter name="aca" map="6" />
+            </datatest>
+            <precondition>
+                <operator name="and" >
+                    <operator name="or" >
+                        <operator name="and" >
+                            <operator name="and" >
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>alphonse</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>boris</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>catherine</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>damien</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>elise</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>franck</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>customer</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>clerk</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>banker</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>director</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>montreal</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>toronto</string>
+                                    </operator>
+                                </operator>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </precondition>
+            <init-precondition>
+                <sequence>
+                </sequence>
+            </init-precondition>
+            <pre-oracle>
+                <sequence>
+                </sequence>
+            </pre-oracle>
+            <init-oracle>
+                <sequence>
+                </sequence>
+            </init-oracle>
+            <oracle>
+                <operator name="and" >
+                    <operator name="and" >
+                        <operator name="and" >
+                            <operator name="eg" >
+                                <string>check</string>
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastAction" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                            <operator name="eg" >
+                                <variable name="aca" />
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastSecuParam" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </oracle>
+        </testcase>
+        <testcase num="7" >
+            <call name="register" />
+            <datatest>
+                <unknown-parameter name="aca" map="7" />
+            </datatest>
+            <precondition>
+                <operator name="and" >
+                    <operator name="or" >
+                        <operator name="and" >
+                            <operator name="and" >
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>alphonse</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>boris</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>catherine</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>damien</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>elise</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>franck</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>customer</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>clerk</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>banker</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>director</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>montreal</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>toronto</string>
+                                    </operator>
+                                </operator>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </precondition>
+            <init-precondition>
+                <sequence>
+                </sequence>
+            </init-precondition>
+            <pre-oracle>
+                <sequence>
+                </sequence>
+            </pre-oracle>
+            <init-oracle>
+                <sequence>
+                </sequence>
+            </init-oracle>
+            <oracle>
+                <operator name="and" >
+                    <operator name="and" >
+                        <operator name="and" >
+                            <operator name="eg" >
+                                <string>register</string>
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastAction" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                            <operator name="eg" >
+                                <variable name="aca" />
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastSecuParam" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                            <in>
+                                <scope>
+                                    <read property="historic" />
+                                </scope>
+                                <target>
+                                    <call name="mustDone" >
+                                        <arguments>
+                                            <string>deposit</string>
+                                        </arguments>
+                                    </call>
+                                </target>
+                            </in>
+                            <operator name="eg" >
+                                <in>
+                                    <scope>
+                                        <in>
+                                            <scope>
+                                                <read property="historic" />
+                                            </scope>
+                                            <target>
+                                                <call name="getSecuParamFromID" >
+                                                    <arguments>
+                                                        <string>deposit</string>
+                                                    </arguments>
+                                                </call>
+                                            </target>
+                                        </in>
+                                    </scope>
+                                    <target>
+                                        <call name="getUser" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                                <in>
+                                    <scope>
+                                        <variable name="aca" />
+                                    </scope>
+                                    <target>
+                                        <variable name="user" />
+                                    </target>
+                                </in>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </oracle>
+        </testcase>
+        <testcase num="8" >
+            <call name="cancel" />
+            <datatest>
+                <unknown-parameter name="aca" map="8" />
+            </datatest>
+            <precondition>
+                <operator name="and" >
+                    <operator name="or" >
+                        <operator name="and" >
+                            <operator name="and" >
+                                <operator name="eg" >
+                                    <in>
+                                        <scope>
+                                            <variable name="aca" />
+                                        </scope>
+                                        <target>
+                                            <variable name="role" />
+                                        </target>
+                                    </in>
+                                    <string>banker</string>
+                                </operator>
+                            </operator>
+                            <operator name="and" >
+                                <operator name="eg" >
+                                    <in>
+                                        <scope>
+                                            <variable name="aca" />
+                                        </scope>
+                                        <target>
+                                            <variable name="role" />
+                                        </target>
+                                    </in>
+                                    <string>director</string>
+                                </operator>
+                            </operator>
+                            <operator name="and" >
+                                <operator name="ne" >
+                                    <in>
+                                        <scope>
+                                            <variable name="aca" />
+                                        </scope>
+                                        <target>
+                                            <variable name="user" />
+                                        </target>
+                                    </in>
+                                    <string>elisa</string>
+                                </operator>
+                            </operator>
+                            <operator name="and" >
+                                <operator name="ne" >
+                                    <in>
+                                        <scope>
+                                            <variable name="aca" />
+                                        </scope>
+                                        <target>
+                                            <variable name="role" />
+                                        </target>
+                                    </in>
+                                    <string>customer</string>
+                                </operator>
+                            </operator>
+                            <operator name="and" >
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>alphonse</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>boris</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>catherine</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>damien</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>elise</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>franck</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>customer</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>clerk</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>banker</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>director</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>montreal</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>toronto</string>
+                                    </operator>
+                                </operator>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </precondition>
+            <init-precondition>
+                <sequence>
+                </sequence>
+            </init-precondition>
+            <pre-oracle>
+                <sequence>
+                </sequence>
+            </pre-oracle>
+            <init-oracle>
+                <sequence>
+                </sequence>
+            </init-oracle>
+            <oracle>
+                <operator name="and" >
+                    <operator name="and" >
+                        <operator name="and" >
+                            <operator name="eg" >
+                                <string>cancel</string>
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastAction" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                            <operator name="eg" >
+                                <variable name="aca" />
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastSecuParam" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                            <in>
+                                <scope>
+                                    <read property="historic" />
+                                </scope>
+                                <target>
+                                    <call name="mustDone" >
+                                        <arguments>
+                                            <string>deposit</string>
+                                        </arguments>
+                                    </call>
+                                </target>
+                            </in>
+                            <operator name="eg" >
+                                <in>
+                                    <scope>
+                                        <in>
+                                            <scope>
+                                                <read property="historic" />
+                                            </scope>
+                                            <target>
+                                                <call name="getSecuParamFromID" >
+                                                    <arguments>
+                                                        <string>deposit</string>
+                                                    </arguments>
+                                                </call>
+                                            </target>
+                                        </in>
+                                    </scope>
+                                    <target>
+                                        <call name="getUser" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                                <in>
+                                    <scope>
+                                        <variable name="aca" />
+                                    </scope>
+                                    <target>
+                                        <variable name="user" />
+                                    </target>
+                                </in>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </oracle>
+        </testcase>
+        <testcase num="9" >
+            <call name="validate_dir" />
+            <datatest>
+                <unknown-parameter name="aca" map="9" />
+            </datatest>
+            <precondition>
+                <operator name="and" >
+                    <operator name="or" >
+                        <operator name="and" >
+                            <operator name="and" >
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>alphonse</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>boris</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>catherine</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>damien</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>elise</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="user" />
+                                            </target>
+                                        </in>
+                                        <string>franck</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>customer</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>clerk</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>banker</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="role" />
+                                            </target>
+                                        </in>
+                                        <string>director</string>
+                                    </operator>
+                                </operator>
+                                <operator name="or" >
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>montreal</string>
+                                    </operator>
+                                    <operator name="eg" >
+                                        <in>
+                                            <scope>
+                                                <variable name="aca" />
+                                            </scope>
+                                            <target>
+                                                <variable name="org" />
+                                            </target>
+                                        </in>
+                                        <string>toronto</string>
+                                    </operator>
+                                </operator>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </precondition>
+            <init-precondition>
+                <sequence>
+                </sequence>
+            </init-precondition>
+            <pre-oracle>
+                <sequence>
+                </sequence>
+            </pre-oracle>
+            <init-oracle>
+                <sequence>
+                </sequence>
+            </init-oracle>
+            <oracle>
+                <operator name="and" >
+                    <operator name="and" >
+                        <operator name="and" >
+                            <operator name="eg" >
+                                <string>validate_dir</string>
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastAction" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                            <operator name="eg" >
+                                <variable name="aca" />
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <call name="lastSecuParam" >
+                                            <arguments>
+                                            </arguments>
+                                        </call>
+                                    </target>
+                                </in>
+                            </operator>
+                            <in>
+                                <scope>
+                                    <read property="historic" />
+                                </scope>
+                                <target>
+                                    <call name="mustDone" >
+                                        <arguments>
+                                            <string>validate</string>
+                                        </arguments>
+                                    </call>
+                                </target>
+                            </in>
+                            <operator name="ne" >
+                                <in>
+                                    <scope>
+                                        <variable name="aca" />
+                                    </scope>
+                                    <target>
+                                        <variable name="user" />
+                                    </target>
+                                </in>
+                                <in>
+                                    <scope>
+                                        <read property="historic" />
+                                    </scope>
+                                    <target>
+                                        <in>
+                                            <scope>
+                                                <call name="getSecuParamFromID" >
+                                                    <arguments>
+                                                        <string>validate</string>
+                                                    </arguments>
+                                                </call>
+                                            </scope>
+                                            <target>
+                                                <call name="getUser" >
+                                                    <arguments>
+                                                    </arguments>
+                                                </call>
+                                            </target>
+                                        </in>
+                                    </target>
+                                </in>
+                            </operator>
+                        </operator>
+                    </operator>
+                </operator>
+            </oracle>
+        </testcase>
+    </scenario>
+</tamagotest>
