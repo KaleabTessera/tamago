@@ -38,12 +38,7 @@ public class TamagoCCParser {
 
 	private static TamagoCCParser defaultParser = new TamagoCCParser();
 
-	static {
-		// on est obliger d'utiliser ce bloc car le pool et le parser sont fortement couple
-		// (l'un ayant obligatoirement besoin de l'autre pour fonctionner)
-		defaultParser.setTamagoCCPool(TamagoCCPool.getDefaultPool());
-	}	
-
+	
 	static final String JAXP_SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
 	static final String W3C_XML_SCHEMA = "http://www.w3.org/2001/XMLSchema";
 	static final String JAXP_SCHEMA_SOURCE = "http://java.sun.com/xml/jaxp/properties/schemaSource";
@@ -1502,5 +1497,9 @@ public class TamagoCCParser {
 			list = new ArrayList<TNamespace>(1);		
 		}
 		return list;
+	}
+
+	public TamagoCCPool getPool() {
+		return pool;
 	}
 }
