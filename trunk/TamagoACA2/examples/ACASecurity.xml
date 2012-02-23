@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type="text/xsl" href="http://www-poleia.lip6.fr/~belhaouari/TamagoCDL.xsl" ?>
+<service name="ACASecurity" module="tamago.aca.core">
+    <extends>
+    </extends>
+    <coretypes>
+    </coretypes>
+    <properties>
+        <property name="acaInitialised" type="bool" access="rw"/>
+    </properties>
+    <invariants>
+    </invariants>
+    <methods>
+        <method name="init" rettype="void" id="init">
+            <parameters>
+            </parameters>
+            <post message="">
+                <variable name="acaInitialised"/>
+            </post>
+        </method>
+    </methods>
+</service>

@@ -3,7 +3,7 @@ module tamago.aca.bank;
 
 service Deposit {
 
-	refine service ACASecurity in tamago.aca.core;
+	refine service ACASecurity module tamago.aca.core;
 	
 	property read int opNumber; // numero d'ordre
 	

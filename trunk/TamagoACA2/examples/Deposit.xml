@@ -1,0 +1,129 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet type="text/xsl" href="http://www-poleia.lip6.fr/~belhaouari/TamagoCDL.xsl" ?>
+<service name="Deposit" module="tamago.aca.bank">
+    <extends>
+        <refine service="ACASecurity" module="tamago.aca.core"/>
+    </extends>
+    <coretypes>
+    </coretypes>
+    <properties>
+        <property name="opNumber" type="int" access="r"/>
+    </properties>
+    <invariants>
+    </invariants>
+    <methods>
+        <method name="init" rettype="void" id="init">
+            <parameters>
+            </parameters>
+            <post message="">
+                <operator name="lt">
+                    <variable name="opNumber"/>
+                    <int value="0"/>
+                </operator>
+            </post>
+        </method>
+        <method name="deposit" rettype="void" id="deposit">
+            <parameters>
+                <parameter name="aca" type="tamago.ext.aca2.ACA"/>
+            </parameters>
+        </method>
+        <method name="cancel" rettype="void" id="cancel">
+            <parameters>
+                <parameter name="aca" type="tamago.ext.aca2.ACA"/>
+            </parameters>
+        </method>
+        <method name="validate" rettype="void" id="validate">
+            <parameters>
+                <parameter name="aca" type="tamago.ext.aca2.ACA"/>
+            </parameters>
+        </method>
+        <method name="validate_director" rettype="void" id="validate_dir">
+            <parameters>
+                <parameter name="aca" type="tamago.ext.aca2.ACA"/>
+            </parameters>
+        </method>
+        <method name="check" rettype="void" id="check">
+            <parameters>
+                <parameter name="aca" type="tamago.ext.aca2.ACA"/>
+            </parameters>
+            <post message="">
+                <operator name="gt">
+                    <variable name="opNumber"/>
+                    <int value="0"/>
+                </operator>
+            </post>
+        </method>
+        <method name="register" rettype="void" id="register">
+            <parameters>
+                <parameter name="aca" type="tamago.ext.aca2.ACA"/>
+            </parameters>
+            <post message="">
+                <operator name="gt">
+                    <variable name="opNumber"/>
+                    <int value="0"/>
+                </operator>
+            </post>
+        </method>
+    </methods>
+    <behavior default="ninit">
+        <states>
+            <state name="ninit" >
+                <allow method="init" />
+            </state>
+            <state name="initialized" >
+                <allow method="deposit" />
+            </state>
+            <state name="deposed" >
+                <allow method="check" />
+                <allow method="register" />
+            </state>
+            <state name="checked" >
+                <allow method="register" />
+            </state>
+            <state name="registered" >
+                <allow method="check" />
+            </state>
+            <state name="checkedregistered" >
+                <allow method="cancel" />
+                <allow method="validate" />
+                <allow method="validate_dir" />
+            </state>
+            <state name="cancelled" >
+                <allow method="init" />
+            </state>
+            <state name="validated" >
+                <allow method="validate_dir" />
+            </state>
+            <state name="validatedDir" >
+                <allow method="validate" />
+            </state>
+            <state name="completed" >
+                <allow method="init" />
+            </state>
+        </states>
+        <transitions>
+            <transition from="ninit" to="initialized" with="init">
+            </transition>
+            <transition from="initialized" to="deposed" with="deposit">
+            </transition>
+            <transition from="deposed" to="checked" with="check">
+            </transition>
+            <transition from="deposed" to="registered" with="register">
+            </transition>
+            <transition from="checked" to="checkedregistered" with="register">
+            </transition>
+            <transition from="registered" to="checkedregistered" with="check">
+            </transition>
+            <transition from="checkedregistered" to="cancelled" with="cancel">
+            </transition>
+            <transition from="checkedregistered" to="validated" with="validate">
+            </transition>
+            <transition from="checkedregistered" to="validatedDir" with="validate_dir">
+            </transition>
+            <transition from="validatedDir" to="completed" with="validate">
+            </transition>
+            <transition from="validated" to="completed" with="validate_dir">
+            </transition>
+        </transitions>
+    </behavior>
+</service>

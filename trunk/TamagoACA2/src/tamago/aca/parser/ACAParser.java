@@ -56,7 +56,7 @@ public class ACAParser {
 			
 			GTamagoEntity entity = convCDL.getGEntity();
 			TTamago tentity = convCDL.getTEntity();
-			FileOutputStream fos = new FileOutputStream("TEntity.xml");
+			FileOutputStream fos = new FileOutputStream("DepositSecurity.xml");
 			TamagoCCToXml.generateXMLFile(tentity, fos);
 			
 			ACASecurityGenerator gencontainer = new ACASecurityGenerator(entity);

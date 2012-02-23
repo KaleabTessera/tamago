@@ -5,8 +5,10 @@ package tamago.aca.visitor;
 
 import tamago.aca.term.ACA;
 import tamago.aca.term.Info;
+import tamago.aca.term.Obl;
 import tamago.aca.term.Perms;
 import tamago.aca.term.Quad;
+import tamago.aca.term.Sod;
 import tamagocc.api.TExpression;
 import tamagocc.api.TMethod;
 import tamagocc.api.TOpeName;
@@ -162,12 +164,87 @@ public class ConvertACAtoCDL{
 				// ----------------
 				
 				TICall lastSecuParam = new TICall("lastSecuParam");
-				TIVariable aca = new TIVariable("aca",true,"tamago.ext.aca2.ACA");
+				TIVariable vaca = new TIVariable("aca",true,"tamago.ext.aca2.ACA");
 				TIInLabel historicDOTlastSecuParam = new TIInLabel(historic, lastSecuParam);
 				op = new TIOperator(TOpeName.opEg);
-				op.addOperand(aca);
+				op.addOperand(vaca);
 				op.addOperand(historicDOTlastSecuParam);
 				and.addOperand(op);
+				
+				// --------------------------------- SOD OBL
+				for (Sod sod : aca.getSods()) {
+					if(sod.getRight().getAction().equals(mid)) {
+						// hasDone
+						TICall mustDone = new TICall("mustDone");
+						mustDone.addArgument(new TIString(sod.getLeft().getAction()));
+						TIInLabel historicDOTmustDone = new TIInLabel(historic, mustDone);
+						and.addOperand(historicDOTmustDone);
+						
+						// check target
+						// historic.getSecuParamFromID(”deposit”).getUser()
+						TICall getsecuparam = new TICall("getSecuParamFromID");
+						getsecuparam.addArgument(new TIString(sod.getLeft().getAction()));
+						TICall target = null;
+						TIVariable vacatarget = null;
+						switch(sod.getTarget()) {
+						case USER:
+							target = new TICall("getUser");
+							vacatarget = new TIVariable("user",true,"java.lang.String");
+							break;
+						case ORG:
+							target = new TICall("getOrg");
+							vacatarget = new TIVariable("org",true,"java.lang.String");
+							break;
+						case ROLE:
+							target = new TICall("getRole");
+							vacatarget = new TIVariable("role",true,"java.lang.String");
+							break;
+						}
+						TIInLabel getSecuParamDOTTarget = new TIInLabel(getsecuparam, target);
+						TIInLabel historicDOTgetSecuParamDOTTarget = new TIInLabel(historic, getSecuParamDOTTarget);
+						TIOperator opeqsod = new TIOperator(TOpeName.opNe);
+						opeqsod.addOperand(new TIInLabel(vaca, vacatarget));
+						opeqsod.addOperand(historicDOTgetSecuParamDOTTarget);
+						and.addOperand(opeqsod);
+					}
+				}
+				
+				for (Obl obl : aca.getObls()) {
+					if(obl.getRight().getAction().equals(mid)) {
+						// hasDone
+						TICall mustDone = new TICall("mustDone");
+						mustDone.addArgument(new TIString(obl.getLeft().getAction()));
+						TIInLabel historicDOTmustDone = new TIInLabel(historic, mustDone);
+						and.addOperand(historicDOTmustDone);
+						
+						// check target
+						// historic.getSecuParamFromID(”deposit”).getUser()
+						TICall getsecuparam = new TICall("getSecuParamFromID");
+						getsecuparam.addArgument(new TIString(obl.getLeft().getAction()));
+						TIInLabel historicDOTgetSecuParam = new TIInLabel(historic, getsecuparam);
+						TICall target = null;
+						TIVariable vacatarget = null;
+						switch(obl.getTarget()) {
+						case USER:
+							target = new TICall("getUser");
+							vacatarget = new TIVariable("user",true,"java.lang.String");
+							break;
+						case ORG:
+							target = new TICall("getOrg");
+							vacatarget = new TIVariable("org",true,"java.lang.String");
+							break;
+						case ROLE:
+							target = new TICall("getRole");
+							vacatarget = new TIVariable("role",true,"java.lang.String");
+							break;
+						}
+						TIInLabel historicDOTgetSecuParamDOTTarget = new TIInLabel(historicDOTgetSecuParam, target);
+						TIOperator opeqobl = new TIOperator(TOpeName.opEg);
+						opeqobl.addOperand(historicDOTgetSecuParamDOTTarget);
+						opeqobl.addOperand(new TIInLabel(vaca, vacatarget));
+						and.addOperand(opeqobl);
+					}
+				}
 			}
 			methsec.setPostcond(new TICondition(and));
 			tamagoaca.addMethod(methsec);
