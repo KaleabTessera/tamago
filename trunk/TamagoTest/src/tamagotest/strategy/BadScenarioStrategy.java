@@ -141,7 +141,7 @@ public class BadScenarioStrategy extends NominalStrategy implements TamagoTestSt
 
 	public GTransition getTransition(GState state, TamagoTestContext ctx)
 			throws TamagoCCException {
-		if(depth > getMaxLengthScenario())
+		if(depth > getMaxLengthScenario() || send)
 			return null;
 		
 		if(depth == getMaxLengthScenario()) {
@@ -188,7 +188,7 @@ public class BadScenarioStrategy extends NominalStrategy implements TamagoTestSt
     	ArrayList<GMethod> notauth = new ArrayList<GMethod>();
     	for (GMethod meth : ctx.getContract().getUniqueMethods()) {
     		if(!auth.contains(meth)) {
-    			TamagoCCLogger.println(3, "BAD Strategy: find a impossible method -> "+meth.toString());
+    			TamagoCCLogger.println(3, "BAD Strategy: find a impossible method -> "+meth.getID());
     			notauth.add(meth);
     		}
 		}
