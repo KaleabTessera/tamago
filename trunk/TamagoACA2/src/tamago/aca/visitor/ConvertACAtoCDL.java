@@ -28,7 +28,6 @@ import tamagocc.impl.TIPercolator;
 import tamagocc.impl.TIProperty;
 import tamagocc.impl.TIProvide;
 import tamagocc.impl.TIRead;
-import tamagocc.impl.TIRequire;
 import tamagocc.impl.TIString;
 import tamagocc.impl.TIType;
 import tamagocc.impl.TIVariable;
@@ -85,6 +84,8 @@ public class ConvertACAtoCDL{
 		
 		TIProperty propPlay = new TIProperty("play", TIType.generateType("tamago.ext.aca2.Play"), new TIAccess("read"));
 		tamagoaca.addProperty(propPlay);
+		
+		TIRead historic = new TIRead("historic");
 		
 		TIOperator pre_user = new TIOperator(TOpeName.opOr);
 		TIOperator pre_role = new TIOperator(TOpeName.opOr);
@@ -148,30 +149,8 @@ public class ConvertACAtoCDL{
 				}
 			}
 			and.addOperand(and_pre);
-			methsec.setPrecond(new TICondition(and));
-			
-			// make postcondition
-			// post (historic.getLastSecuParam() == aca) && (historic.getLastAction() == "deposit");
-			and = new TIOperator(TOpeName.opAnd);
-			TIRead historic = new TIRead("historic");
 			{
-				TICall lastAction = new TICall("lastAction");
-				TIInLabel historicDOTlastAction = new TIInLabel(historic, lastAction);
-				TIString action = new TIString(mid);
-				TIOperator op = new TIOperator(TOpeName.opEg);
-				op.addOperand(action);
-				op.addOperand(historicDOTlastAction);
-				and.addOperand(op);
-				// ----------------
-				
-				TICall lastSecuParam = new TICall("lastSecuParam");
 				TIVariable vaca = new TIVariable("aca",true,"tamago.ext.aca2.ACA");
-				TIInLabel historicDOTlastSecuParam = new TIInLabel(historic, lastSecuParam);
-				op = new TIOperator(TOpeName.opEg);
-				op.addOperand(vaca);
-				op.addOperand(historicDOTlastSecuParam);
-				and.addOperand(op);
-				
 				// --------------------------------- SOD OBL
 				for (Sod sod : aca.getSods()) {
 					if(sod.getRight().getAction().equals(mid)) {
@@ -246,6 +225,31 @@ public class ConvertACAtoCDL{
 						and.addOperand(opeqobl);
 					}
 				}
+			}
+			methsec.setPrecond(new TICondition(and));
+			
+			// make postcondition
+			// post (historic.getLastSecuParam() == aca) && (historic.getLastAction() == "deposit");
+			and = new TIOperator(TOpeName.opAnd);
+			{
+				TICall lastAction = new TICall("lastAction");
+				TIInLabel historicDOTlastAction = new TIInLabel(historic, lastAction);
+				TIString action = new TIString(mid);
+				TIOperator op = new TIOperator(TOpeName.opEg);
+				op.addOperand(action);
+				op.addOperand(historicDOTlastAction);
+				and.addOperand(op);
+				// ----------------
+				
+				TICall lastSecuParam = new TICall("lastSecuParam");
+				TIVariable vaca = new TIVariable("aca",true,"tamago.ext.aca2.ACA");
+				TIInLabel historicDOTlastSecuParam = new TIInLabel(historic, lastSecuParam);
+				op = new TIOperator(TOpeName.opEg);
+				op.addOperand(vaca);
+				op.addOperand(historicDOTlastSecuParam);
+				and.addOperand(op);
+				
+				
 			}
 			methsec.setPostcond(new TICondition(and));
 			tamagoaca.addMethod(methsec);
