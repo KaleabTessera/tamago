@@ -73,7 +73,7 @@
             <allow method="deposit" />
          </state>
          <state name="deposed" >
-            <allow method="check" />
+            <!-- <allow method="check" />  -->
             <allow method="register" />
          </state>
          <state name="checked" >
@@ -103,7 +103,7 @@
       <transitions>
          <transition from="ninit" to="initialized" with="init" />
          <transition from="initialized" to="deposed" with="deposit" />
-         <transition from="deposed" to="checked" with="check" />
+         <!--  <transition from="deposed" to="checked" with="check" />  -->
          <transition from="deposed" to="registered" with="register" />
          <transition from="checked" to="waited" with="register" />
          <transition from="registered" to="waited" with="check" />

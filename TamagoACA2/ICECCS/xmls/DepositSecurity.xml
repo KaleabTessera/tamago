@@ -18,12 +18,24 @@
     <invariants>
     </invariants>
     <methods>
-        <method name="deposit" rettype="void" id="deposit">
+        <method name="deposit" rettype="void" id="">
             <parameters>
                 <parameter name="aca" type="tamago.ext.aca2.ACA"/>
             </parameters>
             <pre message="">
                 <operator name="and">
+                    <in>
+                        <scope>
+                            <read property="play"/>
+                        </scope>
+                        <target>
+                            <call method="isCorrectACA">
+                                <arguments>
+                                    <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                </arguments>
+                            </call>
+                        </target>
+                    </in>
                     <operator name="and">
                         <operator name="eq">
                             <in>
@@ -238,12 +250,24 @@
                 </operator>
             </post>
         </method>
-        <method name="cancel" rettype="void" id="cancel">
+        <method name="cancel" rettype="void" id="">
             <parameters>
                 <parameter name="aca" type="tamago.ext.aca2.ACA"/>
             </parameters>
             <pre message="">
                 <operator name="and">
+                    <in>
+                        <scope>
+                            <read property="play"/>
+                        </scope>
+                        <target>
+                            <call method="isCorrectACA">
+                                <arguments>
+                                    <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                </arguments>
+                            </call>
+                        </target>
+                    </in>
                     <operator name="and">
                         <operator name="eq">
                             <in>
@@ -436,38 +460,6 @@
                             </operator>
                         </operator>
                     </operator>
-                </operator>
-            </pre>
-            <post message="">
-                <operator name="and">
-                    <operator name="eq">
-                        <string>cancel</string>
-                        <in>
-                            <scope>
-                                <read property="historic"/>
-                            </scope>
-                            <target>
-                                <call method="lastAction">
-                                    <arguments>
-                                    </arguments>
-                                </call>
-                            </target>
-                        </in>
-                    </operator>
-                    <operator name="eq">
-                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
-                        <in>
-                            <scope>
-                                <read property="historic"/>
-                            </scope>
-                            <target>
-                                <call method="lastSecuParam">
-                                    <arguments>
-                                    </arguments>
-                                </call>
-                            </target>
-                        </in>
-                    </operator>
                     <in>
                         <scope>
                             <read property="historic"/>
@@ -513,14 +505,58 @@
                         </in>
                     </operator>
                 </operator>
+            </pre>
+            <post message="">
+                <operator name="and">
+                    <operator name="eq">
+                        <string>cancel</string>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastAction">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <operator name="eq">
+                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastSecuParam">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                </operator>
             </post>
         </method>
-        <method name="check" rettype="void" id="check">
+        <method name="check" rettype="void" id="">
             <parameters>
                 <parameter name="aca" type="tamago.ext.aca2.ACA"/>
             </parameters>
             <pre message="">
                 <operator name="and">
+                    <in>
+                        <scope>
+                            <read property="play"/>
+                        </scope>
+                        <target>
+                            <call method="isCorrectACA">
+                                <arguments>
+                                    <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                </arguments>
+                            </call>
+                        </target>
+                    </in>
                     <operator name="and">
                         <operator name="or">
                             <operator name="eq">
@@ -696,12 +732,24 @@
                 </operator>
             </post>
         </method>
-        <method name="validate" rettype="void" id="validate">
+        <method name="validate" rettype="void" id="">
             <parameters>
                 <parameter name="aca" type="tamago.ext.aca2.ACA"/>
             </parameters>
             <pre message="">
                 <operator name="and">
+                    <in>
+                        <scope>
+                            <read property="play"/>
+                        </scope>
+                        <target>
+                            <call method="isCorrectACA">
+                                <arguments>
+                                    <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                </arguments>
+                            </call>
+                        </target>
+                    </in>
                     <operator name="and">
                         <operator name="eq">
                             <in>
@@ -894,38 +942,6 @@
                             </operator>
                         </operator>
                     </operator>
-                </operator>
-            </pre>
-            <post message="">
-                <operator name="and">
-                    <operator name="eq">
-                        <string>validate</string>
-                        <in>
-                            <scope>
-                                <read property="historic"/>
-                            </scope>
-                            <target>
-                                <call method="lastAction">
-                                    <arguments>
-                                    </arguments>
-                                </call>
-                            </target>
-                        </in>
-                    </operator>
-                    <operator name="eq">
-                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
-                        <in>
-                            <scope>
-                                <read property="historic"/>
-                            </scope>
-                            <target>
-                                <call method="lastSecuParam">
-                                    <arguments>
-                                    </arguments>
-                                </call>
-                            </target>
-                        </in>
-                    </operator>
                     <in>
                         <scope>
                             <read property="historic"/>
@@ -971,14 +987,58 @@
                         </in>
                     </operator>
                 </operator>
+            </pre>
+            <post message="">
+                <operator name="and">
+                    <operator name="eq">
+                        <string>validate</string>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastAction">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <operator name="eq">
+                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastSecuParam">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                </operator>
             </post>
         </method>
-        <method name="validate_director" rettype="void" id="validate_dir">
+        <method name="validate_director" rettype="void" id="">
             <parameters>
                 <parameter name="aca" type="tamago.ext.aca2.ACA"/>
             </parameters>
             <pre message="">
                 <operator name="and">
+                    <in>
+                        <scope>
+                            <read property="play"/>
+                        </scope>
+                        <target>
+                            <call method="isCorrectACA">
+                                <arguments>
+                                    <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                </arguments>
+                            </call>
+                        </target>
+                    </in>
                     <operator name="and">
                         <operator name="or">
                             <operator name="eq">
@@ -1118,38 +1178,6 @@
                                 <string>toronto</string>
                             </operator>
                         </operator>
-                    </operator>
-                </operator>
-            </pre>
-            <post message="">
-                <operator name="and">
-                    <operator name="eq">
-                        <string>validate_dir</string>
-                        <in>
-                            <scope>
-                                <read property="historic"/>
-                            </scope>
-                            <target>
-                                <call method="lastAction">
-                                    <arguments>
-                                    </arguments>
-                                </call>
-                            </target>
-                        </in>
-                    </operator>
-                    <operator name="eq">
-                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
-                        <in>
-                            <scope>
-                                <read property="historic"/>
-                            </scope>
-                            <target>
-                                <call method="lastSecuParam">
-                                    <arguments>
-                                    </arguments>
-                                </call>
-                            </target>
-                        </in>
                     </operator>
                     <in>
                         <scope>
@@ -1196,14 +1224,58 @@
                         </in>
                     </operator>
                 </operator>
+            </pre>
+            <post message="">
+                <operator name="and">
+                    <operator name="eq">
+                        <string>validate_dir</string>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastAction">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <operator name="eq">
+                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastSecuParam">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                </operator>
             </post>
         </method>
-        <method name="register" rettype="void" id="register">
+        <method name="register" rettype="void" id="">
             <parameters>
                 <parameter name="aca" type="tamago.ext.aca2.ACA"/>
             </parameters>
             <pre message="">
                 <operator name="and">
+                    <in>
+                        <scope>
+                            <read property="play"/>
+                        </scope>
+                        <target>
+                            <call method="isCorrectACA">
+                                <arguments>
+                                    <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                                </arguments>
+                            </call>
+                        </target>
+                    </in>
                     <operator name="and">
                         <operator name="or">
                             <operator name="eq">
@@ -1344,38 +1416,6 @@
                             </operator>
                         </operator>
                     </operator>
-                </operator>
-            </pre>
-            <post message="">
-                <operator name="and">
-                    <operator name="eq">
-                        <string>register</string>
-                        <in>
-                            <scope>
-                                <read property="historic"/>
-                            </scope>
-                            <target>
-                                <call method="lastAction">
-                                    <arguments>
-                                    </arguments>
-                                </call>
-                            </target>
-                        </in>
-                    </operator>
-                    <operator name="eq">
-                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
-                        <in>
-                            <scope>
-                                <read property="historic"/>
-                            </scope>
-                            <target>
-                                <call method="lastSecuParam">
-                                    <arguments>
-                                    </arguments>
-                                </call>
-                            </target>
-                        </in>
-                    </operator>
                     <in>
                         <scope>
                             <read property="historic"/>
@@ -1417,6 +1457,38 @@
                             </scope>
                             <target>
                                 <variable name="user" type="java.lang.String"/>
+                            </target>
+                        </in>
+                    </operator>
+                </operator>
+            </pre>
+            <post message="">
+                <operator name="and">
+                    <operator name="eq">
+                        <string>register</string>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastAction">
+                                    <arguments>
+                                    </arguments>
+                                </call>
+                            </target>
+                        </in>
+                    </operator>
+                    <operator name="eq">
+                        <variable name="aca" type="tamago.ext.aca2.ACA"/>
+                        <in>
+                            <scope>
+                                <read property="historic"/>
+                            </scope>
+                            <target>
+                                <call method="lastSecuParam">
+                                    <arguments>
+                                    </arguments>
+                                </call>
                             </target>
                         </in>
                     </operator>

@@ -11,7 +11,7 @@
    <invariants>
    </invariants>
    <methods>
-      <method name="init" rettype="void" id="init" >
+      <method name="init" rettype="void" id="acasecurity_init" >
          <parameters>
          </parameters>
          <post message="" >
