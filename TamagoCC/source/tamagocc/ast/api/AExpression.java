@@ -43,4 +43,6 @@ public interface AExpression extends TamagoCCAST {
 	public static final int ISBOUND = 25;
 	
 	int getExpressionType();
+	
+	
 }

@@ -209,4 +209,8 @@ public class TIMethod implements TMethod {
 	public TParameter getParameter(int p) {
 		return params.get(p);
 	}
+
+	public void setId(String string) {
+		this.id = string;
+	}
 }
