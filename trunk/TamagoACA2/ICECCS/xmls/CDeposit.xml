@@ -16,31 +16,31 @@
       <require service="Bank" module="tamago.aca.bank" label="bank" />
    </requires>
    <methods>
-      <method name="init" rettype="void" id="init" >
+      <method name="init" rettype="void" >
          <parameters>
          </parameters>
       </method>
-      <method name="deposit" rettype="void" id="deposit" >
-         <parameters>
-            <parameter name="aca" type="tamago.ext.aca2.ACA" />
-         </parameters>
-      </method>
-      <method name="cancel" rettype="void" id="cancel" >
+      <method name="deposit" rettype="void" >
          <parameters>
             <parameter name="aca" type="tamago.ext.aca2.ACA" />
          </parameters>
       </method>
-      <method name="validate" rettype="void" id="validate" >
+      <method name="cancel" rettype="void" >
          <parameters>
             <parameter name="aca" type="tamago.ext.aca2.ACA" />
          </parameters>
       </method>
-      <method name="validate_director" rettype="void" id="validate_dir" >
+      <method name="validate" rettype="void" >
          <parameters>
             <parameter name="aca" type="tamago.ext.aca2.ACA" />
          </parameters>
       </method>
-      <method name="check" rettype="void" id="check" >
+      <method name="validate_director" rettype="void" >
+         <parameters>
+            <parameter name="aca" type="tamago.ext.aca2.ACA" />
+         </parameters>
+      </method>
+      <method name="check" rettype="void" >
          <parameters>
             <parameter name="aca" type="tamago.ext.aca2.ACA" />
          </parameters>

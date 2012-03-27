@@ -16,12 +16,12 @@ code: $(XMLCDL)
 	tamagocc --tamagoccpath xmls -d gen -noskeleton $^
 
 testnominal:
-	tamagotest --tamagoccpath xmls --debug 3 --logfile nominal_aca.log -d test --strategy nominal --junitsuffix Nominal --scenario-size 10 xmls/DepositSecurity.xml
+	tamagotest --tamagoccpath xmls --debug 3 --logfile stdout -d test --strategy nominal --junitsuffix Nominal --scenario-size 6 xmls/DepositSecurity.xml | tee nominal_aca.log
 testbad:
 	tamagotest --tamagoccpath xmls --debug 3 --logfile badscenario_aca.log -d test --strategy badscenario --junitsuffix BadScenario --scenario-size 10 xmls/DepositSecurity.xml
 
 testalltransitions:
-	tamagotest --tamagoccpath xmls --debug 3 --logfile stdout -d test --strategy alltransitions --junitsuffix BadScenario --scenario-size 10 xmls/DepositSecurity.xml | tee alltransition_aca.log
+	tamagotest --tamagoccpath xmls --debug 3 --logfile stdout -d test --strategy alltransitions --junitsuffix BadScenario --scenario-size 3 xmls/DepositSecurity.xml | tee alltransition_aca.log
 
 # EXPERIMENTAL DONT USE IT 
 skeleton: $(XMLCDL)

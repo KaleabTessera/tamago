@@ -10,27 +10,21 @@ component CDeposit {
 	require service Bank in tamago.aca.bank as bank;
 	
 	method void init() {
-		id init;
 	}
 	
 	method void deposit(tamago.ext.aca2.ACA aca) {
-	       id deposit;
 	}
 	method void cancel(tamago.ext.aca2.ACA aca) {
-	       id cancel;
 	}
 	method void validate(tamago.ext.aca2.ACA aca) {
-		id validate;
 		//pre ((aca.user) != (user.getName())); // n'importe qui ne valide pas son propre cheque
 	}
 	
 	method void validate_director(tamago.ext.aca2.ACA aca) {
-		id validate_dir;
 		
 	}
 	
 	method void check(tamago.ext.aca2.ACA aca) {
-		id check;
 		pre user.isCreditworthy() && cheq.getAmount() > 0;
 		post bank.isOperationChecked(#opNumber);
 		//pre user.isSafe() && (cheq.getAmount() > 0);

@@ -81,10 +81,10 @@ public class ConvertACAtoCDL{
 		
 		TIProperty property = new TIProperty("historic", TIType.generateType("tamago.ext.aca2.Historic"), new TIAccess("read"));
 		tamagoaca.addProperty(property);
+		TIRead play = new TIRead("play");
 		
 		TIProperty propPlay = new TIProperty("play", TIType.generateType("tamago.ext.aca2.Play"), new TIAccess("read"));
 		tamagoaca.addProperty(propPlay);
-		
 		TIRead historic = new TIRead("historic");
 		
 		TIOperator pre_user = new TIOperator(TOpeName.opOr);
@@ -129,6 +129,8 @@ public class ConvertACAtoCDL{
 			pre_org.addOperand(opuser);
 		}
 		
+		
+		
 		// generation pour les methods de securite
 		for (String mid : aca.getActions()) {
 			TMethod method = tamago.getDeclaredMethodID(mid);
@@ -136,6 +138,15 @@ public class ConvertACAtoCDL{
 			TIMethod methsec = new TIMethod(method);
 			methsec.setId("");
 			TIOperator and = new TIOperator(TOpeName.opAnd);
+			
+			{
+				// play.isCorrectACA(aca);
+				TICall isCorrectACA = new TICall("isCorrectACA");
+				TIVariable aca = new TIVariable("aca",true,"tamago.ext.aca2.ACA");
+				isCorrectACA.addArgument(aca);
+				TIInLabel playDOTisCorrectACA = new TIInLabel(play, isCorrectACA);
+				and.addOperand(playDOTisCorrectACA);
+			}
 			
 			Perms perms = aca.getPerms();
 			for (Quad quad : perms) {

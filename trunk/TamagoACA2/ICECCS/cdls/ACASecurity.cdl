@@ -5,7 +5,7 @@ service ACASecurity {
 	property readwrite bool acaInitialised;
 	
 	method void init() {
-		id init;
+		id acasecurity_init;
 		post acaInitialised;
 	}
 }
