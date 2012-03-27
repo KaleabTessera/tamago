@@ -143,6 +143,22 @@ public class TamagoTestGeneratorJUnit extends TamagoTestGenerator {
 		}
 	}
 	
+	private static boolean isRealExpression(AExpression e) {
+		if(e == null || e.getExpressionType() == AExpression.NOEXPRESSION)
+			return false;
+		if(e instanceof AOperator) {
+			if(((AOperator)e).getArity() == 0)
+				return false;
+			boolean res = true;
+			Iterator<AExpression> exprs = ((AOperator)e).getOperands();
+			while(exprs.hasNext()) {
+				AExpression exp = exprs.next();
+				res = isRealExpression(exp) && res;
+			}
+			return res;
+		}
+		return true;
+	}
 	
 	private void makeStep(long pos, TamagoTestCase cas, AISequence mainseq) throws TamagoCCException {
 		mainseq.addInstruction(AINoInstruction.getNoInstruction());
@@ -202,7 +218,7 @@ public class TamagoTestGeneratorJUnit extends TamagoTestGenerator {
 		
 		
 		// -- TEST DE LA PRECONDITION
-		if(cas.getPrecondition() != null && cas.getPrecondition().getExpressionType() != AExpression.NOEXPRESSION) {
+		if(isRealExpression(cas.getPrecondition())) {
 			// -- INITIALISATION DE LA PRECONDITION
 			seq.addInstruction((AInstruction) cas.getInitPrecondition().visit(trad)); // valeur initiale, boucle ...
 			AICall cfail = new AICall(new AIIdent("fail"));
