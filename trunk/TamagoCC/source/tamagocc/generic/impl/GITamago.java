@@ -17,6 +17,7 @@ import tamagocc.generic.api.GNamespace;
 import tamagocc.generic.api.GProperty;
 import tamagocc.generic.api.GTamago;
 import tamagocc.generic.api.GType;
+import tamagocc.generic.api.GExpression.GExprType;
 import tamagocc.logger.TamagoCCLogger;
 import tamagocc.util.NilIterator;
 
@@ -232,10 +233,17 @@ public abstract class GITamago implements GTamago {
 				registerMethod(method);				
 			}
 			else if(methods.keySet().contains(method.getID())) {
-				sb.append("*Warning* : The ID already exist.\n");
+				sb.append("*Warning* : The ID already exist (this method will be ignored and computed later with percolation).\n");
 				if(methods.get(method.getID()) != main) {
-					if(mustRecord)
-						allmethods.remove(method);
+					//if(mustRecord)
+					//	allmethods.remove(method);
+					/*GIMethod imain = (GIMethod)main;
+					if(method.getPrecondition() != null && method.getPrecondition().getExpression() != null 
+							&& method.getPrecondition().getExpression().getCategory() != GExprType.NOCONTRACT)
+					{
+						if(method.getPrecondition() != null && method.getPrecondition().getExpression() != null 
+								&& method.getPrecondition().getExpression().getCategory() != GExprType.NOCONTRACT)
+					}*/
 					throw new TamagoCCException("Duplicate ID for different method in the contract");
 				}
 			}
@@ -280,6 +288,7 @@ public abstract class GITamago implements GTamago {
 			sb = new StringBuffer();
 			sb.append("__tamagocc_");
 			sb.append(method.getName());
+			sb.append("_");
 			sb.append(i);
 		} while(methods.containsKey("__tamagocc_"+method.getName()+i));
 		return sb.toString();
