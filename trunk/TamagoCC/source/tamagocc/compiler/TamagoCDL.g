@@ -10,12 +10,24 @@ options {
 
 
 @header {
-	package tamagocc.compiler;
+package tamagocc.compiler;
+
+import tamagocc.api.*;
+import tamagocc.impl.*;
+import java.util.Collection;
+import java.util.ArrayList;
+import tamagocc.util.Triplet;
 }
 
 
 @lexer::header {
-	package tamagocc.compiler;
+package tamagocc.compiler;
+
+import tamagocc.api.*;
+import tamagocc.impl.*;
+import java.util.Collection;
+import java.util.ArrayList;
+import tamagocc.util.Triplet;
 }
 
 
@@ -25,26 +37,31 @@ tamagoEntity
 	(serviceEntity)
 	;
 	
-moduleDeclaration
-	:	^('module' qualifiedName ';')
+moduleDeclaration returns [ String value ]
+@init { $value = ""; }
+	:	'module'^ s=qualifiedName ';' { $value=$s.value; }
 	;
 	
-qualifiedName
-	:	ID (('.' ID)+)?
+qualifiedName returns [String value ]
+@init {
+	$value="";
+}
+	:	s=ID ('.' d=ID {$value= $d.text+"."+$value; })* { $value=$s.text+"."+$value;  }
 	;
 	
-qualifiedNameWithWildCard
-	:	ID ('.' ID)*
-	('.*')?
+qualifiedNameWithWildCard returns [String value]
+@init { $value =""; }
+	:	( s=ID ('.' d=ID {$value=$d.text+"."+$value; } )* 
+	('.*' {$value=".*"; })? ) { $value=$s.text+"."+$value; }
 	;
 	
-usingDeclaration
-	:	'using' qualifiedNameWithWildCard ';'
+usingDeclaration returns [TNamespace value]
+	:	'using'^ p=qualifiedNameWithWildCard ';'! { $value= new TINamespace($p.value); }
 	;
 	
 serviceEntity
 	:
-		'service' ID '{'
+		'service'^ ID '{'!
 		(implementsInterface)*
 		(refineService)*
 		(includeService)*
@@ -53,190 +70,344 @@ serviceEntity
 		(methodDeclaration)*
 		
 		(behaviorDeclaration)?
-		'}'
+		'}'!
 	;
 	
-implementsInterface
-	:	'implements' qualifiedName ';'
+implementsInterface returns [TImplements value]
+	:	'implements'^ p=qualifiedName ';'! { $value = new TIImplements($p.value); }
 	;
 
-refineService
-	:	'refine' 'service' ID 'in' qualifiedName ';'
-	|       'refine' 'service' qualifiedName ';'
+refineService returns [TRefineService value]
+	:	'refine'^ 'service'! n=ID 'in'! q=qualifiedName ';'! { $value = TamagoCDLEaseFactory.refine($n.text,$q.value);  }
+	|       'refine'^ 'service'! qualifiedName ';'!
 	;
 	
-includeService
-	:	'include' 'service' ID 'in' qualifiedName ';'
-	|       'include' 'service' qualifiedName ';'
+includeService returns [TIncludeService value]
+	:	'include'^ 'service'! n=ID 'in'! q=qualifiedName ';'! { $value = TamagoCDLEaseFactory.include($n.text,$q.value); }
+	|       'include'^ 'service'! qualifiedName ';'!
 	;
 	
-propertyDeclaration
-	:	'property' accessProperty type ID ';'
+propertyDeclaration returns [TProperty value ]
+	:	'property'^ a=accessProperty t=type n=ID ';'! 
+		{ 
+			$value = new TIProperty($n.text,$t.value,$a.value); 
+		} 
 	;
 
-accessProperty
-	:	'readwrite' | 'read' |'write'
+accessProperty returns [TAccess value]
+	:	
+	  'readwrite' { $value = new TIAccess("rw");  }
+	| 'read'      { $value = new TIAccess("r"); }
+	| 'write'     { $value = new TIAccess("w"); }
 	;
 	
-type	:	(primitiveType | qualifiedName)
-	 ('[]')?
+type returns [ TType value, String prim, boolean flags]
+@init {
+	$flags=false;
+}
+@after {
+	if($flags)
+		$value=TIType.generateType($prim+"[]");
+	else
+		$value=TIType.generateType($prim);
+	
+}
+	:	(p=primitiveType {$prim=$p.value; }| q=qualifiedName {$prim=$q.value;} )
+	 ('[]' { $flags = true; } )? 
+	 
 	 ;
-primitiveType
-	:	'int' | 'void' |'bool' | 'boolean' | 'real' | 'double' | 'String' | 'string'
+primitiveType returns [String value ]
+	:	'int' { $value="int"; } 
+	| 'void'  { $value="void"; } 
+	| 'bool'  { $value="bool"; } 
+	| 'boolean'  { $value="bool"; } 
+	| 'real'  { $value="real"; } 
+	| 'double'  { $value="real"; } 
+	| 'String'  { $value="String"; } 
+	| 'string' { $value="String"; } 
 	;
 	
-methodDeclaration
+methodDeclaration returns [TMethod value]
 	:
-		'method' type ID arguments '{'
-			('id' ID ';')?
-			('pre' preconditionExpression ';')?
-			('post' postconditionExpression ';')?
-		'}'
+		'method'^ t=type n=ID a=parameters '{'!
+			('id'^ d=ID ';'!)?
+			('pre'^ p=preconditionExpression ';'!)?
+			('post'^ q=postconditionExpression ';'!)?
+		'}'!
+	{$value = TamagoCDLEaseFactory.method($t.value, $n.text, $a.params, $d.text, $p.value, $q.value); }
 	;
 
-arguments
-	:	'(' (expression (',' expression)*)? ')'
+parameters returns [Collection<TParameter> params]
+@init{
+$params = new ArrayList<TParameter>();
+}
+	:	'(' (a=type b=ID (',' c=type d=ID 
+			{ $params.add(TamagoCDLEaseFactory.param($c.value,$d.text)); }
+		   )*
+  			{ $params.add(TamagoCDLEaseFactory.param($a.value,$b.text)); }
+		   )? ')'
+	;
+	
+
+arguments returns [Collection<TExpression> value]
+@init {
+$value = new ArrayList<TExpression>();
+}
+	:	'(' (a=expression {$value.add($a.value);}
+			(',' b=expression { $value.add($b.value); })*)? ')'
 	;
 
-behaviorDeclaration
-	:	'behavior' '{'
-	('default' 'state' ID ';')?
-	('states' '{'
-		(stateDeclaration)*
-	'}')?
+behaviorDeclaration returns [TIBehavior value, String def, Collection<TState> states, Collection<TTransition> transitions ]
+@init {
+	$states = new ArrayList<TState>();
+	$transitions = new ArrayList<TTransition>();
+	$def = "";
+}
+
+	:	'behavior'^ '{'!
+	('default'^ 'state'! n=ID ';'! {$def = $n.text;})?
+	('states'^ '{'!
+		(s=stateDeclaration {$states.add($s.value); } )*
+	'}'!)?
 	('transitions' '{'
-		(transitionDeclaration)*
+		(t=transitionDeclaration {$transitions.add($t.value);})*
 	'}')?
 	'}'
+	 { $value = new TIBehavior($states,$transitions, $def); }
 	;
-stateDeclaration
-	:	'state' ID '{' (allowDeclaration)* '}'
+stateDeclaration returns [ Collection<TAllow> allows, TState value]
+@init {
+$allows = new ArrayList<TAllow>();
+}
+
+	:	'state'^ i=ID '{'! (a=allowDeclaration { $allows.add($a.value); })* '}'!
+		{  $value = new TIState($i.text, $allows);  }
 	;
 	
-allowDeclaration
-	:	'allow' ID ';'
+allowDeclaration returns [TAllow value]
+	:	'allow'^ n=ID ';'! {$value = new TIAllow($n.text); }
 	;
 
-transitionDeclaration
-	:	'transition' 'from' ID 'to' ID 'with' ID ('when' expression)? ';'
+transitionDeclaration returns [TTransition value, TExpression guard]
+
+	:	'transition'^ 'from'! f=ID 'to'! t=ID 'with'! w=ID ('when'! e=expression {$guard=$e.value;})? ';'!
+		{ $value = TamagoCDLEaseFactory.transition($f.text,$t.text,$w.text,$guard); }
 	;
 
-invariantExpression
-	:	'invariant' expression ('fail' STRING)? ';'
+invariantExpression returns [TInvariant value]
+	:	'invariant'^ e=expression ('fail' f=STRING)? ';'
+		{ $value = TamagoCDLEaseFactory.invariant($e.value,$f.text); }
 	;
 
-preconditionExpression
-	:	'pre' expression ('fail' STRING)? ';'
+preconditionExpression returns [TCondition value]
+	:	'pre'^ e=expression ('fail' f=STRING)? ';'
+		{ $value = TamagoCDLEaseFactory.precond($e.value,$f.text); }
 	;
 	
-postconditionExpression
-	:	'post' expression ('fail' STRING)? ';'
+postconditionExpression returns [TCondition value]
+	:	'post'^ e=expression ('fail' f=STRING)? ';'
+		{ $value = TamagoCDLEaseFactory.postcond($e.value,$f.text); }
 	;
 
-expression
-	:	andExpression ('||' andExpression)*
+// Cause of the bug in the use of label for left and right member i can distinguish them 
+// http://www.antlr.org/pipermail/antlr-interest/2011-October/042906.html
+
+expression returns [TExpression value, TIOperator opor]
+@init{
+$opor = new TIOperator(TOpeName.opOr);
+}
+@after {
+	if($opor.size() == 1)
+		$value = $opor.getOperand(0);
+	else
+		$value = $opor;
+}
+	:	andExpression 
+		('||'^ andExpressionbis { $opor.addOperand($andExpressionbis.value); })*
+		{ $opor.addOperand($andExpression.value); }
 	;
-andExpression
-	:	relQuantExpression ('&&' relQuantExpression)*
+andExpressionbis returns [TExpression value]
+:	andExpression { $value = $andExpression.value; };
+
+
+
+andExpression returns [TExpression value, TIOperator opand]
+@init{
+$opand = new TIOperator(TOpeName.opAnd);
+}
+@after {
+	if($opand.size() == 1)
+		$value = $opand.getOperand(0);
+	else
+		$value = $opand;
+}
+	:	relQuantExpression 
+		('&&'^ relQuantExpressionbis { $opand.addOperand($relQuantExpressionbis.value); })*
+		{ $opand.addOperand($relQuantExpression.value); }
 	;
-relQuantExpression
+	
+relQuantExpressionbis returns [TExpression value]
+: relQuantExpression { $value = $relQuantExpression.value; };
+
+relQuantExpression returns [TExpression value]
 	: 
-	  litBoolean
-	| quantExpression
-	| relExpression
-	| primaryExpression
-	| notExpression
+	  litBoolean { $value=$litBoolean.value; }
+	| quantExpression { $value=$quantExpression.value; }
+	| relExpression { $value=$relExpression.value; }
+	| primaryExpression { $value=$primaryExpression.value; }
+	| notExpression { $value=$notExpression.value; }
 	;
 
-notExpression
-	:	NOTOPERATOR expression;
+notExpression returns [TExpression value]
+	:	NOTOPERATOR expression { $value = new TINot($expression.value); };
 
-litBoolean
-	:	'true' | 'false';
-quantExpression
-	:	QUANTIFIER
-	ID
+litBoolean returns [TBool value]
+	:	'true' { $value = new TIBool(true); } 
+	| 'false' { $value = new TIBool(false); };
+quantExpression returns [TExpression value]
+	:	quant=QUANTIFIER
+	var=ID
 	':'
-	type
+	t=type
 	
-	domainQuant
+	dom=domainQuant
 	
 	'{'
-		expression
+		body=expression
 	'}'
+	{$value = TamagoCDLEaseFactory.quant($quant.text,$var.text,$t.value,
+			$dom.kind,$dom.value,$body.value); }
 	;
 
-domainQuant
+domainQuant returns [String kind, Collection<Object> value]
+@init {
+$value = new ArrayList<Object>();
+}
 	:
-	'in' 'set' '[' expression (',' expression)* ']'
-	|'in' 'coll' expression
-	| 'from' expression 'to' expression
+	'in' 'set' '[' a=expression (',' b=expression {$value.add($b.value);} )* ']' { $kind = "set"; $value.add($a.value);  }
+	|'in' 'coll' c=expression { $kind="coll"; $value.add(c.value); }
+	| 'from' d=expression 'to' e=expression {$kind="range"; $value.add($d.value); $value.add($e.value); }
 	;
 
-relExpression
-	:	arithExpression
-		(RELOP
-		arithExpression)?
+relExpression returns [TExpression value, String op, ArrayList<TExpression> exprs ]
+@after {
+$value = TamagoCDLEaseFactory.operator($op,$exprs);
+}
+	:	a=arithExpression 
+		(RELOP^
+		b=arithExpression {$op = $RELOP.text; $exprs.add($b.value); } )?
+		
+		{$exprs.add($a.value);}
 	;
 
-arithExpression
-	:	multExpression
-		(ADDOP
-		multExpression)?
+arithExpression returns [TExpression value, String op, ArrayList<TExpression> exprs]
+@after {
+$value = TamagoCDLEaseFactory.operator($op,$exprs);
+}
+	:	multExpression 
+		(ADDOP^
+		multExpressionbis { $op = $ADDOP.text; $exprs.add($multExpressionbis.value); } )?
+		{ $exprs.add($multExpression.value); }
 	;
-multExpression
+multExpressionbis returns [TExpression value]
+: multExpression { $value = $multExpression.value; };
+
+multExpression returns [TExpression value, String op, ArrayList<TExpression> exprs]
+@after {
+$value = TamagoCDLEaseFactory.operator($op,$exprs);
+}
 	:	unaryExpression
-		(MULTOP
-		unaryExpression)?
+		(MULTOP^
+		unaryExpressionbis { $op = $MULTOP.text; $exprs.add($unaryExpressionbis.value); } )?
+		 { $exprs.add($unaryExpression.value); }
 	;
+unaryExpressionbis returns [TExpression value]
+	:
+	unaryExpression { $value = $unaryExpression.value; }
+	;
+unaryExpression returns [TExpression value]
+	:	a=minusArithExpression {$value=$a.value;} 
+	| b=primaryExpression {$value=$b.value; } ;
 
-unaryExpression
-	:	minusArithExpression
-	| primaryExpression;
+minusArithExpression returns [TExpression value]
+	:	'-' a=arithExpression { 
+		if($a.value instanceof TInteger) {
+			TInteger tin = (TInteger)$a.value;
+			$value = new TIInteger(- tin.getValue() );
+		}
+		else if($a.value instanceof TReal) {
+			TReal trea = (TReal)$a.value;
+			$value = new TIReal(- trea.getValue());
+		}
+		else {
+			$value = new TIOperator(TOpeName.opTimes);
+			((TIOperator)$value).addOperand(new TIInteger(-1));
+			((TIOperator)$value).addOperand($a.value);
+		}
+		} ;
 
-minusArithExpression
-	:	'-' arithExpression;
-
-primaryExpression
-	: '(' expression ')'
-	 | literalUntypedExpression
-	 | literalArithExpression
-	 | thisExpression
-	 | varExpression
-	 | returnExpression
-	 | readExpression
+primaryExpression returns [TExpression value]
+	: '(' a=expression ')' {$value=$a.value;}
+	 | b=literalUntypedExpression {$value=$b.value; }
+	 | c=literalArithExpression { $value=$c.value; }
+	 | d=thisExpression {$value=$d.value; }
+	 | e=varExpression { $value=$e.value; }
+	 | f=returnExpression { $value=$f.value; }
+	 | g=readExpression { $value=$g.value; }
 	 ;
 
-literalUntypedExpression
-	:	'null' | 'nil';
+literalUntypedExpression returns [TExpression value]
+	:	'null'^ { $value=new TINil(); }| 'nil'^ { $value=new TINil(); };
 
-literalArithExpression
+literalArithExpression  returns [TExpression value]
 	:	
-	  FLOAT
-	| INT
-	| STRING
+	  f=FLOAT { $value = new TIReal(Double.parseDouble($f.text)); }
+	| i=INT { $value = new TIInteger(Integer.parseInt($i.text)); } 
+	| s=STRING { $value = new TIString($s.text); }
 	;
-returnExpression
-	:	'@return' ( identSuffix)?;
-thisExpression
-	:	'this' ('.' ID)* (identSuffix)?
+returnExpression returns [TExpression value, Triplet<TExpression,Collection<TExpression>,Boolean> a ]
+	:	'@return'^ ( idx=identSuffix { $a =$idx.value; })? 
+		{if($a != null) $value= TamagoCDLEaseFactory.inlabelReturn($a);
+		 else $value=new TIReturn(); };
+thisExpression returns [TExpression value, ArrayList sub, Triplet<TExpression,Collection<TExpression>,Boolean> d]
+@init {
+	$sub = new ArrayList();
+}
+	:	'this'^ ('.' ID { $sub.add($ID.text); } )* (idx=identSuffix {$d=$idx.value;})?
+		{$value = TamagoCDLEaseFactory.inlabelSelf($sub,$d); }
 	;
 	
-varExpression
+varExpression returns [TExpression value, ArrayList<String> sub, Triplet<TExpression,Collection<TExpression>,Boolean> d]
+@init {
+	$sub = new ArrayList<String>();
+}
 	:	
-	ID ('.' ID)* (identSuffix)?
-	;
-readExpression:
-	'#' ID ('.' ID)* (identSuffix)?
-	;
-
-identSuffix
-	:	(arrayIndexExpression|arguments)
-	('@pre')?
+	v=ID ('.' a=ID { $sub.add($a.text); } )* (idx=identSuffix {$d=$idx.value;})?
+	{ $value = TamagoCDLEaseFactory.inlabelVar($v.text,$sub,$d); }
+	
 	;
 	
-arrayIndexExpression
-	:	'[' arithExpression ']';
+readExpression returns [TExpression value, ArrayList<String> sub,Triplet<TExpression,Collection<TExpression>,Boolean> d]
+@init {
+	$sub = new ArrayList<String>();
+}
+: 
+	'#'^ r=ID ('.' a=ID { $sub.add($a.text); })* (idx=identSuffix {$d=$idx.value;})?
+	{ $value= TamagoCDLEaseFactory.inlabelRead($r.text,$sub,$d); }
+	;
+
+identSuffix returns [ tamagocc.util.Triplet<TExpression,Collection<TExpression>,Boolean> value]
+@init {
+	$value = new Triplet<TExpression,Collection<TExpression>,Boolean>(null,null,new Boolean(false));
+}
+	:	(a=arrayIndexExpression {$value.setL($a.value);}
+			|b=arguments { $value.setC($b.value) ; } )
+	('@pre' {$value.setR(new Boolean(true)); })?
+	{ }
+	;
+	
+arrayIndexExpression returns [TExpression value]
+	:	'[' i=arithExpression ']' {$value=$i.value;};
 
 // TOKEN LEXEME
 
