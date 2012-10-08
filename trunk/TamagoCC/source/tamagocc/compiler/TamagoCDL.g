@@ -31,10 +31,14 @@ import tamagocc.util.Triplet;
 }
 
 
-tamagoEntity
-	:	moduleDeclaration
-	(usingDeclaration)*
-	(serviceEntity)
+tamagoEntity returns [TTamagoEntity value, String mod, Collection<TNamespace> uses]
+@init { $uses = new ArrayList<TNamespace>(); }
+@after {
+ $value = TamagoCDLEaseFactory.entity($mod,$uses,$value);
+}
+	:	m=moduleDeclaration
+	(u=usingDeclaration { $uses.add($u.value); })*
+	s=serviceEntity { $mod=$m.value; $value =$s.value; }
 	;
 	
 moduleDeclaration returns [ String value ]
@@ -59,18 +63,32 @@ usingDeclaration returns [TNamespace value]
 	:	'using'^ p=qualifiedNameWithWildCard ';'! { $value= new TINamespace($p.value); }
 	;
 	
-serviceEntity
+serviceEntity returns [TService value, String name,Collection<TImplements> impls, 
+	Collection<TRefineService> refs, Collection<TIncludeService> incs, Collection<TProperty> props,
+	Collection<TInvariant> invs, Collection<TMethod> meths, TBehavior beh]
+@init {
+$impls = new ArrayList<TImplements>();
+$refs = new ArrayList<TRefineService>();
+$incs = new ArrayList<TIncludeService>();
+$props = new ArrayList<TProperty>();
+$invs = new ArrayList<TInvariant>();
+$meths = new ArrayList<TMethod>();
+}
+@after {
+$value = TamagoCDLEaseFactory.service($name,$impls,$refs,$incs,$props,$invs,$meths,$beh);
+}
 	:
-		'service'^ ID '{'!
-		(implementsInterface)*
-		(refineService)*
-		(includeService)*
-		(propertyDeclaration)*
-		(invariantExpression)*
-		(methodDeclaration)*
+		'service'^ label=ID '{'!
+		(i=implementsInterface { $impls.add($i.value); })*
+		(r=refineService {$refs.add($r.value); })*
+		(c=includeService {$incs.add($c.value); } )*
+		(p=propertyDeclaration {$props.add($p.value); })*
+		(v=invariantExpression {$invs.add($v.value); })*
+		(x=methodDeclaration {$meths.add($x.value); })*
 		
-		(behaviorDeclaration)?
+		(b=behaviorDeclaration { $beh=$b.value; })?
 		'}'!
+		{ $name=$label.text; }
 	;
 	
 implementsInterface returns [TImplements value]
@@ -366,33 +384,24 @@ literalArithExpression  returns [TExpression value]
 	| s=STRING { $value = new TIString($s.text); }
 	;
 returnExpression returns [TExpression value, Triplet<TExpression,Collection<TExpression>,Boolean> a ]
-	:	'@return'^ ( idx=identSuffix { $a =$idx.value; })? 
+	:	'@return'^ ( identSuffix { $a =$identSuffix.value; })? 
 		{if($a != null) $value= TamagoCDLEaseFactory.inlabelReturn($a);
 		 else $value=new TIReturn(); };
-thisExpression returns [TExpression value, ArrayList sub, Triplet<TExpression,Collection<TExpression>,Boolean> d]
-@init {
-	$sub = new ArrayList();
-}
-	:	'this'^ ('.' ID { $sub.add($ID.text); } )* (idx=identSuffix {$d=$idx.value;})?
+thisExpression returns [TExpression value, TExpression sub, Triplet<TExpression,Collection<TExpression>,Boolean> d]
+	:	'this'^ ('.'^ primaryExpression { $sub = $primaryExpression.value; } )* (identSuffix {$d=$identSuffix.value;})?
 		{$value = TamagoCDLEaseFactory.inlabelSelf($sub,$d); }
 	;
 	
-varExpression returns [TExpression value, ArrayList<String> sub, Triplet<TExpression,Collection<TExpression>,Boolean> d]
-@init {
-	$sub = new ArrayList<String>();
-}
+varExpression returns [TExpression value, TExpression sub, Triplet<TExpression,Collection<TExpression>,Boolean> d]
 	:	
-	v=ID ('.' a=ID { $sub.add($a.text); } )* (idx=identSuffix {$d=$idx.value;})?
+	v=ID ('.'^ primaryExpression { $sub = $primaryExpression.value; } )* (identSuffix {$d=$identSuffix.value;})?
 	{ $value = TamagoCDLEaseFactory.inlabelVar($v.text,$sub,$d); }
 	
 	;
 	
-readExpression returns [TExpression value, ArrayList<String> sub,Triplet<TExpression,Collection<TExpression>,Boolean> d]
-@init {
-	$sub = new ArrayList<String>();
-}
+readExpression returns [TExpression value, TExpression sub,Triplet<TExpression,Collection<TExpression>,Boolean> d]
 : 
-	'#'^ r=ID ('.' a=ID { $sub.add($a.text); })* (idx=identSuffix {$d=$idx.value;})?
+	'#'^ r=ID ('.'^ primaryExpression { $sub = $primaryExpression.value; } )* (identSuffix {$d=$identSuffix.value;})?
 	{ $value= TamagoCDLEaseFactory.inlabelRead($r.text,$sub,$d); }
 	;
 
