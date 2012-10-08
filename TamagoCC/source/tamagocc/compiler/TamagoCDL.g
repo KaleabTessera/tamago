@@ -38,8 +38,27 @@ tamagoEntity returns [TTamagoEntity value, String mod, Collection<TNamespace> us
 }
 	:	m=moduleDeclaration
 	(u=usingDeclaration { $uses.add($u.value); })*
-	s=serviceEntity { $mod=$m.value; $value =$s.value; }
+	  (s=serviceEntity { $mod=$m.value; $value =$s.value; }
+	   | c=componentEntity { $mod=$m.value; $value=$c.value; })
 	;
+	
+	
+percolator returns [TPercolator value]
+	 :	'percolator'^ ('*' { $value = TIPercolator.getAllPercolator();  }
+	  		| ID { $value = new TIPercolator($ID.text); }) ';'!
+	 ;
+
+
+require returns [TRequire value]
+	:	'require'^ 'service'! n=ID 'in'! q=qualifiedName 'as'! l=ID ';'! 
+		{ $value = TamagoCDLEaseFactory.require($n.text,$q.value,$l.text);  }
+	;	
+	
+
+provide returns [TProvide value]
+	:	'provide'^ 'service'! n=ID 'in'! q=qualifiedName ';'! 
+		{ $value = TamagoCDLEaseFactory.provide($n.text,$q.value);  }
+	;	
 	
 moduleDeclaration returns [ String value ]
 @init { $value = ""; }
@@ -82,6 +101,36 @@ $value = TamagoCDLEaseFactory.service($name,$impls,$refs,$incs,$props,$invs,$met
 		(i=implementsInterface { $impls.add($i.value); })*
 		(r=refineService {$refs.add($r.value); })*
 		(c=includeService {$incs.add($c.value); } )*
+		(p=propertyDeclaration {$props.add($p.value); })*
+		(v=invariantExpression {$invs.add($v.value); })*
+		(x=methodDeclaration {$meths.add($x.value); })*
+		
+		(b=behaviorDeclaration { $beh=$b.value; })?
+		'}'!
+		{ $name=$label.text; }
+	;
+	
+componentEntity returns [TComponent value, String name,Collection<TPercolator> percos, Collection<TImplements> impls,
+	Collection<TProvide> refs, Collection<TRequire> incs, Collection<TProperty> props,
+	Collection<TInvariant> invs, Collection<TMethod> meths, TBehavior beh]
+@init {
+$percos = new ArrayList<TPercolator>();
+$impls = new ArrayList<TImplements>();
+$refs = new ArrayList<TProvide>();
+$incs = new ArrayList<TRequire>();
+$props = new ArrayList<TProperty>();
+$invs = new ArrayList<TInvariant>();
+$meths = new ArrayList<TMethod>();
+}
+@after {
+$value = TamagoCDLEaseFactory.component($name,$impls,$refs,$incs,$props,$invs,$meths,$beh,$percos);
+}
+	:
+		'component'^ label=ID '{'!
+		(o=percolator { $percos.add($o.value); } )*
+		(i=implementsInterface { $impls.add($i.value); })*
+		(r=provide {$refs.add($r.value); })*
+		(c=require {$incs.add($c.value); } )*
 		(p=propertyDeclaration {$props.add($p.value); })*
 		(v=invariantExpression {$invs.add($v.value); })*
 		(x=methodDeclaration {$meths.add($x.value); })*
