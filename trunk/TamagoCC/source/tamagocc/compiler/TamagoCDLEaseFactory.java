@@ -3,11 +3,10 @@ package tamagocc.compiler;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.antlr.runtime.Token;
-
 import tamagocc.api.TBehavior;
 import tamagocc.api.TCondition;
 import tamagocc.api.TExpression;
+import tamagocc.api.TExtendService;
 import tamagocc.api.TImplements;
 import tamagocc.api.TIncludeService;
 import tamagocc.api.TInvariant;
@@ -35,12 +34,15 @@ import tamagocc.impl.TIInLabel;
 import tamagocc.impl.TIIncludeService;
 import tamagocc.impl.TIInvariant;
 import tamagocc.impl.TIMethod;
+import tamagocc.impl.TINoContract;
 import tamagocc.impl.TIOperator;
 import tamagocc.impl.TIParameter;
 import tamagocc.impl.TIRead;
 import tamagocc.impl.TIRefineService;
 import tamagocc.impl.TIReturn;
+import tamagocc.impl.TIService;
 import tamagocc.impl.TISet;
+import tamagocc.impl.TITamago;
 import tamagocc.impl.TITransition;
 import tamagocc.impl.TIVariable;
 import tamagocc.util.TamagoCCPool;
@@ -72,7 +74,11 @@ public class TamagoCDLEaseFactory {
 	public static TMethod method(TType tType, String name,
 			Collection<TParameter> collection, String id,
 			TCondition pre, TCondition post) {
-		return new TIMethod(name,id,tType,collection,pre,post);
+		
+		TICondition nopre = new TICondition(new TINoContract());
+		TICondition nopost = new TICondition(new TINoContract());
+		
+		return new TIMethod(name,id,tType,collection,pre==null? nopre: pre,post==null? nopost : post);
 	}
 
 	public static TParameter param(TType t, String string) {
@@ -249,16 +255,20 @@ public class TamagoCDLEaseFactory {
 
 	public static TTamagoEntity entity(String mod, Collection<TNamespace> uses,
 			TTamagoEntity value) {
-		// TODO Auto-generated method stub
-		return null;
+		TITamago root = (TITamago) value;
+		root.setModule(mod);
+		root.addNamespaces(uses);
+		return root;
 	}
 
 	public static TService service(String name, Collection<TImplements> impls,
 			Collection<TRefineService> refs, Collection<TIncludeService> incs,
 			Collection<TProperty> props, Collection<TInvariant> invs,
 			Collection<TMethod> meths, TBehavior beh) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<TExtendService> extensions = new ArrayList<TExtendService>(refs);
+		extensions.addAll(incs);
+		TIService service = new TIService(name, "","",meths, props,invs,beh,extensions,impls,new ArrayList<TNamespace>(), new ArrayList<TType>());
+		return service;
 	}
 
 	

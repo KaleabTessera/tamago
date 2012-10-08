@@ -233,6 +233,14 @@ public abstract class TITamago implements TTamago {
     	return namespaces;
     }
     
+    public void addNamespace(TNamespace namespace) {
+    	namespaces.add(namespace);
+    }
+    
+    public void addNamespaces(Collection<? extends TNamespace> coll) {
+    	namespaces.addAll(coll);
+    }
+    
 	/**
 	 * @see tamagocc.api.TTamagoEntity#getParametricType(int)
 	 */
@@ -307,4 +315,10 @@ public abstract class TITamago implements TTamago {
 	public void setName(String string) {
 		this.name = string;
 	}
+	
+	public void setModule(String string) {
+		this.module = string;
+	}
+	
+	
 }

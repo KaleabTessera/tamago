@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javapop.framework.DefaultParseContext;
-import javapop.framework.ParseError;
 import javapop.framework.ParseInput;
 import javapop.framework.ParseResult;
 import javapop.framework.generic.GenericGrammar;
@@ -51,7 +50,7 @@ public class TamagoCCParserCDL {
 	static GrammarGenerator gen;
 	
 	
-	private static String streamToString(String string) throws IOException {
+ 	private static String streamToString(String string) throws IOException {
 			DataInputStream dis =  new DataInputStream(new FileInputStream(string));
 			StringBuilder sb = new StringBuilder();
 			byte[] b = new byte[2048];
