@@ -3,94 +3,260 @@ package tamagocc.compiler;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.antlr.runtime.Token;
+
+import tamagocc.api.TBehavior;
 import tamagocc.api.TCondition;
 import tamagocc.api.TExpression;
+import tamagocc.api.TImplements;
 import tamagocc.api.TIncludeService;
 import tamagocc.api.TInvariant;
 import tamagocc.api.TMethod;
+import tamagocc.api.TNamespace;
+import tamagocc.api.TOpeName;
 import tamagocc.api.TParameter;
+import tamagocc.api.TProperty;
 import tamagocc.api.TRefineService;
+import tamagocc.api.TService;
+import tamagocc.api.TTamagoEntity;
 import tamagocc.api.TTransition;
 import tamagocc.api.TType;
+import tamagocc.exception.TamagoCCException;
+import tamagocc.impl.TIAtPre;
+import tamagocc.impl.TICategory;
+import tamagocc.impl.TICondition;
+import tamagocc.impl.TIExistColl;
+import tamagocc.impl.TIExistRange;
+import tamagocc.impl.TIExistSet;
+import tamagocc.impl.TIForallColl;
+import tamagocc.impl.TIForallRange;
+import tamagocc.impl.TIForallSet;
+import tamagocc.impl.TIInLabel;
+import tamagocc.impl.TIIncludeService;
+import tamagocc.impl.TIInvariant;
+import tamagocc.impl.TIMethod;
+import tamagocc.impl.TIOperator;
+import tamagocc.impl.TIParameter;
+import tamagocc.impl.TIRead;
+import tamagocc.impl.TIRefineService;
+import tamagocc.impl.TIReturn;
+import tamagocc.impl.TISet;
+import tamagocc.impl.TITransition;
+import tamagocc.impl.TIVariable;
+import tamagocc.util.TamagoCCPool;
 import tamagocc.util.Triplet;
 
 public class TamagoCDLEaseFactory {
 
 	public static TRefineService refine(String n, String m) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			TService service =(TService) TamagoCCPool.getDefaultPool().getTreeAbstractSyntax(n, m);
+			return new TIRefineService(n, m, service);
+		}
+		catch(TamagoCCException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
-	public static TIncludeService include(String n, String m) {
-		// TODO Auto-generated method stub
-		return null;
+	public static TIncludeService include(String n, String m)  {
+		try {
+			TService service =(TService) TamagoCCPool.getDefaultPool().getTreeAbstractSyntax(n, m);
+			return new TIIncludeService(n, m, service);
+		}
+		catch(TamagoCCException e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 
-	public static TMethod method(TType tType, String string,
-			Collection<TParameter> collection, String string2,
+	public static TMethod method(TType tType, String name,
+			Collection<TParameter> collection, String id,
 			TCondition pre, TCondition post) {
-		// TODO Auto-generated method stub
-		return null;
+		return new TIMethod(name,id,tType,collection,pre,post);
 	}
 
 	public static TParameter param(TType t, String string) {
-		// TODO Auto-generated method stub
-		return null;
+		return new TIParameter(string,t);
 	}
 
-	public static TTransition transition(String string, String string2,
-			String string3, TExpression guard) {
-		// TODO Auto-generated method stub
-		return null;
+	public static TTransition transition(String from, String to,
+			String with, TExpression guard) {
+		if(guard == null)
+			return new TITransition(from,to,with);
+		else
+			return new TITransition(from,to,with,guard);
 	}
 
-	public static TInvariant invariant(TExpression tExpression, String string) {
-		// TODO Auto-generated method stub
-		return null;
+	public static TInvariant invariant(TExpression tExpression, String msg) {
+		if(msg == null)
+			return new TIInvariant(tExpression, TICategory.NoCategory , "");
+		else
+			return new TIInvariant(tExpression, TICategory.NoCategory, msg);
 	}
 
 	public static TCondition precond(TExpression tExpression, String string) {
-		// TODO Auto-generated method stub
-		return null;
+		if(string == null)
+			return new TICondition(tExpression);
+		else
+			return new TICondition(tExpression, TICategory.NoCategory, string);
 	}
 
 	public static TCondition postcond(TExpression tExpression, String string) {
-		// TODO Auto-generated method stub
-		return null;
+		if(string == null)
+			return new TICondition(tExpression);
+		else
+			return new TICondition(tExpression, TICategory.NoCategory, string);
 	}
 
 	public static TExpression quant(String quant, String var, TType type,
 			String kind, Collection<Object> collection,
 			TExpression body) {
-		// TODO Auto-generated method stub
-		return null;
+			if("set".equalsIgnoreCase(kind)) {
+				Collection<TExpression> collexprs = new ArrayList<TExpression>();
+				for (Object object : collection) {
+					if(object instanceof TExpression)
+						collexprs.add((TExpression) object);
+				}
+				TISet set = new TISet(type, collexprs);
+				if("forall".equalsIgnoreCase(quant))
+					return new TIForallSet(type, new TIVariable(var), set, body);
+				else
+					return new TIExistSet(type, new TIVariable(var), set, body);
+			}
+			else if("coll".equalsIgnoreCase(kind)) {
+				TExpression coexpr = null;
+				for (Object object : collection) {
+					if(object instanceof TExpression)
+						coexpr = (TExpression)object;
+				}
+				if(coexpr == null || collection.size() != 1)
+					throw new RuntimeException("Quantifier expression on collection without correct expression!");
+				if("forall".equalsIgnoreCase(quant))
+					return new TIForallColl(type, new TIVariable(var), coexpr, body);
+				else
+					return new TIExistColl(type, new TIVariable(var), coexpr, body);
+			}
+			else if("range".equalsIgnoreCase(kind)) {
+				TExpression start = null;
+				TExpression end = null;
+				for (Object object : collection) {
+					if(object instanceof TExpression) {
+						if(start == null)
+							start = (TExpression) object;
+						else
+							end = (TExpression) object;
+					}
+				}
+				if(start == null || end == null || collection.size() != 2)
+					throw new RuntimeException("Quantifier expression on range is not correct!!!");
+				if("forall".equalsIgnoreCase(quant))
+					return new TIForallRange(type, new TIVariable(var), start, end, body);
+				else
+					return new TIExistRange(type, new TIVariable(var), start, end, body);
+			}
+			else
+				throw new RuntimeException("Unknow kind of quantifier!!");
 	}
 
 	public static TExpression operator(String op, ArrayList<TExpression> exprs) {
-		// TODO Auto-generated method stub
-		return null;
+		TOpeName ope = null;
+		if("+".equalsIgnoreCase(op))
+			ope = TOpeName.opPlus;
+		else if("-".equalsIgnoreCase(op))
+			ope = TOpeName.opMinus;
+		else if("*".equalsIgnoreCase(op))
+			ope = TOpeName.opTimes;
+		else if("/".equalsIgnoreCase(op) || "div".equalsIgnoreCase(op))
+			ope = TOpeName.opQuo;
+		else if("%".equalsIgnoreCase(op) || "mod".equalsIgnoreCase(op))
+			ope = TOpeName.opMod;
+		else if("<=".equals(op))
+			ope = TOpeName.opInfEg;
+		else if("<".equals(op))
+			ope = TOpeName.opInf;
+		else if(">".equals(op))
+			ope = TOpeName.opSup;
+		else if(">=".equals(op))
+			ope = TOpeName.opSupEg;
+		else if("and".equalsIgnoreCase(op) || "&&".equals(op))
+			ope = TOpeName.opAnd;
+		else if("or".equalsIgnoreCase(op) || "||".equals(op))
+			ope = TOpeName.opOr;
+		else if("=>".equalsIgnoreCase(op) || "imply".equalsIgnoreCase(op) || "==>".equals(op))
+			ope = TOpeName.opImply;
+		else if("<=>".equalsIgnoreCase(op) || "equiv".equalsIgnoreCase(op) || "<==>".equals(op))
+			ope = TOpeName.opEquiv;
+		else if("==".equals(ope))
+			ope = TOpeName.opEg;
+		else if("!=".equals(op) || "<>".equals(op))
+			ope = TOpeName.opNe;
+		TIOperator expr = new TIOperator(ope,exprs);
+		return expr;
 	}
 
-	public static TExpression inlabelSelf(ArrayList sub,
+	public static TExpression inlabelSelf(TExpression sub,
 			Triplet<TExpression, Collection<TExpression>, Boolean> d) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		throw new RuntimeException("Unsupported expression with 'this'/'self' currently.");
 	}
 
 	public static TExpression inlabelReturn(
 			Triplet<TExpression, Collection<TExpression>, Boolean> a) {
+		if(a.r().booleanValue())
+			throw new RuntimeException("@pre operator on @return is not supported!!");
+		
+		TIReturn ret = new TIReturn(); 
+		if(a.l() != null)
+			ret = new TIReturn(a.l());
+		return ret;
+	}
+
+	public static TExpression inlabelRead(String string, TExpression sub,
+			Triplet<TExpression, Collection<TExpression>, Boolean> d) {
+		if(d.c() != null)
+			throw new RuntimeException("Error on '#"+string+"' called as a function");
+		TExpression read = null;
+		if(d.l() != null)
+			read = new TIRead(string, d.l());
+		else
+			read = new TIRead(string);
+		
+		if(sub != null)
+			read = new TIInLabel(read, sub);
+		
+		if(d.r().booleanValue())
+			read = new TIAtPre(read);
+		return read;
+	}
+
+	public static TExpression inlabelVar(String string, TExpression sub,
+			Triplet<TExpression, Collection<TExpression>, Boolean> d) {
+		if(d.c() != null)
+			throw new RuntimeException("Error on '#"+string+"' called as a function");
+		TExpression read = null;
+		if(d.l() != null)
+			read = new TIVariable(string, d.l());
+		else
+			read = new TIVariable(string);
+		
+		if(sub != null)
+			read = new TIInLabel(read, sub);
+		
+		if(d.r().booleanValue())
+			read = new TIAtPre(read);
+		return read;
+	}
+
+	public static TTamagoEntity entity(String mod, Collection<TNamespace> uses,
+			TTamagoEntity value) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public static TExpression inlabelRead(String string, ArrayList<String> sub,
-			Triplet<TExpression, Collection<TExpression>, Boolean> d) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public static TExpression inlabelVar(String string, ArrayList<String> sub,
-			Triplet<TExpression, Collection<TExpression>, Boolean> d) {
+	public static TService service(String name, Collection<TImplements> impls,
+			Collection<TRefineService> refs, Collection<TIncludeService> incs,
+			Collection<TProperty> props, Collection<TInvariant> invs,
+			Collection<TMethod> meths, TBehavior beh) {
 		// TODO Auto-generated method stub
 		return null;
 	}
