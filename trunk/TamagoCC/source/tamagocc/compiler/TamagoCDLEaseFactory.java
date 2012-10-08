@@ -26,6 +26,7 @@ import tamagocc.api.TTransition;
 import tamagocc.api.TType;
 import tamagocc.exception.TamagoCCException;
 import tamagocc.impl.TIAtPre;
+import tamagocc.impl.TIBehavior;
 import tamagocc.impl.TICategory;
 import tamagocc.impl.TIComposant;
 import tamagocc.impl.TICondition;
@@ -303,7 +304,7 @@ public class TamagoCDLEaseFactory {
 			Collection<TRequire> incs, Collection<TProperty> props,
 			Collection<TInvariant> invs, Collection<TMethod> meths,
 			TBehavior beh, Collection<TPercolator> percos) {
-		return new TIComposant(name, "", props, refs, incs, invs, meths, beh, percos, impls,new ArrayList<TNamespace>(), new ArrayList<TType>());
+		return new TIComposant(name, "", props, refs, incs, invs, meths, beh==null? TIBehavior.NoBehavior : beh, percos, impls,new ArrayList<TNamespace>(), new ArrayList<TType>());
 	}
 
 	

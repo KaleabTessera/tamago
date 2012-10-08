@@ -1,6 +1,6 @@
 module org.tamago.example;
 
-using java.lang.String;
+using java.lang.*;
 
 service Bucket {
 	property read int quantity;
