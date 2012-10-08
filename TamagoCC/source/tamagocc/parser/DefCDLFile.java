@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import tamagocc.exception.LineParserException;
 import tamagocc.util.lineparser.LineParserDefaultSpec;
 
-class DefCDLFile implements LineParserDefaultSpec {
+public class DefCDLFile implements LineParserDefaultSpec {
 	ArrayList<String> files = new ArrayList<String>();
 	@Override
 	public String getDescription() {
