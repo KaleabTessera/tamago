@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import tamagocc.api.TBehavior;
+import tamagocc.api.TComponent;
 import tamagocc.api.TCondition;
 import tamagocc.api.TExpression;
 import tamagocc.api.TExtendService;
@@ -14,8 +15,11 @@ import tamagocc.api.TMethod;
 import tamagocc.api.TNamespace;
 import tamagocc.api.TOpeName;
 import tamagocc.api.TParameter;
+import tamagocc.api.TPercolator;
 import tamagocc.api.TProperty;
+import tamagocc.api.TProvide;
 import tamagocc.api.TRefineService;
+import tamagocc.api.TRequire;
 import tamagocc.api.TService;
 import tamagocc.api.TTamagoEntity;
 import tamagocc.api.TTransition;
@@ -23,6 +27,7 @@ import tamagocc.api.TType;
 import tamagocc.exception.TamagoCCException;
 import tamagocc.impl.TIAtPre;
 import tamagocc.impl.TICategory;
+import tamagocc.impl.TIComposant;
 import tamagocc.impl.TICondition;
 import tamagocc.impl.TIExistColl;
 import tamagocc.impl.TIExistRange;
@@ -37,8 +42,10 @@ import tamagocc.impl.TIMethod;
 import tamagocc.impl.TINoContract;
 import tamagocc.impl.TIOperator;
 import tamagocc.impl.TIParameter;
+import tamagocc.impl.TIProvide;
 import tamagocc.impl.TIRead;
 import tamagocc.impl.TIRefineService;
+import tamagocc.impl.TIRequire;
 import tamagocc.impl.TIReturn;
 import tamagocc.impl.TIService;
 import tamagocc.impl.TISet;
@@ -269,6 +276,34 @@ public class TamagoCDLEaseFactory {
 		extensions.addAll(incs);
 		TIService service = new TIService(name, "","",meths, props,invs,beh,extensions,impls,new ArrayList<TNamespace>(), new ArrayList<TType>());
 		return service;
+	}
+
+	public static TRequire require(String n, String m, String l) {
+		try {
+			TService service = (TService)TamagoCCPool.getDefaultPool().getTreeAbstractSyntax(n, m);
+			return new TIRequire(l, n, m, service);
+		} catch (TamagoCCException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public static TProvide provide(String n, String m) {
+		TService tamago;
+		try {
+			tamago = (TService) TamagoCCPool.getDefaultPool().getTreeAbstractSyntax(n, m);
+			return new TIProvide(n, m, tamago);
+		} catch (TamagoCCException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+
+	public static TComponent component(String name,
+			Collection<TImplements> impls, Collection<TProvide> refs,
+			Collection<TRequire> incs, Collection<TProperty> props,
+			Collection<TInvariant> invs, Collection<TMethod> meths,
+			TBehavior beh, Collection<TPercolator> percos) {
+		return new TIComposant(name, "", props, refs, incs, invs, meths, beh, percos, impls,new ArrayList<TNamespace>(), new ArrayList<TType>());
 	}
 
 	
