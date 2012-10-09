@@ -269,7 +269,7 @@ public class TamagoCDLEaseFactory {
 		return root;
 	}
 
-	public static TService service(String name, Collection<TImplements> impls,
+	public static TService service(TService source,String name, Collection<TImplements> impls,
 			Collection<TRefineService> refs, Collection<TIncludeService> incs,
 			Collection<TProperty> props, Collection<TInvariant> invs,
 			Collection<TMethod> meths, TBehavior beh) {
@@ -299,7 +299,7 @@ public class TamagoCDLEaseFactory {
 		
 	}
 
-	public static TComponent component(String name,
+	public static TComponent component(TComponent source, String name,
 			Collection<TImplements> impls, Collection<TProvide> refs,
 			Collection<TRequire> incs, Collection<TProperty> props,
 			Collection<TInvariant> invs, Collection<TMethod> meths,

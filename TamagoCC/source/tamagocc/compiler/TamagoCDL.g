@@ -38,27 +38,8 @@ tamagoEntity returns [TTamagoEntity value, String mod, Collection<TNamespace> us
 }
 	:	m=moduleDeclaration
 	(u=usingDeclaration { $uses.add($u.value); })*
-	  (s=serviceEntity { $mod=$m.value; $value =$s.value; }
-	   | c=componentEntity { $mod=$m.value; $value=$c.value; })
+	s=serviceEntity { $mod=$m.value; $value =$s.value; }
 	;
-	
-	
-percolator returns [TPercolator value]
-	 :	'percolator'^ ('*' { $value = TIPercolator.getAllPercolator();  }
-	  		| ID { $value = new TIPercolator($ID.text); }) ';'!
-	 ;
-
-
-require returns [TRequire value]
-	:	'require'^ 'service'! n=ID 'in'! q=qualifiedName 'as'! l=ID ';'! 
-		{ $value = TamagoCDLEaseFactory.require($n.text,$q.value,$l.text);  }
-	;	
-	
-
-provide returns [TProvide value]
-	:	'provide'^ 'service'! n=ID 'in'! q=qualifiedName ';'! 
-		{ $value = TamagoCDLEaseFactory.provide($n.text,$q.value);  }
-	;	
 	
 moduleDeclaration returns [ String value ]
 @init { $value = ""; }
@@ -69,76 +50,131 @@ qualifiedName returns [String value ]
 @init {
 	$value="";
 }
-	:	s=ID ('.' d=ID {$value= $d.text+"."+$value; })* { $value=$s.text+"."+$value;  }
+	:	s=ID ('.'^ d=ID {$value= "."+$d.text+$value; })* { $value=$s.text+$value;  }
 	;
 	
 qualifiedNameWithWildCard returns [String value]
 @init { $value =""; }
-	:	( s=ID ('.' d=ID {$value=$d.text+"."+$value; } )* 
-	('.*' {$value=".*"; })? ) { $value=$s.text+"."+$value; }
+	:	( s=ID ('.' d=ID { $value=$value+"."+$d.text; } )* 
+	('.*' {$value=$value+".*"; })? ) { $value=$s.text+$value; }
 	;
 	
 usingDeclaration returns [TNamespace value]
 	:	'using'^ p=qualifiedNameWithWildCard ';'! { $value= new TINamespace($p.value); }
 	;
-	
-serviceEntity returns [TService value, String name,Collection<TImplements> impls, 
-	Collection<TRefineService> refs, Collection<TIncludeService> incs, Collection<TProperty> props,
-	Collection<TInvariant> invs, Collection<TMethod> meths, TBehavior beh]
-@init {
-$impls = new ArrayList<TImplements>();
-$refs = new ArrayList<TRefineService>();
-$incs = new ArrayList<TIncludeService>();
-$props = new ArrayList<TProperty>();
-$invs = new ArrayList<TInvariant>();
-$meths = new ArrayList<TMethod>();
-}
-@after {
-$value = TamagoCDLEaseFactory.service($name,$impls,$refs,$incs,$props,$invs,$meths,$beh);
-}
+
+percolator returns [TPercolator value]
+: 'percolator'^ ('*' { $value = TIPercolator.getAllPercolator(); }
+| ID { $value = new TIPercolator($ID.text); }) ';'!
+;
+
+
+require returns [TRequire value]
+: 'require'^ 'service'! n=ID 'in'! q=qualifiedName 'as'! l=ID ';'!
+{ $value = TamagoCDLEaseFactory.require($n.text,$q.value,$l.text); }
+;
+
+
+provide returns [TProvide value]
+: 'provide'^ 'service'! n=ID 'in'! q=qualifiedName ';'!
+{ $value = TamagoCDLEaseFactory.provide($n.text,$q.value); }
+; 
+
+serviceEntity returns [TService value, TBehavior beh]
 	:
 		'service'^ label=ID '{'!
-		(i=implementsInterface { $impls.add($i.value); })*
-		(r=refineService {$refs.add($r.value); })*
-		(c=includeService {$incs.add($c.value); } )*
-		(p=propertyDeclaration {$props.add($p.value); })*
-		(v=invariantExpression {$invs.add($v.value); })*
-		(x=methodDeclaration {$meths.add($x.value); })*
-		
+		impls=listimplements
+		refs=listrefine
+		incs=listinclude
+		props=listproperties
+		invs=listinvariants
+		meths=listmethods
+	
 		(b=behaviorDeclaration { $beh=$b.value; })?
 		'}'!
-		{ $name=$label.text; }
+		{
+		$value = TamagoCDLEaseFactory.service($value,$label.text,$impls.value,$refs.value,$incs.value,$props.value,$invs.value,$meths.value,$beh);
+		 }
 	;
 	
-componentEntity returns [TComponent value, String name,Collection<TPercolator> percos, Collection<TImplements> impls,
-	Collection<TProvide> refs, Collection<TRequire> incs, Collection<TProperty> props,
-	Collection<TInvariant> invs, Collection<TMethod> meths, TBehavior beh]
+listimplements returns [Collection<TImplements> value ]
 @init {
-$percos = new ArrayList<TPercolator>();
-$impls = new ArrayList<TImplements>();
-$refs = new ArrayList<TProvide>();
-$incs = new ArrayList<TRequire>();
-$props = new ArrayList<TProperty>();
-$invs = new ArrayList<TInvariant>();
-$meths = new ArrayList<TMethod>();
+	$value = new ArrayList<TImplements>();
+}
+	: (implementsInterface { $value.add($implementsInterface.value); } )*	
+	;
+	
+listrefine returns [Collection<TRefineService> value ]
+@init {
+	$value = new ArrayList<TRefineService>();
+}
+	: (refineService { $value.add($refineService.value); } )*	
+	;
+listinclude returns [Collection<TIncludeService> value ]
+@init {
+	$value = new ArrayList<TIncludeService>();
+}
+	: (includeService { $value.add($includeService.value); } )*	
+	;
+	
+listpercolators returns [Collection<TPercolator> value]
+@init {
+$value = new ArrayList<TPercolator>();
 }
 @after {
-$value = TamagoCDLEaseFactory.component($name,$impls,$refs,$incs,$props,$invs,$meths,$beh,$percos);
+ if($value.size() == 0)
+ 	$value.add(TIPercolator.getAllPercolator());
 }
-	:
-		'component'^ label=ID '{'!
-		(o=percolator { $percos.add($o.value); } )*
-		(i=implementsInterface { $impls.add($i.value); })*
-		((c=require {$incs.add($c.value); } )*
-		(r=provide {$refs.add($r.value); })* )*
-		(p=propertyDeclaration {$props.add($p.value); })*
-		(v=invariantExpression {$invs.add($v.value); })*
-		(x=methodDeclaration {$meths.add($x.value); })*
-		
-		(b=behaviorDeclaration { $beh=$b.value; })?
-		'}'!
-		{ $name=$label.text; }
+	: (p=percolator { $value.add($p.value); } )*
 	;
+listproperties returns [Collection<TProperty> value]
+@init {
+$value = new ArrayList<TProperty>();
+}
+	: (propertyDeclaration { $value.add($propertyDeclaration.value); })*
+ 	;
+
+listprovides returns [Collection<TProvide> value]
+@init {
+ $value = new ArrayList<TProvide>();
+}
+	: (provide { $value.add($provide.value); })*
+	;
+listrequires returns [Collection<TRequire> value]
+@init {
+ $value = new ArrayList<TRequire>();
+}
+	: (require { $value.add($require.value); })*
+	;
+listinvariants returns [ Collection<TInvariant> value]
+@init {
+$value = new ArrayList<TInvariant>();
+}
+	: (invariantExpression { $value.add($invariantExpression.value) ; })*
+	;
+	
+listmethods returns [ Collection<TMethod> value]
+@init {
+$value = new ArrayList<TMethod>();
+}
+	: (methodDeclaration { $value.add($methodDeclaration.value) ; } )*
+	;
+	
+
+componentEntity returns [TComponent value, TBehavior beh]
+:
+'component'^ label=ID '{'!
+lperc=listpercolators
+limpl=listimplements
+lreq=listrequires
+lprov=listprovides
+lprop=listproperties
+linvs=listinvariants
+lmeth=listmethods
+(b=behaviorDeclaration { $beh=$b.value; })?
+'}'!
+{ $value = TamagoCDLEaseFactory.component($value,$label.text,$limpl.value,$lprov.value,$lreq.value,$lprop.value,$linvs.value,$lmeth.value,$beh,$lperc.value);}
+;
 	
 implementsInterface returns [TImplements value]
 	:	'implements'^ p=qualifiedName ';'! { $value = new TIImplements($p.value); }
