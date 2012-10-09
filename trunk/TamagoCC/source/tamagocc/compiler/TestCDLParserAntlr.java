@@ -61,7 +61,7 @@ public class TestCDLParserAntlr {
 		
 		lineparser.parse(args);
 		
-		//def.addItem("Bucket.cdl");
+		def.addItem("Bucket.cdl");
 		
 		if(def.getFiles().size() == 0) {
 			TamagoCCLogger.println(1, lineparser.toString());
@@ -117,10 +117,7 @@ public class TestCDLParserAntlr {
 		}
 	}
 	
-	/**
-	 * @param args
-	 * @throws IOException 
-	 */
+
 	/*public static void main(String[] args) throws IOException {
 		ANTLRFileStream file = new ANTLRFileStream("Bucket.cdl");
 		TamagoCDLLexer lexer = new TamagoCDLLexer(file);
