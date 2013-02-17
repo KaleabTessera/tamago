@@ -81,20 +81,31 @@ provide returns [TProvide value]
 { $value = TamagoCDLEaseFactory.provide($n.text,$q.value); }
 ; 
 
-serviceEntity returns [TService value, TBehavior beh]
+serviceEntity returns [TService value, TBehavior beh, Collection<TImplements> aimpls, Collection<TRefineService> arefs,
+	Collection<TIncludeService> aincs, Collection<TProperty> aprop, Collection<TInvariant> ainvs, Collection<TMethod> ameth]
+@init {
+ $aimpls = new ArrayList<TImplements>();
+ $arefs  = new ArrayList<TRefineService>();
+ $aincs  = new ArrayList<TIncludeService>();
+ $aprop  = new ArrayList<TProperty>();
+ $ainvs  = new ArrayList<TInvariant>();
+ $ameth  = new ArrayList<TMethod>();
+}
 	:
 		'service'^ label=ID '{'!
-		impls=listimplements
-		refs=listrefine
-		incs=listinclude
-		props=listproperties
-		invs=listinvariants
-		meths=listmethods
-	
+		(
+		impls=implementsInterface { $aimpls.add($impls.value); }
+		| refs=refineService { $arefs.add($refs.value); }
+		| incs=includeService { $aincs.add($incs.value); }
+		| props=propertyDeclaration { $aprop.add($props.value); }
+		| invs=invariantExpression  { $ainvs.add($invs.value); }
+		| meths=methodDeclaration { $ameth.add($meths.value); }
+		)*
+		
 		(b=behaviorDeclaration { $beh=$b.value; })?
 		'}'!
 		{
-		$value = TamagoCDLEaseFactory.service($value,$label.text,$impls.value,$refs.value,$incs.value,$props.value,$invs.value,$meths.value,$beh);
+		$value = TamagoCDLEaseFactory.service($value,$label.text,$aimpls,$arefs,$aincs,$aprop,$ainvs,$ameth,$beh);
 		 }
 	;
 	
@@ -523,7 +534,7 @@ arrayIndexExpression returns [TExpression value]
 NOTOPERATOR:	'not' | '!';
 MULTOP	:	'*' | '/' | 'div' | 'mod' | '%';
 ADDOP	:	'+' | '-';
-RELOP	:	'<' '=' | '>' '=' | '>' | '<' |'==' |'=' | '!=' | '<>';
+RELOP	:	'<=' | '>=' | '>' | '<' |'==' | '!=' | '<>';
 QUANTIFIER:	'forall'|'FORALL'|'exists'|'EXISTS';
 
 ID  :	('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
