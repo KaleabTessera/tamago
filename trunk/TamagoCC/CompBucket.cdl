@@ -3,15 +3,17 @@ module org.tamago.example;
 
 
 component CompBucket {
-	provide service Bucket in org.tamago.example;
 		
 	require service Bucket in org.tamago.example as a;
 	require service Bucket in org.tamago.example as b;
 	require service Bucket in org.tamago.example as c;
+	
+	provide service Bucket in org.tamago.example;
 		
 	method void foo() {
 		id qqchose;
 		//pre ((3+2) > 1);
+		post true && false || true && true && !false && 3<2+2 || (4 == 7);
 	}
 	
 }

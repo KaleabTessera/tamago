@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g 2013-02-17 10:25:40
+// $ANTLR 3.4 C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g 2013-02-17 21:47:16
 
 package tamagocc.compiler;
 
@@ -1636,7 +1636,7 @@ public class TamagoCDLLexer extends Lexer {
         try {
             int _type = NOTOPERATOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:523:12: ( 'not' | '!' )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:534:12: ( 'not' | '!' )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -1655,7 +1655,7 @@ public class TamagoCDLLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:523:14: 'not'
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:534:14: 'not'
                     {
                     match("not"); 
 
@@ -1664,7 +1664,7 @@ public class TamagoCDLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:523:22: '!'
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:534:22: '!'
                     {
                     match('!'); 
 
@@ -1686,7 +1686,7 @@ public class TamagoCDLLexer extends Lexer {
         try {
             int _type = MULTOP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:524:8: ( '*' | '/' | 'div' | 'mod' | '%' )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:535:8: ( '*' | '/' | 'div' | 'mod' | '%' )
             int alt2=5;
             switch ( input.LA(1) ) {
             case '*':
@@ -1724,21 +1724,21 @@ public class TamagoCDLLexer extends Lexer {
 
             switch (alt2) {
                 case 1 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:524:10: '*'
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:535:10: '*'
                     {
                     match('*'); 
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:524:16: '/'
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:535:16: '/'
                     {
                     match('/'); 
 
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:524:22: 'div'
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:535:22: 'div'
                     {
                     match("div"); 
 
@@ -1747,7 +1747,7 @@ public class TamagoCDLLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:524:30: 'mod'
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:535:30: 'mod'
                     {
                     match("mod"); 
 
@@ -1756,7 +1756,7 @@ public class TamagoCDLLexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:524:38: '%'
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:535:38: '%'
                     {
                     match('%'); 
 
@@ -1778,7 +1778,7 @@ public class TamagoCDLLexer extends Lexer {
         try {
             int _type = ADDOP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:525:7: ( '+' | '-' )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:536:7: ( '+' | '-' )
             // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:
             {
             if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
@@ -1807,8 +1807,8 @@ public class TamagoCDLLexer extends Lexer {
         try {
             int _type = RELOP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:526:7: ( '<' '=' | '>' '=' | '>' | '<' | '==' | '=' | '!=' | '<>' )
-            int alt3=8;
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:537:7: ( '<=' | '>=' | '>' | '<' | '==' | '!=' | '<>' )
+            int alt3=7;
             switch ( input.LA(1) ) {
             case '<':
                 {
@@ -1820,7 +1820,7 @@ public class TamagoCDLLexer extends Lexer {
                     break;
                 case '>':
                     {
-                    alt3=8;
+                    alt3=7;
                     }
                     break;
                 default:
@@ -1843,19 +1843,12 @@ public class TamagoCDLLexer extends Lexer {
                 break;
             case '=':
                 {
-                int LA3_3 = input.LA(2);
-
-                if ( (LA3_3=='=') ) {
-                    alt3=5;
-                }
-                else {
-                    alt3=6;
-                }
+                alt3=5;
                 }
                 break;
             case '!':
                 {
-                alt3=7;
+                alt3=6;
                 }
                 break;
             default:
@@ -1868,39 +1861,39 @@ public class TamagoCDLLexer extends Lexer {
 
             switch (alt3) {
                 case 1 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:526:9: '<' '='
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:537:9: '<='
                     {
-                    match('<'); 
+                    match("<="); 
 
-                    match('='); 
+
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:526:19: '>' '='
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:537:16: '>='
                     {
-                    match('>'); 
+                    match(">="); 
 
-                    match('='); 
+
 
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:526:29: '>'
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:537:23: '>'
                     {
                     match('>'); 
 
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:526:35: '<'
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:537:29: '<'
                     {
                     match('<'); 
 
                     }
                     break;
                 case 5 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:526:40: '=='
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:537:34: '=='
                     {
                     match("=="); 
 
@@ -1909,14 +1902,7 @@ public class TamagoCDLLexer extends Lexer {
                     }
                     break;
                 case 6 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:526:46: '='
-                    {
-                    match('='); 
-
-                    }
-                    break;
-                case 7 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:526:52: '!='
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:537:41: '!='
                     {
                     match("!="); 
 
@@ -1924,8 +1910,8 @@ public class TamagoCDLLexer extends Lexer {
 
                     }
                     break;
-                case 8 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:526:59: '<>'
+                case 7 :
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:537:48: '<>'
                     {
                     match("<>"); 
 
@@ -1949,7 +1935,7 @@ public class TamagoCDLLexer extends Lexer {
         try {
             int _type = QUANTIFIER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:527:11: ( 'forall' | 'FORALL' | 'exists' | 'EXISTS' )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:538:11: ( 'forall' | 'FORALL' | 'exists' | 'EXISTS' )
             int alt4=4;
             switch ( input.LA(1) ) {
             case 'f':
@@ -1982,7 +1968,7 @@ public class TamagoCDLLexer extends Lexer {
 
             switch (alt4) {
                 case 1 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:527:13: 'forall'
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:538:13: 'forall'
                     {
                     match("forall"); 
 
@@ -1991,7 +1977,7 @@ public class TamagoCDLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:527:22: 'FORALL'
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:538:22: 'FORALL'
                     {
                     match("FORALL"); 
 
@@ -2000,7 +1986,7 @@ public class TamagoCDLLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:527:31: 'exists'
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:538:31: 'exists'
                     {
                     match("exists"); 
 
@@ -2009,7 +1995,7 @@ public class TamagoCDLLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:527:40: 'EXISTS'
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:538:40: 'EXISTS'
                     {
                     match("EXISTS"); 
 
@@ -2033,8 +2019,8 @@ public class TamagoCDLLexer extends Lexer {
         try {
             int _type = ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:529:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:529:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:540:5: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:540:7: ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -2046,7 +2032,7 @@ public class TamagoCDLLexer extends Lexer {
             }
 
 
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:529:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:540:31: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop5:
             do {
                 int alt5=2;
@@ -2096,10 +2082,10 @@ public class TamagoCDLLexer extends Lexer {
         try {
             int _type = INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:532:5: ( ( '-' )? ( '0' .. '9' )+ )
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:532:7: ( '-' )? ( '0' .. '9' )+
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:543:5: ( ( '-' )? ( '0' .. '9' )+ )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:543:7: ( '-' )? ( '0' .. '9' )+
             {
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:532:7: ( '-' )?
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:543:7: ( '-' )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -2108,7 +2094,7 @@ public class TamagoCDLLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:532:8: '-'
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:543:8: '-'
                     {
                     match('-'); 
 
@@ -2118,7 +2104,7 @@ public class TamagoCDLLexer extends Lexer {
             }
 
 
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:532:13: ( '0' .. '9' )+
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:543:13: ( '0' .. '9' )+
             int cnt7=0;
             loop7:
             do {
@@ -2173,10 +2159,10 @@ public class TamagoCDLLexer extends Lexer {
         try {
             int _type = FLOAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:536:5: ( ( '-' )? ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT ) )
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:536:9: ( '-' )? ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:547:5: ( ( '-' )? ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT ) )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:547:9: ( '-' )? ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
             {
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:536:9: ( '-' )?
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:547:9: ( '-' )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -2185,7 +2171,7 @@ public class TamagoCDLLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:536:10: '-'
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:547:10: '-'
                     {
                     match('-'); 
 
@@ -2195,14 +2181,14 @@ public class TamagoCDLLexer extends Lexer {
             }
 
 
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:536:15: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:547:15: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )
             int alt15=3;
             alt15 = dfa15.predict(input);
             switch (alt15) {
                 case 1 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:536:16: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:547:16: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )?
                     {
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:536:16: ( '0' .. '9' )+
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:547:16: ( '0' .. '9' )+
                     int cnt9=0;
                     loop9:
                     do {
@@ -2243,7 +2229,7 @@ public class TamagoCDLLexer extends Lexer {
 
                     match('.'); 
 
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:536:32: ( '0' .. '9' )*
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:547:32: ( '0' .. '9' )*
                     loop10:
                     do {
                         int alt10=2;
@@ -2277,7 +2263,7 @@ public class TamagoCDLLexer extends Lexer {
                     } while (true);
 
 
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:536:44: ( EXPONENT )?
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:547:44: ( EXPONENT )?
                     int alt11=2;
                     int LA11_0 = input.LA(1);
 
@@ -2286,7 +2272,7 @@ public class TamagoCDLLexer extends Lexer {
                     }
                     switch (alt11) {
                         case 1 :
-                            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:536:44: EXPONENT
+                            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:547:44: EXPONENT
                             {
                             mEXPONENT(); 
 
@@ -2300,11 +2286,11 @@ public class TamagoCDLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:537:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:548:9: '.' ( '0' .. '9' )+ ( EXPONENT )?
                     {
                     match('.'); 
 
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:537:13: ( '0' .. '9' )+
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:548:13: ( '0' .. '9' )+
                     int cnt12=0;
                     loop12:
                     do {
@@ -2343,7 +2329,7 @@ public class TamagoCDLLexer extends Lexer {
                     } while (true);
 
 
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:537:25: ( EXPONENT )?
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:548:25: ( EXPONENT )?
                     int alt13=2;
                     int LA13_0 = input.LA(1);
 
@@ -2352,7 +2338,7 @@ public class TamagoCDLLexer extends Lexer {
                     }
                     switch (alt13) {
                         case 1 :
-                            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:537:25: EXPONENT
+                            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:548:25: EXPONENT
                             {
                             mEXPONENT(); 
 
@@ -2366,9 +2352,9 @@ public class TamagoCDLLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:538:9: ( '0' .. '9' )+ EXPONENT
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:549:9: ( '0' .. '9' )+ EXPONENT
                     {
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:538:9: ( '0' .. '9' )+
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:549:9: ( '0' .. '9' )+
                     int cnt14=0;
                     loop14:
                     do {
@@ -2432,7 +2418,7 @@ public class TamagoCDLLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:542:5: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' | '/*' ( options {greedy=false; } : . )* '*/' )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:553:5: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' | '/*' ( options {greedy=false; } : . )* '*/' )
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -2462,13 +2448,13 @@ public class TamagoCDLLexer extends Lexer {
             }
             switch (alt19) {
                 case 1 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:542:9: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:553:9: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
                     {
                     match("//"); 
 
 
 
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:542:14: (~ ( '\\n' | '\\r' ) )*
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:553:14: (~ ( '\\n' | '\\r' ) )*
                     loop16:
                     do {
                         int alt16=2;
@@ -2502,7 +2488,7 @@ public class TamagoCDLLexer extends Lexer {
                     } while (true);
 
 
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:542:28: ( '\\r' )?
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:553:28: ( '\\r' )?
                     int alt17=2;
                     int LA17_0 = input.LA(1);
 
@@ -2511,7 +2497,7 @@ public class TamagoCDLLexer extends Lexer {
                     }
                     switch (alt17) {
                         case 1 :
-                            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:542:28: '\\r'
+                            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:553:28: '\\r'
                             {
                             match('\r'); 
 
@@ -2528,13 +2514,13 @@ public class TamagoCDLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:543:9: '/*' ( options {greedy=false; } : . )* '*/'
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:554:9: '/*' ( options {greedy=false; } : . )* '*/'
                     {
                     match("/*"); 
 
 
 
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:543:14: ( options {greedy=false; } : . )*
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:554:14: ( options {greedy=false; } : . )*
                     loop18:
                     do {
                         int alt18=2;
@@ -2559,7 +2545,7 @@ public class TamagoCDLLexer extends Lexer {
 
                         switch (alt18) {
                     	case 1 :
-                    	    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:543:42: .
+                    	    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:554:42: .
                     	    {
                     	    matchAny(); 
 
@@ -2596,8 +2582,8 @@ public class TamagoCDLLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:546:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:546:9: ( ' ' | '\\t' | '\\r' | '\\n' )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:557:5: ( ( ' ' | '\\t' | '\\r' | '\\n' ) )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:557:9: ( ' ' | '\\t' | '\\r' | '\\n' )
             {
             if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -2627,12 +2613,12 @@ public class TamagoCDLLexer extends Lexer {
         try {
             int _type = STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:554:5: ( '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"' )
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:554:8: '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"'
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:565:5: ( '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"' )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:565:8: '\"' ( ESC_SEQ |~ ( '\\\\' | '\"' ) )* '\"'
             {
             match('\"'); 
 
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:554:12: ( ESC_SEQ |~ ( '\\\\' | '\"' ) )*
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:565:12: ( ESC_SEQ |~ ( '\\\\' | '\"' ) )*
             loop20:
             do {
                 int alt20=3;
@@ -2648,7 +2634,7 @@ public class TamagoCDLLexer extends Lexer {
 
                 switch (alt20) {
             	case 1 :
-            	    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:554:14: ESC_SEQ
+            	    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:565:14: ESC_SEQ
             	    {
             	    mESC_SEQ(); 
 
@@ -2656,7 +2642,7 @@ public class TamagoCDLLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:554:24: ~ ( '\\\\' | '\"' )
+            	    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:565:24: ~ ( '\\\\' | '\"' )
             	    {
             	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '[')||(input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) {
             	        input.consume();
@@ -2693,8 +2679,8 @@ public class TamagoCDLLexer extends Lexer {
     // $ANTLR start "EXPONENT"
     public final void mEXPONENT() throws RecognitionException {
         try {
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:559:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:559:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:570:10: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:570:12: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -2706,7 +2692,7 @@ public class TamagoCDLLexer extends Lexer {
             }
 
 
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:559:22: ( '+' | '-' )?
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:570:22: ( '+' | '-' )?
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -2733,7 +2719,7 @@ public class TamagoCDLLexer extends Lexer {
             }
 
 
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:559:33: ( '0' .. '9' )+
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:570:33: ( '0' .. '9' )+
             int cnt22=0;
             loop22:
             do {
@@ -2785,7 +2771,7 @@ public class TamagoCDLLexer extends Lexer {
     // $ANTLR start "HEX_DIGIT"
     public final void mHEX_DIGIT() throws RecognitionException {
         try {
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:562:11: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:573:11: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
             // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'F')||(input.LA(1) >= 'a' && input.LA(1) <= 'f') ) {
@@ -2811,7 +2797,7 @@ public class TamagoCDLLexer extends Lexer {
     // $ANTLR start "ESC_SEQ"
     public final void mESC_SEQ() throws RecognitionException {
         try {
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:566:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:577:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' ) | UNICODE_ESC | OCTAL_ESC )
             int alt23=3;
             int LA23_0 = input.LA(1);
 
@@ -2864,7 +2850,7 @@ public class TamagoCDLLexer extends Lexer {
             }
             switch (alt23) {
                 case 1 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:566:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:577:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' )
                     {
                     match('\\'); 
 
@@ -2881,7 +2867,7 @@ public class TamagoCDLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:567:9: UNICODE_ESC
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:578:9: UNICODE_ESC
                     {
                     mUNICODE_ESC(); 
 
@@ -2889,7 +2875,7 @@ public class TamagoCDLLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:568:9: OCTAL_ESC
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:579:9: OCTAL_ESC
                     {
                     mOCTAL_ESC(); 
 
@@ -2909,7 +2895,7 @@ public class TamagoCDLLexer extends Lexer {
     // $ANTLR start "OCTAL_ESC"
     public final void mOCTAL_ESC() throws RecognitionException {
         try {
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:573:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:584:5: ( '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) ( '0' .. '7' ) | '\\\\' ( '0' .. '7' ) )
             int alt24=3;
             int LA24_0 = input.LA(1);
 
@@ -2960,7 +2946,7 @@ public class TamagoCDLLexer extends Lexer {
             }
             switch (alt24) {
                 case 1 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:573:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:584:9: '\\\\' ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     match('\\'); 
 
@@ -2997,7 +2983,7 @@ public class TamagoCDLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:574:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:585:9: '\\\\' ( '0' .. '7' ) ( '0' .. '7' )
                     {
                     match('\\'); 
 
@@ -3024,7 +3010,7 @@ public class TamagoCDLLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:575:9: '\\\\' ( '0' .. '7' )
+                    // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:586:9: '\\\\' ( '0' .. '7' )
                     {
                     match('\\'); 
 
@@ -3053,8 +3039,8 @@ public class TamagoCDLLexer extends Lexer {
     // $ANTLR start "UNICODE_ESC"
     public final void mUNICODE_ESC() throws RecognitionException {
         try {
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:580:5: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
-            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:580:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:591:5: ( '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT )
+            // C:\\Users\\hakim\\Documents\\recherche\\Tamago\\TamagoCC\\source\\tamagocc\\compiler\\TamagoCDL.g:591:9: '\\\\' 'u' HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
             {
             match('\\'); 
 
@@ -3769,7 +3755,7 @@ public class TamagoCDLLexer extends Lexer {
             this.transition = DFA15_transition;
         }
         public String getDescription() {
-            return "536:15: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )";
+            return "547:15: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( EXPONENT )? | '.' ( '0' .. '9' )+ ( EXPONENT )? | ( '0' .. '9' )+ EXPONENT )";
         }
     }
     static final String DFA25_eotS =

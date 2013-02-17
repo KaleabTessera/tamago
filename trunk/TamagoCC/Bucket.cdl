@@ -5,8 +5,8 @@ using java.lang.*;
 service Bucket {
 	property read int quantity;
 	method void foo(int a) {
-		id foo;
-		//pre @instate(toto);
+        id foo;
+		//post 4+3 == 7;
 	}
 	
 	behavior {

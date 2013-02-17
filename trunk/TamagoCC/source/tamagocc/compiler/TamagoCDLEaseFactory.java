@@ -178,6 +178,12 @@ public class TamagoCDLEaseFactory {
 	}
 
 	public static TExpression operator(String op, ArrayList<TExpression> exprs) {
+		if(op == null) {
+			if(exprs.size() == 1)
+				return exprs.get(0);
+			else
+				throw new RuntimeException("unknow operator");
+		}
 		TOpeName ope = null;
 		if("+".equalsIgnoreCase(op))
 			ope = TOpeName.opPlus;
@@ -205,10 +211,12 @@ public class TamagoCDLEaseFactory {
 			ope = TOpeName.opImply;
 		else if("<=>".equalsIgnoreCase(op) || "equiv".equalsIgnoreCase(op) || "<==>".equals(op))
 			ope = TOpeName.opEquiv;
-		else if("==".equals(ope))
+		else if("==".equals(op) || "=".equals(op))
 			ope = TOpeName.opEg;
 		else if("!=".equals(op) || "<>".equals(op))
 			ope = TOpeName.opNe;
+		else
+			throw new RuntimeException("Unknown operator '"+op+"'");
 		TIOperator expr = new TIOperator(ope,exprs);
 		return expr;
 	}

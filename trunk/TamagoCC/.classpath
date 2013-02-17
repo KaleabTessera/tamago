@@ -4,6 +4,7 @@
 	<classpathentry kind="src" path="tests"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="jars/openjgraph.jar"/>
+	<classpathentry kind="lib" path="jars/antlr-3.4-complete.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/JavaPop2"/>
 	<classpathentry kind="output" path="bin"/>
