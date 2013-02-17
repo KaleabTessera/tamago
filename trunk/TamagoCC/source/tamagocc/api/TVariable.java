@@ -6,7 +6,7 @@ import tamagocc.api.TExpression;;
  * This interface is used in assertion to represent a variable.
  * @author Hakim Belhaouari
  */
-public interface TVariable extends TExpression {
+public interface TVariable extends TExpression, TIndexExpression {
 	
 	/**
 	 * @return Return the name of the variable

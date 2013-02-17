@@ -62,6 +62,7 @@ public class TestCDLParserAntlr {
 		lineparser.parse(args);
 		
 		def.addItem("Bucket.cdl");
+		def.addItem("CompBucket.cdl");
 		
 		if(def.getFiles().size() == 0) {
 			TamagoCCLogger.println(1, lineparser.toString());

@@ -6,7 +6,7 @@ package tamagocc.api;
  * 
  * @author Hakim BELHAOUARI
  */
-public interface TReturn extends TExpression {
+public interface TReturn extends TExpression, TIndexExpression {
 	boolean hasIndex();
 	
 	TExpression getIndex();

@@ -25,6 +25,12 @@ public class TIReturn implements TReturn {
         super();
         this.idx = idx;
     }
+    
+    
+    public void setIndex(TExpression idx) {
+    	this.idx = idx;
+    }
+    
     /**
      * @see tamagocc.api.TExprBool#getCat()
      */
