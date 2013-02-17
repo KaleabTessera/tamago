@@ -2,8 +2,8 @@
 grammar TamagoCDL;
 
 options { 
-    backtrack=true;
-    memoize=true;
+    //backtrack=true;
+    //memoize=true;
     output=AST;
     ASTLabelType=CommonTree;
 }
@@ -38,7 +38,8 @@ tamagoEntity returns [TTamagoEntity value, String mod, Collection<TNamespace> us
 }
 	:	m=moduleDeclaration
 	(u=usingDeclaration { $uses.add($u.value); })*
-	s=serviceEntity { $mod=$m.value; $value =$s.value; }
+	(s=serviceEntity { $mod=$m.value; $value =$s.value; }
+	| c=componentEntity { $mod=$m.value; $value=$c.value; })
 	;
 	
 moduleDeclaration returns [ String value ]
@@ -121,59 +122,71 @@ listpercolators returns [Collection<TPercolator> value]
 @init {
 $value = new ArrayList<TPercolator>();
 }
-@after {
- if($value.size() == 0)
- 	$value.add(TIPercolator.getAllPercolator());
-}
-	: (p=percolator { $value.add($p.value); } )*
+//@after {
+// if($value.size() == 0)
+// 	$value.add(TIPercolator.getAllPercolator());
+//}
+	: (p=percolator { $value.add($p.value); } )+
 	;
 listproperties returns [Collection<TProperty> value]
 @init {
 $value = new ArrayList<TProperty>();
 }
-	: (propertyDeclaration { $value.add($propertyDeclaration.value); })*
+	: (propertyDeclaration { $value.add($propertyDeclaration.value); })+
  	;
 
 listprovides returns [Collection<TProvide> value]
 @init {
  $value = new ArrayList<TProvide>();
 }
-	: (provide { $value.add($provide.value); })*
+	: (provide { $value.add($provide.value); })+
 	;
 listrequires returns [Collection<TRequire> value]
 @init {
  $value = new ArrayList<TRequire>();
 }
-	: (require { $value.add($require.value); })*
+	: (require { $value.add($require.value); })+
 	;
 listinvariants returns [ Collection<TInvariant> value]
 @init {
 $value = new ArrayList<TInvariant>();
 }
-	: (invariantExpression { $value.add($invariantExpression.value) ; })*
+	: (invariantExpression { $value.add($invariantExpression.value) ; })+
 	;
 	
 listmethods returns [ Collection<TMethod> value]
 @init {
 $value = new ArrayList<TMethod>();
 }
-	: (methodDeclaration { $value.add($methodDeclaration.value) ; } )*
+	: (methodDeclaration { $value.add($methodDeclaration.value) ; } )+
 	;
 	
 
-componentEntity returns [TComponent value, TBehavior beh]
+componentEntity returns [TComponent value, TBehavior beh, Collection<TPercolator> aperc, Collection<TImplements> aimpl,
+	Collection<TRequire> areqs, Collection<TProvide> aprov, Collection<TProperty> aprop, Collection<TInvariant> ainvs,
+	Collection<TMethod> ameth ]
+@init {
+ $aperc = new ArrayList<TPercolator>();
+ $aimpl = new ArrayList<TImplements>();
+ $areqs = new ArrayList<TRequire>();
+ $aprov = new ArrayList<TProvide>();
+ $aprop = new ArrayList<TProperty>();
+ $ainvs = new ArrayList<TInvariant>();
+ $ameth = new ArrayList<TMethod>();
+} // OSEF des listes de trucs on peut potentiellement les effacer!!
 :
 'component'^ label=ID '{'!
-lperc=listpercolators
-limpl=listimplements
-lreq=listrequires
-lprov=listprovides
-lprop=listproperties
-linvs=listinvariants
-lmeth=listmethods
+(
+lperc=percolator { $aperc.add($lperc.value); } |
+limpl=implementsInterface { $aimpl.add($limpl.value); } |
+lreq=require { $areqs.add($lreq.value); } |
+lprov=provide { $aprov.add($lprov.value); } |
+lprop=propertyDeclaration { $aprop.add($lprop.value); } |
+linvs=invariantExpression { $ainvs.add($linvs.value); } |
+lmeth=methodDeclaration { $ameth.add($lmeth.value); })*
 (b=behaviorDeclaration { $beh=$b.value; })?
 '}'!
-{ $value = TamagoCDLEaseFactory.component($value,$label.text,$limpl.value,$lprov.value,$lreq.value,$lprop.value,$linvs.value,$lmeth.value,$beh,$lperc.value);}
+{ $value = TamagoCDLEaseFactory.component($value,$label.text,$aimpl,$aprov,$areqs,$aprop,$ainvs,$ameth,$beh,$aperc);}
 ;
 	
 implementsInterface returns [TImplements value]
@@ -234,8 +247,8 @@ methodDeclaration returns [TMethod value]
 	:
 		'method'^ t=type n=ID a=parameters '{'!
 			('id'^ d=ID ';'!)?
-			('pre'^ p=preconditionExpression ';'!)?
-			('post'^ q=postconditionExpression ';'!)?
+			(p=preconditionExpression)?
+			(q=postconditionExpression)?
 		'}'!
 	{$value = TamagoCDLEaseFactory.method($t.value, $n.text, $a.params, $d.text, $p.value, $q.value); }
 	;
@@ -357,12 +370,12 @@ relQuantExpression returns [TExpression value]
 	  litBoolean { $value=$litBoolean.value; }
 	| quantExpression { $value=$quantExpression.value; }
 	| relExpression { $value=$relExpression.value; }
-	| primaryExpression { $value=$primaryExpression.value; }
 	| notExpression { $value=$notExpression.value; }
 	;
 
 notExpression returns [TExpression value]
-	:	NOTOPERATOR expression { $value = new TINot($expression.value); };
+	:	NOTOPERATOR relQuantExpression { $value = new TINot($relQuantExpression.value); }
+	;
 
 litBoolean returns [TBool value]
 	:	'true' { $value = new TIBool(true); } 
@@ -387,12 +400,15 @@ domainQuant returns [String kind, Collection<Object> value]
 $value = new ArrayList<Object>();
 }
 	:
-	'in' 'set' '[' a=expression (',' b=expression {$value.add($b.value);} )* ']' { $kind = "set"; $value.add($a.value);  }
-	|'in' 'coll' c=expression { $kind="coll"; $value.add(c.value); }
+	'in' ( 'set' '[' a=expression (',' b=expression {$value.add($b.value);} )* ']' { $kind = "set"; $value.add($a.value);  }
+	| 'coll' c=expression { $kind="coll"; $value.add(c.value); } )
 	| 'from' d=expression 'to' e=expression {$kind="range"; $value.add($d.value); $value.add($e.value); }
 	;
 
 relExpression returns [TExpression value, String op, ArrayList<TExpression> exprs ]
+@init {
+  $exprs = new ArrayList<TExpression>();
+}
 @after {
 $value = TamagoCDLEaseFactory.operator($op,$exprs);
 }
@@ -404,6 +420,9 @@ $value = TamagoCDLEaseFactory.operator($op,$exprs);
 	;
 
 arithExpression returns [TExpression value, String op, ArrayList<TExpression> exprs]
+@init {
+  $exprs = new ArrayList<TExpression>();
+}
 @after {
 $value = TamagoCDLEaseFactory.operator($op,$exprs);
 }
@@ -416,6 +435,9 @@ multExpressionbis returns [TExpression value]
 : multExpression { $value = $multExpression.value; };
 
 multExpression returns [TExpression value, String op, ArrayList<TExpression> exprs]
+@init {
+  $exprs = new ArrayList<TExpression>();
+}
 @after {
 $value = TamagoCDLEaseFactory.operator($op,$exprs);
 }
@@ -429,11 +451,13 @@ unaryExpressionbis returns [TExpression value]
 	unaryExpression { $value = $unaryExpression.value; }
 	;
 unaryExpression returns [TExpression value]
-	:	a=minusArithExpression {$value=$a.value;} 
-	| b=primaryExpression {$value=$b.value; } ;
+	:	
+	//a=minusArithExpression {$value=$a.value;} 
+	//| 
+	b=primaryExpression {$value=$b.value; } ;
 
 minusArithExpression returns [TExpression value]
-	:	'-' a=arithExpression { 
+	:	'~' a=arithExpression { 
 		if($a.value instanceof TInteger) {
 			TInteger tin = (TInteger)$a.value;
 			$value = new TIInteger(- tin.getValue() );
@@ -450,13 +474,11 @@ minusArithExpression returns [TExpression value]
 		} ;
 
 primaryExpression returns [TExpression value]
-	: '(' a=expression ')' {$value=$a.value;}
+	:
+	 '(' a=expression ')' {$value=$a.value;}
 	 | b=literalUntypedExpression {$value=$b.value; }
 	 | c=literalArithExpression { $value=$c.value; }
-	 | d=thisExpression {$value=$d.value; }
-	 | e=varExpression { $value=$e.value; }
-	 | f=returnExpression { $value=$f.value; }
-	 | g=readExpression { $value=$g.value; }
+	 | e=atomicExpression { $value=$e.value; }
 	 ;
 
 literalUntypedExpression returns [TExpression value]
@@ -468,34 +490,27 @@ literalArithExpression  returns [TExpression value]
 	| i=INT { $value = new TIInteger(Integer.parseInt($i.text)); } 
 	| s=STRING { $value = new TIString($s.text); }
 	;
-returnExpression returns [TExpression value, Triplet<TExpression,Collection<TExpression>,Boolean> a ]
-	:	'@return'^ ( identSuffix { $a =$identSuffix.value; })? 
-		{if($a != null) $value= TamagoCDLEaseFactory.inlabelReturn($a);
-		 else $value=new TIReturn(); };
-thisExpression returns [TExpression value, TExpression sub, Triplet<TExpression,Collection<TExpression>,Boolean> d]
-	:	'this'^ ('.'^ primaryExpression { $sub = $primaryExpression.value; } )* (identSuffix {$d=$identSuffix.value;})?
-		{$value = TamagoCDLEaseFactory.inlabelSelf($sub,$d); }
-	;
-	
-varExpression returns [TExpression value, TExpression sub, Triplet<TExpression,Collection<TExpression>,Boolean> d]
-	:	
-	v=ID ('.'^ primaryExpression { $sub = $primaryExpression.value; } )* (identSuffix {$d=$identSuffix.value;})?
-	{ $value = TamagoCDLEaseFactory.inlabelVar($v.text,$sub,$d); }
-	
-	;
-	
-readExpression returns [TExpression value, TExpression sub,Triplet<TExpression,Collection<TExpression>,Boolean> d]
-: 
-	'#'^ r=ID ('.'^ primaryExpression { $sub = $primaryExpression.value; } )* (identSuffix {$d=$identSuffix.value;})?
-	{ $value= TamagoCDLEaseFactory.inlabelRead($r.text,$sub,$d); }
-	;
+
+atomicExpression returns [TExpression value, Triplet<TExpression, Collection<TExpression>, Boolean> d, String t]
+	:
+	'(' p=ID ')' e=atomicExpression { $value = TamagoCDLEaseFactory.genCast($p.text,$e.value); }	
+	|
+	(  '@return' { $t = "@return"; }
+	| '#' v=ID {$t = "#"+$v.text; }
+	|'this' { $t = "this"; }
+	| x=ID { $t = $x.text; }
+	)
+	(identSuffix {$d=$identSuffix.value;})?
+	('.'^ a=atomicExpression { $value = $a.value; } )? 
+	{ $value = TamagoCDLEaseFactory.genAtomic($t,$value,$d); }
+;
 
 identSuffix returns [ tamagocc.util.Triplet<TExpression,Collection<TExpression>,Boolean> value]
 @init {
 	$value = new Triplet<TExpression,Collection<TExpression>,Boolean>(null,null,new Boolean(false));
 }
-	:	(a=arrayIndexExpression {$value.setL($a.value);}
-			|b=arguments { $value.setC($b.value) ; } )
+	:	( a=arrayIndexExpression {$value.setL($a.value);}
+		| b=arguments { $value.setC($b.value) ; }         )
 	('@pre' {$value.setR(new Boolean(true)); })?
 	{ }
 	;
@@ -514,13 +529,13 @@ QUANTIFIER:	'forall'|'FORALL'|'exists'|'EXISTS';
 ID  :	('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
     ;
 
-INT :	'0'..'9'+
+INT :	('-')?'0'..'9'+
     ;
 
 FLOAT
-    :   ('0'..'9')+ '.' ('0'..'9')* EXPONENT?
+    :   ('-')?(('0'..'9')+ '.' ('0'..'9')* EXPONENT?
     |   '.' ('0'..'9')+ EXPONENT?
-    |   ('0'..'9')+ EXPONENT
+    |   ('0'..'9')+ EXPONENT)
     ;
 
 COMMENT

@@ -11,7 +11,7 @@ import tamagocc.util.TamagoCCExpressionVisitor;
 import tamagocc.util.TamagoCCVisitor;
 
 /**
- * @author Hakim Belhaouari and Frederic Peschanski
+ * @author Hakim Belhaouari
  *
  */
 public class TIVariable implements TVariable {
@@ -101,6 +101,10 @@ public class TIVariable implements TVariable {
 
 	public boolean hasIndex() {
 		return (index != null);
+	}
+	@Override
+	public void setIndex(TExpression idx) {
+		index = idx;
 	}
 
 }

@@ -10,6 +10,7 @@ import tamagocc.api.TExpression;
 import tamagocc.api.TExtendService;
 import tamagocc.api.TImplements;
 import tamagocc.api.TIncludeService;
+import tamagocc.api.TIndexExpression;
 import tamagocc.api.TInvariant;
 import tamagocc.api.TMethod;
 import tamagocc.api.TNamespace;
@@ -27,6 +28,8 @@ import tamagocc.api.TType;
 import tamagocc.exception.TamagoCCException;
 import tamagocc.impl.TIAtPre;
 import tamagocc.impl.TIBehavior;
+import tamagocc.impl.TICall;
+import tamagocc.impl.TICast;
 import tamagocc.impl.TICategory;
 import tamagocc.impl.TIComposant;
 import tamagocc.impl.TICondition;
@@ -43,6 +46,7 @@ import tamagocc.impl.TIMethod;
 import tamagocc.impl.TINoContract;
 import tamagocc.impl.TIOperator;
 import tamagocc.impl.TIParameter;
+import tamagocc.impl.TIPercolator;
 import tamagocc.impl.TIProvide;
 import tamagocc.impl.TIRead;
 import tamagocc.impl.TIRefineService;
@@ -52,6 +56,7 @@ import tamagocc.impl.TIService;
 import tamagocc.impl.TISet;
 import tamagocc.impl.TITamago;
 import tamagocc.impl.TITransition;
+import tamagocc.impl.TIType;
 import tamagocc.impl.TIVariable;
 import tamagocc.util.TamagoCCPool;
 import tamagocc.util.Triplet;
@@ -208,59 +213,6 @@ public class TamagoCDLEaseFactory {
 		return expr;
 	}
 
-	public static TExpression inlabelSelf(TExpression sub,
-			Triplet<TExpression, Collection<TExpression>, Boolean> d) {
-		
-		throw new RuntimeException("Unsupported expression with 'this'/'self' currently.");
-	}
-
-	public static TExpression inlabelReturn(
-			Triplet<TExpression, Collection<TExpression>, Boolean> a) {
-		if(a.r().booleanValue())
-			throw new RuntimeException("@pre operator on @return is not supported!!");
-		
-		TIReturn ret = new TIReturn(); 
-		if(a.l() != null)
-			ret = new TIReturn(a.l());
-		return ret;
-	}
-
-	public static TExpression inlabelRead(String string, TExpression sub,
-			Triplet<TExpression, Collection<TExpression>, Boolean> d) {
-		if(d.c() != null)
-			throw new RuntimeException("Error on '#"+string+"' called as a function");
-		TExpression read = null;
-		if(d.l() != null)
-			read = new TIRead(string, d.l());
-		else
-			read = new TIRead(string);
-		
-		if(sub != null)
-			read = new TIInLabel(read, sub);
-		
-		if(d.r().booleanValue())
-			read = new TIAtPre(read);
-		return read;
-	}
-
-	public static TExpression inlabelVar(String string, TExpression sub,
-			Triplet<TExpression, Collection<TExpression>, Boolean> d) {
-		if(d.c() != null)
-			throw new RuntimeException("Error on '#"+string+"' called as a function");
-		TExpression read = null;
-		if(d.l() != null)
-			read = new TIVariable(string, d.l());
-		else
-			read = new TIVariable(string);
-		
-		if(sub != null)
-			read = new TIInLabel(read, sub);
-		
-		if(d.r().booleanValue())
-			read = new TIAtPre(read);
-		return read;
-	}
-
 	public static TTamagoEntity entity(String mod, Collection<TNamespace> uses,
 			TTamagoEntity value) {
 		TITamago root = (TITamago) value;
@@ -304,7 +256,61 @@ public class TamagoCDLEaseFactory {
 			Collection<TRequire> incs, Collection<TProperty> props,
 			Collection<TInvariant> invs, Collection<TMethod> meths,
 			TBehavior beh, Collection<TPercolator> percos) {
+		
+		if(percos.size() == 0)
+			percos.add(TIPercolator.getAllPercolator());
+		
 		return new TIComposant(name, "", props, refs, incs, invs, meths, beh==null? TIBehavior.NoBehavior : beh, percos, impls,new ArrayList<TNamespace>(), new ArrayList<TType>());
+	}
+
+	public static TExpression genAtomic(String scope,
+			TExpression sub,
+			Triplet<TExpression, Collection<TExpression>, Boolean> d)
+	{
+
+		TIndexExpression iscope;
+		boolean markVar = false;
+		
+		if(scope.startsWith("#"))
+			iscope = new TIRead(scope.substring(1));
+		else if("@return".equalsIgnoreCase(scope))
+			iscope = new TIReturn();
+		else if("this".equalsIgnoreCase(scope))
+			iscope = new TIVariable("this");
+		else {
+			iscope = new TIVariable(scope);
+			markVar = true;
+		}
+		TExpression escope = iscope;
+		
+		// fin de l'expression
+		TExpression idx = d.l();
+		Collection<TExpression> args = d.c();
+		boolean c = d.r();
+		if(idx != null) {
+			iscope.setIndex(idx);
+		}
+		if(args != null) {
+			if(markVar) {
+				escope = new TICall(scope,args); 
+			}
+		}
+		
+		if(c) {
+			escope = new TIAtPre(escope);
+		}
+		
+		if(sub != null) {
+			escope = new TIInLabel(escope, sub);
+		}
+		
+		return escope;
+	}
+
+	public static TExpression genCast(String string, TExpression tExpression) {
+		TType type = TIType.generateType(string);
+		TICast cast = new TICast(type, tExpression);
+		return cast;
 	}
 
 	
