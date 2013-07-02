@@ -74,7 +74,8 @@ public final class TamagoCCGenerator implements TamagoCCIGenerator {
 			throw new TamagoCCException("TamagoCCGenerator.constructor : The output directory doesn't exist and i can't creat it <"+outputdir+">");
 
 		if((!fout.exists()) && cancreat) {
-			if(fout.mkdirs())
+			fout.mkdirs();
+			if(!fout.exists())
 				throw new TamagoCCException("TamagoCCGenerator.constructor : The creation of the output directory fail ("+outputdir+")");
 		}
 		
