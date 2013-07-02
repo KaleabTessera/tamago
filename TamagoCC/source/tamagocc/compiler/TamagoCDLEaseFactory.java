@@ -291,27 +291,29 @@ public class TamagoCDLEaseFactory {
 		}
 		TExpression escope = iscope;
 		
+		if(d != null) {
+		
 		// fin de l'expression
-		TExpression idx = d.l();
-		Collection<TExpression> args = d.c();
-		boolean c = d.r();
-		if(idx != null) {
-			iscope.setIndex(idx);
-		}
-		if(args != null) {
-			if(markVar) {
-				escope = new TICall(scope,args); 
+			TExpression idx = d.l();
+			Collection<TExpression> args = d.c();
+			boolean c = d.r();
+			if (idx != null) {
+				iscope.setIndex(idx);
+			}
+			if (args != null) {
+				if (markVar) {
+					escope = new TICall(scope, args);
+				}
+			}
+
+			if (c) {
+				escope = new TIAtPre(escope);
+			}
+
+			if (sub != null) {
+				escope = new TIInLabel(escope, sub);
 			}
 		}
-		
-		if(c) {
-			escope = new TIAtPre(escope);
-		}
-		
-		if(sub != null) {
-			escope = new TIInLabel(escope, sub);
-		}
-		
 		return escope;
 	}
 
