@@ -79,7 +79,8 @@ public class TestCDLParserAntlr {
 				TamagoCDLParser.tamagoEntity_return res;
 				try {
 					res = parser.tamagoEntity();
-					if(res != null && res.value != null) {
+					
+					if(parser.getNumberOfSyntaxErrors() == 0 && res != null && res.value != null) {
 						TTamagoEntity tamago = res.value;
 						TamagoCCLogger.println(1,"compilation success");
 						if(tamago instanceof TTamago) {
