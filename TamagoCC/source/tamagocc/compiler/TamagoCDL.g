@@ -31,6 +31,28 @@ import tamagocc.util.Triplet;
 }
 
 
+/*
+@rulecatch {
+    catch(RecognitionException regexception) {
+        throw regexception;
+   }
+}
+
+// by having these below it makes no difference
+@parser::members {
+    @Override
+    public void reportError(RecognitionException e) {
+        throw new RuntimeException("Exception : " + " " + e.getMessage());
+    }
+}
+
+@lexer::members {
+    @Override
+    public void reportError(RecognitionException e) {
+       throw new RuntimeException("Exception : " + " " + e.getMessage());
+    }
+}*/
+
 tamagoEntity returns [TTamagoEntity value, String mod, Collection<TNamespace> uses]
 @init { $uses = new ArrayList<TNamespace>(); }
 @after {

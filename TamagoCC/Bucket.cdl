@@ -6,9 +6,10 @@ service Bucket {
 	property read int quantity;
 	method void foo(int a) {
         id foo;
+        pre (alpha.toto > 5);
 		//post 4+3 == 7;
+		fsdfdsfdsfds
 	}
-	
 	behavior {
 		default state toto;
 		states {

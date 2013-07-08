@@ -12,7 +12,7 @@ component CompBucket {
 		
 	method void foo() {
 		id qqchose;
-		//pre ((3+2) > 1);
+		pre ((3+2) > 1);
 		post true && false || true && true && !false && 3<2+2 || (4 == 7);
 	}
 	
