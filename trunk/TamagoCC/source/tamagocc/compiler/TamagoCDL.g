@@ -17,6 +17,7 @@ import tamagocc.impl.*;
 import java.util.Collection;
 import java.util.ArrayList;
 import tamagocc.util.Triplet;
+//import tamagocc.exceptions.TamagoCCException;
 }
 
 
@@ -28,6 +29,12 @@ import tamagocc.impl.*;
 import java.util.Collection;
 import java.util.ArrayList;
 import tamagocc.util.Triplet;
+}
+
+@rulecatch {
+    catch(RecognitionException regexception) {
+        throw new RuntimeException(regexception);
+   }
 }
 
 

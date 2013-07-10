@@ -90,7 +90,7 @@ public class TestCDLParserAntlr {
 						else
 							TamagoCCLogger.println(1, "Assembly not yet supported!");
 					}
-				} catch (RecognitionException e) {
+				} catch (RuntimeException|RecognitionException e) {
 					TamagoCCLogger.println(1, e.getMessage());
 					if(firsterror.mustStopOnFirstError())
 						return;

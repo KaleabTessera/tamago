@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g 2013-07-08 19:13:03
+// $ANTLR 3.4 /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g 2013-07-10 16:50:02
 
 package tamagocc.compiler;
 
@@ -7,6 +7,7 @@ import tamagocc.impl.*;
 import java.util.Collection;
 import java.util.ArrayList;
 import tamagocc.util.Triplet;
+//import tamagocc.exceptions.TamagoCCException;
 
 
 import org.antlr.runtime.*;
@@ -145,7 +146,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "tamagoEntity"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:56:1: tamagoEntity returns [TTamagoEntity value, String mod, Collection<TNamespace> uses] : m= moduleDeclaration (u= usingDeclaration )* (s= serviceEntity |c= componentEntity ) ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:63:1: tamagoEntity returns [TTamagoEntity value, String mod, Collection<TNamespace> uses] : m= moduleDeclaration (u= usingDeclaration )* (s= serviceEntity |c= componentEntity ) ;
     public final TamagoCDLParser.tamagoEntity_return tamagoEntity() throws RecognitionException {
         TamagoCDLParser.tamagoEntity_return retval = new TamagoCDLParser.tamagoEntity_return();
         retval.start = input.LT(1);
@@ -165,20 +166,20 @@ public TreeAdaptor getTreeAdaptor() {
 
          retval.uses = new ArrayList<TNamespace>(); 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:61:2: (m= moduleDeclaration (u= usingDeclaration )* (s= serviceEntity |c= componentEntity ) )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:61:4: m= moduleDeclaration (u= usingDeclaration )* (s= serviceEntity |c= componentEntity )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:68:2: (m= moduleDeclaration (u= usingDeclaration )* (s= serviceEntity |c= componentEntity ) )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:68:4: m= moduleDeclaration (u= usingDeclaration )* (s= serviceEntity |c= componentEntity )
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            pushFollow(FOLLOW_moduleDeclaration_in_tamagoEntity83);
+            pushFollow(FOLLOW_moduleDeclaration_in_tamagoEntity89);
             m=moduleDeclaration();
 
             state._fsp--;
 
             adaptor.addChild(root_0, m.getTree());
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:62:2: (u= usingDeclaration )*
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:69:2: (u= usingDeclaration )*
             loop1:
             do {
                 int alt1=2;
@@ -191,9 +192,9 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt1) {
             	case 1 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:62:3: u= usingDeclaration
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:69:3: u= usingDeclaration
             	    {
-            	    pushFollow(FOLLOW_usingDeclaration_in_tamagoEntity89);
+            	    pushFollow(FOLLOW_usingDeclaration_in_tamagoEntity95);
             	    u=usingDeclaration();
 
             	    state._fsp--;
@@ -211,7 +212,7 @@ public TreeAdaptor getTreeAdaptor() {
             } while (true);
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:63:2: (s= serviceEntity |c= componentEntity )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:70:2: (s= serviceEntity |c= componentEntity )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -230,9 +231,9 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt2) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:63:3: s= serviceEntity
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:70:3: s= serviceEntity
                     {
-                    pushFollow(FOLLOW_serviceEntity_in_tamagoEntity99);
+                    pushFollow(FOLLOW_serviceEntity_in_tamagoEntity105);
                     s=serviceEntity();
 
                     state._fsp--;
@@ -244,9 +245,9 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:64:4: c= componentEntity
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:71:4: c= componentEntity
                     {
-                    pushFollow(FOLLOW_componentEntity_in_tamagoEntity108);
+                    pushFollow(FOLLOW_componentEntity_in_tamagoEntity114);
                     c=componentEntity();
 
                     state._fsp--;
@@ -273,12 +274,10 @@ public TreeAdaptor getTreeAdaptor() {
              retval.value = TamagoCDLEaseFactory.entity(retval.mod,retval.uses,retval.value);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -296,7 +295,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "moduleDeclaration"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:67:1: moduleDeclaration returns [ String value ] : 'module' ^s= qualifiedName ';' ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:74:1: moduleDeclaration returns [ String value ] : 'module' ^s= qualifiedName ';' ;
     public final TamagoCDLParser.moduleDeclaration_return moduleDeclaration() throws RecognitionException {
         TamagoCDLParser.moduleDeclaration_return retval = new TamagoCDLParser.moduleDeclaration_return();
         retval.start = input.LT(1);
@@ -314,27 +313,27 @@ public TreeAdaptor getTreeAdaptor() {
 
          retval.value = ""; 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:69:2: ( 'module' ^s= qualifiedName ';' )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:69:4: 'module' ^s= qualifiedName ';'
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:76:2: ( 'module' ^s= qualifiedName ';' )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:76:4: 'module' ^s= qualifiedName ';'
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal1=(Token)match(input,55,FOLLOW_55_in_moduleDeclaration132); 
+            string_literal1=(Token)match(input,55,FOLLOW_55_in_moduleDeclaration138); 
             string_literal1_tree = 
             (CommonTree)adaptor.create(string_literal1)
             ;
             root_0 = (CommonTree)adaptor.becomeRoot(string_literal1_tree, root_0);
 
 
-            pushFollow(FOLLOW_qualifiedName_in_moduleDeclaration137);
+            pushFollow(FOLLOW_qualifiedName_in_moduleDeclaration143);
             s=qualifiedName();
 
             state._fsp--;
 
             adaptor.addChild(root_0, s.getTree());
 
-            char_literal2=(Token)match(input,29,FOLLOW_29_in_moduleDeclaration139); 
+            char_literal2=(Token)match(input,29,FOLLOW_29_in_moduleDeclaration145); 
             char_literal2_tree = 
             (CommonTree)adaptor.create(char_literal2)
             ;
@@ -352,12 +351,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -375,7 +372,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "qualifiedName"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:72:1: qualifiedName returns [String value ] : s= ID ( '.' ^d= ID )* ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:79:1: qualifiedName returns [String value ] : s= ID ( '.' ^d= ID )* ;
     public final TamagoCDLParser.qualifiedName_return qualifiedName() throws RecognitionException {
         TamagoCDLParser.qualifiedName_return retval = new TamagoCDLParser.qualifiedName_return();
         retval.start = input.LT(1);
@@ -395,20 +392,20 @@ public TreeAdaptor getTreeAdaptor() {
         	retval.value ="";
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:76:2: (s= ID ( '.' ^d= ID )* )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:76:4: s= ID ( '.' ^d= ID )*
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:83:2: (s= ID ( '.' ^d= ID )* )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:83:4: s= ID ( '.' ^d= ID )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            s=(Token)match(input,ID,FOLLOW_ID_in_qualifiedName164); 
+            s=(Token)match(input,ID,FOLLOW_ID_in_qualifiedName170); 
             s_tree = 
             (CommonTree)adaptor.create(s)
             ;
             adaptor.addChild(root_0, s_tree);
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:76:9: ( '.' ^d= ID )*
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:83:9: ( '.' ^d= ID )*
             loop3:
             do {
                 int alt3=2;
@@ -421,16 +418,16 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt3) {
             	case 1 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:76:10: '.' ^d= ID
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:83:10: '.' ^d= ID
             	    {
-            	    char_literal3=(Token)match(input,26,FOLLOW_26_in_qualifiedName167); 
+            	    char_literal3=(Token)match(input,26,FOLLOW_26_in_qualifiedName173); 
             	    char_literal3_tree = 
             	    (CommonTree)adaptor.create(char_literal3)
             	    ;
             	    root_0 = (CommonTree)adaptor.becomeRoot(char_literal3_tree, root_0);
 
 
-            	    d=(Token)match(input,ID,FOLLOW_ID_in_qualifiedName172); 
+            	    d=(Token)match(input,ID,FOLLOW_ID_in_qualifiedName178); 
             	    d_tree = 
             	    (CommonTree)adaptor.create(d)
             	    ;
@@ -459,12 +456,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -482,7 +477,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "qualifiedNameWithWildCard"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:79:1: qualifiedNameWithWildCard returns [String value] : (s= ID ( '.' d= ID )* ( '.*' )? ) ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:86:1: qualifiedNameWithWildCard returns [String value] : (s= ID ( '.' d= ID )* ( '.*' )? ) ;
     public final TamagoCDLParser.qualifiedNameWithWildCard_return qualifiedNameWithWildCard() throws RecognitionException {
         TamagoCDLParser.qualifiedNameWithWildCard_return retval = new TamagoCDLParser.qualifiedNameWithWildCard_return();
         retval.start = input.LT(1);
@@ -502,23 +497,23 @@ public TreeAdaptor getTreeAdaptor() {
 
          retval.value =""; 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:81:2: ( (s= ID ( '.' d= ID )* ( '.*' )? ) )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:81:4: (s= ID ( '.' d= ID )* ( '.*' )? )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:88:2: ( (s= ID ( '.' d= ID )* ( '.*' )? ) )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:88:4: (s= ID ( '.' d= ID )* ( '.*' )? )
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:81:4: (s= ID ( '.' d= ID )* ( '.*' )? )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:81:6: s= ID ( '.' d= ID )* ( '.*' )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:88:4: (s= ID ( '.' d= ID )* ( '.*' )? )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:88:6: s= ID ( '.' d= ID )* ( '.*' )?
             {
-            s=(Token)match(input,ID,FOLLOW_ID_in_qualifiedNameWithWildCard203); 
+            s=(Token)match(input,ID,FOLLOW_ID_in_qualifiedNameWithWildCard209); 
             s_tree = 
             (CommonTree)adaptor.create(s)
             ;
             adaptor.addChild(root_0, s_tree);
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:81:11: ( '.' d= ID )*
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:88:11: ( '.' d= ID )*
             loop4:
             do {
                 int alt4=2;
@@ -531,16 +526,16 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt4) {
             	case 1 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:81:12: '.' d= ID
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:88:12: '.' d= ID
             	    {
-            	    char_literal4=(Token)match(input,26,FOLLOW_26_in_qualifiedNameWithWildCard206); 
+            	    char_literal4=(Token)match(input,26,FOLLOW_26_in_qualifiedNameWithWildCard212); 
             	    char_literal4_tree = 
             	    (CommonTree)adaptor.create(char_literal4)
             	    ;
             	    adaptor.addChild(root_0, char_literal4_tree);
 
 
-            	    d=(Token)match(input,ID,FOLLOW_ID_in_qualifiedNameWithWildCard210); 
+            	    d=(Token)match(input,ID,FOLLOW_ID_in_qualifiedNameWithWildCard216); 
             	    d_tree = 
             	    (CommonTree)adaptor.create(d)
             	    ;
@@ -558,7 +553,7 @@ public TreeAdaptor getTreeAdaptor() {
             } while (true);
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:82:2: ( '.*' )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:89:2: ( '.*' )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -567,9 +562,9 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt5) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:82:3: '.*'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:89:3: '.*'
                     {
-                    string_literal5=(Token)match(input,27,FOLLOW_27_in_qualifiedNameWithWildCard220); 
+                    string_literal5=(Token)match(input,27,FOLLOW_27_in_qualifiedNameWithWildCard226); 
                     string_literal5_tree = 
                     (CommonTree)adaptor.create(string_literal5)
                     ;
@@ -598,12 +593,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -621,7 +614,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "usingDeclaration"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:85:1: usingDeclaration returns [TNamespace value] : 'using' ^p= qualifiedNameWithWildCard ';' !;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:92:1: usingDeclaration returns [TNamespace value] : 'using' ^p= qualifiedNameWithWildCard ';' !;
     public final TamagoCDLParser.usingDeclaration_return usingDeclaration() throws RecognitionException {
         TamagoCDLParser.usingDeclaration_return retval = new TamagoCDLParser.usingDeclaration_return();
         retval.start = input.LT(1);
@@ -638,27 +631,27 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal7_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:86:2: ( 'using' ^p= qualifiedNameWithWildCard ';' !)
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:86:4: 'using' ^p= qualifiedNameWithWildCard ';' !
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:93:2: ( 'using' ^p= qualifiedNameWithWildCard ';' !)
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:93:4: 'using' ^p= qualifiedNameWithWildCard ';' !
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal6=(Token)match(input,78,FOLLOW_78_in_usingDeclaration244); 
+            string_literal6=(Token)match(input,78,FOLLOW_78_in_usingDeclaration250); 
             string_literal6_tree = 
             (CommonTree)adaptor.create(string_literal6)
             ;
             root_0 = (CommonTree)adaptor.becomeRoot(string_literal6_tree, root_0);
 
 
-            pushFollow(FOLLOW_qualifiedNameWithWildCard_in_usingDeclaration249);
+            pushFollow(FOLLOW_qualifiedNameWithWildCard_in_usingDeclaration255);
             p=qualifiedNameWithWildCard();
 
             state._fsp--;
 
             adaptor.addChild(root_0, p.getTree());
 
-            char_literal7=(Token)match(input,29,FOLLOW_29_in_usingDeclaration251); 
+            char_literal7=(Token)match(input,29,FOLLOW_29_in_usingDeclaration257); 
 
              retval.value = new TINamespace((p!=null?p.value:null)); 
 
@@ -671,12 +664,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -694,7 +685,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "percolator"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:89:1: percolator returns [TPercolator value] : 'percolator' ^ ( '*' | ID ) ';' !;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:96:1: percolator returns [TPercolator value] : 'percolator' ^ ( '*' | ID ) ';' !;
     public final TamagoCDLParser.percolator_return percolator() throws RecognitionException {
         TamagoCDLParser.percolator_return retval = new TamagoCDLParser.percolator_return();
         retval.start = input.LT(1);
@@ -713,20 +704,20 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal11_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:90:3: ( 'percolator' ^ ( '*' | ID ) ';' !)
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:90:3: 'percolator' ^ ( '*' | ID ) ';' !
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:97:3: ( 'percolator' ^ ( '*' | ID ) ';' !)
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:97:3: 'percolator' ^ ( '*' | ID ) ';' !
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal8=(Token)match(input,58,FOLLOW_58_in_percolator268); 
+            string_literal8=(Token)match(input,58,FOLLOW_58_in_percolator274); 
             string_literal8_tree = 
             (CommonTree)adaptor.create(string_literal8)
             ;
             root_0 = (CommonTree)adaptor.becomeRoot(string_literal8_tree, root_0);
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:90:17: ( '*' | ID )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:97:17: ( '*' | ID )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -745,9 +736,9 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt6) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:90:18: '*'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:97:18: '*'
                     {
-                    char_literal9=(Token)match(input,24,FOLLOW_24_in_percolator272); 
+                    char_literal9=(Token)match(input,24,FOLLOW_24_in_percolator278); 
                     char_literal9_tree = 
                     (CommonTree)adaptor.create(char_literal9)
                     ;
@@ -759,9 +750,9 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:91:3: ID
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:98:3: ID
                     {
-                    ID10=(Token)match(input,ID,FOLLOW_ID_in_percolator278); 
+                    ID10=(Token)match(input,ID,FOLLOW_ID_in_percolator284); 
                     ID10_tree = 
                     (CommonTree)adaptor.create(ID10)
                     ;
@@ -776,7 +767,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            char_literal11=(Token)match(input,29,FOLLOW_29_in_percolator283); 
+            char_literal11=(Token)match(input,29,FOLLOW_29_in_percolator289); 
 
             }
 
@@ -787,12 +778,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -810,7 +799,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "require"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:95:1: require returns [TRequire value] : 'require' ^ 'service' !n= ID 'in' !q= qualifiedName 'as' !l= ID ';' !;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:102:1: require returns [TRequire value] : 'require' ^ 'service' !n= ID 'in' !q= qualifiedName 'as' !l= ID ';' !;
     public final TamagoCDLParser.require_return require() throws RecognitionException {
         TamagoCDLParser.require_return retval = new TamagoCDLParser.require_return();
         retval.start = input.LT(1);
@@ -837,47 +826,47 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal16_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:96:3: ( 'require' ^ 'service' !n= ID 'in' !q= qualifiedName 'as' !l= ID ';' !)
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:96:3: 'require' ^ 'service' !n= ID 'in' !q= qualifiedName 'as' !l= ID ';' !
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:103:3: ( 'require' ^ 'service' !n= ID 'in' !q= qualifiedName 'as' !l= ID ';' !)
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:103:3: 'require' ^ 'service' !n= ID 'in' !q= qualifiedName 'as' !l= ID ';' !
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal12=(Token)match(input,67,FOLLOW_67_in_require298); 
+            string_literal12=(Token)match(input,67,FOLLOW_67_in_require304); 
             string_literal12_tree = 
             (CommonTree)adaptor.create(string_literal12)
             ;
             root_0 = (CommonTree)adaptor.becomeRoot(string_literal12_tree, root_0);
 
 
-            string_literal13=(Token)match(input,68,FOLLOW_68_in_require301); 
+            string_literal13=(Token)match(input,68,FOLLOW_68_in_require307); 
 
-            n=(Token)match(input,ID,FOLLOW_ID_in_require306); 
+            n=(Token)match(input,ID,FOLLOW_ID_in_require312); 
             n_tree = 
             (CommonTree)adaptor.create(n)
             ;
             adaptor.addChild(root_0, n_tree);
 
 
-            string_literal14=(Token)match(input,50,FOLLOW_50_in_require308); 
+            string_literal14=(Token)match(input,50,FOLLOW_50_in_require314); 
 
-            pushFollow(FOLLOW_qualifiedName_in_require313);
+            pushFollow(FOLLOW_qualifiedName_in_require319);
             q=qualifiedName();
 
             state._fsp--;
 
             adaptor.addChild(root_0, q.getTree());
 
-            string_literal15=(Token)match(input,37,FOLLOW_37_in_require315); 
+            string_literal15=(Token)match(input,37,FOLLOW_37_in_require321); 
 
-            l=(Token)match(input,ID,FOLLOW_ID_in_require320); 
+            l=(Token)match(input,ID,FOLLOW_ID_in_require326); 
             l_tree = 
             (CommonTree)adaptor.create(l)
             ;
             adaptor.addChild(root_0, l_tree);
 
 
-            char_literal16=(Token)match(input,29,FOLLOW_29_in_require322); 
+            char_literal16=(Token)match(input,29,FOLLOW_29_in_require328); 
 
              retval.value = TamagoCDLEaseFactory.require((n!=null?n.getText():null),(q!=null?q.value:null),(l!=null?l.getText():null)); 
 
@@ -890,12 +879,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -913,7 +900,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "provide"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:101:1: provide returns [TProvide value] : 'provide' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:108:1: provide returns [TProvide value] : 'provide' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !;
     public final TamagoCDLParser.provide_return provide() throws RecognitionException {
         TamagoCDLParser.provide_return retval = new TamagoCDLParser.provide_return();
         retval.start = input.LT(1);
@@ -936,38 +923,38 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal20_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:102:3: ( 'provide' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !)
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:102:3: 'provide' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:109:3: ( 'provide' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !)
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:109:3: 'provide' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal17=(Token)match(input,62,FOLLOW_62_in_provide339); 
+            string_literal17=(Token)match(input,62,FOLLOW_62_in_provide345); 
             string_literal17_tree = 
             (CommonTree)adaptor.create(string_literal17)
             ;
             root_0 = (CommonTree)adaptor.becomeRoot(string_literal17_tree, root_0);
 
 
-            string_literal18=(Token)match(input,68,FOLLOW_68_in_provide342); 
+            string_literal18=(Token)match(input,68,FOLLOW_68_in_provide348); 
 
-            n=(Token)match(input,ID,FOLLOW_ID_in_provide347); 
+            n=(Token)match(input,ID,FOLLOW_ID_in_provide353); 
             n_tree = 
             (CommonTree)adaptor.create(n)
             ;
             adaptor.addChild(root_0, n_tree);
 
 
-            string_literal19=(Token)match(input,50,FOLLOW_50_in_provide349); 
+            string_literal19=(Token)match(input,50,FOLLOW_50_in_provide355); 
 
-            pushFollow(FOLLOW_qualifiedName_in_provide354);
+            pushFollow(FOLLOW_qualifiedName_in_provide360);
             q=qualifiedName();
 
             state._fsp--;
 
             adaptor.addChild(root_0, q.getTree());
 
-            char_literal20=(Token)match(input,29,FOLLOW_29_in_provide356); 
+            char_literal20=(Token)match(input,29,FOLLOW_29_in_provide362); 
 
              retval.value = TamagoCDLEaseFactory.provide((n!=null?n.getText():null),(q!=null?q.value:null)); 
 
@@ -980,12 +967,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -1010,7 +995,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "serviceEntity"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:106:1: serviceEntity returns [TService value, TBehavior beh, Collection<TImplements> aimpls, Collection<TRefineService> arefs,\n\tCollection<TIncludeService> aincs, Collection<TProperty> aprop, Collection<TInvariant> ainvs, Collection<TMethod> ameth] : 'service' ^label= ID '{' ! (impls= implementsInterface |refs= refineService |incs= includeService |props= propertyDeclaration |invs= invariantExpression |meths= methodDeclaration )* (b= behaviorDeclaration )? '}' !;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:113:1: serviceEntity returns [TService value, TBehavior beh, Collection<TImplements> aimpls, Collection<TRefineService> arefs,\n\tCollection<TIncludeService> aincs, Collection<TProperty> aprop, Collection<TInvariant> ainvs, Collection<TMethod> ameth] : 'service' ^label= ID '{' ! (impls= implementsInterface |refs= refineService |incs= includeService |props= propertyDeclaration |invs= invariantExpression |meths= methodDeclaration )* (b= behaviorDeclaration )? '}' !;
     public final TamagoCDLParser.serviceEntity_return serviceEntity() throws RecognitionException {
         TamagoCDLParser.serviceEntity_return retval = new TamagoCDLParser.serviceEntity_return();
         retval.start = input.LT(1);
@@ -1051,29 +1036,29 @@ public TreeAdaptor getTreeAdaptor() {
          retval.ameth = new ArrayList<TMethod>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:116:2: ( 'service' ^label= ID '{' ! (impls= implementsInterface |refs= refineService |incs= includeService |props= propertyDeclaration |invs= invariantExpression |meths= methodDeclaration )* (b= behaviorDeclaration )? '}' !)
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:117:3: 'service' ^label= ID '{' ! (impls= implementsInterface |refs= refineService |incs= includeService |props= propertyDeclaration |invs= invariantExpression |meths= methodDeclaration )* (b= behaviorDeclaration )? '}' !
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:123:2: ( 'service' ^label= ID '{' ! (impls= implementsInterface |refs= refineService |incs= includeService |props= propertyDeclaration |invs= invariantExpression |meths= methodDeclaration )* (b= behaviorDeclaration )? '}' !)
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:124:3: 'service' ^label= ID '{' ! (impls= implementsInterface |refs= refineService |incs= includeService |props= propertyDeclaration |invs= invariantExpression |meths= methodDeclaration )* (b= behaviorDeclaration )? '}' !
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal21=(Token)match(input,68,FOLLOW_68_in_serviceEntity381); 
+            string_literal21=(Token)match(input,68,FOLLOW_68_in_serviceEntity387); 
             string_literal21_tree = 
             (CommonTree)adaptor.create(string_literal21)
             ;
             root_0 = (CommonTree)adaptor.becomeRoot(string_literal21_tree, root_0);
 
 
-            label=(Token)match(input,ID,FOLLOW_ID_in_serviceEntity386); 
+            label=(Token)match(input,ID,FOLLOW_ID_in_serviceEntity392); 
             label_tree = 
             (CommonTree)adaptor.create(label)
             ;
             adaptor.addChild(root_0, label_tree);
 
 
-            char_literal22=(Token)match(input,83,FOLLOW_83_in_serviceEntity388); 
+            char_literal22=(Token)match(input,83,FOLLOW_83_in_serviceEntity394); 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:118:3: (impls= implementsInterface |refs= refineService |incs= includeService |props= propertyDeclaration |invs= invariantExpression |meths= methodDeclaration )*
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:125:3: (impls= implementsInterface |refs= refineService |incs= includeService |props= propertyDeclaration |invs= invariantExpression |meths= methodDeclaration )*
             loop7:
             do {
                 int alt7=7;
@@ -1113,9 +1098,9 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt7) {
             	case 1 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:119:3: impls= implementsInterface
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:126:3: impls= implementsInterface
             	    {
-            	    pushFollow(FOLLOW_implementsInterface_in_serviceEntity399);
+            	    pushFollow(FOLLOW_implementsInterface_in_serviceEntity405);
             	    impls=implementsInterface();
 
             	    state._fsp--;
@@ -1127,9 +1112,9 @@ public TreeAdaptor getTreeAdaptor() {
             	    }
             	    break;
             	case 2 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:120:5: refs= refineService
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:127:5: refs= refineService
             	    {
-            	    pushFollow(FOLLOW_refineService_in_serviceEntity409);
+            	    pushFollow(FOLLOW_refineService_in_serviceEntity415);
             	    refs=refineService();
 
             	    state._fsp--;
@@ -1141,9 +1126,9 @@ public TreeAdaptor getTreeAdaptor() {
             	    }
             	    break;
             	case 3 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:121:5: incs= includeService
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:128:5: incs= includeService
             	    {
-            	    pushFollow(FOLLOW_includeService_in_serviceEntity419);
+            	    pushFollow(FOLLOW_includeService_in_serviceEntity425);
             	    incs=includeService();
 
             	    state._fsp--;
@@ -1155,9 +1140,9 @@ public TreeAdaptor getTreeAdaptor() {
             	    }
             	    break;
             	case 4 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:122:5: props= propertyDeclaration
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:129:5: props= propertyDeclaration
             	    {
-            	    pushFollow(FOLLOW_propertyDeclaration_in_serviceEntity429);
+            	    pushFollow(FOLLOW_propertyDeclaration_in_serviceEntity435);
             	    props=propertyDeclaration();
 
             	    state._fsp--;
@@ -1169,9 +1154,9 @@ public TreeAdaptor getTreeAdaptor() {
             	    }
             	    break;
             	case 5 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:123:5: invs= invariantExpression
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:130:5: invs= invariantExpression
             	    {
-            	    pushFollow(FOLLOW_invariantExpression_in_serviceEntity439);
+            	    pushFollow(FOLLOW_invariantExpression_in_serviceEntity445);
             	    invs=invariantExpression();
 
             	    state._fsp--;
@@ -1183,9 +1168,9 @@ public TreeAdaptor getTreeAdaptor() {
             	    }
             	    break;
             	case 6 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:124:5: meths= methodDeclaration
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:131:5: meths= methodDeclaration
             	    {
-            	    pushFollow(FOLLOW_methodDeclaration_in_serviceEntity450);
+            	    pushFollow(FOLLOW_methodDeclaration_in_serviceEntity456);
             	    meths=methodDeclaration();
 
             	    state._fsp--;
@@ -1203,7 +1188,7 @@ public TreeAdaptor getTreeAdaptor() {
             } while (true);
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:127:3: (b= behaviorDeclaration )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:134:3: (b= behaviorDeclaration )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -1212,9 +1197,9 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt8) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:127:4: b= behaviorDeclaration
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:134:4: b= behaviorDeclaration
                     {
-                    pushFollow(FOLLOW_behaviorDeclaration_in_serviceEntity467);
+                    pushFollow(FOLLOW_behaviorDeclaration_in_serviceEntity473);
                     b=behaviorDeclaration();
 
                     state._fsp--;
@@ -1229,7 +1214,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            char_literal23=(Token)match(input,85,FOLLOW_85_in_serviceEntity475); 
+            char_literal23=(Token)match(input,85,FOLLOW_85_in_serviceEntity481); 
 
 
             		retval.value = TamagoCDLEaseFactory.service(retval.value,(label!=null?label.getText():null),retval.aimpls,retval.arefs,retval.aincs,retval.aprop,retval.ainvs,retval.ameth,retval.beh);
@@ -1244,12 +1229,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -1267,7 +1250,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "listimplements"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:134:1: listimplements returns [Collection<TImplements> value ] : ( implementsInterface )* ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:141:1: listimplements returns [Collection<TImplements> value ] : ( implementsInterface )* ;
     public final TamagoCDLParser.listimplements_return listimplements() throws RecognitionException {
         TamagoCDLParser.listimplements_return retval = new TamagoCDLParser.listimplements_return();
         retval.start = input.LT(1);
@@ -1283,13 +1266,13 @@ public TreeAdaptor getTreeAdaptor() {
         	retval.value = new ArrayList<TImplements>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:138:2: ( ( implementsInterface )* )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:138:4: ( implementsInterface )*
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:145:2: ( ( implementsInterface )* )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:145:4: ( implementsInterface )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:138:4: ( implementsInterface )*
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:145:4: ( implementsInterface )*
             loop9:
             do {
                 int alt9=2;
@@ -1302,9 +1285,9 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt9) {
             	case 1 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:138:5: implementsInterface
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:145:5: implementsInterface
             	    {
-            	    pushFollow(FOLLOW_implementsInterface_in_listimplements502);
+            	    pushFollow(FOLLOW_implementsInterface_in_listimplements508);
             	    implementsInterface24=implementsInterface();
 
             	    state._fsp--;
@@ -1331,12 +1314,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -1354,7 +1335,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "listrefine"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:141:1: listrefine returns [Collection<TRefineService> value ] : ( refineService )* ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:148:1: listrefine returns [Collection<TRefineService> value ] : ( refineService )* ;
     public final TamagoCDLParser.listrefine_return listrefine() throws RecognitionException {
         TamagoCDLParser.listrefine_return retval = new TamagoCDLParser.listrefine_return();
         retval.start = input.LT(1);
@@ -1370,13 +1351,13 @@ public TreeAdaptor getTreeAdaptor() {
         	retval.value = new ArrayList<TRefineService>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:145:2: ( ( refineService )* )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:145:4: ( refineService )*
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:152:2: ( ( refineService )* )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:152:4: ( refineService )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:145:4: ( refineService )*
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:152:4: ( refineService )*
             loop10:
             do {
                 int alt10=2;
@@ -1389,9 +1370,9 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt10) {
             	case 1 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:145:5: refineService
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:152:5: refineService
             	    {
-            	    pushFollow(FOLLOW_refineService_in_listrefine530);
+            	    pushFollow(FOLLOW_refineService_in_listrefine536);
             	    refineService25=refineService();
 
             	    state._fsp--;
@@ -1418,12 +1399,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -1441,7 +1420,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "listinclude"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:147:1: listinclude returns [Collection<TIncludeService> value ] : ( includeService )* ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:154:1: listinclude returns [Collection<TIncludeService> value ] : ( includeService )* ;
     public final TamagoCDLParser.listinclude_return listinclude() throws RecognitionException {
         TamagoCDLParser.listinclude_return retval = new TamagoCDLParser.listinclude_return();
         retval.start = input.LT(1);
@@ -1457,13 +1436,13 @@ public TreeAdaptor getTreeAdaptor() {
         	retval.value = new ArrayList<TIncludeService>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:151:2: ( ( includeService )* )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:151:4: ( includeService )*
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:158:2: ( ( includeService )* )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:158:4: ( includeService )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:151:4: ( includeService )*
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:158:4: ( includeService )*
             loop11:
             do {
                 int alt11=2;
@@ -1476,9 +1455,9 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt11) {
             	case 1 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:151:5: includeService
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:158:5: includeService
             	    {
-            	    pushFollow(FOLLOW_includeService_in_listinclude556);
+            	    pushFollow(FOLLOW_includeService_in_listinclude562);
             	    includeService26=includeService();
 
             	    state._fsp--;
@@ -1505,12 +1484,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -1528,7 +1505,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "listpercolators"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:154:1: listpercolators returns [Collection<TPercolator> value] : (p= percolator )+ ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:161:1: listpercolators returns [Collection<TPercolator> value] : (p= percolator )+ ;
     public final TamagoCDLParser.listpercolators_return listpercolators() throws RecognitionException {
         TamagoCDLParser.listpercolators_return retval = new TamagoCDLParser.listpercolators_return();
         retval.start = input.LT(1);
@@ -1544,13 +1521,13 @@ public TreeAdaptor getTreeAdaptor() {
         retval.value = new ArrayList<TPercolator>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:162:2: ( (p= percolator )+ )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:162:4: (p= percolator )+
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:169:2: ( (p= percolator )+ )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:169:4: (p= percolator )+
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:162:4: (p= percolator )+
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:169:4: (p= percolator )+
             int cnt12=0;
             loop12:
             do {
@@ -1564,9 +1541,9 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt12) {
             	case 1 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:162:5: p= percolator
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:169:5: p= percolator
             	    {
-            	    pushFollow(FOLLOW_percolator_in_listpercolators590);
+            	    pushFollow(FOLLOW_percolator_in_listpercolators596);
             	    p=percolator();
 
             	    state._fsp--;
@@ -1597,12 +1574,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -1620,7 +1595,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "listproperties"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:164:1: listproperties returns [Collection<TProperty> value] : ( propertyDeclaration )+ ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:171:1: listproperties returns [Collection<TProperty> value] : ( propertyDeclaration )+ ;
     public final TamagoCDLParser.listproperties_return listproperties() throws RecognitionException {
         TamagoCDLParser.listproperties_return retval = new TamagoCDLParser.listproperties_return();
         retval.start = input.LT(1);
@@ -1636,13 +1611,13 @@ public TreeAdaptor getTreeAdaptor() {
         retval.value = new ArrayList<TProperty>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:168:2: ( ( propertyDeclaration )+ )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:168:4: ( propertyDeclaration )+
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:175:2: ( ( propertyDeclaration )+ )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:175:4: ( propertyDeclaration )+
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:168:4: ( propertyDeclaration )+
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:175:4: ( propertyDeclaration )+
             int cnt13=0;
             loop13:
             do {
@@ -1656,9 +1631,9 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt13) {
             	case 1 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:168:5: propertyDeclaration
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:175:5: propertyDeclaration
             	    {
-            	    pushFollow(FOLLOW_propertyDeclaration_in_listproperties615);
+            	    pushFollow(FOLLOW_propertyDeclaration_in_listproperties621);
             	    propertyDeclaration27=propertyDeclaration();
 
             	    state._fsp--;
@@ -1689,12 +1664,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -1712,7 +1685,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "listprovides"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:171:1: listprovides returns [Collection<TProvide> value] : ( provide )+ ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:178:1: listprovides returns [Collection<TProvide> value] : ( provide )+ ;
     public final TamagoCDLParser.listprovides_return listprovides() throws RecognitionException {
         TamagoCDLParser.listprovides_return retval = new TamagoCDLParser.listprovides_return();
         retval.start = input.LT(1);
@@ -1728,13 +1701,13 @@ public TreeAdaptor getTreeAdaptor() {
          retval.value = new ArrayList<TProvide>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:175:2: ( ( provide )+ )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:175:4: ( provide )+
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:182:2: ( ( provide )+ )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:182:4: ( provide )+
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:175:4: ( provide )+
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:182:4: ( provide )+
             int cnt14=0;
             loop14:
             do {
@@ -1748,9 +1721,9 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt14) {
             	case 1 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:175:5: provide
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:182:5: provide
             	    {
-            	    pushFollow(FOLLOW_provide_in_listprovides641);
+            	    pushFollow(FOLLOW_provide_in_listprovides647);
             	    provide28=provide();
 
             	    state._fsp--;
@@ -1781,12 +1754,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -1804,7 +1775,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "listrequires"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:177:1: listrequires returns [Collection<TRequire> value] : ( require )+ ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:184:1: listrequires returns [Collection<TRequire> value] : ( require )+ ;
     public final TamagoCDLParser.listrequires_return listrequires() throws RecognitionException {
         TamagoCDLParser.listrequires_return retval = new TamagoCDLParser.listrequires_return();
         retval.start = input.LT(1);
@@ -1820,13 +1791,13 @@ public TreeAdaptor getTreeAdaptor() {
          retval.value = new ArrayList<TRequire>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:181:2: ( ( require )+ )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:181:4: ( require )+
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:188:2: ( ( require )+ )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:188:4: ( require )+
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:181:4: ( require )+
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:188:4: ( require )+
             int cnt15=0;
             loop15:
             do {
@@ -1840,9 +1811,9 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt15) {
             	case 1 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:181:5: require
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:188:5: require
             	    {
-            	    pushFollow(FOLLOW_require_in_listrequires665);
+            	    pushFollow(FOLLOW_require_in_listrequires671);
             	    require29=require();
 
             	    state._fsp--;
@@ -1873,12 +1844,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -1896,7 +1865,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "listinvariants"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:183:1: listinvariants returns [ Collection<TInvariant> value] : ( invariantExpression )+ ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:190:1: listinvariants returns [ Collection<TInvariant> value] : ( invariantExpression )+ ;
     public final TamagoCDLParser.listinvariants_return listinvariants() throws RecognitionException {
         TamagoCDLParser.listinvariants_return retval = new TamagoCDLParser.listinvariants_return();
         retval.start = input.LT(1);
@@ -1912,13 +1881,13 @@ public TreeAdaptor getTreeAdaptor() {
         retval.value = new ArrayList<TInvariant>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:187:2: ( ( invariantExpression )+ )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:187:4: ( invariantExpression )+
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:194:2: ( ( invariantExpression )+ )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:194:4: ( invariantExpression )+
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:187:4: ( invariantExpression )+
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:194:4: ( invariantExpression )+
             int cnt16=0;
             loop16:
             do {
@@ -1932,9 +1901,9 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt16) {
             	case 1 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:187:5: invariantExpression
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:194:5: invariantExpression
             	    {
-            	    pushFollow(FOLLOW_invariantExpression_in_listinvariants689);
+            	    pushFollow(FOLLOW_invariantExpression_in_listinvariants695);
             	    invariantExpression30=invariantExpression();
 
             	    state._fsp--;
@@ -1965,12 +1934,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -1988,7 +1955,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "listmethods"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:190:1: listmethods returns [ Collection<TMethod> value] : ( methodDeclaration )+ ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:197:1: listmethods returns [ Collection<TMethod> value] : ( methodDeclaration )+ ;
     public final TamagoCDLParser.listmethods_return listmethods() throws RecognitionException {
         TamagoCDLParser.listmethods_return retval = new TamagoCDLParser.listmethods_return();
         retval.start = input.LT(1);
@@ -2004,13 +1971,13 @@ public TreeAdaptor getTreeAdaptor() {
         retval.value = new ArrayList<TMethod>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:194:2: ( ( methodDeclaration )+ )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:194:4: ( methodDeclaration )+
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:201:2: ( ( methodDeclaration )+ )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:201:4: ( methodDeclaration )+
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:194:4: ( methodDeclaration )+
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:201:4: ( methodDeclaration )+
             int cnt17=0;
             loop17:
             do {
@@ -2024,9 +1991,9 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt17) {
             	case 1 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:194:5: methodDeclaration
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:201:5: methodDeclaration
             	    {
-            	    pushFollow(FOLLOW_methodDeclaration_in_listmethods715);
+            	    pushFollow(FOLLOW_methodDeclaration_in_listmethods721);
             	    methodDeclaration31=methodDeclaration();
 
             	    state._fsp--;
@@ -2057,12 +2024,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -2088,7 +2053,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "componentEntity"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:198:1: componentEntity returns [TComponent value, TBehavior beh, Collection<TPercolator> aperc, Collection<TImplements> aimpl,\n\tCollection<TRequire> areqs, Collection<TProvide> aprov, Collection<TProperty> aprop, Collection<TInvariant> ainvs,\n\tCollection<TMethod> ameth ] : 'component' ^label= ID '{' ! (lperc= percolator |limpl= implementsInterface |lreq= require |lprov= provide |lprop= propertyDeclaration |linvs= invariantExpression |lmeth= methodDeclaration )* (b= behaviorDeclaration )? '}' !;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:205:1: componentEntity returns [TComponent value, TBehavior beh, Collection<TPercolator> aperc, Collection<TImplements> aimpl,\n\tCollection<TRequire> areqs, Collection<TProvide> aprov, Collection<TProperty> aprop, Collection<TInvariant> ainvs,\n\tCollection<TMethod> ameth ] : 'component' ^label= ID '{' ! (lperc= percolator |limpl= implementsInterface |lreq= require |lprov= provide |lprop= propertyDeclaration |linvs= invariantExpression |lmeth= methodDeclaration )* (b= behaviorDeclaration )? '}' !;
     public final TamagoCDLParser.componentEntity_return componentEntity() throws RecognitionException {
         TamagoCDLParser.componentEntity_return retval = new TamagoCDLParser.componentEntity_return();
         retval.start = input.LT(1);
@@ -2132,29 +2097,29 @@ public TreeAdaptor getTreeAdaptor() {
          retval.ameth = new ArrayList<TMethod>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:210:12: ( 'component' ^label= ID '{' ! (lperc= percolator |limpl= implementsInterface |lreq= require |lprov= provide |lprop= propertyDeclaration |linvs= invariantExpression |lmeth= methodDeclaration )* (b= behaviorDeclaration )? '}' !)
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:211:12: 'component' ^label= ID '{' ! (lperc= percolator |limpl= implementsInterface |lreq= require |lprov= provide |lprop= propertyDeclaration |linvs= invariantExpression |lmeth= methodDeclaration )* (b= behaviorDeclaration )? '}' !
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:217:12: ( 'component' ^label= ID '{' ! (lperc= percolator |limpl= implementsInterface |lreq= require |lprov= provide |lprop= propertyDeclaration |linvs= invariantExpression |lmeth= methodDeclaration )* (b= behaviorDeclaration )? '}' !)
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:218:12: 'component' ^label= ID '{' ! (lperc= percolator |limpl= implementsInterface |lreq= require |lprov= provide |lprop= propertyDeclaration |linvs= invariantExpression |lmeth= methodDeclaration )* (b= behaviorDeclaration )? '}' !
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal32=(Token)match(input,42,FOLLOW_42_in_componentEntity742); 
+            string_literal32=(Token)match(input,42,FOLLOW_42_in_componentEntity748); 
             string_literal32_tree = 
             (CommonTree)adaptor.create(string_literal32)
             ;
             root_0 = (CommonTree)adaptor.becomeRoot(string_literal32_tree, root_0);
 
 
-            label=(Token)match(input,ID,FOLLOW_ID_in_componentEntity747); 
+            label=(Token)match(input,ID,FOLLOW_ID_in_componentEntity753); 
             label_tree = 
             (CommonTree)adaptor.create(label)
             ;
             adaptor.addChild(root_0, label_tree);
 
 
-            char_literal33=(Token)match(input,83,FOLLOW_83_in_componentEntity749); 
+            char_literal33=(Token)match(input,83,FOLLOW_83_in_componentEntity755); 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:212:6: (lperc= percolator |limpl= implementsInterface |lreq= require |lprov= provide |lprop= propertyDeclaration |linvs= invariantExpression |lmeth= methodDeclaration )*
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:219:6: (lperc= percolator |limpl= implementsInterface |lreq= require |lprov= provide |lprop= propertyDeclaration |linvs= invariantExpression |lmeth= methodDeclaration )*
             loop18:
             do {
                 int alt18=8;
@@ -2199,9 +2164,9 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt18) {
             	case 1 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:213:6: lperc= percolator
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:220:6: lperc= percolator
             	    {
-            	    pushFollow(FOLLOW_percolator_in_componentEntity756);
+            	    pushFollow(FOLLOW_percolator_in_componentEntity762);
             	    lperc=percolator();
 
             	    state._fsp--;
@@ -2213,9 +2178,9 @@ public TreeAdaptor getTreeAdaptor() {
             	    }
             	    break;
             	case 2 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:214:6: limpl= implementsInterface
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:221:6: limpl= implementsInterface
             	    {
-            	    pushFollow(FOLLOW_implementsInterface_in_componentEntity764);
+            	    pushFollow(FOLLOW_implementsInterface_in_componentEntity770);
             	    limpl=implementsInterface();
 
             	    state._fsp--;
@@ -2227,9 +2192,9 @@ public TreeAdaptor getTreeAdaptor() {
             	    }
             	    break;
             	case 3 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:215:5: lreq= require
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:222:5: lreq= require
             	    {
-            	    pushFollow(FOLLOW_require_in_componentEntity772);
+            	    pushFollow(FOLLOW_require_in_componentEntity778);
             	    lreq=require();
 
             	    state._fsp--;
@@ -2241,9 +2206,9 @@ public TreeAdaptor getTreeAdaptor() {
             	    }
             	    break;
             	case 4 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:216:6: lprov= provide
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:223:6: lprov= provide
             	    {
-            	    pushFollow(FOLLOW_provide_in_componentEntity780);
+            	    pushFollow(FOLLOW_provide_in_componentEntity786);
             	    lprov=provide();
 
             	    state._fsp--;
@@ -2255,9 +2220,9 @@ public TreeAdaptor getTreeAdaptor() {
             	    }
             	    break;
             	case 5 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:217:6: lprop= propertyDeclaration
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:224:6: lprop= propertyDeclaration
             	    {
-            	    pushFollow(FOLLOW_propertyDeclaration_in_componentEntity788);
+            	    pushFollow(FOLLOW_propertyDeclaration_in_componentEntity794);
             	    lprop=propertyDeclaration();
 
             	    state._fsp--;
@@ -2269,9 +2234,9 @@ public TreeAdaptor getTreeAdaptor() {
             	    }
             	    break;
             	case 6 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:218:6: linvs= invariantExpression
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:225:6: linvs= invariantExpression
             	    {
-            	    pushFollow(FOLLOW_invariantExpression_in_componentEntity796);
+            	    pushFollow(FOLLOW_invariantExpression_in_componentEntity802);
             	    linvs=invariantExpression();
 
             	    state._fsp--;
@@ -2283,9 +2248,9 @@ public TreeAdaptor getTreeAdaptor() {
             	    }
             	    break;
             	case 7 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:219:6: lmeth= methodDeclaration
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:226:6: lmeth= methodDeclaration
             	    {
-            	    pushFollow(FOLLOW_methodDeclaration_in_componentEntity804);
+            	    pushFollow(FOLLOW_methodDeclaration_in_componentEntity810);
             	    lmeth=methodDeclaration();
 
             	    state._fsp--;
@@ -2303,7 +2268,7 @@ public TreeAdaptor getTreeAdaptor() {
             } while (true);
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:220:2: (b= behaviorDeclaration )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:227:2: (b= behaviorDeclaration )?
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -2312,9 +2277,9 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt19) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:220:2: b= behaviorDeclaration
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:227:2: b= behaviorDeclaration
                     {
-                    pushFollow(FOLLOW_behaviorDeclaration_in_componentEntity813);
+                    pushFollow(FOLLOW_behaviorDeclaration_in_componentEntity819);
                     b=behaviorDeclaration();
 
                     state._fsp--;
@@ -2329,7 +2294,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            char_literal34=(Token)match(input,85,FOLLOW_85_in_componentEntity819); 
+            char_literal34=(Token)match(input,85,FOLLOW_85_in_componentEntity825); 
 
              retval.value = TamagoCDLEaseFactory.component(retval.value,(label!=null?label.getText():null),retval.aimpl,retval.aprov,retval.areqs,retval.aprop,retval.ainvs,retval.ameth,retval.beh,retval.aperc);
 
@@ -2342,12 +2307,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -2365,7 +2328,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "implementsInterface"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:225:1: implementsInterface returns [TImplements value] : 'implements' ^p= qualifiedName ';' !;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:232:1: implementsInterface returns [TImplements value] : 'implements' ^p= qualifiedName ';' !;
     public final TamagoCDLParser.implementsInterface_return implementsInterface() throws RecognitionException {
         TamagoCDLParser.implementsInterface_return retval = new TamagoCDLParser.implementsInterface_return();
         retval.start = input.LT(1);
@@ -2382,27 +2345,27 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal36_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:226:2: ( 'implements' ^p= qualifiedName ';' !)
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:226:4: 'implements' ^p= qualifiedName ';' !
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:233:2: ( 'implements' ^p= qualifiedName ';' !)
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:233:4: 'implements' ^p= qualifiedName ';' !
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal35=(Token)match(input,49,FOLLOW_49_in_implementsInterface837); 
+            string_literal35=(Token)match(input,49,FOLLOW_49_in_implementsInterface843); 
             string_literal35_tree = 
             (CommonTree)adaptor.create(string_literal35)
             ;
             root_0 = (CommonTree)adaptor.becomeRoot(string_literal35_tree, root_0);
 
 
-            pushFollow(FOLLOW_qualifiedName_in_implementsInterface842);
+            pushFollow(FOLLOW_qualifiedName_in_implementsInterface848);
             p=qualifiedName();
 
             state._fsp--;
 
             adaptor.addChild(root_0, p.getTree());
 
-            char_literal36=(Token)match(input,29,FOLLOW_29_in_implementsInterface844); 
+            char_literal36=(Token)match(input,29,FOLLOW_29_in_implementsInterface850); 
 
              retval.value = new TIImplements((p!=null?p.value:null)); 
 
@@ -2415,12 +2378,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -2438,7 +2399,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "refineService"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:229:1: refineService returns [TRefineService value] : ( 'refine' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !| 'refine' ^ 'service' ! qualifiedName ';' !);
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:236:1: refineService returns [TRefineService value] : ( 'refine' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !| 'refine' ^ 'service' ! qualifiedName ';' !);
     public final TamagoCDLParser.refineService_return refineService() throws RecognitionException {
         TamagoCDLParser.refineService_return retval = new TamagoCDLParser.refineService_return();
         retval.start = input.LT(1);
@@ -2469,7 +2430,7 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal44_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:230:2: ( 'refine' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !| 'refine' ^ 'service' ! qualifiedName ';' !)
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:237:2: ( 'refine' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !| 'refine' ^ 'service' ! qualifiedName ';' !)
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -2521,65 +2482,65 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt20) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:230:4: 'refine' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:237:4: 'refine' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal37=(Token)match(input,66,FOLLOW_66_in_refineService862); 
+                    string_literal37=(Token)match(input,66,FOLLOW_66_in_refineService868); 
                     string_literal37_tree = 
                     (CommonTree)adaptor.create(string_literal37)
                     ;
                     root_0 = (CommonTree)adaptor.becomeRoot(string_literal37_tree, root_0);
 
 
-                    string_literal38=(Token)match(input,68,FOLLOW_68_in_refineService865); 
+                    string_literal38=(Token)match(input,68,FOLLOW_68_in_refineService871); 
 
-                    n=(Token)match(input,ID,FOLLOW_ID_in_refineService870); 
+                    n=(Token)match(input,ID,FOLLOW_ID_in_refineService876); 
                     n_tree = 
                     (CommonTree)adaptor.create(n)
                     ;
                     adaptor.addChild(root_0, n_tree);
 
 
-                    string_literal39=(Token)match(input,50,FOLLOW_50_in_refineService872); 
+                    string_literal39=(Token)match(input,50,FOLLOW_50_in_refineService878); 
 
-                    pushFollow(FOLLOW_qualifiedName_in_refineService877);
+                    pushFollow(FOLLOW_qualifiedName_in_refineService883);
                     q=qualifiedName();
 
                     state._fsp--;
 
                     adaptor.addChild(root_0, q.getTree());
 
-                    char_literal40=(Token)match(input,29,FOLLOW_29_in_refineService879); 
+                    char_literal40=(Token)match(input,29,FOLLOW_29_in_refineService885); 
 
                      retval.value = TamagoCDLEaseFactory.refine((n!=null?n.getText():null),(q!=null?q.value:null));  
 
                     }
                     break;
                 case 2 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:231:10: 'refine' ^ 'service' ! qualifiedName ';' !
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:238:10: 'refine' ^ 'service' ! qualifiedName ';' !
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal41=(Token)match(input,66,FOLLOW_66_in_refineService893); 
+                    string_literal41=(Token)match(input,66,FOLLOW_66_in_refineService899); 
                     string_literal41_tree = 
                     (CommonTree)adaptor.create(string_literal41)
                     ;
                     root_0 = (CommonTree)adaptor.becomeRoot(string_literal41_tree, root_0);
 
 
-                    string_literal42=(Token)match(input,68,FOLLOW_68_in_refineService896); 
+                    string_literal42=(Token)match(input,68,FOLLOW_68_in_refineService902); 
 
-                    pushFollow(FOLLOW_qualifiedName_in_refineService899);
+                    pushFollow(FOLLOW_qualifiedName_in_refineService905);
                     qualifiedName43=qualifiedName();
 
                     state._fsp--;
 
                     adaptor.addChild(root_0, qualifiedName43.getTree());
 
-                    char_literal44=(Token)match(input,29,FOLLOW_29_in_refineService901); 
+                    char_literal44=(Token)match(input,29,FOLLOW_29_in_refineService907); 
 
                     }
                     break;
@@ -2592,12 +2553,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -2615,7 +2574,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "includeService"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:234:1: includeService returns [TIncludeService value] : ( 'include' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !| 'include' ^ 'service' ! qualifiedName ';' !);
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:241:1: includeService returns [TIncludeService value] : ( 'include' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !| 'include' ^ 'service' ! qualifiedName ';' !);
     public final TamagoCDLParser.includeService_return includeService() throws RecognitionException {
         TamagoCDLParser.includeService_return retval = new TamagoCDLParser.includeService_return();
         retval.start = input.LT(1);
@@ -2646,7 +2605,7 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal52_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:235:2: ( 'include' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !| 'include' ^ 'service' ! qualifiedName ';' !)
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:242:2: ( 'include' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !| 'include' ^ 'service' ! qualifiedName ';' !)
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -2698,65 +2657,65 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt21) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:235:4: 'include' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:242:4: 'include' ^ 'service' !n= ID 'in' !q= qualifiedName ';' !
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal45=(Token)match(input,51,FOLLOW_51_in_includeService918); 
+                    string_literal45=(Token)match(input,51,FOLLOW_51_in_includeService924); 
                     string_literal45_tree = 
                     (CommonTree)adaptor.create(string_literal45)
                     ;
                     root_0 = (CommonTree)adaptor.becomeRoot(string_literal45_tree, root_0);
 
 
-                    string_literal46=(Token)match(input,68,FOLLOW_68_in_includeService921); 
+                    string_literal46=(Token)match(input,68,FOLLOW_68_in_includeService927); 
 
-                    n=(Token)match(input,ID,FOLLOW_ID_in_includeService926); 
+                    n=(Token)match(input,ID,FOLLOW_ID_in_includeService932); 
                     n_tree = 
                     (CommonTree)adaptor.create(n)
                     ;
                     adaptor.addChild(root_0, n_tree);
 
 
-                    string_literal47=(Token)match(input,50,FOLLOW_50_in_includeService928); 
+                    string_literal47=(Token)match(input,50,FOLLOW_50_in_includeService934); 
 
-                    pushFollow(FOLLOW_qualifiedName_in_includeService933);
+                    pushFollow(FOLLOW_qualifiedName_in_includeService939);
                     q=qualifiedName();
 
                     state._fsp--;
 
                     adaptor.addChild(root_0, q.getTree());
 
-                    char_literal48=(Token)match(input,29,FOLLOW_29_in_includeService935); 
+                    char_literal48=(Token)match(input,29,FOLLOW_29_in_includeService941); 
 
                      retval.value = TamagoCDLEaseFactory.include((n!=null?n.getText():null),(q!=null?q.value:null)); 
 
                     }
                     break;
                 case 2 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:236:10: 'include' ^ 'service' ! qualifiedName ';' !
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:243:10: 'include' ^ 'service' ! qualifiedName ';' !
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal49=(Token)match(input,51,FOLLOW_51_in_includeService949); 
+                    string_literal49=(Token)match(input,51,FOLLOW_51_in_includeService955); 
                     string_literal49_tree = 
                     (CommonTree)adaptor.create(string_literal49)
                     ;
                     root_0 = (CommonTree)adaptor.becomeRoot(string_literal49_tree, root_0);
 
 
-                    string_literal50=(Token)match(input,68,FOLLOW_68_in_includeService952); 
+                    string_literal50=(Token)match(input,68,FOLLOW_68_in_includeService958); 
 
-                    pushFollow(FOLLOW_qualifiedName_in_includeService955);
+                    pushFollow(FOLLOW_qualifiedName_in_includeService961);
                     qualifiedName51=qualifiedName();
 
                     state._fsp--;
 
                     adaptor.addChild(root_0, qualifiedName51.getTree());
 
-                    char_literal52=(Token)match(input,29,FOLLOW_29_in_includeService957); 
+                    char_literal52=(Token)match(input,29,FOLLOW_29_in_includeService963); 
 
                     }
                     break;
@@ -2769,12 +2728,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -2792,7 +2749,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "propertyDeclaration"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:239:1: propertyDeclaration returns [TProperty value ] : 'property' ^a= accessProperty t= type n= ID ';' !;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:246:1: propertyDeclaration returns [TProperty value ] : 'property' ^a= accessProperty t= type n= ID ';' !;
     public final TamagoCDLParser.propertyDeclaration_return propertyDeclaration() throws RecognitionException {
         TamagoCDLParser.propertyDeclaration_return retval = new TamagoCDLParser.propertyDeclaration_return();
         retval.start = input.LT(1);
@@ -2813,41 +2770,41 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal54_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:240:2: ( 'property' ^a= accessProperty t= type n= ID ';' !)
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:240:4: 'property' ^a= accessProperty t= type n= ID ';' !
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:247:2: ( 'property' ^a= accessProperty t= type n= ID ';' !)
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:247:4: 'property' ^a= accessProperty t= type n= ID ';' !
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal53=(Token)match(input,61,FOLLOW_61_in_propertyDeclaration974); 
+            string_literal53=(Token)match(input,61,FOLLOW_61_in_propertyDeclaration980); 
             string_literal53_tree = 
             (CommonTree)adaptor.create(string_literal53)
             ;
             root_0 = (CommonTree)adaptor.becomeRoot(string_literal53_tree, root_0);
 
 
-            pushFollow(FOLLOW_accessProperty_in_propertyDeclaration979);
+            pushFollow(FOLLOW_accessProperty_in_propertyDeclaration985);
             a=accessProperty();
 
             state._fsp--;
 
             adaptor.addChild(root_0, a.getTree());
 
-            pushFollow(FOLLOW_type_in_propertyDeclaration983);
+            pushFollow(FOLLOW_type_in_propertyDeclaration989);
             t=type();
 
             state._fsp--;
 
             adaptor.addChild(root_0, t.getTree());
 
-            n=(Token)match(input,ID,FOLLOW_ID_in_propertyDeclaration987); 
+            n=(Token)match(input,ID,FOLLOW_ID_in_propertyDeclaration993); 
             n_tree = 
             (CommonTree)adaptor.create(n)
             ;
             adaptor.addChild(root_0, n_tree);
 
 
-            char_literal54=(Token)match(input,29,FOLLOW_29_in_propertyDeclaration989); 
+            char_literal54=(Token)match(input,29,FOLLOW_29_in_propertyDeclaration995); 
 
              
             			retval.value = new TIProperty((n!=null?n.getText():null),(t!=null?t.value:null),(a!=null?a.value:null)); 
@@ -2862,12 +2819,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -2885,7 +2840,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "accessProperty"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:246:1: accessProperty returns [TAccess value] : ( 'readwrite' | 'read' | 'write' );
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:253:1: accessProperty returns [TAccess value] : ( 'readwrite' | 'read' | 'write' );
     public final TamagoCDLParser.accessProperty_return accessProperty() throws RecognitionException {
         TamagoCDLParser.accessProperty_return retval = new TamagoCDLParser.accessProperty_return();
         retval.start = input.LT(1);
@@ -2902,7 +2857,7 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree string_literal57_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:247:2: ( 'readwrite' | 'read' | 'write' )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:254:2: ( 'readwrite' | 'read' | 'write' )
             int alt22=3;
             switch ( input.LA(1) ) {
             case 64:
@@ -2930,12 +2885,12 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt22) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:248:4: 'readwrite'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:255:4: 'readwrite'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal55=(Token)match(input,64,FOLLOW_64_in_accessProperty1015); 
+                    string_literal55=(Token)match(input,64,FOLLOW_64_in_accessProperty1021); 
                     string_literal55_tree = 
                     (CommonTree)adaptor.create(string_literal55)
                     ;
@@ -2947,12 +2902,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:249:4: 'read'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:256:4: 'read'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal56=(Token)match(input,63,FOLLOW_63_in_accessProperty1022); 
+                    string_literal56=(Token)match(input,63,FOLLOW_63_in_accessProperty1028); 
                     string_literal56_tree = 
                     (CommonTree)adaptor.create(string_literal56)
                     ;
@@ -2964,12 +2919,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 3 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:250:4: 'write'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:257:4: 'write'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal57=(Token)match(input,82,FOLLOW_82_in_accessProperty1034); 
+                    string_literal57=(Token)match(input,82,FOLLOW_82_in_accessProperty1040); 
                     string_literal57_tree = 
                     (CommonTree)adaptor.create(string_literal57)
                     ;
@@ -2989,12 +2944,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -3014,7 +2967,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "type"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:253:1: type returns [ TType value, String prim, boolean flags] : (p= primitiveType |q= qualifiedName ) ( '[]' )? ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:260:1: type returns [ TType value, String prim, boolean flags] : (p= primitiveType |q= qualifiedName ) ( '[]' )? ;
     public final TamagoCDLParser.type_return type() throws RecognitionException {
         TamagoCDLParser.type_return retval = new TamagoCDLParser.type_return();
         retval.start = input.LT(1);
@@ -3034,13 +2987,13 @@ public TreeAdaptor getTreeAdaptor() {
         	retval.flags =false;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:264:2: ( (p= primitiveType |q= qualifiedName ) ( '[]' )? )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:264:4: (p= primitiveType |q= qualifiedName ) ( '[]' )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:271:2: ( (p= primitiveType |q= qualifiedName ) ( '[]' )? )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:271:4: (p= primitiveType |q= qualifiedName ) ( '[]' )?
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:264:4: (p= primitiveType |q= qualifiedName )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:271:4: (p= primitiveType |q= qualifiedName )
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -3059,9 +3012,9 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt23) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:264:5: p= primitiveType
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:271:5: p= primitiveType
                     {
-                    pushFollow(FOLLOW_primitiveType_in_type1069);
+                    pushFollow(FOLLOW_primitiveType_in_type1075);
                     p=primitiveType();
 
                     state._fsp--;
@@ -3073,9 +3026,9 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:264:41: q= qualifiedName
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:271:41: q= qualifiedName
                     {
-                    pushFollow(FOLLOW_qualifiedName_in_type1076);
+                    pushFollow(FOLLOW_qualifiedName_in_type1082);
                     q=qualifiedName();
 
                     state._fsp--;
@@ -3090,7 +3043,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:265:3: ( '[]' )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:272:3: ( '[]' )?
             int alt24=2;
             int LA24_0 = input.LA(1);
 
@@ -3099,9 +3052,9 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt24) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:265:4: '[]'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:272:4: '[]'
                     {
-                    string_literal58=(Token)match(input,34,FOLLOW_34_in_type1085); 
+                    string_literal58=(Token)match(input,34,FOLLOW_34_in_type1091); 
                     string_literal58_tree = 
                     (CommonTree)adaptor.create(string_literal58)
                     ;
@@ -3132,12 +3085,10 @@ public TreeAdaptor getTreeAdaptor() {
             	
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -3155,7 +3106,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "primitiveType"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:268:1: primitiveType returns [String value ] : ( 'int' | 'void' | 'bool' | 'boolean' | 'real' | 'double' | 'String' | 'string' );
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:275:1: primitiveType returns [String value ] : ( 'int' | 'void' | 'bool' | 'boolean' | 'real' | 'double' | 'String' | 'string' );
     public final TamagoCDLParser.primitiveType_return primitiveType() throws RecognitionException {
         TamagoCDLParser.primitiveType_return retval = new TamagoCDLParser.primitiveType_return();
         retval.start = input.LT(1);
@@ -3182,7 +3133,7 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree string_literal66_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:269:2: ( 'int' | 'void' | 'bool' | 'boolean' | 'real' | 'double' | 'String' | 'string' )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:276:2: ( 'int' | 'void' | 'bool' | 'boolean' | 'real' | 'double' | 'String' | 'string' )
             int alt25=8;
             switch ( input.LA(1) ) {
             case 52:
@@ -3235,12 +3186,12 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt25) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:269:4: 'int'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:276:4: 'int'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal59=(Token)match(input,52,FOLLOW_52_in_primitiveType1109); 
+                    string_literal59=(Token)match(input,52,FOLLOW_52_in_primitiveType1115); 
                     string_literal59_tree = 
                     (CommonTree)adaptor.create(string_literal59)
                     ;
@@ -3252,12 +3203,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:270:4: 'void'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:277:4: 'void'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal60=(Token)match(input,79,FOLLOW_79_in_primitiveType1117); 
+                    string_literal60=(Token)match(input,79,FOLLOW_79_in_primitiveType1123); 
                     string_literal60_tree = 
                     (CommonTree)adaptor.create(string_literal60)
                     ;
@@ -3269,12 +3220,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 3 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:271:4: 'bool'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:278:4: 'bool'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal61=(Token)match(input,39,FOLLOW_39_in_primitiveType1126); 
+                    string_literal61=(Token)match(input,39,FOLLOW_39_in_primitiveType1132); 
                     string_literal61_tree = 
                     (CommonTree)adaptor.create(string_literal61)
                     ;
@@ -3286,12 +3237,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 4 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:272:4: 'boolean'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:279:4: 'boolean'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal62=(Token)match(input,40,FOLLOW_40_in_primitiveType1135); 
+                    string_literal62=(Token)match(input,40,FOLLOW_40_in_primitiveType1141); 
                     string_literal62_tree = 
                     (CommonTree)adaptor.create(string_literal62)
                     ;
@@ -3303,12 +3254,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 5 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:273:4: 'real'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:280:4: 'real'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal63=(Token)match(input,65,FOLLOW_65_in_primitiveType1144); 
+                    string_literal63=(Token)match(input,65,FOLLOW_65_in_primitiveType1150); 
                     string_literal63_tree = 
                     (CommonTree)adaptor.create(string_literal63)
                     ;
@@ -3320,12 +3271,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 6 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:274:4: 'double'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:281:4: 'double'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal64=(Token)match(input,44,FOLLOW_44_in_primitiveType1153); 
+                    string_literal64=(Token)match(input,44,FOLLOW_44_in_primitiveType1159); 
                     string_literal64_tree = 
                     (CommonTree)adaptor.create(string_literal64)
                     ;
@@ -3337,12 +3288,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 7 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:275:4: 'String'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:282:4: 'String'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal65=(Token)match(input,32,FOLLOW_32_in_primitiveType1162); 
+                    string_literal65=(Token)match(input,32,FOLLOW_32_in_primitiveType1168); 
                     string_literal65_tree = 
                     (CommonTree)adaptor.create(string_literal65)
                     ;
@@ -3354,12 +3305,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 8 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:276:4: 'string'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:283:4: 'string'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal66=(Token)match(input,72,FOLLOW_72_in_primitiveType1171); 
+                    string_literal66=(Token)match(input,72,FOLLOW_72_in_primitiveType1177); 
                     string_literal66_tree = 
                     (CommonTree)adaptor.create(string_literal66)
                     ;
@@ -3379,12 +3330,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -3402,7 +3351,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "methodDeclaration"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:279:1: methodDeclaration returns [TMethod value] : 'method' ^t= type n= ID a= parameters '{' ! ( 'id' ^d= ID ';' !)? (p= preconditionExpression )? (q= postconditionExpression )? '}' !;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:286:1: methodDeclaration returns [TMethod value] : 'method' ^t= type n= ID a= parameters '{' ! ( 'id' ^d= ID ';' !)? (p= preconditionExpression )? (q= postconditionExpression )? '}' !;
     public final TamagoCDLParser.methodDeclaration_return methodDeclaration() throws RecognitionException {
         TamagoCDLParser.methodDeclaration_return retval = new TamagoCDLParser.methodDeclaration_return();
         retval.start = input.LT(1);
@@ -3435,43 +3384,43 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal71_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:280:2: ( 'method' ^t= type n= ID a= parameters '{' ! ( 'id' ^d= ID ';' !)? (p= preconditionExpression )? (q= postconditionExpression )? '}' !)
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:281:3: 'method' ^t= type n= ID a= parameters '{' ! ( 'id' ^d= ID ';' !)? (p= preconditionExpression )? (q= postconditionExpression )? '}' !
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:287:2: ( 'method' ^t= type n= ID a= parameters '{' ! ( 'id' ^d= ID ';' !)? (p= preconditionExpression )? (q= postconditionExpression )? '}' !)
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:288:3: 'method' ^t= type n= ID a= parameters '{' ! ( 'id' ^d= ID ';' !)? (p= preconditionExpression )? (q= postconditionExpression )? '}' !
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal67=(Token)match(input,54,FOLLOW_54_in_methodDeclaration1192); 
+            string_literal67=(Token)match(input,54,FOLLOW_54_in_methodDeclaration1198); 
             string_literal67_tree = 
             (CommonTree)adaptor.create(string_literal67)
             ;
             root_0 = (CommonTree)adaptor.becomeRoot(string_literal67_tree, root_0);
 
 
-            pushFollow(FOLLOW_type_in_methodDeclaration1197);
+            pushFollow(FOLLOW_type_in_methodDeclaration1203);
             t=type();
 
             state._fsp--;
 
             adaptor.addChild(root_0, t.getTree());
 
-            n=(Token)match(input,ID,FOLLOW_ID_in_methodDeclaration1201); 
+            n=(Token)match(input,ID,FOLLOW_ID_in_methodDeclaration1207); 
             n_tree = 
             (CommonTree)adaptor.create(n)
             ;
             adaptor.addChild(root_0, n_tree);
 
 
-            pushFollow(FOLLOW_parameters_in_methodDeclaration1205);
+            pushFollow(FOLLOW_parameters_in_methodDeclaration1211);
             a=parameters();
 
             state._fsp--;
 
             adaptor.addChild(root_0, a.getTree());
 
-            char_literal68=(Token)match(input,83,FOLLOW_83_in_methodDeclaration1207); 
+            char_literal68=(Token)match(input,83,FOLLOW_83_in_methodDeclaration1213); 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:282:4: ( 'id' ^d= ID ';' !)?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:289:4: ( 'id' ^d= ID ';' !)?
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -3480,23 +3429,23 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt26) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:282:5: 'id' ^d= ID ';' !
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:289:5: 'id' ^d= ID ';' !
                     {
-                    string_literal69=(Token)match(input,48,FOLLOW_48_in_methodDeclaration1214); 
+                    string_literal69=(Token)match(input,48,FOLLOW_48_in_methodDeclaration1220); 
                     string_literal69_tree = 
                     (CommonTree)adaptor.create(string_literal69)
                     ;
                     root_0 = (CommonTree)adaptor.becomeRoot(string_literal69_tree, root_0);
 
 
-                    d=(Token)match(input,ID,FOLLOW_ID_in_methodDeclaration1219); 
+                    d=(Token)match(input,ID,FOLLOW_ID_in_methodDeclaration1225); 
                     d_tree = 
                     (CommonTree)adaptor.create(d)
                     ;
                     adaptor.addChild(root_0, d_tree);
 
 
-                    char_literal70=(Token)match(input,29,FOLLOW_29_in_methodDeclaration1221); 
+                    char_literal70=(Token)match(input,29,FOLLOW_29_in_methodDeclaration1227); 
 
                     }
                     break;
@@ -3504,7 +3453,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:283:4: (p= preconditionExpression )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:290:4: (p= preconditionExpression )?
             int alt27=2;
             int LA27_0 = input.LA(1);
 
@@ -3513,9 +3462,9 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt27) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:283:5: p= preconditionExpression
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:290:5: p= preconditionExpression
                     {
-                    pushFollow(FOLLOW_preconditionExpression_in_methodDeclaration1232);
+                    pushFollow(FOLLOW_preconditionExpression_in_methodDeclaration1238);
                     p=preconditionExpression();
 
                     state._fsp--;
@@ -3528,7 +3477,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:284:4: (q= postconditionExpression )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:291:4: (q= postconditionExpression )?
             int alt28=2;
             int LA28_0 = input.LA(1);
 
@@ -3537,9 +3486,9 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt28) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:284:5: q= postconditionExpression
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:291:5: q= postconditionExpression
                     {
-                    pushFollow(FOLLOW_postconditionExpression_in_methodDeclaration1242);
+                    pushFollow(FOLLOW_postconditionExpression_in_methodDeclaration1248);
                     q=postconditionExpression();
 
                     state._fsp--;
@@ -3552,7 +3501,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            char_literal71=(Token)match(input,85,FOLLOW_85_in_methodDeclaration1248); 
+            char_literal71=(Token)match(input,85,FOLLOW_85_in_methodDeclaration1254); 
 
             retval.value = TamagoCDLEaseFactory.method((t!=null?t.value:null), (n!=null?n.getText():null), (a!=null?a.params:null), (d!=null?d.getText():null), (p!=null?p.value:null), (q!=null?q.value:null)); 
 
@@ -3565,12 +3514,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -3588,7 +3535,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "parameters"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:289:1: parameters returns [Collection<TParameter> params] : '(' (a= type b= ID ( ',' c= type d= ID )* )? ')' ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:296:1: parameters returns [Collection<TParameter> params] : '(' (a= type b= ID ( ',' c= type d= ID )* )? ')' ;
     public final TamagoCDLParser.parameters_return parameters() throws RecognitionException {
         TamagoCDLParser.parameters_return retval = new TamagoCDLParser.parameters_return();
         retval.start = input.LT(1);
@@ -3616,20 +3563,20 @@ public TreeAdaptor getTreeAdaptor() {
         retval.params = new ArrayList<TParameter>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:293:2: ( '(' (a= type b= ID ( ',' c= type d= ID )* )? ')' )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:293:4: '(' (a= type b= ID ( ',' c= type d= ID )* )? ')'
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:300:2: ( '(' (a= type b= ID ( ',' c= type d= ID )* )? ')' )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:300:4: '(' (a= type b= ID ( ',' c= type d= ID )* )? ')'
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            char_literal72=(Token)match(input,22,FOLLOW_22_in_parameters1271); 
+            char_literal72=(Token)match(input,22,FOLLOW_22_in_parameters1277); 
             char_literal72_tree = 
             (CommonTree)adaptor.create(char_literal72)
             ;
             adaptor.addChild(root_0, char_literal72_tree);
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:293:8: (a= type b= ID ( ',' c= type d= ID )* )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:300:8: (a= type b= ID ( ',' c= type d= ID )* )?
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -3638,23 +3585,23 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt30) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:293:9: a= type b= ID ( ',' c= type d= ID )*
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:300:9: a= type b= ID ( ',' c= type d= ID )*
                     {
-                    pushFollow(FOLLOW_type_in_parameters1276);
+                    pushFollow(FOLLOW_type_in_parameters1282);
                     a=type();
 
                     state._fsp--;
 
                     adaptor.addChild(root_0, a.getTree());
 
-                    b=(Token)match(input,ID,FOLLOW_ID_in_parameters1280); 
+                    b=(Token)match(input,ID,FOLLOW_ID_in_parameters1286); 
                     b_tree = 
                     (CommonTree)adaptor.create(b)
                     ;
                     adaptor.addChild(root_0, b_tree);
 
 
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:293:21: ( ',' c= type d= ID )*
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:300:21: ( ',' c= type d= ID )*
                     loop29:
                     do {
                         int alt29=2;
@@ -3667,23 +3614,23 @@ public TreeAdaptor getTreeAdaptor() {
 
                         switch (alt29) {
                     	case 1 :
-                    	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:293:22: ',' c= type d= ID
+                    	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:300:22: ',' c= type d= ID
                     	    {
-                    	    char_literal73=(Token)match(input,25,FOLLOW_25_in_parameters1283); 
+                    	    char_literal73=(Token)match(input,25,FOLLOW_25_in_parameters1289); 
                     	    char_literal73_tree = 
                     	    (CommonTree)adaptor.create(char_literal73)
                     	    ;
                     	    adaptor.addChild(root_0, char_literal73_tree);
 
 
-                    	    pushFollow(FOLLOW_type_in_parameters1287);
+                    	    pushFollow(FOLLOW_type_in_parameters1293);
                     	    c=type();
 
                     	    state._fsp--;
 
                     	    adaptor.addChild(root_0, c.getTree());
 
-                    	    d=(Token)match(input,ID,FOLLOW_ID_in_parameters1291); 
+                    	    d=(Token)match(input,ID,FOLLOW_ID_in_parameters1297); 
                     	    d_tree = 
                     	    (CommonTree)adaptor.create(d)
                     	    ;
@@ -3709,7 +3656,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            char_literal74=(Token)match(input,23,FOLLOW_23_in_parameters1322); 
+            char_literal74=(Token)match(input,23,FOLLOW_23_in_parameters1328); 
             char_literal74_tree = 
             (CommonTree)adaptor.create(char_literal74)
             ;
@@ -3725,12 +3672,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -3748,7 +3693,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "arguments"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:301:1: arguments returns [Collection<TExpression> value] : '(' (a= expression ( ',' b= expression )* )? ')' ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:308:1: arguments returns [Collection<TExpression> value] : '(' (a= expression ( ',' b= expression )* )? ')' ;
     public final TamagoCDLParser.arguments_return arguments() throws RecognitionException {
         TamagoCDLParser.arguments_return retval = new TamagoCDLParser.arguments_return();
         retval.start = input.LT(1);
@@ -3772,20 +3717,20 @@ public TreeAdaptor getTreeAdaptor() {
         retval.value = new ArrayList<TExpression>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:305:2: ( '(' (a= expression ( ',' b= expression )* )? ')' )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:305:4: '(' (a= expression ( ',' b= expression )* )? ')'
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:312:2: ( '(' (a= expression ( ',' b= expression )* )? ')' )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:312:4: '(' (a= expression ( ',' b= expression )* )? ')'
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            char_literal75=(Token)match(input,22,FOLLOW_22_in_arguments1344); 
+            char_literal75=(Token)match(input,22,FOLLOW_22_in_arguments1350); 
             char_literal75_tree = 
             (CommonTree)adaptor.create(char_literal75)
             ;
             adaptor.addChild(root_0, char_literal75_tree);
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:305:8: (a= expression ( ',' b= expression )* )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:312:8: (a= expression ( ',' b= expression )* )?
             int alt32=2;
             int LA32_0 = input.LA(1);
 
@@ -3794,9 +3739,9 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt32) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:305:9: a= expression ( ',' b= expression )*
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:312:9: a= expression ( ',' b= expression )*
                     {
-                    pushFollow(FOLLOW_expression_in_arguments1349);
+                    pushFollow(FOLLOW_expression_in_arguments1355);
                     a=expression();
 
                     state._fsp--;
@@ -3805,7 +3750,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                     retval.value.add((a!=null?a.value:null));
 
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:306:4: ( ',' b= expression )*
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:313:4: ( ',' b= expression )*
                     loop31:
                     do {
                         int alt31=2;
@@ -3818,16 +3763,16 @@ public TreeAdaptor getTreeAdaptor() {
 
                         switch (alt31) {
                     	case 1 :
-                    	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:306:5: ',' b= expression
+                    	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:313:5: ',' b= expression
                     	    {
-                    	    char_literal76=(Token)match(input,25,FOLLOW_25_in_arguments1357); 
+                    	    char_literal76=(Token)match(input,25,FOLLOW_25_in_arguments1363); 
                     	    char_literal76_tree = 
                     	    (CommonTree)adaptor.create(char_literal76)
                     	    ;
                     	    adaptor.addChild(root_0, char_literal76_tree);
 
 
-                    	    pushFollow(FOLLOW_expression_in_arguments1361);
+                    	    pushFollow(FOLLOW_expression_in_arguments1367);
                     	    b=expression();
 
                     	    state._fsp--;
@@ -3851,7 +3796,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            char_literal77=(Token)match(input,23,FOLLOW_23_in_arguments1369); 
+            char_literal77=(Token)match(input,23,FOLLOW_23_in_arguments1375); 
             char_literal77_tree = 
             (CommonTree)adaptor.create(char_literal77)
             ;
@@ -3867,12 +3812,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -3893,7 +3836,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "behaviorDeclaration"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:309:1: behaviorDeclaration returns [TIBehavior value, String def, Collection<TState> states, Collection<TTransition> transitions ] : 'behavior' ^ '{' ! ( 'default' ^ 'state' !n= ID ';' !)? ( 'states' ^ '{' ! (s= stateDeclaration )* '}' !)? ( 'transitions' '{' (t= transitionDeclaration )* '}' )? '}' ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:316:1: behaviorDeclaration returns [TIBehavior value, String def, Collection<TState> states, Collection<TTransition> transitions ] : 'behavior' ^ '{' ! ( 'default' ^ 'state' !n= ID ';' !)? ( 'states' ^ '{' ! (s= stateDeclaration )* '}' !)? ( 'transitions' '{' (t= transitionDeclaration )* '}' )? '}' ;
     public final TamagoCDLParser.behaviorDeclaration_return behaviorDeclaration() throws RecognitionException {
         TamagoCDLParser.behaviorDeclaration_return retval = new TamagoCDLParser.behaviorDeclaration_return();
         retval.start = input.LT(1);
@@ -3939,22 +3882,22 @@ public TreeAdaptor getTreeAdaptor() {
         	retval.def = "";
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:316:2: ( 'behavior' ^ '{' ! ( 'default' ^ 'state' !n= ID ';' !)? ( 'states' ^ '{' ! (s= stateDeclaration )* '}' !)? ( 'transitions' '{' (t= transitionDeclaration )* '}' )? '}' )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:316:4: 'behavior' ^ '{' ! ( 'default' ^ 'state' !n= ID ';' !)? ( 'states' ^ '{' ! (s= stateDeclaration )* '}' !)? ( 'transitions' '{' (t= transitionDeclaration )* '}' )? '}'
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:323:2: ( 'behavior' ^ '{' ! ( 'default' ^ 'state' !n= ID ';' !)? ( 'states' ^ '{' ! (s= stateDeclaration )* '}' !)? ( 'transitions' '{' (t= transitionDeclaration )* '}' )? '}' )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:323:4: 'behavior' ^ '{' ! ( 'default' ^ 'state' !n= ID ';' !)? ( 'states' ^ '{' ! (s= stateDeclaration )* '}' !)? ( 'transitions' '{' (t= transitionDeclaration )* '}' )? '}'
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal78=(Token)match(input,38,FOLLOW_38_in_behaviorDeclaration1390); 
+            string_literal78=(Token)match(input,38,FOLLOW_38_in_behaviorDeclaration1396); 
             string_literal78_tree = 
             (CommonTree)adaptor.create(string_literal78)
             ;
             root_0 = (CommonTree)adaptor.becomeRoot(string_literal78_tree, root_0);
 
 
-            char_literal79=(Token)match(input,83,FOLLOW_83_in_behaviorDeclaration1393); 
+            char_literal79=(Token)match(input,83,FOLLOW_83_in_behaviorDeclaration1399); 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:317:2: ( 'default' ^ 'state' !n= ID ';' !)?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:324:2: ( 'default' ^ 'state' !n= ID ';' !)?
             int alt33=2;
             int LA33_0 = input.LA(1);
 
@@ -3963,25 +3906,25 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt33) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:317:3: 'default' ^ 'state' !n= ID ';' !
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:324:3: 'default' ^ 'state' !n= ID ';' !
                     {
-                    string_literal80=(Token)match(input,43,FOLLOW_43_in_behaviorDeclaration1398); 
+                    string_literal80=(Token)match(input,43,FOLLOW_43_in_behaviorDeclaration1404); 
                     string_literal80_tree = 
                     (CommonTree)adaptor.create(string_literal80)
                     ;
                     root_0 = (CommonTree)adaptor.becomeRoot(string_literal80_tree, root_0);
 
 
-                    string_literal81=(Token)match(input,70,FOLLOW_70_in_behaviorDeclaration1401); 
+                    string_literal81=(Token)match(input,70,FOLLOW_70_in_behaviorDeclaration1407); 
 
-                    n=(Token)match(input,ID,FOLLOW_ID_in_behaviorDeclaration1406); 
+                    n=(Token)match(input,ID,FOLLOW_ID_in_behaviorDeclaration1412); 
                     n_tree = 
                     (CommonTree)adaptor.create(n)
                     ;
                     adaptor.addChild(root_0, n_tree);
 
 
-                    char_literal82=(Token)match(input,29,FOLLOW_29_in_behaviorDeclaration1408); 
+                    char_literal82=(Token)match(input,29,FOLLOW_29_in_behaviorDeclaration1414); 
 
                     retval.def = (n!=null?n.getText():null);
 
@@ -3991,7 +3934,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:318:2: ( 'states' ^ '{' ! (s= stateDeclaration )* '}' !)?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:325:2: ( 'states' ^ '{' ! (s= stateDeclaration )* '}' !)?
             int alt35=2;
             int LA35_0 = input.LA(1);
 
@@ -4000,18 +3943,18 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt35) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:318:3: 'states' ^ '{' ! (s= stateDeclaration )* '}' !
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:325:3: 'states' ^ '{' ! (s= stateDeclaration )* '}' !
                     {
-                    string_literal83=(Token)match(input,71,FOLLOW_71_in_behaviorDeclaration1417); 
+                    string_literal83=(Token)match(input,71,FOLLOW_71_in_behaviorDeclaration1423); 
                     string_literal83_tree = 
                     (CommonTree)adaptor.create(string_literal83)
                     ;
                     root_0 = (CommonTree)adaptor.becomeRoot(string_literal83_tree, root_0);
 
 
-                    char_literal84=(Token)match(input,83,FOLLOW_83_in_behaviorDeclaration1420); 
+                    char_literal84=(Token)match(input,83,FOLLOW_83_in_behaviorDeclaration1426); 
 
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:319:3: (s= stateDeclaration )*
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:326:3: (s= stateDeclaration )*
                     loop34:
                     do {
                         int alt34=2;
@@ -4024,9 +3967,9 @@ public TreeAdaptor getTreeAdaptor() {
 
                         switch (alt34) {
                     	case 1 :
-                    	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:319:4: s= stateDeclaration
+                    	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:326:4: s= stateDeclaration
                     	    {
-                    	    pushFollow(FOLLOW_stateDeclaration_in_behaviorDeclaration1428);
+                    	    pushFollow(FOLLOW_stateDeclaration_in_behaviorDeclaration1434);
                     	    s=stateDeclaration();
 
                     	    state._fsp--;
@@ -4044,7 +3987,7 @@ public TreeAdaptor getTreeAdaptor() {
                     } while (true);
 
 
-                    char_literal85=(Token)match(input,85,FOLLOW_85_in_behaviorDeclaration1436); 
+                    char_literal85=(Token)match(input,85,FOLLOW_85_in_behaviorDeclaration1442); 
 
                     }
                     break;
@@ -4052,7 +3995,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:321:2: ( 'transitions' '{' (t= transitionDeclaration )* '}' )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:328:2: ( 'transitions' '{' (t= transitionDeclaration )* '}' )?
             int alt37=2;
             int LA37_0 = input.LA(1);
 
@@ -4061,23 +4004,23 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt37) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:321:3: 'transitions' '{' (t= transitionDeclaration )* '}'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:328:3: 'transitions' '{' (t= transitionDeclaration )* '}'
                     {
-                    string_literal86=(Token)match(input,76,FOLLOW_76_in_behaviorDeclaration1443); 
+                    string_literal86=(Token)match(input,76,FOLLOW_76_in_behaviorDeclaration1449); 
                     string_literal86_tree = 
                     (CommonTree)adaptor.create(string_literal86)
                     ;
                     adaptor.addChild(root_0, string_literal86_tree);
 
 
-                    char_literal87=(Token)match(input,83,FOLLOW_83_in_behaviorDeclaration1445); 
+                    char_literal87=(Token)match(input,83,FOLLOW_83_in_behaviorDeclaration1451); 
                     char_literal87_tree = 
                     (CommonTree)adaptor.create(char_literal87)
                     ;
                     adaptor.addChild(root_0, char_literal87_tree);
 
 
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:322:3: (t= transitionDeclaration )*
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:329:3: (t= transitionDeclaration )*
                     loop36:
                     do {
                         int alt36=2;
@@ -4090,9 +4033,9 @@ public TreeAdaptor getTreeAdaptor() {
 
                         switch (alt36) {
                     	case 1 :
-                    	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:322:4: t= transitionDeclaration
+                    	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:329:4: t= transitionDeclaration
                     	    {
-                    	    pushFollow(FOLLOW_transitionDeclaration_in_behaviorDeclaration1452);
+                    	    pushFollow(FOLLOW_transitionDeclaration_in_behaviorDeclaration1458);
                     	    t=transitionDeclaration();
 
                     	    state._fsp--;
@@ -4110,7 +4053,7 @@ public TreeAdaptor getTreeAdaptor() {
                     } while (true);
 
 
-                    char_literal88=(Token)match(input,85,FOLLOW_85_in_behaviorDeclaration1459); 
+                    char_literal88=(Token)match(input,85,FOLLOW_85_in_behaviorDeclaration1465); 
                     char_literal88_tree = 
                     (CommonTree)adaptor.create(char_literal88)
                     ;
@@ -4123,7 +4066,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            char_literal89=(Token)match(input,85,FOLLOW_85_in_behaviorDeclaration1464); 
+            char_literal89=(Token)match(input,85,FOLLOW_85_in_behaviorDeclaration1470); 
             char_literal89_tree = 
             (CommonTree)adaptor.create(char_literal89)
             ;
@@ -4141,12 +4084,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -4165,7 +4106,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "stateDeclaration"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:327:1: stateDeclaration returns [ Collection<TAllow> allows, TState value] : 'state' ^i= ID '{' ! (a= allowDeclaration )* '}' !;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:334:1: stateDeclaration returns [ Collection<TAllow> allows, TState value] : 'state' ^i= ID '{' ! (a= allowDeclaration )* '}' !;
     public final TamagoCDLParser.stateDeclaration_return stateDeclaration() throws RecognitionException {
         TamagoCDLParser.stateDeclaration_return retval = new TamagoCDLParser.stateDeclaration_return();
         retval.start = input.LT(1);
@@ -4189,29 +4130,29 @@ public TreeAdaptor getTreeAdaptor() {
         retval.allows = new ArrayList<TAllow>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:332:2: ( 'state' ^i= ID '{' ! (a= allowDeclaration )* '}' !)
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:332:4: 'state' ^i= ID '{' ! (a= allowDeclaration )* '}' !
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:339:2: ( 'state' ^i= ID '{' ! (a= allowDeclaration )* '}' !)
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:339:4: 'state' ^i= ID '{' ! (a= allowDeclaration )* '}' !
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal90=(Token)match(input,70,FOLLOW_70_in_stateDeclaration1488); 
+            string_literal90=(Token)match(input,70,FOLLOW_70_in_stateDeclaration1494); 
             string_literal90_tree = 
             (CommonTree)adaptor.create(string_literal90)
             ;
             root_0 = (CommonTree)adaptor.becomeRoot(string_literal90_tree, root_0);
 
 
-            i=(Token)match(input,ID,FOLLOW_ID_in_stateDeclaration1493); 
+            i=(Token)match(input,ID,FOLLOW_ID_in_stateDeclaration1499); 
             i_tree = 
             (CommonTree)adaptor.create(i)
             ;
             adaptor.addChild(root_0, i_tree);
 
 
-            char_literal91=(Token)match(input,83,FOLLOW_83_in_stateDeclaration1495); 
+            char_literal91=(Token)match(input,83,FOLLOW_83_in_stateDeclaration1501); 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:332:23: (a= allowDeclaration )*
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:339:23: (a= allowDeclaration )*
             loop38:
             do {
                 int alt38=2;
@@ -4224,9 +4165,9 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt38) {
             	case 1 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:332:24: a= allowDeclaration
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:339:24: a= allowDeclaration
             	    {
-            	    pushFollow(FOLLOW_allowDeclaration_in_stateDeclaration1501);
+            	    pushFollow(FOLLOW_allowDeclaration_in_stateDeclaration1507);
             	    a=allowDeclaration();
 
             	    state._fsp--;
@@ -4244,7 +4185,7 @@ public TreeAdaptor getTreeAdaptor() {
             } while (true);
 
 
-            char_literal92=(Token)match(input,85,FOLLOW_85_in_stateDeclaration1507); 
+            char_literal92=(Token)match(input,85,FOLLOW_85_in_stateDeclaration1513); 
 
               retval.value = new TIState((i!=null?i.getText():null), retval.allows);  
 
@@ -4257,12 +4198,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -4280,7 +4219,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "allowDeclaration"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:336:1: allowDeclaration returns [TAllow value] : 'allow' ^n= ID ';' !;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:343:1: allowDeclaration returns [TAllow value] : 'allow' ^n= ID ';' !;
     public final TamagoCDLParser.allowDeclaration_return allowDeclaration() throws RecognitionException {
         TamagoCDLParser.allowDeclaration_return retval = new TamagoCDLParser.allowDeclaration_return();
         retval.start = input.LT(1);
@@ -4297,27 +4236,27 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal94_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:337:2: ( 'allow' ^n= ID ';' !)
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:337:4: 'allow' ^n= ID ';' !
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:344:2: ( 'allow' ^n= ID ';' !)
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:344:4: 'allow' ^n= ID ';' !
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal93=(Token)match(input,36,FOLLOW_36_in_allowDeclaration1528); 
+            string_literal93=(Token)match(input,36,FOLLOW_36_in_allowDeclaration1534); 
             string_literal93_tree = 
             (CommonTree)adaptor.create(string_literal93)
             ;
             root_0 = (CommonTree)adaptor.becomeRoot(string_literal93_tree, root_0);
 
 
-            n=(Token)match(input,ID,FOLLOW_ID_in_allowDeclaration1533); 
+            n=(Token)match(input,ID,FOLLOW_ID_in_allowDeclaration1539); 
             n_tree = 
             (CommonTree)adaptor.create(n)
             ;
             adaptor.addChild(root_0, n_tree);
 
 
-            char_literal94=(Token)match(input,29,FOLLOW_29_in_allowDeclaration1535); 
+            char_literal94=(Token)match(input,29,FOLLOW_29_in_allowDeclaration1541); 
 
             retval.value = new TIAllow((n!=null?n.getText():null)); 
 
@@ -4330,12 +4269,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -4354,7 +4291,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "transitionDeclaration"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:340:1: transitionDeclaration returns [TTransition value, TExpression guard] : 'transition' ^ 'from' !f= ID 'to' !t= ID 'with' !w= ID ( 'when' !e= expression )? ';' !;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:347:1: transitionDeclaration returns [TTransition value, TExpression guard] : 'transition' ^ 'from' !f= ID 'to' !t= ID 'with' !w= ID ( 'when' !e= expression )? ';' !;
     public final TamagoCDLParser.transitionDeclaration_return transitionDeclaration() throws RecognitionException {
         TamagoCDLParser.transitionDeclaration_return retval = new TamagoCDLParser.transitionDeclaration_return();
         retval.start = input.LT(1);
@@ -4385,47 +4322,47 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal100_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:342:2: ( 'transition' ^ 'from' !f= ID 'to' !t= ID 'with' !w= ID ( 'when' !e= expression )? ';' !)
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:342:4: 'transition' ^ 'from' !f= ID 'to' !t= ID 'with' !w= ID ( 'when' !e= expression )? ';' !
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:349:2: ( 'transition' ^ 'from' !f= ID 'to' !t= ID 'with' !w= ID ( 'when' !e= expression )? ';' !)
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:349:4: 'transition' ^ 'from' !f= ID 'to' !t= ID 'with' !w= ID ( 'when' !e= expression )? ';' !
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal95=(Token)match(input,75,FOLLOW_75_in_transitionDeclaration1554); 
+            string_literal95=(Token)match(input,75,FOLLOW_75_in_transitionDeclaration1560); 
             string_literal95_tree = 
             (CommonTree)adaptor.create(string_literal95)
             ;
             root_0 = (CommonTree)adaptor.becomeRoot(string_literal95_tree, root_0);
 
 
-            string_literal96=(Token)match(input,47,FOLLOW_47_in_transitionDeclaration1557); 
+            string_literal96=(Token)match(input,47,FOLLOW_47_in_transitionDeclaration1563); 
 
-            f=(Token)match(input,ID,FOLLOW_ID_in_transitionDeclaration1562); 
+            f=(Token)match(input,ID,FOLLOW_ID_in_transitionDeclaration1568); 
             f_tree = 
             (CommonTree)adaptor.create(f)
             ;
             adaptor.addChild(root_0, f_tree);
 
 
-            string_literal97=(Token)match(input,74,FOLLOW_74_in_transitionDeclaration1564); 
+            string_literal97=(Token)match(input,74,FOLLOW_74_in_transitionDeclaration1570); 
 
-            t=(Token)match(input,ID,FOLLOW_ID_in_transitionDeclaration1569); 
+            t=(Token)match(input,ID,FOLLOW_ID_in_transitionDeclaration1575); 
             t_tree = 
             (CommonTree)adaptor.create(t)
             ;
             adaptor.addChild(root_0, t_tree);
 
 
-            string_literal98=(Token)match(input,81,FOLLOW_81_in_transitionDeclaration1571); 
+            string_literal98=(Token)match(input,81,FOLLOW_81_in_transitionDeclaration1577); 
 
-            w=(Token)match(input,ID,FOLLOW_ID_in_transitionDeclaration1576); 
+            w=(Token)match(input,ID,FOLLOW_ID_in_transitionDeclaration1582); 
             w_tree = 
             (CommonTree)adaptor.create(w)
             ;
             adaptor.addChild(root_0, w_tree);
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:342:55: ( 'when' !e= expression )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:349:55: ( 'when' !e= expression )?
             int alt39=2;
             int LA39_0 = input.LA(1);
 
@@ -4434,11 +4371,11 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt39) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:342:56: 'when' !e= expression
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:349:56: 'when' !e= expression
                     {
-                    string_literal99=(Token)match(input,80,FOLLOW_80_in_transitionDeclaration1579); 
+                    string_literal99=(Token)match(input,80,FOLLOW_80_in_transitionDeclaration1585); 
 
-                    pushFollow(FOLLOW_expression_in_transitionDeclaration1584);
+                    pushFollow(FOLLOW_expression_in_transitionDeclaration1590);
                     e=expression();
 
                     state._fsp--;
@@ -4453,7 +4390,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            char_literal100=(Token)match(input,29,FOLLOW_29_in_transitionDeclaration1590); 
+            char_literal100=(Token)match(input,29,FOLLOW_29_in_transitionDeclaration1596); 
 
              retval.value = TamagoCDLEaseFactory.transition((f!=null?f.getText():null),(t!=null?t.getText():null),(w!=null?w.getText():null),retval.guard); 
 
@@ -4466,12 +4403,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -4489,7 +4424,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "invariantExpression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:346:1: invariantExpression returns [TInvariant value] : 'invariant' ^e= expression ( 'fail' f= STRING )? ';' ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:353:1: invariantExpression returns [TInvariant value] : 'invariant' ^e= expression ( 'fail' f= STRING )? ';' ;
     public final TamagoCDLParser.invariantExpression_return invariantExpression() throws RecognitionException {
         TamagoCDLParser.invariantExpression_return retval = new TamagoCDLParser.invariantExpression_return();
         retval.start = input.LT(1);
@@ -4510,27 +4445,27 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal103_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:347:2: ( 'invariant' ^e= expression ( 'fail' f= STRING )? ';' )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:347:4: 'invariant' ^e= expression ( 'fail' f= STRING )? ';'
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:354:2: ( 'invariant' ^e= expression ( 'fail' f= STRING )? ';' )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:354:4: 'invariant' ^e= expression ( 'fail' f= STRING )? ';'
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal101=(Token)match(input,53,FOLLOW_53_in_invariantExpression1610); 
+            string_literal101=(Token)match(input,53,FOLLOW_53_in_invariantExpression1616); 
             string_literal101_tree = 
             (CommonTree)adaptor.create(string_literal101)
             ;
             root_0 = (CommonTree)adaptor.becomeRoot(string_literal101_tree, root_0);
 
 
-            pushFollow(FOLLOW_expression_in_invariantExpression1615);
+            pushFollow(FOLLOW_expression_in_invariantExpression1621);
             e=expression();
 
             state._fsp--;
 
             adaptor.addChild(root_0, e.getTree());
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:347:30: ( 'fail' f= STRING )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:354:30: ( 'fail' f= STRING )?
             int alt40=2;
             int LA40_0 = input.LA(1);
 
@@ -4539,16 +4474,16 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt40) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:347:31: 'fail' f= STRING
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:354:31: 'fail' f= STRING
                     {
-                    string_literal102=(Token)match(input,45,FOLLOW_45_in_invariantExpression1618); 
+                    string_literal102=(Token)match(input,45,FOLLOW_45_in_invariantExpression1624); 
                     string_literal102_tree = 
                     (CommonTree)adaptor.create(string_literal102)
                     ;
                     adaptor.addChild(root_0, string_literal102_tree);
 
 
-                    f=(Token)match(input,STRING,FOLLOW_STRING_in_invariantExpression1622); 
+                    f=(Token)match(input,STRING,FOLLOW_STRING_in_invariantExpression1628); 
                     f_tree = 
                     (CommonTree)adaptor.create(f)
                     ;
@@ -4561,7 +4496,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            char_literal103=(Token)match(input,29,FOLLOW_29_in_invariantExpression1626); 
+            char_literal103=(Token)match(input,29,FOLLOW_29_in_invariantExpression1632); 
             char_literal103_tree = 
             (CommonTree)adaptor.create(char_literal103)
             ;
@@ -4579,12 +4514,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -4602,7 +4535,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "preconditionExpression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:351:1: preconditionExpression returns [TCondition value] : 'pre' ^e= expression ( 'fail' f= STRING )? ';' ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:358:1: preconditionExpression returns [TCondition value] : 'pre' ^e= expression ( 'fail' f= STRING )? ';' ;
     public final TamagoCDLParser.preconditionExpression_return preconditionExpression() throws RecognitionException {
         TamagoCDLParser.preconditionExpression_return retval = new TamagoCDLParser.preconditionExpression_return();
         retval.start = input.LT(1);
@@ -4623,27 +4556,27 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal106_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:352:2: ( 'pre' ^e= expression ( 'fail' f= STRING )? ';' )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:352:4: 'pre' ^e= expression ( 'fail' f= STRING )? ';'
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:359:2: ( 'pre' ^e= expression ( 'fail' f= STRING )? ';' )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:359:4: 'pre' ^e= expression ( 'fail' f= STRING )? ';'
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal104=(Token)match(input,60,FOLLOW_60_in_preconditionExpression1645); 
+            string_literal104=(Token)match(input,60,FOLLOW_60_in_preconditionExpression1651); 
             string_literal104_tree = 
             (CommonTree)adaptor.create(string_literal104)
             ;
             root_0 = (CommonTree)adaptor.becomeRoot(string_literal104_tree, root_0);
 
 
-            pushFollow(FOLLOW_expression_in_preconditionExpression1650);
+            pushFollow(FOLLOW_expression_in_preconditionExpression1656);
             e=expression();
 
             state._fsp--;
 
             adaptor.addChild(root_0, e.getTree());
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:352:24: ( 'fail' f= STRING )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:359:24: ( 'fail' f= STRING )?
             int alt41=2;
             int LA41_0 = input.LA(1);
 
@@ -4652,16 +4585,16 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt41) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:352:25: 'fail' f= STRING
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:359:25: 'fail' f= STRING
                     {
-                    string_literal105=(Token)match(input,45,FOLLOW_45_in_preconditionExpression1653); 
+                    string_literal105=(Token)match(input,45,FOLLOW_45_in_preconditionExpression1659); 
                     string_literal105_tree = 
                     (CommonTree)adaptor.create(string_literal105)
                     ;
                     adaptor.addChild(root_0, string_literal105_tree);
 
 
-                    f=(Token)match(input,STRING,FOLLOW_STRING_in_preconditionExpression1657); 
+                    f=(Token)match(input,STRING,FOLLOW_STRING_in_preconditionExpression1663); 
                     f_tree = 
                     (CommonTree)adaptor.create(f)
                     ;
@@ -4674,7 +4607,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            char_literal106=(Token)match(input,29,FOLLOW_29_in_preconditionExpression1661); 
+            char_literal106=(Token)match(input,29,FOLLOW_29_in_preconditionExpression1667); 
             char_literal106_tree = 
             (CommonTree)adaptor.create(char_literal106)
             ;
@@ -4692,12 +4625,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -4715,7 +4646,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "postconditionExpression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:356:1: postconditionExpression returns [TCondition value] : 'post' ^e= expression ( 'fail' f= STRING )? ';' ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:363:1: postconditionExpression returns [TCondition value] : 'post' ^e= expression ( 'fail' f= STRING )? ';' ;
     public final TamagoCDLParser.postconditionExpression_return postconditionExpression() throws RecognitionException {
         TamagoCDLParser.postconditionExpression_return retval = new TamagoCDLParser.postconditionExpression_return();
         retval.start = input.LT(1);
@@ -4736,27 +4667,27 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal109_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:357:2: ( 'post' ^e= expression ( 'fail' f= STRING )? ';' )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:357:4: 'post' ^e= expression ( 'fail' f= STRING )? ';'
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:364:2: ( 'post' ^e= expression ( 'fail' f= STRING )? ';' )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:364:4: 'post' ^e= expression ( 'fail' f= STRING )? ';'
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            string_literal107=(Token)match(input,59,FOLLOW_59_in_postconditionExpression1681); 
+            string_literal107=(Token)match(input,59,FOLLOW_59_in_postconditionExpression1687); 
             string_literal107_tree = 
             (CommonTree)adaptor.create(string_literal107)
             ;
             root_0 = (CommonTree)adaptor.becomeRoot(string_literal107_tree, root_0);
 
 
-            pushFollow(FOLLOW_expression_in_postconditionExpression1686);
+            pushFollow(FOLLOW_expression_in_postconditionExpression1692);
             e=expression();
 
             state._fsp--;
 
             adaptor.addChild(root_0, e.getTree());
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:357:25: ( 'fail' f= STRING )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:364:25: ( 'fail' f= STRING )?
             int alt42=2;
             int LA42_0 = input.LA(1);
 
@@ -4765,16 +4696,16 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt42) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:357:26: 'fail' f= STRING
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:364:26: 'fail' f= STRING
                     {
-                    string_literal108=(Token)match(input,45,FOLLOW_45_in_postconditionExpression1689); 
+                    string_literal108=(Token)match(input,45,FOLLOW_45_in_postconditionExpression1695); 
                     string_literal108_tree = 
                     (CommonTree)adaptor.create(string_literal108)
                     ;
                     adaptor.addChild(root_0, string_literal108_tree);
 
 
-                    f=(Token)match(input,STRING,FOLLOW_STRING_in_postconditionExpression1693); 
+                    f=(Token)match(input,STRING,FOLLOW_STRING_in_postconditionExpression1699); 
                     f_tree = 
                     (CommonTree)adaptor.create(f)
                     ;
@@ -4787,7 +4718,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            char_literal109=(Token)match(input,29,FOLLOW_29_in_postconditionExpression1697); 
+            char_literal109=(Token)match(input,29,FOLLOW_29_in_postconditionExpression1703); 
             char_literal109_tree = 
             (CommonTree)adaptor.create(char_literal109)
             ;
@@ -4805,12 +4736,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -4829,7 +4758,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "expression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:364:1: expression returns [TExpression value, TIOperator opor] : andExpression ( '||' ^ andExpressionbis )* ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:371:1: expression returns [TExpression value, TIOperator opor] : andExpression ( '||' ^ andExpressionbis )* ;
     public final TamagoCDLParser.expression_return expression() throws RecognitionException {
         TamagoCDLParser.expression_return retval = new TamagoCDLParser.expression_return();
         retval.start = input.LT(1);
@@ -4849,20 +4778,20 @@ public TreeAdaptor getTreeAdaptor() {
         retval.opor = new TIOperator(TOpeName.opOr);
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:374:2: ( andExpression ( '||' ^ andExpressionbis )* )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:374:4: andExpression ( '||' ^ andExpressionbis )*
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:381:2: ( andExpression ( '||' ^ andExpressionbis )* )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:381:4: andExpression ( '||' ^ andExpressionbis )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            pushFollow(FOLLOW_andExpression_in_expression1728);
+            pushFollow(FOLLOW_andExpression_in_expression1734);
             andExpression110=andExpression();
 
             state._fsp--;
 
             adaptor.addChild(root_0, andExpression110.getTree());
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:375:3: ( '||' ^ andExpressionbis )*
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:382:3: ( '||' ^ andExpressionbis )*
             loop43:
             do {
                 int alt43=2;
@@ -4875,16 +4804,16 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt43) {
             	case 1 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:375:4: '||' ^ andExpressionbis
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:382:4: '||' ^ andExpressionbis
             	    {
-            	    string_literal111=(Token)match(input,84,FOLLOW_84_in_expression1734); 
+            	    string_literal111=(Token)match(input,84,FOLLOW_84_in_expression1740); 
             	    string_literal111_tree = 
             	    (CommonTree)adaptor.create(string_literal111)
             	    ;
             	    root_0 = (CommonTree)adaptor.becomeRoot(string_literal111_tree, root_0);
 
 
-            	    pushFollow(FOLLOW_andExpressionbis_in_expression1737);
+            	    pushFollow(FOLLOW_andExpressionbis_in_expression1743);
             	    andExpressionbis112=andExpressionbis();
 
             	    state._fsp--;
@@ -4919,12 +4848,10 @@ public TreeAdaptor getTreeAdaptor() {
             		retval.value = retval.opor;
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -4942,7 +4869,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "andExpressionbis"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:378:1: andExpressionbis returns [TExpression value] : andExpression ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:385:1: andExpressionbis returns [TExpression value] : andExpression ;
     public final TamagoCDLParser.andExpressionbis_return andExpressionbis() throws RecognitionException {
         TamagoCDLParser.andExpressionbis_return retval = new TamagoCDLParser.andExpressionbis_return();
         retval.start = input.LT(1);
@@ -4955,13 +4882,13 @@ public TreeAdaptor getTreeAdaptor() {
 
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:379:3: ( andExpression )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:379:3: andExpression
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:386:3: ( andExpression )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:386:3: andExpression
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            pushFollow(FOLLOW_andExpression_in_andExpressionbis1758);
+            pushFollow(FOLLOW_andExpression_in_andExpressionbis1764);
             andExpression113=andExpression();
 
             state._fsp--;
@@ -4979,12 +4906,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -5003,7 +4928,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "andExpression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:383:1: andExpression returns [TExpression value, TIOperator opand] : relQuantExpression ( '&&' ^ relQuantExpressionbis )* ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:390:1: andExpression returns [TExpression value, TIOperator opand] : relQuantExpression ( '&&' ^ relQuantExpressionbis )* ;
     public final TamagoCDLParser.andExpression_return andExpression() throws RecognitionException {
         TamagoCDLParser.andExpression_return retval = new TamagoCDLParser.andExpression_return();
         retval.start = input.LT(1);
@@ -5023,20 +4948,20 @@ public TreeAdaptor getTreeAdaptor() {
         retval.opand = new TIOperator(TOpeName.opAnd);
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:393:2: ( relQuantExpression ( '&&' ^ relQuantExpressionbis )* )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:393:4: relQuantExpression ( '&&' ^ relQuantExpressionbis )*
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:400:2: ( relQuantExpression ( '&&' ^ relQuantExpressionbis )* )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:400:4: relQuantExpression ( '&&' ^ relQuantExpressionbis )*
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            pushFollow(FOLLOW_relQuantExpression_in_andExpression1784);
+            pushFollow(FOLLOW_relQuantExpression_in_andExpression1790);
             relQuantExpression114=relQuantExpression();
 
             state._fsp--;
 
             adaptor.addChild(root_0, relQuantExpression114.getTree());
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:394:3: ( '&&' ^ relQuantExpressionbis )*
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:401:3: ( '&&' ^ relQuantExpressionbis )*
             loop44:
             do {
                 int alt44=2;
@@ -5049,16 +4974,16 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt44) {
             	case 1 :
-            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:394:4: '&&' ^ relQuantExpressionbis
+            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:401:4: '&&' ^ relQuantExpressionbis
             	    {
-            	    string_literal115=(Token)match(input,21,FOLLOW_21_in_andExpression1790); 
+            	    string_literal115=(Token)match(input,21,FOLLOW_21_in_andExpression1796); 
             	    string_literal115_tree = 
             	    (CommonTree)adaptor.create(string_literal115)
             	    ;
             	    root_0 = (CommonTree)adaptor.becomeRoot(string_literal115_tree, root_0);
 
 
-            	    pushFollow(FOLLOW_relQuantExpressionbis_in_andExpression1793);
+            	    pushFollow(FOLLOW_relQuantExpressionbis_in_andExpression1799);
             	    relQuantExpressionbis116=relQuantExpressionbis();
 
             	    state._fsp--;
@@ -5093,12 +5018,10 @@ public TreeAdaptor getTreeAdaptor() {
             		retval.value = retval.opand;
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -5116,7 +5039,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "relQuantExpressionbis"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:398:1: relQuantExpressionbis returns [TExpression value] : relQuantExpression ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:405:1: relQuantExpressionbis returns [TExpression value] : relQuantExpression ;
     public final TamagoCDLParser.relQuantExpressionbis_return relQuantExpressionbis() throws RecognitionException {
         TamagoCDLParser.relQuantExpressionbis_return retval = new TamagoCDLParser.relQuantExpressionbis_return();
         retval.start = input.LT(1);
@@ -5129,13 +5052,13 @@ public TreeAdaptor getTreeAdaptor() {
 
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:399:3: ( relQuantExpression )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:399:3: relQuantExpression
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:406:3: ( relQuantExpression )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:406:3: relQuantExpression
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            pushFollow(FOLLOW_relQuantExpression_in_relQuantExpressionbis1816);
+            pushFollow(FOLLOW_relQuantExpression_in_relQuantExpressionbis1822);
             relQuantExpression117=relQuantExpression();
 
             state._fsp--;
@@ -5153,12 +5076,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -5176,7 +5097,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "relQuantExpression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:401:1: relQuantExpression returns [TExpression value] : ( litBoolean | quantExpression | relExpression | notExpression );
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:408:1: relQuantExpression returns [TExpression value] : ( litBoolean | quantExpression | relExpression | notExpression );
     public final TamagoCDLParser.relQuantExpression_return relQuantExpression() throws RecognitionException {
         TamagoCDLParser.relQuantExpression_return retval = new TamagoCDLParser.relQuantExpression_return();
         retval.start = input.LT(1);
@@ -5195,7 +5116,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:402:2: ( litBoolean | quantExpression | relExpression | notExpression )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:409:2: ( litBoolean | quantExpression | relExpression | notExpression )
             int alt45=4;
             switch ( input.LA(1) ) {
             case 46:
@@ -5238,12 +5159,12 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt45) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:403:4: litBoolean
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:410:4: litBoolean
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    pushFollow(FOLLOW_litBoolean_in_relQuantExpression1835);
+                    pushFollow(FOLLOW_litBoolean_in_relQuantExpression1841);
                     litBoolean118=litBoolean();
 
                     state._fsp--;
@@ -5255,12 +5176,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:404:4: quantExpression
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:411:4: quantExpression
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    pushFollow(FOLLOW_quantExpression_in_relQuantExpression1842);
+                    pushFollow(FOLLOW_quantExpression_in_relQuantExpression1848);
                     quantExpression119=quantExpression();
 
                     state._fsp--;
@@ -5272,12 +5193,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 3 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:405:4: relExpression
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:412:4: relExpression
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    pushFollow(FOLLOW_relExpression_in_relQuantExpression1849);
+                    pushFollow(FOLLOW_relExpression_in_relQuantExpression1855);
                     relExpression120=relExpression();
 
                     state._fsp--;
@@ -5289,12 +5210,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 4 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:406:4: notExpression
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:413:4: notExpression
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    pushFollow(FOLLOW_notExpression_in_relQuantExpression1856);
+                    pushFollow(FOLLOW_notExpression_in_relQuantExpression1862);
                     notExpression121=notExpression();
 
                     state._fsp--;
@@ -5314,12 +5235,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -5337,7 +5256,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "notExpression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:409:1: notExpression returns [TExpression value] : NOTOPERATOR relQuantExpression ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:416:1: notExpression returns [TExpression value] : NOTOPERATOR relQuantExpression ;
     public final TamagoCDLParser.notExpression_return notExpression() throws RecognitionException {
         TamagoCDLParser.notExpression_return retval = new TamagoCDLParser.notExpression_return();
         retval.start = input.LT(1);
@@ -5352,20 +5271,20 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree NOTOPERATOR122_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:410:2: ( NOTOPERATOR relQuantExpression )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:410:4: NOTOPERATOR relQuantExpression
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:417:2: ( NOTOPERATOR relQuantExpression )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:417:4: NOTOPERATOR relQuantExpression
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            NOTOPERATOR122=(Token)match(input,NOTOPERATOR,FOLLOW_NOTOPERATOR_in_notExpression1873); 
+            NOTOPERATOR122=(Token)match(input,NOTOPERATOR,FOLLOW_NOTOPERATOR_in_notExpression1879); 
             NOTOPERATOR122_tree = 
             (CommonTree)adaptor.create(NOTOPERATOR122)
             ;
             adaptor.addChild(root_0, NOTOPERATOR122_tree);
 
 
-            pushFollow(FOLLOW_relQuantExpression_in_notExpression1875);
+            pushFollow(FOLLOW_relQuantExpression_in_notExpression1881);
             relQuantExpression123=relQuantExpression();
 
             state._fsp--;
@@ -5383,12 +5302,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -5406,7 +5323,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "litBoolean"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:413:1: litBoolean returns [TBool value] : ( 'true' | 'false' );
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:420:1: litBoolean returns [TBool value] : ( 'true' | 'false' );
     public final TamagoCDLParser.litBoolean_return litBoolean() throws RecognitionException {
         TamagoCDLParser.litBoolean_return retval = new TamagoCDLParser.litBoolean_return();
         retval.start = input.LT(1);
@@ -5421,7 +5338,7 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree string_literal125_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:414:2: ( 'true' | 'false' )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:421:2: ( 'true' | 'false' )
             int alt46=2;
             int LA46_0 = input.LA(1);
 
@@ -5440,12 +5357,12 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt46) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:414:4: 'true'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:421:4: 'true'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal124=(Token)match(input,77,FOLLOW_77_in_litBoolean1892); 
+                    string_literal124=(Token)match(input,77,FOLLOW_77_in_litBoolean1898); 
                     string_literal124_tree = 
                     (CommonTree)adaptor.create(string_literal124)
                     ;
@@ -5457,12 +5374,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:415:4: 'false'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:422:4: 'false'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal125=(Token)match(input,46,FOLLOW_46_in_litBoolean1900); 
+                    string_literal125=(Token)match(input,46,FOLLOW_46_in_litBoolean1906); 
                     string_literal125_tree = 
                     (CommonTree)adaptor.create(string_literal125)
                     ;
@@ -5482,12 +5399,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -5505,7 +5420,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "quantExpression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:416:1: quantExpression returns [TExpression value] : quant= QUANTIFIER var= ID ':' t= type dom= domainQuant '{' body= expression '}' ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:423:1: quantExpression returns [TExpression value] : quant= QUANTIFIER var= ID ':' t= type dom= domainQuant '{' body= expression '}' ;
     public final TamagoCDLParser.quantExpression_return quantExpression() throws RecognitionException {
         TamagoCDLParser.quantExpression_return retval = new TamagoCDLParser.quantExpression_return();
         retval.start = input.LT(1);
@@ -5532,62 +5447,62 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal128_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:417:2: (quant= QUANTIFIER var= ID ':' t= type dom= domainQuant '{' body= expression '}' )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:417:4: quant= QUANTIFIER var= ID ':' t= type dom= domainQuant '{' body= expression '}'
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:424:2: (quant= QUANTIFIER var= ID ':' t= type dom= domainQuant '{' body= expression '}' )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:424:4: quant= QUANTIFIER var= ID ':' t= type dom= domainQuant '{' body= expression '}'
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            quant=(Token)match(input,QUANTIFIER,FOLLOW_QUANTIFIER_in_quantExpression1916); 
+            quant=(Token)match(input,QUANTIFIER,FOLLOW_QUANTIFIER_in_quantExpression1922); 
             quant_tree = 
             (CommonTree)adaptor.create(quant)
             ;
             adaptor.addChild(root_0, quant_tree);
 
 
-            var=(Token)match(input,ID,FOLLOW_ID_in_quantExpression1921); 
+            var=(Token)match(input,ID,FOLLOW_ID_in_quantExpression1927); 
             var_tree = 
             (CommonTree)adaptor.create(var)
             ;
             adaptor.addChild(root_0, var_tree);
 
 
-            char_literal126=(Token)match(input,28,FOLLOW_28_in_quantExpression1924); 
+            char_literal126=(Token)match(input,28,FOLLOW_28_in_quantExpression1930); 
             char_literal126_tree = 
             (CommonTree)adaptor.create(char_literal126)
             ;
             adaptor.addChild(root_0, char_literal126_tree);
 
 
-            pushFollow(FOLLOW_type_in_quantExpression1929);
+            pushFollow(FOLLOW_type_in_quantExpression1935);
             t=type();
 
             state._fsp--;
 
             adaptor.addChild(root_0, t.getTree());
 
-            pushFollow(FOLLOW_domainQuant_in_quantExpression1936);
+            pushFollow(FOLLOW_domainQuant_in_quantExpression1942);
             dom=domainQuant();
 
             state._fsp--;
 
             adaptor.addChild(root_0, dom.getTree());
 
-            char_literal127=(Token)match(input,83,FOLLOW_83_in_quantExpression1941); 
+            char_literal127=(Token)match(input,83,FOLLOW_83_in_quantExpression1947); 
             char_literal127_tree = 
             (CommonTree)adaptor.create(char_literal127)
             ;
             adaptor.addChild(root_0, char_literal127_tree);
 
 
-            pushFollow(FOLLOW_expression_in_quantExpression1947);
+            pushFollow(FOLLOW_expression_in_quantExpression1953);
             body=expression();
 
             state._fsp--;
 
             adaptor.addChild(root_0, body.getTree());
 
-            char_literal128=(Token)match(input,85,FOLLOW_85_in_quantExpression1950); 
+            char_literal128=(Token)match(input,85,FOLLOW_85_in_quantExpression1956); 
             char_literal128_tree = 
             (CommonTree)adaptor.create(char_literal128)
             ;
@@ -5606,12 +5521,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -5630,7 +5543,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "domainQuant"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:431:1: domainQuant returns [String kind, Collection<Object> value] : ( 'in' ( 'set' '[' a= expression ( ',' b= expression )* ']' | 'coll' c= expression ) | 'from' d= expression 'to' e= expression );
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:438:1: domainQuant returns [String kind, Collection<Object> value] : ( 'in' ( 'set' '[' a= expression ( ',' b= expression )* ']' | 'coll' c= expression ) | 'from' d= expression 'to' e= expression );
     public final TamagoCDLParser.domainQuant_return domainQuant() throws RecognitionException {
         TamagoCDLParser.domainQuant_return retval = new TamagoCDLParser.domainQuant_return();
         retval.start = input.LT(1);
@@ -5670,7 +5583,7 @@ public TreeAdaptor getTreeAdaptor() {
         retval.value = new ArrayList<Object>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:435:2: ( 'in' ( 'set' '[' a= expression ( ',' b= expression )* ']' | 'coll' c= expression ) | 'from' d= expression 'to' e= expression )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:442:2: ( 'in' ( 'set' '[' a= expression ( ',' b= expression )* ']' | 'coll' c= expression ) | 'from' d= expression 'to' e= expression )
             int alt49=2;
             int LA49_0 = input.LA(1);
 
@@ -5689,19 +5602,19 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt49) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:436:2: 'in' ( 'set' '[' a= expression ( ',' b= expression )* ']' | 'coll' c= expression )
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:443:2: 'in' ( 'set' '[' a= expression ( ',' b= expression )* ']' | 'coll' c= expression )
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal129=(Token)match(input,50,FOLLOW_50_in_domainQuant1974); 
+                    string_literal129=(Token)match(input,50,FOLLOW_50_in_domainQuant1980); 
                     string_literal129_tree = 
                     (CommonTree)adaptor.create(string_literal129)
                     ;
                     adaptor.addChild(root_0, string_literal129_tree);
 
 
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:436:7: ( 'set' '[' a= expression ( ',' b= expression )* ']' | 'coll' c= expression )
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:443:7: ( 'set' '[' a= expression ( ',' b= expression )* ']' | 'coll' c= expression )
                     int alt48=2;
                     int LA48_0 = input.LA(1);
 
@@ -5720,30 +5633,30 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     switch (alt48) {
                         case 1 :
-                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:436:9: 'set' '[' a= expression ( ',' b= expression )* ']'
+                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:443:9: 'set' '[' a= expression ( ',' b= expression )* ']'
                             {
-                            string_literal130=(Token)match(input,69,FOLLOW_69_in_domainQuant1978); 
+                            string_literal130=(Token)match(input,69,FOLLOW_69_in_domainQuant1984); 
                             string_literal130_tree = 
                             (CommonTree)adaptor.create(string_literal130)
                             ;
                             adaptor.addChild(root_0, string_literal130_tree);
 
 
-                            char_literal131=(Token)match(input,33,FOLLOW_33_in_domainQuant1980); 
+                            char_literal131=(Token)match(input,33,FOLLOW_33_in_domainQuant1986); 
                             char_literal131_tree = 
                             (CommonTree)adaptor.create(char_literal131)
                             ;
                             adaptor.addChild(root_0, char_literal131_tree);
 
 
-                            pushFollow(FOLLOW_expression_in_domainQuant1984);
+                            pushFollow(FOLLOW_expression_in_domainQuant1990);
                             a=expression();
 
                             state._fsp--;
 
                             adaptor.addChild(root_0, a.getTree());
 
-                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:436:32: ( ',' b= expression )*
+                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:443:32: ( ',' b= expression )*
                             loop47:
                             do {
                                 int alt47=2;
@@ -5756,16 +5669,16 @@ public TreeAdaptor getTreeAdaptor() {
 
                                 switch (alt47) {
                             	case 1 :
-                            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:436:33: ',' b= expression
+                            	    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:443:33: ',' b= expression
                             	    {
-                            	    char_literal132=(Token)match(input,25,FOLLOW_25_in_domainQuant1987); 
+                            	    char_literal132=(Token)match(input,25,FOLLOW_25_in_domainQuant1993); 
                             	    char_literal132_tree = 
                             	    (CommonTree)adaptor.create(char_literal132)
                             	    ;
                             	    adaptor.addChild(root_0, char_literal132_tree);
 
 
-                            	    pushFollow(FOLLOW_expression_in_domainQuant1991);
+                            	    pushFollow(FOLLOW_expression_in_domainQuant1997);
                             	    b=expression();
 
                             	    state._fsp--;
@@ -5783,7 +5696,7 @@ public TreeAdaptor getTreeAdaptor() {
                             } while (true);
 
 
-                            char_literal133=(Token)match(input,35,FOLLOW_35_in_domainQuant1998); 
+                            char_literal133=(Token)match(input,35,FOLLOW_35_in_domainQuant2004); 
                             char_literal133_tree = 
                             (CommonTree)adaptor.create(char_literal133)
                             ;
@@ -5795,16 +5708,16 @@ public TreeAdaptor getTreeAdaptor() {
                             }
                             break;
                         case 2 :
-                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:437:4: 'coll' c= expression
+                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:444:4: 'coll' c= expression
                             {
-                            string_literal134=(Token)match(input,41,FOLLOW_41_in_domainQuant2005); 
+                            string_literal134=(Token)match(input,41,FOLLOW_41_in_domainQuant2011); 
                             string_literal134_tree = 
                             (CommonTree)adaptor.create(string_literal134)
                             ;
                             adaptor.addChild(root_0, string_literal134_tree);
 
 
-                            pushFollow(FOLLOW_expression_in_domainQuant2009);
+                            pushFollow(FOLLOW_expression_in_domainQuant2015);
                             c=expression();
 
                             state._fsp--;
@@ -5822,33 +5735,33 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:438:4: 'from' d= expression 'to' e= expression
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:445:4: 'from' d= expression 'to' e= expression
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal135=(Token)match(input,47,FOLLOW_47_in_domainQuant2018); 
+                    string_literal135=(Token)match(input,47,FOLLOW_47_in_domainQuant2024); 
                     string_literal135_tree = 
                     (CommonTree)adaptor.create(string_literal135)
                     ;
                     adaptor.addChild(root_0, string_literal135_tree);
 
 
-                    pushFollow(FOLLOW_expression_in_domainQuant2022);
+                    pushFollow(FOLLOW_expression_in_domainQuant2028);
                     d=expression();
 
                     state._fsp--;
 
                     adaptor.addChild(root_0, d.getTree());
 
-                    string_literal136=(Token)match(input,74,FOLLOW_74_in_domainQuant2024); 
+                    string_literal136=(Token)match(input,74,FOLLOW_74_in_domainQuant2030); 
                     string_literal136_tree = 
                     (CommonTree)adaptor.create(string_literal136)
                     ;
                     adaptor.addChild(root_0, string_literal136_tree);
 
 
-                    pushFollow(FOLLOW_expression_in_domainQuant2028);
+                    pushFollow(FOLLOW_expression_in_domainQuant2034);
                     e=expression();
 
                     state._fsp--;
@@ -5868,12 +5781,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -5893,7 +5804,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "relExpression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:441:1: relExpression returns [TExpression value, String op, ArrayList<TExpression> exprs ] : a= arithExpression ( RELOP ^b= arithExpression )? ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:448:1: relExpression returns [TExpression value, String op, ArrayList<TExpression> exprs ] : a= arithExpression ( RELOP ^b= arithExpression )? ;
     public final TamagoCDLParser.relExpression_return relExpression() throws RecognitionException {
         TamagoCDLParser.relExpression_return retval = new TamagoCDLParser.relExpression_return();
         retval.start = input.LT(1);
@@ -5913,20 +5824,20 @@ public TreeAdaptor getTreeAdaptor() {
           retval.exprs = new ArrayList<TExpression>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:448:2: (a= arithExpression ( RELOP ^b= arithExpression )? )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:448:4: a= arithExpression ( RELOP ^b= arithExpression )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:455:2: (a= arithExpression ( RELOP ^b= arithExpression )? )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:455:4: a= arithExpression ( RELOP ^b= arithExpression )?
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            pushFollow(FOLLOW_arithExpression_in_relExpression2057);
+            pushFollow(FOLLOW_arithExpression_in_relExpression2063);
             a=arithExpression();
 
             state._fsp--;
 
             adaptor.addChild(root_0, a.getTree());
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:449:3: ( RELOP ^b= arithExpression )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:456:3: ( RELOP ^b= arithExpression )?
             int alt50=2;
             int LA50_0 = input.LA(1);
 
@@ -5935,16 +5846,16 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt50) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:449:4: RELOP ^b= arithExpression
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:456:4: RELOP ^b= arithExpression
                     {
-                    RELOP137=(Token)match(input,RELOP,FOLLOW_RELOP_in_relExpression2063); 
+                    RELOP137=(Token)match(input,RELOP,FOLLOW_RELOP_in_relExpression2069); 
                     RELOP137_tree = 
                     (CommonTree)adaptor.create(RELOP137)
                     ;
                     root_0 = (CommonTree)adaptor.becomeRoot(RELOP137_tree, root_0);
 
 
-                    pushFollow(FOLLOW_arithExpression_in_relExpression2070);
+                    pushFollow(FOLLOW_arithExpression_in_relExpression2076);
                     b=arithExpression();
 
                     state._fsp--;
@@ -5973,12 +5884,10 @@ public TreeAdaptor getTreeAdaptor() {
             retval.value = TamagoCDLEaseFactory.operator(retval.op,retval.exprs);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -5998,7 +5907,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "arithExpression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:455:1: arithExpression returns [TExpression value, String op, ArrayList<TExpression> exprs] : multExpression ( ADDOP ^ multExpressionbis )? ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:462:1: arithExpression returns [TExpression value, String op, ArrayList<TExpression> exprs] : multExpression ( ADDOP ^ multExpressionbis )? ;
     public final TamagoCDLParser.arithExpression_return arithExpression() throws RecognitionException {
         TamagoCDLParser.arithExpression_return retval = new TamagoCDLParser.arithExpression_return();
         retval.start = input.LT(1);
@@ -6018,20 +5927,20 @@ public TreeAdaptor getTreeAdaptor() {
           retval.exprs = new ArrayList<TExpression>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:462:2: ( multExpression ( ADDOP ^ multExpressionbis )? )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:462:4: multExpression ( ADDOP ^ multExpressionbis )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:469:2: ( multExpression ( ADDOP ^ multExpressionbis )? )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:469:4: multExpression ( ADDOP ^ multExpressionbis )?
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            pushFollow(FOLLOW_multExpression_in_arithExpression2107);
+            pushFollow(FOLLOW_multExpression_in_arithExpression2113);
             multExpression138=multExpression();
 
             state._fsp--;
 
             adaptor.addChild(root_0, multExpression138.getTree());
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:463:3: ( ADDOP ^ multExpressionbis )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:470:3: ( ADDOP ^ multExpressionbis )?
             int alt51=2;
             int LA51_0 = input.LA(1);
 
@@ -6040,16 +5949,16 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt51) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:463:4: ADDOP ^ multExpressionbis
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:470:4: ADDOP ^ multExpressionbis
                     {
-                    ADDOP139=(Token)match(input,ADDOP,FOLLOW_ADDOP_in_arithExpression2113); 
+                    ADDOP139=(Token)match(input,ADDOP,FOLLOW_ADDOP_in_arithExpression2119); 
                     ADDOP139_tree = 
                     (CommonTree)adaptor.create(ADDOP139)
                     ;
                     root_0 = (CommonTree)adaptor.becomeRoot(ADDOP139_tree, root_0);
 
 
-                    pushFollow(FOLLOW_multExpressionbis_in_arithExpression2118);
+                    pushFollow(FOLLOW_multExpressionbis_in_arithExpression2124);
                     multExpressionbis140=multExpressionbis();
 
                     state._fsp--;
@@ -6078,12 +5987,10 @@ public TreeAdaptor getTreeAdaptor() {
             retval.value = TamagoCDLEaseFactory.operator(retval.op,retval.exprs);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -6101,7 +6008,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "multExpressionbis"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:467:1: multExpressionbis returns [TExpression value] : multExpression ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:474:1: multExpressionbis returns [TExpression value] : multExpression ;
     public final TamagoCDLParser.multExpressionbis_return multExpressionbis() throws RecognitionException {
         TamagoCDLParser.multExpressionbis_return retval = new TamagoCDLParser.multExpressionbis_return();
         retval.start = input.LT(1);
@@ -6114,13 +6021,13 @@ public TreeAdaptor getTreeAdaptor() {
 
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:468:3: ( multExpression )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:468:3: multExpression
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:475:3: ( multExpression )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:475:3: multExpression
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            pushFollow(FOLLOW_multExpression_in_multExpressionbis2140);
+            pushFollow(FOLLOW_multExpression_in_multExpressionbis2146);
             multExpression141=multExpression();
 
             state._fsp--;
@@ -6138,12 +6045,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -6163,7 +6068,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "multExpression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:470:1: multExpression returns [TExpression value, String op, ArrayList<TExpression> exprs] : unaryExpression ( MULTOP ^ unaryExpressionbis )? ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:477:1: multExpression returns [TExpression value, String op, ArrayList<TExpression> exprs] : unaryExpression ( MULTOP ^ unaryExpressionbis )? ;
     public final TamagoCDLParser.multExpression_return multExpression() throws RecognitionException {
         TamagoCDLParser.multExpression_return retval = new TamagoCDLParser.multExpression_return();
         retval.start = input.LT(1);
@@ -6183,20 +6088,20 @@ public TreeAdaptor getTreeAdaptor() {
           retval.exprs = new ArrayList<TExpression>();
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:477:2: ( unaryExpression ( MULTOP ^ unaryExpressionbis )? )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:477:4: unaryExpression ( MULTOP ^ unaryExpressionbis )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:484:2: ( unaryExpression ( MULTOP ^ unaryExpressionbis )? )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:484:4: unaryExpression ( MULTOP ^ unaryExpressionbis )?
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            pushFollow(FOLLOW_unaryExpression_in_multExpression2165);
+            pushFollow(FOLLOW_unaryExpression_in_multExpression2171);
             unaryExpression142=unaryExpression();
 
             state._fsp--;
 
             adaptor.addChild(root_0, unaryExpression142.getTree());
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:478:3: ( MULTOP ^ unaryExpressionbis )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:485:3: ( MULTOP ^ unaryExpressionbis )?
             int alt52=2;
             int LA52_0 = input.LA(1);
 
@@ -6205,16 +6110,16 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt52) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:478:4: MULTOP ^ unaryExpressionbis
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:485:4: MULTOP ^ unaryExpressionbis
                     {
-                    MULTOP143=(Token)match(input,MULTOP,FOLLOW_MULTOP_in_multExpression2170); 
+                    MULTOP143=(Token)match(input,MULTOP,FOLLOW_MULTOP_in_multExpression2176); 
                     MULTOP143_tree = 
                     (CommonTree)adaptor.create(MULTOP143)
                     ;
                     root_0 = (CommonTree)adaptor.becomeRoot(MULTOP143_tree, root_0);
 
 
-                    pushFollow(FOLLOW_unaryExpressionbis_in_multExpression2175);
+                    pushFollow(FOLLOW_unaryExpressionbis_in_multExpression2181);
                     unaryExpressionbis144=unaryExpressionbis();
 
                     state._fsp--;
@@ -6243,12 +6148,10 @@ public TreeAdaptor getTreeAdaptor() {
             retval.value = TamagoCDLEaseFactory.operator(retval.op,retval.exprs);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -6266,7 +6169,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "unaryExpressionbis"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:482:1: unaryExpressionbis returns [TExpression value] : unaryExpression ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:489:1: unaryExpressionbis returns [TExpression value] : unaryExpression ;
     public final TamagoCDLParser.unaryExpressionbis_return unaryExpressionbis() throws RecognitionException {
         TamagoCDLParser.unaryExpressionbis_return retval = new TamagoCDLParser.unaryExpressionbis_return();
         retval.start = input.LT(1);
@@ -6279,13 +6182,13 @@ public TreeAdaptor getTreeAdaptor() {
 
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:483:2: ( unaryExpression )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:484:2: unaryExpression
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:490:2: ( unaryExpression )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:491:2: unaryExpression
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            pushFollow(FOLLOW_unaryExpression_in_unaryExpressionbis2200);
+            pushFollow(FOLLOW_unaryExpression_in_unaryExpressionbis2206);
             unaryExpression145=unaryExpression();
 
             state._fsp--;
@@ -6303,12 +6206,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -6326,7 +6227,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "unaryExpression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:486:1: unaryExpression returns [TExpression value] : b= primaryExpression ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:493:1: unaryExpression returns [TExpression value] : b= primaryExpression ;
     public final TamagoCDLParser.unaryExpression_return unaryExpression() throws RecognitionException {
         TamagoCDLParser.unaryExpression_return retval = new TamagoCDLParser.unaryExpression_return();
         retval.start = input.LT(1);
@@ -6339,13 +6240,13 @@ public TreeAdaptor getTreeAdaptor() {
 
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:487:2: (b= primaryExpression )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:490:2: b= primaryExpression
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:494:2: (b= primaryExpression )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:497:2: b= primaryExpression
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            pushFollow(FOLLOW_primaryExpression_in_unaryExpression2224);
+            pushFollow(FOLLOW_primaryExpression_in_unaryExpression2230);
             b=primaryExpression();
 
             state._fsp--;
@@ -6363,12 +6264,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -6386,7 +6285,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "minusArithExpression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:492:1: minusArithExpression returns [TExpression value] : '~' a= arithExpression ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:499:1: minusArithExpression returns [TExpression value] : '~' a= arithExpression ;
     public final TamagoCDLParser.minusArithExpression_return minusArithExpression() throws RecognitionException {
         TamagoCDLParser.minusArithExpression_return retval = new TamagoCDLParser.minusArithExpression_return();
         retval.start = input.LT(1);
@@ -6401,20 +6300,20 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal146_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:493:2: ( '~' a= arithExpression )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:493:4: '~' a= arithExpression
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:500:2: ( '~' a= arithExpression )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:500:4: '~' a= arithExpression
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            char_literal146=(Token)match(input,86,FOLLOW_86_in_minusArithExpression2240); 
+            char_literal146=(Token)match(input,86,FOLLOW_86_in_minusArithExpression2246); 
             char_literal146_tree = 
             (CommonTree)adaptor.create(char_literal146)
             ;
             adaptor.addChild(root_0, char_literal146_tree);
 
 
-            pushFollow(FOLLOW_arithExpression_in_minusArithExpression2244);
+            pushFollow(FOLLOW_arithExpression_in_minusArithExpression2250);
             a=arithExpression();
 
             state._fsp--;
@@ -6446,12 +6345,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -6469,7 +6366,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "primaryExpression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:509:1: primaryExpression returns [TExpression value] : ( '(' a= expression ')' |b= literalUntypedExpression |c= literalArithExpression |e= atomicExpression );
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:516:1: primaryExpression returns [TExpression value] : ( '(' a= expression ')' |b= literalUntypedExpression |c= literalArithExpression |e= atomicExpression );
     public final TamagoCDLParser.primaryExpression_return primaryExpression() throws RecognitionException {
         TamagoCDLParser.primaryExpression_return retval = new TamagoCDLParser.primaryExpression_return();
         retval.start = input.LT(1);
@@ -6492,7 +6389,7 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal148_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:510:2: ( '(' a= expression ')' |b= literalUntypedExpression |c= literalArithExpression |e= atomicExpression )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:517:2: ( '(' a= expression ')' |b= literalUntypedExpression |c= literalArithExpression |e= atomicExpression )
             int alt53=4;
             switch ( input.LA(1) ) {
             case 22:
@@ -6573,26 +6470,26 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt53) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:511:3: '(' a= expression ')'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:518:3: '(' a= expression ')'
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    char_literal147=(Token)match(input,22,FOLLOW_22_in_primaryExpression2262); 
+                    char_literal147=(Token)match(input,22,FOLLOW_22_in_primaryExpression2268); 
                     char_literal147_tree = 
                     (CommonTree)adaptor.create(char_literal147)
                     ;
                     adaptor.addChild(root_0, char_literal147_tree);
 
 
-                    pushFollow(FOLLOW_expression_in_primaryExpression2266);
+                    pushFollow(FOLLOW_expression_in_primaryExpression2272);
                     a=expression();
 
                     state._fsp--;
 
                     adaptor.addChild(root_0, a.getTree());
 
-                    char_literal148=(Token)match(input,23,FOLLOW_23_in_primaryExpression2268); 
+                    char_literal148=(Token)match(input,23,FOLLOW_23_in_primaryExpression2274); 
                     char_literal148_tree = 
                     (CommonTree)adaptor.create(char_literal148)
                     ;
@@ -6604,12 +6501,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:512:5: b= literalUntypedExpression
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:519:5: b= literalUntypedExpression
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    pushFollow(FOLLOW_literalUntypedExpression_in_primaryExpression2278);
+                    pushFollow(FOLLOW_literalUntypedExpression_in_primaryExpression2284);
                     b=literalUntypedExpression();
 
                     state._fsp--;
@@ -6621,12 +6518,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 3 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:513:5: c= literalArithExpression
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:520:5: c= literalArithExpression
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    pushFollow(FOLLOW_literalArithExpression_in_primaryExpression2288);
+                    pushFollow(FOLLOW_literalArithExpression_in_primaryExpression2294);
                     c=literalArithExpression();
 
                     state._fsp--;
@@ -6638,12 +6535,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 4 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:514:5: e= atomicExpression
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:521:5: e= atomicExpression
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    pushFollow(FOLLOW_atomicExpression_in_primaryExpression2298);
+                    pushFollow(FOLLOW_atomicExpression_in_primaryExpression2304);
                     e=atomicExpression();
 
                     state._fsp--;
@@ -6663,12 +6560,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -6686,7 +6581,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "literalUntypedExpression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:517:1: literalUntypedExpression returns [TExpression value] : ( 'null' ^| 'nil' ^);
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:524:1: literalUntypedExpression returns [TExpression value] : ( 'null' ^| 'nil' ^);
     public final TamagoCDLParser.literalUntypedExpression_return literalUntypedExpression() throws RecognitionException {
         TamagoCDLParser.literalUntypedExpression_return retval = new TamagoCDLParser.literalUntypedExpression_return();
         retval.start = input.LT(1);
@@ -6701,7 +6596,7 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree string_literal150_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:518:2: ( 'null' ^| 'nil' ^)
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:525:2: ( 'null' ^| 'nil' ^)
             int alt54=2;
             int LA54_0 = input.LA(1);
 
@@ -6720,12 +6615,12 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt54) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:518:4: 'null' ^
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:525:4: 'null' ^
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal149=(Token)match(input,57,FOLLOW_57_in_literalUntypedExpression2316); 
+                    string_literal149=(Token)match(input,57,FOLLOW_57_in_literalUntypedExpression2322); 
                     string_literal149_tree = 
                     (CommonTree)adaptor.create(string_literal149)
                     ;
@@ -6737,12 +6632,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:518:37: 'nil' ^
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:525:37: 'nil' ^
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    string_literal150=(Token)match(input,56,FOLLOW_56_in_literalUntypedExpression2322); 
+                    string_literal150=(Token)match(input,56,FOLLOW_56_in_literalUntypedExpression2328); 
                     string_literal150_tree = 
                     (CommonTree)adaptor.create(string_literal150)
                     ;
@@ -6762,12 +6657,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -6785,7 +6678,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "literalArithExpression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:520:1: literalArithExpression returns [TExpression value] : (f= FLOAT |i= INT |s= STRING );
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:527:1: literalArithExpression returns [TExpression value] : (f= FLOAT |i= INT |s= STRING );
     public final TamagoCDLParser.literalArithExpression_return literalArithExpression() throws RecognitionException {
         TamagoCDLParser.literalArithExpression_return retval = new TamagoCDLParser.literalArithExpression_return();
         retval.start = input.LT(1);
@@ -6802,7 +6695,7 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree s_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:521:2: (f= FLOAT |i= INT |s= STRING )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:528:2: (f= FLOAT |i= INT |s= STRING )
             int alt55=3;
             switch ( input.LA(1) ) {
             case FLOAT:
@@ -6830,12 +6723,12 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt55) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:522:4: f= FLOAT
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:529:4: f= FLOAT
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    f=(Token)match(input,FLOAT,FOLLOW_FLOAT_in_literalArithExpression2345); 
+                    f=(Token)match(input,FLOAT,FOLLOW_FLOAT_in_literalArithExpression2351); 
                     f_tree = 
                     (CommonTree)adaptor.create(f)
                     ;
@@ -6847,12 +6740,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:523:4: i= INT
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:530:4: i= INT
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    i=(Token)match(input,INT,FOLLOW_INT_in_literalArithExpression2354); 
+                    i=(Token)match(input,INT,FOLLOW_INT_in_literalArithExpression2360); 
                     i_tree = 
                     (CommonTree)adaptor.create(i)
                     ;
@@ -6864,12 +6757,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 3 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:524:4: s= STRING
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:531:4: s= STRING
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    s=(Token)match(input,STRING,FOLLOW_STRING_in_literalArithExpression2364); 
+                    s=(Token)match(input,STRING,FOLLOW_STRING_in_literalArithExpression2370); 
                     s_tree = 
                     (CommonTree)adaptor.create(s)
                     ;
@@ -6889,12 +6782,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -6914,7 +6805,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "atomicExpression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:527:1: atomicExpression returns [TExpression value, Triplet<TExpression, Collection<TExpression>, Boolean> d, String t] : ( '(' p= ID ')' e= atomicExpression | ( '@return' | '#' v= ID | 'this' |x= ID ) ( identSuffix )? ( '.' ^a= atomicExpression )? );
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:534:1: atomicExpression returns [TExpression value, Triplet<TExpression, Collection<TExpression>, Boolean> d, String t] : ( '(' p= ID ')' e= atomicExpression | ( '@return' | '#' v= ID | 'this' |x= ID ) ( identSuffix )? ( '.' ^a= atomicExpression )? );
     public final TamagoCDLParser.atomicExpression_return atomicExpression() throws RecognitionException {
         TamagoCDLParser.atomicExpression_return retval = new TamagoCDLParser.atomicExpression_return();
         retval.start = input.LT(1);
@@ -6949,7 +6840,7 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal157_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:528:2: ( '(' p= ID ')' e= atomicExpression | ( '@return' | '#' v= ID | 'this' |x= ID ) ( identSuffix )? ( '.' ^a= atomicExpression )? )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:535:2: ( '(' p= ID ')' e= atomicExpression | ( '@return' | '#' v= ID | 'this' |x= ID ) ( identSuffix )? ( '.' ^a= atomicExpression )? )
             int alt59=2;
             int LA59_0 = input.LA(1);
 
@@ -6968,33 +6859,33 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt59) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:529:2: '(' p= ID ')' e= atomicExpression
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:536:2: '(' p= ID ')' e= atomicExpression
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    char_literal151=(Token)match(input,22,FOLLOW_22_in_atomicExpression2382); 
+                    char_literal151=(Token)match(input,22,FOLLOW_22_in_atomicExpression2388); 
                     char_literal151_tree = 
                     (CommonTree)adaptor.create(char_literal151)
                     ;
                     adaptor.addChild(root_0, char_literal151_tree);
 
 
-                    p=(Token)match(input,ID,FOLLOW_ID_in_atomicExpression2386); 
+                    p=(Token)match(input,ID,FOLLOW_ID_in_atomicExpression2392); 
                     p_tree = 
                     (CommonTree)adaptor.create(p)
                     ;
                     adaptor.addChild(root_0, p_tree);
 
 
-                    char_literal152=(Token)match(input,23,FOLLOW_23_in_atomicExpression2388); 
+                    char_literal152=(Token)match(input,23,FOLLOW_23_in_atomicExpression2394); 
                     char_literal152_tree = 
                     (CommonTree)adaptor.create(char_literal152)
                     ;
                     adaptor.addChild(root_0, char_literal152_tree);
 
 
-                    pushFollow(FOLLOW_atomicExpression_in_atomicExpression2392);
+                    pushFollow(FOLLOW_atomicExpression_in_atomicExpression2398);
                     e=atomicExpression();
 
                     state._fsp--;
@@ -7006,12 +6897,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:531:2: ( '@return' | '#' v= ID | 'this' |x= ID ) ( identSuffix )? ( '.' ^a= atomicExpression )?
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:538:2: ( '@return' | '#' v= ID | 'this' |x= ID ) ( identSuffix )? ( '.' ^a= atomicExpression )?
                     {
                     root_0 = (CommonTree)adaptor.nil();
 
 
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:531:2: ( '@return' | '#' v= ID | 'this' |x= ID )
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:538:2: ( '@return' | '#' v= ID | 'this' |x= ID )
                     int alt56=4;
                     switch ( input.LA(1) ) {
                     case 31:
@@ -7044,9 +6935,9 @@ public TreeAdaptor getTreeAdaptor() {
 
                     switch (alt56) {
                         case 1 :
-                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:531:5: '@return'
+                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:538:5: '@return'
                             {
-                            string_literal153=(Token)match(input,31,FOLLOW_31_in_atomicExpression2404); 
+                            string_literal153=(Token)match(input,31,FOLLOW_31_in_atomicExpression2410); 
                             string_literal153_tree = 
                             (CommonTree)adaptor.create(string_literal153)
                             ;
@@ -7058,16 +6949,16 @@ public TreeAdaptor getTreeAdaptor() {
                             }
                             break;
                         case 2 :
-                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:532:4: '#' v= ID
+                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:539:4: '#' v= ID
                             {
-                            char_literal154=(Token)match(input,20,FOLLOW_20_in_atomicExpression2411); 
+                            char_literal154=(Token)match(input,20,FOLLOW_20_in_atomicExpression2417); 
                             char_literal154_tree = 
                             (CommonTree)adaptor.create(char_literal154)
                             ;
                             adaptor.addChild(root_0, char_literal154_tree);
 
 
-                            v=(Token)match(input,ID,FOLLOW_ID_in_atomicExpression2415); 
+                            v=(Token)match(input,ID,FOLLOW_ID_in_atomicExpression2421); 
                             v_tree = 
                             (CommonTree)adaptor.create(v)
                             ;
@@ -7079,9 +6970,9 @@ public TreeAdaptor getTreeAdaptor() {
                             }
                             break;
                         case 3 :
-                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:533:3: 'this'
+                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:540:3: 'this'
                             {
-                            string_literal155=(Token)match(input,73,FOLLOW_73_in_atomicExpression2421); 
+                            string_literal155=(Token)match(input,73,FOLLOW_73_in_atomicExpression2427); 
                             string_literal155_tree = 
                             (CommonTree)adaptor.create(string_literal155)
                             ;
@@ -7093,9 +6984,9 @@ public TreeAdaptor getTreeAdaptor() {
                             }
                             break;
                         case 4 :
-                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:534:4: x= ID
+                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:541:4: x= ID
                             {
-                            x=(Token)match(input,ID,FOLLOW_ID_in_atomicExpression2430); 
+                            x=(Token)match(input,ID,FOLLOW_ID_in_atomicExpression2436); 
                             x_tree = 
                             (CommonTree)adaptor.create(x)
                             ;
@@ -7110,7 +7001,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
 
 
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:536:2: ( identSuffix )?
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:543:2: ( identSuffix )?
                     int alt57=2;
                     int LA57_0 = input.LA(1);
 
@@ -7119,9 +7010,9 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     switch (alt57) {
                         case 1 :
-                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:536:3: identSuffix
+                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:543:3: identSuffix
                             {
-                            pushFollow(FOLLOW_identSuffix_in_atomicExpression2439);
+                            pushFollow(FOLLOW_identSuffix_in_atomicExpression2445);
                             identSuffix156=identSuffix();
 
                             state._fsp--;
@@ -7136,7 +7027,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
 
 
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:537:2: ( '.' ^a= atomicExpression )?
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:544:2: ( '.' ^a= atomicExpression )?
                     int alt58=2;
                     int LA58_0 = input.LA(1);
 
@@ -7145,16 +7036,16 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     switch (alt58) {
                         case 1 :
-                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:537:3: '.' ^a= atomicExpression
+                            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:544:3: '.' ^a= atomicExpression
                             {
-                            char_literal157=(Token)match(input,26,FOLLOW_26_in_atomicExpression2447); 
+                            char_literal157=(Token)match(input,26,FOLLOW_26_in_atomicExpression2453); 
                             char_literal157_tree = 
                             (CommonTree)adaptor.create(char_literal157)
                             ;
                             root_0 = (CommonTree)adaptor.becomeRoot(char_literal157_tree, root_0);
 
 
-                            pushFollow(FOLLOW_atomicExpression_in_atomicExpression2452);
+                            pushFollow(FOLLOW_atomicExpression_in_atomicExpression2458);
                             a=atomicExpression();
 
                             state._fsp--;
@@ -7182,12 +7073,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -7205,7 +7094,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "identSuffix"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:541:1: identSuffix returns [ tamagocc.util.Triplet<TExpression,Collection<TExpression>,Boolean> value] : (a= arrayIndexExpression |b= arguments ) ( '@pre' )? ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:548:1: identSuffix returns [ tamagocc.util.Triplet<TExpression,Collection<TExpression>,Boolean> value] : (a= arrayIndexExpression |b= arguments ) ( '@pre' )? ;
     public final TamagoCDLParser.identSuffix_return identSuffix() throws RecognitionException {
         TamagoCDLParser.identSuffix_return retval = new TamagoCDLParser.identSuffix_return();
         retval.start = input.LT(1);
@@ -7225,13 +7114,13 @@ public TreeAdaptor getTreeAdaptor() {
         	retval.value = new Triplet<TExpression,Collection<TExpression>,Boolean>(null,null,new Boolean(false));
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:545:2: ( (a= arrayIndexExpression |b= arguments ) ( '@pre' )? )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:545:4: (a= arrayIndexExpression |b= arguments ) ( '@pre' )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:552:2: ( (a= arrayIndexExpression |b= arguments ) ( '@pre' )? )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:552:4: (a= arrayIndexExpression |b= arguments ) ( '@pre' )?
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:545:4: (a= arrayIndexExpression |b= arguments )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:552:4: (a= arrayIndexExpression |b= arguments )
             int alt60=2;
             int LA60_0 = input.LA(1);
 
@@ -7250,9 +7139,9 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt60) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:545:6: a= arrayIndexExpression
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:552:6: a= arrayIndexExpression
                     {
-                    pushFollow(FOLLOW_arrayIndexExpression_in_identSuffix2484);
+                    pushFollow(FOLLOW_arrayIndexExpression_in_identSuffix2490);
                     a=arrayIndexExpression();
 
                     state._fsp--;
@@ -7264,9 +7153,9 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:546:5: b= arguments
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:553:5: b= arguments
                     {
-                    pushFollow(FOLLOW_arguments_in_identSuffix2494);
+                    pushFollow(FOLLOW_arguments_in_identSuffix2500);
                     b=arguments();
 
                     state._fsp--;
@@ -7281,7 +7170,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:547:2: ( '@pre' )?
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:554:2: ( '@pre' )?
             int alt61=2;
             int LA61_0 = input.LA(1);
 
@@ -7290,9 +7179,9 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt61) {
                 case 1 :
-                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:547:3: '@pre'
+                    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:554:3: '@pre'
                     {
-                    string_literal158=(Token)match(input,30,FOLLOW_30_in_identSuffix2510); 
+                    string_literal158=(Token)match(input,30,FOLLOW_30_in_identSuffix2516); 
                     string_literal158_tree = 
                     (CommonTree)adaptor.create(string_literal158)
                     ;
@@ -7318,12 +7207,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -7341,7 +7228,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "arrayIndexExpression"
-    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:551:1: arrayIndexExpression returns [TExpression value] : '[' i= arithExpression ']' ;
+    // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:558:1: arrayIndexExpression returns [TExpression value] : '[' i= arithExpression ']' ;
     public final TamagoCDLParser.arrayIndexExpression_return arrayIndexExpression() throws RecognitionException {
         TamagoCDLParser.arrayIndexExpression_return retval = new TamagoCDLParser.arrayIndexExpression_return();
         retval.start = input.LT(1);
@@ -7358,27 +7245,27 @@ public TreeAdaptor getTreeAdaptor() {
         CommonTree char_literal160_tree=null;
 
         try {
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:552:2: ( '[' i= arithExpression ']' )
-            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:552:4: '[' i= arithExpression ']'
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:559:2: ( '[' i= arithExpression ']' )
+            // /home/hbelhaou/recherche/Tamago/TamagoCC/source/tamagocc/compiler/TamagoCDL.g:559:4: '[' i= arithExpression ']'
             {
             root_0 = (CommonTree)adaptor.nil();
 
 
-            char_literal159=(Token)match(input,33,FOLLOW_33_in_arrayIndexExpression2533); 
+            char_literal159=(Token)match(input,33,FOLLOW_33_in_arrayIndexExpression2539); 
             char_literal159_tree = 
             (CommonTree)adaptor.create(char_literal159)
             ;
             adaptor.addChild(root_0, char_literal159_tree);
 
 
-            pushFollow(FOLLOW_arithExpression_in_arrayIndexExpression2537);
+            pushFollow(FOLLOW_arithExpression_in_arrayIndexExpression2543);
             i=arithExpression();
 
             state._fsp--;
 
             adaptor.addChild(root_0, i.getTree());
 
-            char_literal160=(Token)match(input,35,FOLLOW_35_in_arrayIndexExpression2539); 
+            char_literal160=(Token)match(input,35,FOLLOW_35_in_arrayIndexExpression2545); 
             char_literal160_tree = 
             (CommonTree)adaptor.create(char_literal160)
             ;
@@ -7396,12 +7283,10 @@ public TreeAdaptor getTreeAdaptor() {
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-    	retval.tree = (CommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
-        }
+            catch(RecognitionException regexception) {
+                throw new RuntimeException(regexception);
+           }
 
         finally {
         	// do for sure before leaving
@@ -7415,265 +7300,265 @@ public TreeAdaptor getTreeAdaptor() {
 
  
 
-    public static final BitSet FOLLOW_moduleDeclaration_in_tamagoEntity83 = new BitSet(new long[]{0x0000040000000000L,0x0000000000004010L});
-    public static final BitSet FOLLOW_usingDeclaration_in_tamagoEntity89 = new BitSet(new long[]{0x0000040000000000L,0x0000000000004010L});
-    public static final BitSet FOLLOW_serviceEntity_in_tamagoEntity99 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_componentEntity_in_tamagoEntity108 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_55_in_moduleDeclaration132 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_qualifiedName_in_moduleDeclaration137 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_moduleDeclaration139 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ID_in_qualifiedName164 = new BitSet(new long[]{0x0000000004000002L});
-    public static final BitSet FOLLOW_26_in_qualifiedName167 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_qualifiedName172 = new BitSet(new long[]{0x0000000004000002L});
-    public static final BitSet FOLLOW_ID_in_qualifiedNameWithWildCard203 = new BitSet(new long[]{0x000000000C000002L});
-    public static final BitSet FOLLOW_26_in_qualifiedNameWithWildCard206 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_qualifiedNameWithWildCard210 = new BitSet(new long[]{0x000000000C000002L});
-    public static final BitSet FOLLOW_27_in_qualifiedNameWithWildCard220 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_78_in_usingDeclaration244 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_qualifiedNameWithWildCard_in_usingDeclaration249 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_usingDeclaration251 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_58_in_percolator268 = new BitSet(new long[]{0x0000000001000400L});
-    public static final BitSet FOLLOW_24_in_percolator272 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_ID_in_percolator278 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_percolator283 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_67_in_require298 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_68_in_require301 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_require306 = new BitSet(new long[]{0x0004000000000000L});
-    public static final BitSet FOLLOW_50_in_require308 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_qualifiedName_in_require313 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_37_in_require315 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_require320 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_require322 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_62_in_provide339 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_68_in_provide342 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_provide347 = new BitSet(new long[]{0x0004000000000000L});
-    public static final BitSet FOLLOW_50_in_provide349 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_qualifiedName_in_provide354 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_provide356 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_68_in_serviceEntity381 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_serviceEntity386 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_83_in_serviceEntity388 = new BitSet(new long[]{0x206A004000000000L,0x0000000000200004L});
-    public static final BitSet FOLLOW_implementsInterface_in_serviceEntity399 = new BitSet(new long[]{0x206A004000000000L,0x0000000000200004L});
-    public static final BitSet FOLLOW_refineService_in_serviceEntity409 = new BitSet(new long[]{0x206A004000000000L,0x0000000000200004L});
-    public static final BitSet FOLLOW_includeService_in_serviceEntity419 = new BitSet(new long[]{0x206A004000000000L,0x0000000000200004L});
-    public static final BitSet FOLLOW_propertyDeclaration_in_serviceEntity429 = new BitSet(new long[]{0x206A004000000000L,0x0000000000200004L});
-    public static final BitSet FOLLOW_invariantExpression_in_serviceEntity439 = new BitSet(new long[]{0x206A004000000000L,0x0000000000200004L});
-    public static final BitSet FOLLOW_methodDeclaration_in_serviceEntity450 = new BitSet(new long[]{0x206A004000000000L,0x0000000000200004L});
-    public static final BitSet FOLLOW_behaviorDeclaration_in_serviceEntity467 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_85_in_serviceEntity475 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_implementsInterface_in_listimplements502 = new BitSet(new long[]{0x0002000000000002L});
-    public static final BitSet FOLLOW_refineService_in_listrefine530 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000004L});
-    public static final BitSet FOLLOW_includeService_in_listinclude556 = new BitSet(new long[]{0x0008000000000002L});
-    public static final BitSet FOLLOW_percolator_in_listpercolators590 = new BitSet(new long[]{0x0400000000000002L});
-    public static final BitSet FOLLOW_propertyDeclaration_in_listproperties615 = new BitSet(new long[]{0x2000000000000002L});
-    public static final BitSet FOLLOW_provide_in_listprovides641 = new BitSet(new long[]{0x4000000000000002L});
-    public static final BitSet FOLLOW_require_in_listrequires665 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000008L});
-    public static final BitSet FOLLOW_invariantExpression_in_listinvariants689 = new BitSet(new long[]{0x0020000000000002L});
-    public static final BitSet FOLLOW_methodDeclaration_in_listmethods715 = new BitSet(new long[]{0x0040000000000002L});
-    public static final BitSet FOLLOW_42_in_componentEntity742 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_componentEntity747 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_83_in_componentEntity749 = new BitSet(new long[]{0x6462004000000000L,0x0000000000200008L});
-    public static final BitSet FOLLOW_percolator_in_componentEntity756 = new BitSet(new long[]{0x6462004000000000L,0x0000000000200008L});
-    public static final BitSet FOLLOW_implementsInterface_in_componentEntity764 = new BitSet(new long[]{0x6462004000000000L,0x0000000000200008L});
-    public static final BitSet FOLLOW_require_in_componentEntity772 = new BitSet(new long[]{0x6462004000000000L,0x0000000000200008L});
-    public static final BitSet FOLLOW_provide_in_componentEntity780 = new BitSet(new long[]{0x6462004000000000L,0x0000000000200008L});
-    public static final BitSet FOLLOW_propertyDeclaration_in_componentEntity788 = new BitSet(new long[]{0x6462004000000000L,0x0000000000200008L});
-    public static final BitSet FOLLOW_invariantExpression_in_componentEntity796 = new BitSet(new long[]{0x6462004000000000L,0x0000000000200008L});
-    public static final BitSet FOLLOW_methodDeclaration_in_componentEntity804 = new BitSet(new long[]{0x6462004000000000L,0x0000000000200008L});
-    public static final BitSet FOLLOW_behaviorDeclaration_in_componentEntity813 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_85_in_componentEntity819 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_49_in_implementsInterface837 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_qualifiedName_in_implementsInterface842 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_implementsInterface844 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_66_in_refineService862 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_68_in_refineService865 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_refineService870 = new BitSet(new long[]{0x0004000000000000L});
-    public static final BitSet FOLLOW_50_in_refineService872 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_qualifiedName_in_refineService877 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_refineService879 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_66_in_refineService893 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_68_in_refineService896 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_qualifiedName_in_refineService899 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_refineService901 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_51_in_includeService918 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_68_in_includeService921 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_includeService926 = new BitSet(new long[]{0x0004000000000000L});
-    public static final BitSet FOLLOW_50_in_includeService928 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_qualifiedName_in_includeService933 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_includeService935 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_51_in_includeService949 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_68_in_includeService952 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_qualifiedName_in_includeService955 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_includeService957 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_61_in_propertyDeclaration974 = new BitSet(new long[]{0x8000000000000000L,0x0000000000040001L});
-    public static final BitSet FOLLOW_accessProperty_in_propertyDeclaration979 = new BitSet(new long[]{0x0010118100000400L,0x0000000000008102L});
-    public static final BitSet FOLLOW_type_in_propertyDeclaration983 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_propertyDeclaration987 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_propertyDeclaration989 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_64_in_accessProperty1015 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_63_in_accessProperty1022 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_82_in_accessProperty1034 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_primitiveType_in_type1069 = new BitSet(new long[]{0x0000000400000002L});
-    public static final BitSet FOLLOW_qualifiedName_in_type1076 = new BitSet(new long[]{0x0000000400000002L});
-    public static final BitSet FOLLOW_34_in_type1085 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_52_in_primitiveType1109 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_79_in_primitiveType1117 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_39_in_primitiveType1126 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_40_in_primitiveType1135 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_65_in_primitiveType1144 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_44_in_primitiveType1153 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_primitiveType1162 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_72_in_primitiveType1171 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_54_in_methodDeclaration1192 = new BitSet(new long[]{0x0010118100000400L,0x0000000000008102L});
-    public static final BitSet FOLLOW_type_in_methodDeclaration1197 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_methodDeclaration1201 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_parameters_in_methodDeclaration1205 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_83_in_methodDeclaration1207 = new BitSet(new long[]{0x1801000000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_48_in_methodDeclaration1214 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_methodDeclaration1219 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_methodDeclaration1221 = new BitSet(new long[]{0x1800000000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_preconditionExpression_in_methodDeclaration1232 = new BitSet(new long[]{0x0800000000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_postconditionExpression_in_methodDeclaration1242 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_85_in_methodDeclaration1248 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_parameters1271 = new BitSet(new long[]{0x0010118100800400L,0x0000000000008102L});
-    public static final BitSet FOLLOW_type_in_parameters1276 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_parameters1280 = new BitSet(new long[]{0x0000000002800000L});
-    public static final BitSet FOLLOW_25_in_parameters1283 = new BitSet(new long[]{0x0010118100000400L,0x0000000000008102L});
-    public static final BitSet FOLLOW_type_in_parameters1287 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_parameters1291 = new BitSet(new long[]{0x0000000002800000L});
-    public static final BitSet FOLLOW_23_in_parameters1322 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_arguments1344 = new BitSet(new long[]{0x0300400080D2AD00L,0x0000000000002200L});
-    public static final BitSet FOLLOW_expression_in_arguments1349 = new BitSet(new long[]{0x0000000002800000L});
-    public static final BitSet FOLLOW_25_in_arguments1357 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
-    public static final BitSet FOLLOW_expression_in_arguments1361 = new BitSet(new long[]{0x0000000002800000L});
-    public static final BitSet FOLLOW_23_in_arguments1369 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_38_in_behaviorDeclaration1390 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_83_in_behaviorDeclaration1393 = new BitSet(new long[]{0x0000080000000000L,0x0000000000201080L});
-    public static final BitSet FOLLOW_43_in_behaviorDeclaration1398 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_70_in_behaviorDeclaration1401 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_behaviorDeclaration1406 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_behaviorDeclaration1408 = new BitSet(new long[]{0x0000000000000000L,0x0000000000201080L});
-    public static final BitSet FOLLOW_71_in_behaviorDeclaration1417 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_83_in_behaviorDeclaration1420 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200040L});
-    public static final BitSet FOLLOW_stateDeclaration_in_behaviorDeclaration1428 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200040L});
-    public static final BitSet FOLLOW_85_in_behaviorDeclaration1436 = new BitSet(new long[]{0x0000000000000000L,0x0000000000201000L});
-    public static final BitSet FOLLOW_76_in_behaviorDeclaration1443 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_83_in_behaviorDeclaration1445 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200800L});
-    public static final BitSet FOLLOW_transitionDeclaration_in_behaviorDeclaration1452 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200800L});
-    public static final BitSet FOLLOW_85_in_behaviorDeclaration1459 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_85_in_behaviorDeclaration1464 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_70_in_stateDeclaration1488 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_stateDeclaration1493 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_83_in_stateDeclaration1495 = new BitSet(new long[]{0x0000001000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_allowDeclaration_in_stateDeclaration1501 = new BitSet(new long[]{0x0000001000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_85_in_stateDeclaration1507 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_36_in_allowDeclaration1528 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_allowDeclaration1533 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_allowDeclaration1535 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_75_in_transitionDeclaration1554 = new BitSet(new long[]{0x0000800000000000L});
-    public static final BitSet FOLLOW_47_in_transitionDeclaration1557 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_transitionDeclaration1562 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
-    public static final BitSet FOLLOW_74_in_transitionDeclaration1564 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_transitionDeclaration1569 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
-    public static final BitSet FOLLOW_81_in_transitionDeclaration1571 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_transitionDeclaration1576 = new BitSet(new long[]{0x0000000020000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_80_in_transitionDeclaration1579 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
-    public static final BitSet FOLLOW_expression_in_transitionDeclaration1584 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_transitionDeclaration1590 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_53_in_invariantExpression1610 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
-    public static final BitSet FOLLOW_expression_in_invariantExpression1615 = new BitSet(new long[]{0x0000200020000000L});
-    public static final BitSet FOLLOW_45_in_invariantExpression1618 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_STRING_in_invariantExpression1622 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_invariantExpression1626 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_60_in_preconditionExpression1645 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
-    public static final BitSet FOLLOW_expression_in_preconditionExpression1650 = new BitSet(new long[]{0x0000200020000000L});
-    public static final BitSet FOLLOW_45_in_preconditionExpression1653 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_STRING_in_preconditionExpression1657 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_preconditionExpression1661 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_59_in_postconditionExpression1681 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
-    public static final BitSet FOLLOW_expression_in_postconditionExpression1686 = new BitSet(new long[]{0x0000200020000000L});
-    public static final BitSet FOLLOW_45_in_postconditionExpression1689 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_STRING_in_postconditionExpression1693 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_postconditionExpression1697 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_andExpression_in_expression1728 = new BitSet(new long[]{0x0000000000000002L,0x0000000000100000L});
-    public static final BitSet FOLLOW_84_in_expression1734 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
-    public static final BitSet FOLLOW_andExpressionbis_in_expression1737 = new BitSet(new long[]{0x0000000000000002L,0x0000000000100000L});
-    public static final BitSet FOLLOW_andExpression_in_andExpressionbis1758 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_relQuantExpression_in_andExpression1784 = new BitSet(new long[]{0x0000000000200002L});
-    public static final BitSet FOLLOW_21_in_andExpression1790 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
-    public static final BitSet FOLLOW_relQuantExpressionbis_in_andExpression1793 = new BitSet(new long[]{0x0000000000200002L});
-    public static final BitSet FOLLOW_relQuantExpression_in_relQuantExpressionbis1816 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_litBoolean_in_relQuantExpression1835 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_quantExpression_in_relQuantExpression1842 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_relExpression_in_relQuantExpression1849 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_notExpression_in_relQuantExpression1856 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NOTOPERATOR_in_notExpression1873 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
-    public static final BitSet FOLLOW_relQuantExpression_in_notExpression1875 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_77_in_litBoolean1892 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_46_in_litBoolean1900 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUANTIFIER_in_quantExpression1916 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_quantExpression1921 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_28_in_quantExpression1924 = new BitSet(new long[]{0x0010118100000400L,0x0000000000008102L});
-    public static final BitSet FOLLOW_type_in_quantExpression1929 = new BitSet(new long[]{0x0004800000000000L});
-    public static final BitSet FOLLOW_domainQuant_in_quantExpression1936 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_83_in_quantExpression1941 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
-    public static final BitSet FOLLOW_expression_in_quantExpression1947 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_85_in_quantExpression1950 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_50_in_domainQuant1974 = new BitSet(new long[]{0x0000020000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_69_in_domainQuant1978 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_33_in_domainQuant1980 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
-    public static final BitSet FOLLOW_expression_in_domainQuant1984 = new BitSet(new long[]{0x0000000802000000L});
-    public static final BitSet FOLLOW_25_in_domainQuant1987 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
-    public static final BitSet FOLLOW_expression_in_domainQuant1991 = new BitSet(new long[]{0x0000000802000000L});
-    public static final BitSet FOLLOW_35_in_domainQuant1998 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_41_in_domainQuant2005 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
-    public static final BitSet FOLLOW_expression_in_domainQuant2009 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_47_in_domainQuant2018 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
-    public static final BitSet FOLLOW_expression_in_domainQuant2022 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
-    public static final BitSet FOLLOW_74_in_domainQuant2024 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
-    public static final BitSet FOLLOW_expression_in_domainQuant2028 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_arithExpression_in_relExpression2057 = new BitSet(new long[]{0x0000000000010002L});
-    public static final BitSet FOLLOW_RELOP_in_relExpression2063 = new BitSet(new long[]{0x0300000080520D00L,0x0000000000000200L});
-    public static final BitSet FOLLOW_arithExpression_in_relExpression2070 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_multExpression_in_arithExpression2107 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_ADDOP_in_arithExpression2113 = new BitSet(new long[]{0x0300000080520D00L,0x0000000000000200L});
-    public static final BitSet FOLLOW_multExpressionbis_in_arithExpression2118 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_multExpression_in_multExpressionbis2140 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unaryExpression_in_multExpression2165 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_MULTOP_in_multExpression2170 = new BitSet(new long[]{0x0300000080520D00L,0x0000000000000200L});
-    public static final BitSet FOLLOW_unaryExpressionbis_in_multExpression2175 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unaryExpression_in_unaryExpressionbis2200 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_primaryExpression_in_unaryExpression2224 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_86_in_minusArithExpression2240 = new BitSet(new long[]{0x0300000080520D00L,0x0000000000000200L});
-    public static final BitSet FOLLOW_arithExpression_in_minusArithExpression2244 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_primaryExpression2262 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
-    public static final BitSet FOLLOW_expression_in_primaryExpression2266 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_23_in_primaryExpression2268 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_literalUntypedExpression_in_primaryExpression2278 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_literalArithExpression_in_primaryExpression2288 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_atomicExpression_in_primaryExpression2298 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_57_in_literalUntypedExpression2316 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_56_in_literalUntypedExpression2322 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FLOAT_in_literalArithExpression2345 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INT_in_literalArithExpression2354 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_in_literalArithExpression2364 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_atomicExpression2382 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_atomicExpression2386 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_23_in_atomicExpression2388 = new BitSet(new long[]{0x0000000080500400L,0x0000000000000200L});
-    public static final BitSet FOLLOW_atomicExpression_in_atomicExpression2392 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_31_in_atomicExpression2404 = new BitSet(new long[]{0x0000000204400002L});
-    public static final BitSet FOLLOW_20_in_atomicExpression2411 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_ID_in_atomicExpression2415 = new BitSet(new long[]{0x0000000204400002L});
-    public static final BitSet FOLLOW_73_in_atomicExpression2421 = new BitSet(new long[]{0x0000000204400002L});
-    public static final BitSet FOLLOW_ID_in_atomicExpression2430 = new BitSet(new long[]{0x0000000204400002L});
-    public static final BitSet FOLLOW_identSuffix_in_atomicExpression2439 = new BitSet(new long[]{0x0000000004000002L});
-    public static final BitSet FOLLOW_26_in_atomicExpression2447 = new BitSet(new long[]{0x0000000080500400L,0x0000000000000200L});
-    public static final BitSet FOLLOW_atomicExpression_in_atomicExpression2452 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_arrayIndexExpression_in_identSuffix2484 = new BitSet(new long[]{0x0000000040000002L});
-    public static final BitSet FOLLOW_arguments_in_identSuffix2494 = new BitSet(new long[]{0x0000000040000002L});
-    public static final BitSet FOLLOW_30_in_identSuffix2510 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_33_in_arrayIndexExpression2533 = new BitSet(new long[]{0x0300000080520D00L,0x0000000000000200L});
-    public static final BitSet FOLLOW_arithExpression_in_arrayIndexExpression2537 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_35_in_arrayIndexExpression2539 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_moduleDeclaration_in_tamagoEntity89 = new BitSet(new long[]{0x0000040000000000L,0x0000000000004010L});
+    public static final BitSet FOLLOW_usingDeclaration_in_tamagoEntity95 = new BitSet(new long[]{0x0000040000000000L,0x0000000000004010L});
+    public static final BitSet FOLLOW_serviceEntity_in_tamagoEntity105 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_componentEntity_in_tamagoEntity114 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_55_in_moduleDeclaration138 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_qualifiedName_in_moduleDeclaration143 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_moduleDeclaration145 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ID_in_qualifiedName170 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_26_in_qualifiedName173 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_qualifiedName178 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_ID_in_qualifiedNameWithWildCard209 = new BitSet(new long[]{0x000000000C000002L});
+    public static final BitSet FOLLOW_26_in_qualifiedNameWithWildCard212 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_qualifiedNameWithWildCard216 = new BitSet(new long[]{0x000000000C000002L});
+    public static final BitSet FOLLOW_27_in_qualifiedNameWithWildCard226 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_78_in_usingDeclaration250 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_qualifiedNameWithWildCard_in_usingDeclaration255 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_usingDeclaration257 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_58_in_percolator274 = new BitSet(new long[]{0x0000000001000400L});
+    public static final BitSet FOLLOW_24_in_percolator278 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_ID_in_percolator284 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_percolator289 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_67_in_require304 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_68_in_require307 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_require312 = new BitSet(new long[]{0x0004000000000000L});
+    public static final BitSet FOLLOW_50_in_require314 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_qualifiedName_in_require319 = new BitSet(new long[]{0x0000002000000000L});
+    public static final BitSet FOLLOW_37_in_require321 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_require326 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_require328 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_62_in_provide345 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_68_in_provide348 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_provide353 = new BitSet(new long[]{0x0004000000000000L});
+    public static final BitSet FOLLOW_50_in_provide355 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_qualifiedName_in_provide360 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_provide362 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_68_in_serviceEntity387 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_serviceEntity392 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_83_in_serviceEntity394 = new BitSet(new long[]{0x206A004000000000L,0x0000000000200004L});
+    public static final BitSet FOLLOW_implementsInterface_in_serviceEntity405 = new BitSet(new long[]{0x206A004000000000L,0x0000000000200004L});
+    public static final BitSet FOLLOW_refineService_in_serviceEntity415 = new BitSet(new long[]{0x206A004000000000L,0x0000000000200004L});
+    public static final BitSet FOLLOW_includeService_in_serviceEntity425 = new BitSet(new long[]{0x206A004000000000L,0x0000000000200004L});
+    public static final BitSet FOLLOW_propertyDeclaration_in_serviceEntity435 = new BitSet(new long[]{0x206A004000000000L,0x0000000000200004L});
+    public static final BitSet FOLLOW_invariantExpression_in_serviceEntity445 = new BitSet(new long[]{0x206A004000000000L,0x0000000000200004L});
+    public static final BitSet FOLLOW_methodDeclaration_in_serviceEntity456 = new BitSet(new long[]{0x206A004000000000L,0x0000000000200004L});
+    public static final BitSet FOLLOW_behaviorDeclaration_in_serviceEntity473 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_85_in_serviceEntity481 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_implementsInterface_in_listimplements508 = new BitSet(new long[]{0x0002000000000002L});
+    public static final BitSet FOLLOW_refineService_in_listrefine536 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000004L});
+    public static final BitSet FOLLOW_includeService_in_listinclude562 = new BitSet(new long[]{0x0008000000000002L});
+    public static final BitSet FOLLOW_percolator_in_listpercolators596 = new BitSet(new long[]{0x0400000000000002L});
+    public static final BitSet FOLLOW_propertyDeclaration_in_listproperties621 = new BitSet(new long[]{0x2000000000000002L});
+    public static final BitSet FOLLOW_provide_in_listprovides647 = new BitSet(new long[]{0x4000000000000002L});
+    public static final BitSet FOLLOW_require_in_listrequires671 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000008L});
+    public static final BitSet FOLLOW_invariantExpression_in_listinvariants695 = new BitSet(new long[]{0x0020000000000002L});
+    public static final BitSet FOLLOW_methodDeclaration_in_listmethods721 = new BitSet(new long[]{0x0040000000000002L});
+    public static final BitSet FOLLOW_42_in_componentEntity748 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_componentEntity753 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_83_in_componentEntity755 = new BitSet(new long[]{0x6462004000000000L,0x0000000000200008L});
+    public static final BitSet FOLLOW_percolator_in_componentEntity762 = new BitSet(new long[]{0x6462004000000000L,0x0000000000200008L});
+    public static final BitSet FOLLOW_implementsInterface_in_componentEntity770 = new BitSet(new long[]{0x6462004000000000L,0x0000000000200008L});
+    public static final BitSet FOLLOW_require_in_componentEntity778 = new BitSet(new long[]{0x6462004000000000L,0x0000000000200008L});
+    public static final BitSet FOLLOW_provide_in_componentEntity786 = new BitSet(new long[]{0x6462004000000000L,0x0000000000200008L});
+    public static final BitSet FOLLOW_propertyDeclaration_in_componentEntity794 = new BitSet(new long[]{0x6462004000000000L,0x0000000000200008L});
+    public static final BitSet FOLLOW_invariantExpression_in_componentEntity802 = new BitSet(new long[]{0x6462004000000000L,0x0000000000200008L});
+    public static final BitSet FOLLOW_methodDeclaration_in_componentEntity810 = new BitSet(new long[]{0x6462004000000000L,0x0000000000200008L});
+    public static final BitSet FOLLOW_behaviorDeclaration_in_componentEntity819 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_85_in_componentEntity825 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_49_in_implementsInterface843 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_qualifiedName_in_implementsInterface848 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_implementsInterface850 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_66_in_refineService868 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_68_in_refineService871 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_refineService876 = new BitSet(new long[]{0x0004000000000000L});
+    public static final BitSet FOLLOW_50_in_refineService878 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_qualifiedName_in_refineService883 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_refineService885 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_66_in_refineService899 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_68_in_refineService902 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_qualifiedName_in_refineService905 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_refineService907 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_51_in_includeService924 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_68_in_includeService927 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_includeService932 = new BitSet(new long[]{0x0004000000000000L});
+    public static final BitSet FOLLOW_50_in_includeService934 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_qualifiedName_in_includeService939 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_includeService941 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_51_in_includeService955 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_68_in_includeService958 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_qualifiedName_in_includeService961 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_includeService963 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_61_in_propertyDeclaration980 = new BitSet(new long[]{0x8000000000000000L,0x0000000000040001L});
+    public static final BitSet FOLLOW_accessProperty_in_propertyDeclaration985 = new BitSet(new long[]{0x0010118100000400L,0x0000000000008102L});
+    public static final BitSet FOLLOW_type_in_propertyDeclaration989 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_propertyDeclaration993 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_propertyDeclaration995 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_64_in_accessProperty1021 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_63_in_accessProperty1028 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_82_in_accessProperty1040 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_primitiveType_in_type1075 = new BitSet(new long[]{0x0000000400000002L});
+    public static final BitSet FOLLOW_qualifiedName_in_type1082 = new BitSet(new long[]{0x0000000400000002L});
+    public static final BitSet FOLLOW_34_in_type1091 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_52_in_primitiveType1115 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_79_in_primitiveType1123 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_39_in_primitiveType1132 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_40_in_primitiveType1141 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_65_in_primitiveType1150 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_44_in_primitiveType1159 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_primitiveType1168 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_72_in_primitiveType1177 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_54_in_methodDeclaration1198 = new BitSet(new long[]{0x0010118100000400L,0x0000000000008102L});
+    public static final BitSet FOLLOW_type_in_methodDeclaration1203 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_methodDeclaration1207 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_parameters_in_methodDeclaration1211 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_83_in_methodDeclaration1213 = new BitSet(new long[]{0x1801000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_48_in_methodDeclaration1220 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_methodDeclaration1225 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_methodDeclaration1227 = new BitSet(new long[]{0x1800000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_preconditionExpression_in_methodDeclaration1238 = new BitSet(new long[]{0x0800000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_postconditionExpression_in_methodDeclaration1248 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_85_in_methodDeclaration1254 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_parameters1277 = new BitSet(new long[]{0x0010118100800400L,0x0000000000008102L});
+    public static final BitSet FOLLOW_type_in_parameters1282 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_parameters1286 = new BitSet(new long[]{0x0000000002800000L});
+    public static final BitSet FOLLOW_25_in_parameters1289 = new BitSet(new long[]{0x0010118100000400L,0x0000000000008102L});
+    public static final BitSet FOLLOW_type_in_parameters1293 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_parameters1297 = new BitSet(new long[]{0x0000000002800000L});
+    public static final BitSet FOLLOW_23_in_parameters1328 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_arguments1350 = new BitSet(new long[]{0x0300400080D2AD00L,0x0000000000002200L});
+    public static final BitSet FOLLOW_expression_in_arguments1355 = new BitSet(new long[]{0x0000000002800000L});
+    public static final BitSet FOLLOW_25_in_arguments1363 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
+    public static final BitSet FOLLOW_expression_in_arguments1367 = new BitSet(new long[]{0x0000000002800000L});
+    public static final BitSet FOLLOW_23_in_arguments1375 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_38_in_behaviorDeclaration1396 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_83_in_behaviorDeclaration1399 = new BitSet(new long[]{0x0000080000000000L,0x0000000000201080L});
+    public static final BitSet FOLLOW_43_in_behaviorDeclaration1404 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_70_in_behaviorDeclaration1407 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_behaviorDeclaration1412 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_behaviorDeclaration1414 = new BitSet(new long[]{0x0000000000000000L,0x0000000000201080L});
+    public static final BitSet FOLLOW_71_in_behaviorDeclaration1423 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_83_in_behaviorDeclaration1426 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200040L});
+    public static final BitSet FOLLOW_stateDeclaration_in_behaviorDeclaration1434 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200040L});
+    public static final BitSet FOLLOW_85_in_behaviorDeclaration1442 = new BitSet(new long[]{0x0000000000000000L,0x0000000000201000L});
+    public static final BitSet FOLLOW_76_in_behaviorDeclaration1449 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_83_in_behaviorDeclaration1451 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200800L});
+    public static final BitSet FOLLOW_transitionDeclaration_in_behaviorDeclaration1458 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200800L});
+    public static final BitSet FOLLOW_85_in_behaviorDeclaration1465 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_85_in_behaviorDeclaration1470 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_70_in_stateDeclaration1494 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_stateDeclaration1499 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_83_in_stateDeclaration1501 = new BitSet(new long[]{0x0000001000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_allowDeclaration_in_stateDeclaration1507 = new BitSet(new long[]{0x0000001000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_85_in_stateDeclaration1513 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_36_in_allowDeclaration1534 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_allowDeclaration1539 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_allowDeclaration1541 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_75_in_transitionDeclaration1560 = new BitSet(new long[]{0x0000800000000000L});
+    public static final BitSet FOLLOW_47_in_transitionDeclaration1563 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_transitionDeclaration1568 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_74_in_transitionDeclaration1570 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_transitionDeclaration1575 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
+    public static final BitSet FOLLOW_81_in_transitionDeclaration1577 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_transitionDeclaration1582 = new BitSet(new long[]{0x0000000020000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_80_in_transitionDeclaration1585 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
+    public static final BitSet FOLLOW_expression_in_transitionDeclaration1590 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_transitionDeclaration1596 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_53_in_invariantExpression1616 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
+    public static final BitSet FOLLOW_expression_in_invariantExpression1621 = new BitSet(new long[]{0x0000200020000000L});
+    public static final BitSet FOLLOW_45_in_invariantExpression1624 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_STRING_in_invariantExpression1628 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_invariantExpression1632 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_60_in_preconditionExpression1651 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
+    public static final BitSet FOLLOW_expression_in_preconditionExpression1656 = new BitSet(new long[]{0x0000200020000000L});
+    public static final BitSet FOLLOW_45_in_preconditionExpression1659 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_STRING_in_preconditionExpression1663 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_preconditionExpression1667 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_59_in_postconditionExpression1687 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
+    public static final BitSet FOLLOW_expression_in_postconditionExpression1692 = new BitSet(new long[]{0x0000200020000000L});
+    public static final BitSet FOLLOW_45_in_postconditionExpression1695 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_STRING_in_postconditionExpression1699 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_postconditionExpression1703 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_andExpression_in_expression1734 = new BitSet(new long[]{0x0000000000000002L,0x0000000000100000L});
+    public static final BitSet FOLLOW_84_in_expression1740 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
+    public static final BitSet FOLLOW_andExpressionbis_in_expression1743 = new BitSet(new long[]{0x0000000000000002L,0x0000000000100000L});
+    public static final BitSet FOLLOW_andExpression_in_andExpressionbis1764 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_relQuantExpression_in_andExpression1790 = new BitSet(new long[]{0x0000000000200002L});
+    public static final BitSet FOLLOW_21_in_andExpression1796 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
+    public static final BitSet FOLLOW_relQuantExpressionbis_in_andExpression1799 = new BitSet(new long[]{0x0000000000200002L});
+    public static final BitSet FOLLOW_relQuantExpression_in_relQuantExpressionbis1822 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_litBoolean_in_relQuantExpression1841 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_quantExpression_in_relQuantExpression1848 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_relExpression_in_relQuantExpression1855 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_notExpression_in_relQuantExpression1862 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NOTOPERATOR_in_notExpression1879 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
+    public static final BitSet FOLLOW_relQuantExpression_in_notExpression1881 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_77_in_litBoolean1898 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_46_in_litBoolean1906 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QUANTIFIER_in_quantExpression1922 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_quantExpression1927 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_28_in_quantExpression1930 = new BitSet(new long[]{0x0010118100000400L,0x0000000000008102L});
+    public static final BitSet FOLLOW_type_in_quantExpression1935 = new BitSet(new long[]{0x0004800000000000L});
+    public static final BitSet FOLLOW_domainQuant_in_quantExpression1942 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_83_in_quantExpression1947 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
+    public static final BitSet FOLLOW_expression_in_quantExpression1953 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_85_in_quantExpression1956 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_50_in_domainQuant1980 = new BitSet(new long[]{0x0000020000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_69_in_domainQuant1984 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_33_in_domainQuant1986 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
+    public static final BitSet FOLLOW_expression_in_domainQuant1990 = new BitSet(new long[]{0x0000000802000000L});
+    public static final BitSet FOLLOW_25_in_domainQuant1993 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
+    public static final BitSet FOLLOW_expression_in_domainQuant1997 = new BitSet(new long[]{0x0000000802000000L});
+    public static final BitSet FOLLOW_35_in_domainQuant2004 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_41_in_domainQuant2011 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
+    public static final BitSet FOLLOW_expression_in_domainQuant2015 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_47_in_domainQuant2024 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
+    public static final BitSet FOLLOW_expression_in_domainQuant2028 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_74_in_domainQuant2030 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
+    public static final BitSet FOLLOW_expression_in_domainQuant2034 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_arithExpression_in_relExpression2063 = new BitSet(new long[]{0x0000000000010002L});
+    public static final BitSet FOLLOW_RELOP_in_relExpression2069 = new BitSet(new long[]{0x0300000080520D00L,0x0000000000000200L});
+    public static final BitSet FOLLOW_arithExpression_in_relExpression2076 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_multExpression_in_arithExpression2113 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_ADDOP_in_arithExpression2119 = new BitSet(new long[]{0x0300000080520D00L,0x0000000000000200L});
+    public static final BitSet FOLLOW_multExpressionbis_in_arithExpression2124 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_multExpression_in_multExpressionbis2146 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unaryExpression_in_multExpression2171 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_MULTOP_in_multExpression2176 = new BitSet(new long[]{0x0300000080520D00L,0x0000000000000200L});
+    public static final BitSet FOLLOW_unaryExpressionbis_in_multExpression2181 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unaryExpression_in_unaryExpressionbis2206 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_primaryExpression_in_unaryExpression2230 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_86_in_minusArithExpression2246 = new BitSet(new long[]{0x0300000080520D00L,0x0000000000000200L});
+    public static final BitSet FOLLOW_arithExpression_in_minusArithExpression2250 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_primaryExpression2268 = new BitSet(new long[]{0x030040008052AD00L,0x0000000000002200L});
+    public static final BitSet FOLLOW_expression_in_primaryExpression2272 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_primaryExpression2274 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_literalUntypedExpression_in_primaryExpression2284 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_literalArithExpression_in_primaryExpression2294 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_atomicExpression_in_primaryExpression2304 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_57_in_literalUntypedExpression2322 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_56_in_literalUntypedExpression2328 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FLOAT_in_literalArithExpression2351 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INT_in_literalArithExpression2360 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_in_literalArithExpression2370 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_atomicExpression2388 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_atomicExpression2392 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_atomicExpression2394 = new BitSet(new long[]{0x0000000080500400L,0x0000000000000200L});
+    public static final BitSet FOLLOW_atomicExpression_in_atomicExpression2398 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_31_in_atomicExpression2410 = new BitSet(new long[]{0x0000000204400002L});
+    public static final BitSet FOLLOW_20_in_atomicExpression2417 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_ID_in_atomicExpression2421 = new BitSet(new long[]{0x0000000204400002L});
+    public static final BitSet FOLLOW_73_in_atomicExpression2427 = new BitSet(new long[]{0x0000000204400002L});
+    public static final BitSet FOLLOW_ID_in_atomicExpression2436 = new BitSet(new long[]{0x0000000204400002L});
+    public static final BitSet FOLLOW_identSuffix_in_atomicExpression2445 = new BitSet(new long[]{0x0000000004000002L});
+    public static final BitSet FOLLOW_26_in_atomicExpression2453 = new BitSet(new long[]{0x0000000080500400L,0x0000000000000200L});
+    public static final BitSet FOLLOW_atomicExpression_in_atomicExpression2458 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_arrayIndexExpression_in_identSuffix2490 = new BitSet(new long[]{0x0000000040000002L});
+    public static final BitSet FOLLOW_arguments_in_identSuffix2500 = new BitSet(new long[]{0x0000000040000002L});
+    public static final BitSet FOLLOW_30_in_identSuffix2516 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_33_in_arrayIndexExpression2539 = new BitSet(new long[]{0x0300000080520D00L,0x0000000000000200L});
+    public static final BitSet FOLLOW_arithExpression_in_arrayIndexExpression2543 = new BitSet(new long[]{0x0000000800000000L});
+    public static final BitSet FOLLOW_35_in_arrayIndexExpression2545 = new BitSet(new long[]{0x0000000000000002L});
 
 }
