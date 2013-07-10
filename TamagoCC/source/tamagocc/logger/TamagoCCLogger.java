@@ -158,4 +158,6 @@ public abstract class TamagoCCLogger {
 	public static String getOutput() {
 		return output;
 	}
+	
+	
 }
