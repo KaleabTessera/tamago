@@ -11,8 +11,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.editors,
  org.eclipse.ui.console,
  org.eclipse.ui.ide,
- org.eclipse.core.resources,
- org.eclipse.jdt.core;visibility:=reexport
+ org.eclipse.core.resources
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6,
  J2SE-1.5
 Eclipse-AutoStart: true
@@ -29,6 +28,7 @@ Export-Package:
   uses:="org.eclipse.jface.operation,
    org.eclipse.core.runtime,
    org.tamago.eclipse.cdl.wizards,
+   org.eclipse.ui,
    tamagotest.util",
  org.tamago.eclipse.cdl.editor;
   uses:="org.eclipse.jface.action,
@@ -49,5 +49,7 @@ Export-Package:
    org.eclipse.ui,
    org.eclipse.jface.viewers,
    org.eclipse.swt.widgets"
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ dist/cdlpluginlibs.jar,
+ antlr-3.4-complete.jar
 
