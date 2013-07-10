@@ -55,11 +55,11 @@ public class TamagoCompileTest implements CDLActionner {
 				if(stt.open() == SettingsTamagoTestAnswer.OK) {
 					
 					
-					CDLTest test = new CDLTest(file, stt.getComponentName(), stt.isBusinessCode(), stt.getQuantity(), stt.getScenarioSize(), stt.getStrategy());
+					//CDLTest test = new CDLTest(file, stt.getComponentName(), stt.isBusinessCode(), stt.getQuantity(), stt.getScenarioSize(), stt.getStrategy());
 					//test.start();
 					ProgressMonitorDialog pmd = new ProgressMonitorDialog(workbench.getDisplay().getActiveShell());
 					
-					pmd.run(true, true, test);
+					//pmd.run(true, true, test);
 				}
 				else {
 					CDLEditorPlugin.getDefault().log("Operation break by user");

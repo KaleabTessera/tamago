@@ -3,29 +3,23 @@
  */
 package org.tamago.eclipse.cdl.compiler;
 
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 
-import javapop.framework.ParseResult;
-
+import org.antlr.runtime.ANTLRInputStream;
+import org.antlr.runtime.CommonTokenStream;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.PlatformUI;
 import org.tamago.eclipse.cdl.CDLEditorException;
 import org.tamago.eclipse.cdl.CDLEditorPlugin;
 import org.tamago.eclipse.cdl.wizards.SettingsTamagoTest.SettingsStrategy;
 
 import tamagocc.TamagoCCParser;
 import tamagocc.api.TTamago;
-import tamagocc.generic.TamagoCCGPool;
+import tamagocc.compiler.TamagoCDLLexer;
+import tamagocc.compiler.TamagoCDLParser;
 import tamagocc.logger.TamagoCCLogger;
-import tamagocc.parser.CDLGrammarProvider;
-import tamagocc.parser.TamagoCCParserCDL;
 import tamagocc.percolation.TamagoCCPercolation;
 import tamagocc.util.TamagoCCPool;
 import tamagotest.TamagoTest;
@@ -109,8 +103,8 @@ public class CDLTest implements IRunnableWithProgress, TamagoTestUI {
 			TamagoCCLogger.setOut(CDLEditorPlugin.getDefault().getOutputStreamConsole());
 			TamagoCCLogger.setLevel(CDLEditorPlugin.getDefault().getDebugLevel());
 
-			InputStream input  = getClass().getResourceAsStream("/CDLGrammarPop.txt");
-			CDLGrammarProvider.setCDLGrammar(input);
+			//InputStream input  = getClass().getResourceAsStream("/CDLGrammarPop.txt");
+			//CDLGrammarProvider.setCDLGrammar(input);
 			
 			pool.addTamagoCCPath(tamagoccpath);
 			TTamago tamago = null;
@@ -118,14 +112,26 @@ public class CDLTest implements IRunnableWithProgress, TamagoTestUI {
 			
 			try {
 				CDLEditorPlugin.getDefault().log("Generation of the abstract contract...");
-				FileInputStream fis = new FileInputStream(filecdl);
-				DataInputStream dis = new DataInputStream(fis);
-				byte[] b = new byte[dis.available()];
-				dis.readFully(b);
-				String str = new String(b);
-				tamago = TamagoCCParserCDL.parse(new javapop.framework.input.StringParseInput(str));
 				monitor.worked(1);
 				monitor.subTask("Parse file...");
+				
+				FileInputStream fis = new FileInputStream(filecdl);
+				ANTLRInputStream stream = new ANTLRInputStream(fis);
+				TamagoCDLLexer lexer = new TamagoCDLLexer(stream);
+				CommonTokenStream token = new CommonTokenStream(lexer);
+				TamagoCDLParser antlrparser = new TamagoCDLParser(token);
+				TamagoCDLParser.tamagoEntity_return res;
+				
+				res = antlrparser.tamagoEntity();
+				if(res != null && res.value != null) {
+					tamago = (TTamago) res.value;
+					TamagoCCLogger.println(1,"compilation success");
+					if(tamago instanceof TTamago) {
+						TamagoCCPool.getDefaultPool().addEntry(tamago.getName(), tamago.getModule(), (TTamago)tamago);
+					}
+					else
+						TamagoCCLogger.println(1, "Assembly not yet supported!");
+				}
 				CDLEditorPlugin.getDefault().log("End compilation with success");
 			}
 			catch(Exception e) {

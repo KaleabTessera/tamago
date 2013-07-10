@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="dist/cdlpluginlibs.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry excluding="**/*.svn*|**/*svn*" including="**/*.java" kind="src" path="src"/>
-	<classpathentry excluding="**/*.svn*" including="**/*.java" kind="src" path="tamago-src"/>
-	<classpathentry excluding="**/*.svn*" including="**/*.java" kind="src" path="tamagotest-src"/>
-	<classpathentry excluding="**/*.svn*" including="**/*.java" kind="src" path="tamagocsp-src"/>
-	<classpathentry excluding="**/*.svn*|anatheme/|calculator/|ogol/|test/" including="**/*.java" kind="src" path="javapop-src"/>
-	<classpathentry excluding="**/*.svn*" including="**/*.java" kind="src" path="source"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
-	<classpathentry kind="lib" path="/home/SIC/hbelhaou/recherche/Tamago/TamagoCC/jars/openjgraph.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/TamagoCC"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/TamagoCheck"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/TamagoCSP"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/TamagoTest"/>
+	<classpathentry kind="lib" path="antlr-3.4-complete.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

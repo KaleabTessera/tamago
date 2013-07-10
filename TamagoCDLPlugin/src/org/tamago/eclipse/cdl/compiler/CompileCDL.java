@@ -3,36 +3,33 @@
  */
 package org.tamago.eclipse.cdl.compiler;
 
-import java.io.DataInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-import java.util.jar.JarInputStream;
 
-import javapop.framework.DefaultParseContext;
-import javapop.framework.ParseContext;
-import javapop.framework.ParseResult;
-
+import org.antlr.runtime.ANTLRInputStream;
+import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.RecognitionException;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.URIUtil;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.IFileEditorInput;
 import org.tamago.eclipse.cdl.CDLEditorException;
 import org.tamago.eclipse.cdl.CDLEditorPlugin;
 
 import tamagocc.TamagoCCParser;
 import tamagocc.api.TTamago;
-import tamagocc.generic.TamagoCCGPool;
+import tamagocc.compiler.TamagoCDLLexer;
+import tamagocc.compiler.TamagoCDLParser;
 import tamagocc.logger.TamagoCCLogger;
-import tamagocc.parser.CDLGrammarProvider;
-import tamagocc.parser.TamagoCCParserCDL;
 import tamagocc.percolation.TamagoCCPercolation;
 import tamagocc.util.TamagoCCPool;
 import tamagocc.util.TamagoCCToXml;
@@ -44,15 +41,12 @@ import tamagocc.util.TamagoCCToXml;
  */
 public class CompileCDL implements IRunnableWithProgress {
 
-	private File input;
+	private IFileEditorInput input;
 	private IProgressMonitor monitor;
 
-	/**
-	 * @param file 
-	 * 
-	 */
-	public CompileCDL(File file) {
-		this.input = file;
+	
+	public CompileCDL(IFileEditorInput fileinput) {
+		this.input = fileinput;
 	}
 
 	/**
@@ -60,38 +54,88 @@ public class CompileCDL implements IRunnableWithProgress {
 	 * 
 	 */
 	public void run()  {
+		//IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+		IProject myProject = input.getFile().getProject();// myWorkspaceRoot.getProject();
+		if(myProject.exists() && !myProject.isOpen())
+			try {
+				myProject.open(null);
+			} catch (CoreException e1) {
+				e1.printStackTrace();
+				return;
+			}
+		
 		try {
 			monitor.subTask("Initialize environment...");
-			String in = input.getAbsolutePath();
-			String name = input.getName();
-			String outputdir = input.getParentFile().getParent()+File.separator+"xmls";
-			String output = outputdir+File.separator+name.substring(0,name.lastIndexOf('.'))+".xml";
-			CDLEditorPlugin.getDefault().log("Contrat:"+input.getAbsolutePath());
-			CDLEditorPlugin.getDefault().log("Sortie:"+output);
-			TamagoCCPool pool = TamagoCCPool.getDefaultPool();
-			TamagoCCParser parser = TamagoCCParser.getDefaultParser();
-			TamagoCCPercolation.initialisation();
-			parser.setTamagoCCPool(pool);
-			// on prepare la lecture
-			InputStream input  = getClass().getResourceAsStream("/CDLGrammarPop.txt");
-			CDLGrammarProvider.setCDLGrammar(input);
+			IFile ifile = input.getFile();
+			File file = ifile.getFullPath().toFile();
+			String name = file.getName();
 			
+			IFolder xmlsfolder = myProject.getFolder("xmls");
+			if(!xmlsfolder.exists())
+				xmlsfolder.create(true, true, monitor);
+			
+			String contractxmlname = name.substring(0,name.lastIndexOf('.'))+".xml";
+			IFile outputfile = xmlsfolder.getFile(contractxmlname);
+			ByteArrayInputStream bis = new ByteArrayInputStream(new byte[0]);
+			outputfile.create(bis, true, monitor);
+			
+			String outputdir = file.getParentFile().getParent()+File.separator+"xmls";
+			String output = outputdir+File.separator+name.substring(0,name.lastIndexOf('.'))+".xml";
+			CDLEditorPlugin.getDefault().log("Contract: "+file.getAbsolutePath());
+			CDLEditorPlugin.getDefault().log("Output: "+output);
+			TamagoCCPool pool = TamagoCCPool.getDefaultPool();
+			TamagoCCParser xmlparser = TamagoCCParser.getDefaultParser();
+			TamagoCCPercolation.initialisation();
+			xmlparser.setTamagoCCPool(pool);
+			// on prepare la lecture
+			//InputStream input  = getClass().getResourceAsStream("/CDLGrammarPop.txt");
+			//CDLGrammarProvider.setCDLGrammar(input);
+
 			
 			TamagoCCLogger.setOut(CDLEditorPlugin.getDefault().getOutputStreamConsole());
 			TamagoCCLogger.setLevel(CDLEditorPlugin.getDefault().getDebugLevel());
-
+			
+			TamagoCCLogger.println(3, "Project name: "+myProject.getName());
+			
+			
 			pool.addTamagoCCPath(outputdir);
 			TTamago tamago = null;
 			// --- nouveau code
 				CDLEditorPlugin.getDefault().log("Debut de la génération du fichier XML");
-				FileInputStream fis = new FileInputStream(in);
-				DataInputStream dis = new DataInputStream(fis);
-				byte[] b = new byte[dis.available()];
-				dis.readFully(b);
-				String str = new String(b);
 				monitor.worked(1);
 				monitor.subTask("Parsing the CDL file...");
+				
+				ANTLRInputStream stream = new ANTLRInputStream(ifile.getContents());
+				TamagoCDLLexer lexer = new TamagoCDLLexer(stream);
+				CommonTokenStream token = new CommonTokenStream(lexer);
+				TamagoCDLParser parser = new TamagoCDLParser(token);
+				TamagoCDLParser.tamagoEntity_return res;
+				try {
+					res = parser.tamagoEntity();
+					if(parser.getNumberOfSyntaxErrors() == 0 && res != null && res.value != null) {
+						tamago = (TTamago)res.value;
+						TamagoCCLogger.println(1,"compilation success");
+						if(tamago instanceof TTamago) {
+							TamagoCCPool.getDefaultPool().addEntry(tamago.getName(), tamago.getModule(), (TTamago)tamago);
+						}
+						else
+							TamagoCCLogger.println(1, "Assembly not yet supported!");
+					}
+					else {
+						throw new Exception("Compilation failed!");
+					}
+				} catch (RecognitionException e) {
+					TamagoCCLogger.println(1, e.getMessage());
+					throw e;
+				}
+				catch(RuntimeException e) {
+					TamagoCCLogger.println(1, e.getMessage());
+					throw e;
+				}
+				
+				/*
 				tamago = TamagoCCParserCDL.parse(new javapop.framework.input.StringParseInput(str));
+				*/
 				CDLEditorPlugin.getDefault().log("Fin de la compilation avec succes");
 				FileOutputStream fos = new FileOutputStream(output);
 				monitor.worked(1);
@@ -115,6 +159,13 @@ public class CompileCDL implements IRunnableWithProgress {
 			CDLEditorPlugin.getDefault().showConsole();
 			//IWorkbench workbench = PlatformUI.getWorkbench();
 			//MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "Generation du contrat AST echoue", "Generation of the XML contract fail with the following message:\n"+e.getMessage());
+		}
+		finally {
+			try {
+				myProject.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
 		}
 	
 }
