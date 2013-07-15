@@ -11,6 +11,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IPathEditorInput;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
@@ -44,10 +45,8 @@ public class TamagoCompileContract implements CDLActionner {
 			IEditorInput input = (IEditorInput) editor.getEditorInput(); // il semblerait qu'il utilise ca
 			//CDLEditorPlugin.getDefault().log("Input:"+input.getClass().getName());
 			
-			if(input instanceof IPathEditorInput) {
-				IPath path = ((IPathEditorInput)input).getPath();
-				File file = path.toFile();
-				CompileCC ccc = new CompileCC(file,false);
+			if(input instanceof IFileEditorInput) {
+				CompileCC ccc = new CompileCC((IFileEditorInput)input,false);
 				
 				ProgressMonitorDialog pmd = new ProgressMonitorDialog(workbench.getDisplay().getActiveShell());
 				
