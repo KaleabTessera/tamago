@@ -4,8 +4,12 @@
 package org.tamago.eclipse.cdl.compiler;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 
@@ -48,7 +52,7 @@ public class CompileCDL implements IRunnableWithProgress {
 	public CompileCDL(IFileEditorInput fileinput) {
 		this.input = fileinput;
 	}
-
+	
 	/**
 	 * @throws CDLEditorException 
 	 * 
@@ -58,7 +62,7 @@ public class CompileCDL implements IRunnableWithProgress {
 		IProject myProject = input.getFile().getProject();// myWorkspaceRoot.getProject();
 		if(myProject.exists() && !myProject.isOpen())
 			try {
-				myProject.open(null);
+				myProject.open(monitor);
 			} catch (CoreException e1) {
 				e1.printStackTrace();
 				return;
@@ -74,15 +78,6 @@ public class CompileCDL implements IRunnableWithProgress {
 			if(!xmlsfolder.exists())
 				xmlsfolder.create(true, true, monitor);
 			
-			String contractxmlname = name.substring(0,name.lastIndexOf('.'))+".xml";
-			IFile outputfile = xmlsfolder.getFile(contractxmlname);
-			ByteArrayInputStream bis = new ByteArrayInputStream(new byte[0]);
-			outputfile.create(bis, true, monitor);
-			
-			String outputdir = file.getParentFile().getParent()+File.separator+"xmls";
-			String output = outputdir+File.separator+name.substring(0,name.lastIndexOf('.'))+".xml";
-			CDLEditorPlugin.getDefault().log("Contract: "+file.getAbsolutePath());
-			CDLEditorPlugin.getDefault().log("Output: "+output);
 			TamagoCCPool pool = TamagoCCPool.getDefaultPool();
 			TamagoCCParser xmlparser = TamagoCCParser.getDefaultParser();
 			TamagoCCPercolation.initialisation();
@@ -98,7 +93,7 @@ public class CompileCDL implements IRunnableWithProgress {
 			TamagoCCLogger.println(3, "Project name: "+myProject.getName());
 			
 			
-			pool.addTamagoCCPath(outputdir);
+			pool.addTamagoCCPath(xmlsfolder.getFullPath().toOSString());
 			TTamago tamago = null;
 			// --- nouveau code
 				CDLEditorPlugin.getDefault().log("Debut de la génération du fichier XML");
@@ -132,15 +127,44 @@ public class CompileCDL implements IRunnableWithProgress {
 					TamagoCCLogger.println(1, e.getMessage());
 					throw e;
 				}
+								
+				String contractxmlname = name.substring(0,name.lastIndexOf('.'))+".xml";
+				final IFile outputfile = xmlsfolder.getFile(contractxmlname);
 				
-				/*
-				tamago = TamagoCCParserCDL.parse(new javapop.framework.input.StringParseInput(str));
-				*/
+				//String outputdir = file.getParentFile().getParent()+File.separator+"xmls";
+				//String output = outputdir+File.separator+name.substring(0,name.lastIndexOf('.'))+".xml";
+				
+				CDLEditorPlugin.getDefault().log("Contract: "+file.toString());
+				CDLEditorPlugin.getDefault().log("Output: "+outputfile.toString());
+				
+				
 				CDLEditorPlugin.getDefault().log("Fin de la compilation avec succes");
-				FileOutputStream fos = new FileOutputStream(output);
-				monitor.worked(1);
 				monitor.subTask("Generation of the abstract contract...");
-				TamagoCCToXml.generateXMLFile(tamago, fos);
+				monitor.worked(1);
+				
+				PipedOutputStream pos = new PipedOutputStream();
+				final PipedInputStream pis = new PipedInputStream(pos);
+				
+				new Thread() {
+					@Override
+					public void run() {
+						try {
+						if(outputfile.exists())
+							outputfile.setContents(pis, true, false, monitor);
+						else
+							outputfile.create(pis, true, monitor);
+						}
+						catch(Throwable e) {
+							CDLEditorPlugin.getDefault().log("Error:\n "+e);
+						}
+					}
+				}.start();
+				
+				
+				TamagoCCToXml.generateXMLFile(tamago, pos);
+				pos.flush();
+				pos.close();
+				
 				TamagoCCLogger.infoln(1,"---------------------------------------");
 				TamagoCCLogger.infoln(0,"Generation du contrat XML réussit!");
 				monitor.worked(1);
