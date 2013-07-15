@@ -164,7 +164,7 @@ public class TamagoCCJavaSource extends TamagoCCGeneratorTargetLanguage {
 		}
 	}
 
-	private String convertModuleToDirectory() {
+	public String convertModuleToDirectory() {
 		String module = this.target.getModule().getFullName();
 		
 
@@ -174,6 +174,9 @@ public class TamagoCCJavaSource extends TamagoCCGeneratorTargetLanguage {
 	
 	public String generateFilename() {
 		String name = target.getName();
+		name = (name.substring(0,1).toUpperCase()+name.substring(1));
+		name = (name.substring(0,1).toUpperCase()+name.substring(1));
+		name = (name.substring(0,1).toUpperCase()+name.substring(1));
 		name = (name.substring(0,1).toUpperCase()+name.substring(1));
 		TamagoCCLogger.println(3, "////////////////////Sortie GENERER:"+name);
 		return name;

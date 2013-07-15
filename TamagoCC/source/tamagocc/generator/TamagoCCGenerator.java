@@ -69,6 +69,8 @@ public final class TamagoCCGenerator implements TamagoCCIGenerator {
 		flagNoSkeleton = noskeleton;
 		flagNoServiceInterface = nointerface;
 		
+		
+		
 		fout = new File(outputdir);		
 		if((!fout.exists()) && (!cancreat))
 			throw new TamagoCCException("TamagoCCGenerator.constructor : The output directory doesn't exist and i can't creat it <"+outputdir+">");
