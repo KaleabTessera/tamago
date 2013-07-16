@@ -10,9 +10,12 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.text.rules.IPartitionTokenScanner;
 import org.eclipse.jface.text.rules.ITokenScanner;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
+import org.eclipse.ui.console.IOConsoleOutputStream;
 import org.eclipse.ui.console.MessageConsole;
+import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.tamago.eclipse.cdl.editor.CDLCodeScanner;
@@ -40,7 +43,7 @@ public class CDLEditorPlugin extends AbstractUIPlugin {
 	private CDLCodeScanner fCDLCodeScanner;
 	private CDLCommentScanner fCDLCommentScanner;
 	private MessageConsole fCDLConsole;
-	private DataOutputStream fCDLout;
+	private MessageConsoleStream fCDLout;
 	
 	private int debuglevel;
 	private Action action;
@@ -49,6 +52,9 @@ public class CDLEditorPlugin extends AbstractUIPlugin {
 	 */
 	public CDLEditorPlugin() {
 		System.setOut(new PrintStream(getOutputStreamConsole()));
+		IOConsoleOutputStream stream = (IOConsoleOutputStream) getOutputStreamConsole();
+		//stream.setColor(new Color(, 1.0f,0.0f,0.0f));
+		System.setErr(new PrintStream(stream));
 		debuglevel = 0;
 	}
 
@@ -143,7 +149,7 @@ public class CDLEditorPlugin extends AbstractUIPlugin {
 	
 	public OutputStream getOutputStreamConsole() {
 		if(fCDLout == null) {
-		 fCDLout = new DataOutputStream(getConsole().newMessageStream());
+		 fCDLout = getConsole().newMessageStream();
 		}
 		return fCDLout;
 	}
@@ -152,16 +158,16 @@ public class CDLEditorPlugin extends AbstractUIPlugin {
 		String msg = rmsg;
 		if(msg == null)
 			msg = "<null>";
-		try {
+		//try {
 			System.err.println(msg);
-			getOutputStreamConsole();
+			/*getOutputStreamConsole();
 			fCDLout.writeBytes(msg);
 			fCDLout.writeBytes("\n");
-			fCDLout.flush();
+			fCDLout.flush();*/
 			ConsolePlugin.getDefault().getConsoleManager().warnOfContentChange(fCDLConsole);
-		} catch (IOException e) {
+		/*} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	public void showConsole() {
@@ -183,23 +189,6 @@ public class CDLEditorPlugin extends AbstractUIPlugin {
 	}
 
 	public void clearConsole() {
-		/*getConsole().clearConsole();
-		try {
-			fCDLout.close();
-		} catch (IOException e) {
-		}
-		fCDLout = null;
-		try {
-			IOConsoleOutputStream out =getConsole().newOutputStream();
-			out.write("CDL");
-			out.flush();
-			out.close();
-			getConsole().partitionerFinished();
-			getConsole().getDocument().getNumberOfLines();
-		}
-		catch(IOException e) {
-			
-		}*/
 		getConsole().getDocument().set("");
 	}
 }

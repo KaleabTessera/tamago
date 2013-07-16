@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="TamagoCDLPlugin" version="2">
+    <resource path="src/org/tamago/eclipse/cdl/compiler/CDLTask.java" type="org.tamago.eclipse.cdl.compiler.CDLTask">
+        <filter id="643842064">
+            <message_arguments>
+                <message_argument value="TTamago"/>
+                <message_argument value="CDLTask"/>
+                <message_argument value="parseInputCDLFile(IFileEditorInput)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

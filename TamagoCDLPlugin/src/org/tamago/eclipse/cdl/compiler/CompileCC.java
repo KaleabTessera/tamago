@@ -83,7 +83,7 @@ public class CompileCC extends CDLTask {
 				String name = e.getName();
 				String filename =  (name.substring(0,1).toUpperCase()+name.substring(1))+".java";
 				
-				final IFile outputfile = searchAndOrCreat(project, e.getModule().getFullName(),filename); 
+				final IFile outputfile = searchAndOrCreat(project,"gen", e.getModule().getFullName(),filename); 
 				
 				new Thread() {
 					public void run() {

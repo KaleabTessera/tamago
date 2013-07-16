@@ -10,6 +10,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IPathEditorInput;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
@@ -47,19 +48,14 @@ public class TamagoCompileTest implements CDLActionner {
 			IEditorInput input = (IEditorInput) editor.getEditorInput(); // il semblerait qu'il utilise ca
 			//CDLEditorPlugin.getDefault().log("Input:"+input.getClass().getName());
 			
-			if(input instanceof IPathEditorInput) {
-				IPath path = ((IPathEditorInput)input).getPath();
-				File file = path.toFile();
-				
+			if(input instanceof IFileEditorInput) {
 				SettingsTamagoTest stt = new SettingsTamagoTest(workbench.getDisplay().getActiveShell());
 				if(stt.open() == SettingsTamagoTestAnswer.OK) {
-					
-					
-					//CDLTest test = new CDLTest(file, stt.getComponentName(), stt.isBusinessCode(), stt.getQuantity(), stt.getScenarioSize(), stt.getStrategy());
+					CDLTest test = new CDLTest((IFileEditorInput)input, stt.getComponentName(), stt.isBusinessCode(), stt.getQuantity(), stt.getScenarioSize(), stt.getStrategy());
 					//test.start();
 					ProgressMonitorDialog pmd = new ProgressMonitorDialog(workbench.getDisplay().getActiveShell());
 					
-					//pmd.run(true, true, test);
+					pmd.run(true, true, test);
 				}
 				else {
 					CDLEditorPlugin.getDefault().log("Operation break by user");

@@ -88,10 +88,12 @@ public abstract class CDLTask implements IRunnableWithProgress {
 			}
 		} catch (RecognitionException e) {
 			TamagoCCLogger.println(1, e.getMessage());
+			//CDLEditorPlugin.getDefault().log("Error:\n "+e.getMessage());
 			throw e;
 		}
 		catch(RuntimeException e) {
 			TamagoCCLogger.println(1, e.getMessage());
+			//CDLEditorPlugin.getDefault().log("Error:\n "+e.getMessage());
 			throw e;
 		}
 	}
@@ -111,13 +113,13 @@ public abstract class CDLTask implements IRunnableWithProgress {
 	
 	
 
-	public static IFile searchAndOrCreat(IProject project, String module, String filename) throws CoreException {
+	public static IFile searchAndOrCreat(IProject project,String firstfolder, String module, String filename) throws CoreException {
 
-		IFolder genfolder = project.getFolder("gen");
+		IFolder genfolder = project.getFolder(firstfolder);
 		if(!genfolder.exists())
 			genfolder.create(true, true, null);	
 		
-		String[] reps = module.split(".");
+		String[] reps = module.split("[.]");
 		IFolder last = genfolder;
 		for (String rep : reps) {
 			IFolder tmp = last.getFolder(rep);
