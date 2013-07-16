@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.ArrayList;
 import tamagocc.util.Triplet;
 //import tamagocc.exceptions.TamagoCCException;
+import tamagocc.logger.TamagoCCLogger;
 }
 
 
@@ -33,9 +34,17 @@ import tamagocc.util.Triplet;
 
 @rulecatch {
     catch(RecognitionException regexception) {
+    	reportError(regexception);
         throw new RuntimeException(regexception);
    }
 }
+/*@parser::members {
+    @Override
+    public void reportError(RecognitionException e) {
+	TamagoCCLogger.infoln(0,"Parsing error:\n "+e.getMessage());
+    }
+}*/
+
 
 
 /*

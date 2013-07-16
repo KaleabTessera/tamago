@@ -9,9 +9,17 @@ import java.io.*;
  */
 /**
  */
-public abstract class TamagoCCLogger {
+public class TamagoCCLogger extends PrintStream {
 	
-	private static DataOutputStream dos = new DataOutputStream(System.err);
+	private TamagoCCLogger(OutputStream out) {
+		super(out,true);
+	}
+	private TamagoCCLogger() {
+		super(System.err,true);
+	}
+	
+	private static TamagoCCLogger current = new TamagoCCLogger();
+	
 	private static int maxlevel = 1;
 	private static String output;
 	
@@ -28,16 +36,16 @@ public abstract class TamagoCCLogger {
 	{
 		output = outflux;
 		if("stdout".equals(outflux)) {
-			dos = new DataOutputStream(System.out);
+			current = new TamagoCCLogger(System.out);
 		}
 		else if("stderr".equals(outflux)) {
-			dos = new DataOutputStream(System.err);
+			current = new TamagoCCLogger(System.err);
 		}
 		else {
 			try {
 				File fichier = createFileAndDir(outflux);
 				FileOutputStream file = new FileOutputStream(fichier);
-				dos = new DataOutputStream(file);
+				current = new TamagoCCLogger(file);
 			}
 			catch(Exception e) { 
 				e.printStackTrace();
@@ -48,7 +56,7 @@ public abstract class TamagoCCLogger {
 	public static void setOut(OutputStream os) 
 	{
 		output = "stream";
-		dos = new DataOutputStream(os);
+		current = new TamagoCCLogger(os);
 	}
 	
 	public static void setLevel(int maxlevel) {
@@ -56,18 +64,14 @@ public abstract class TamagoCCLogger {
 	}
 	
 	public static void infoln(int level,String msg) {
-		try {
 			if(level <= maxlevel) {
 				if(msg == null)
-					dos.writeBytes("(null)");
+					current.println("(null)");
 				else
-					dos.writeBytes(msg);
-				dos.writeBytes("\n");
-				dos.flush();
+					current.println(msg);
+				current.flush();
 			}
-		}
-		catch(IOException ioe) {
-		}
+		
 	}
 	
 	public static void println(int level,String msg) {
@@ -88,44 +92,31 @@ public abstract class TamagoCCLogger {
 	
 	public static void infoln(Throwable e) {
 		if(maxlevel != 0) {
-			PrintStream ps = new PrintStream(dos,true);
-			e.printStackTrace(ps);
-			ps.flush();
+			e.printStackTrace(current);
 		}
 	}
 	
 	public static void infoln(int lvl, Exception e) {
 		if(lvl <= maxlevel) {
-			PrintStream ps = new PrintStream(dos,true);
-			e.printStackTrace(ps);
-			ps.flush();
+			e.printStackTrace(current);
 		}
 	}
 	
 	public static void info(Exception e) {
 		if(maxlevel != 0) {
-			PrintStream ps = new PrintStream(dos,true);
-			e.printStackTrace(ps);
-			ps.flush();
+			e.printStackTrace(current);
 		}
 		
 	}
 	public static void info(int level,Exception e) {
 		if(level <= maxlevel) {
-			PrintStream ps = new PrintStream(dos,true);
-			e.printStackTrace(ps);
-			ps.flush();
+			e.printStackTrace(current);
 		}
 		
 	}
 	public static void info(int level,String msg) {
-		try {
-			if(level <= maxlevel) {
-				dos.writeBytes(msg);
-				dos.flush();
-			}
-		}
-		catch(IOException ioe) {
+		if(level <= maxlevel) {
+			current.print(msg);
 		}
 	}
 	
