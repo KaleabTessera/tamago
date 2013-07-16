@@ -4,6 +4,7 @@
 package tamagotest;
 
 import java.io.File;
+import java.io.OutputStream;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
@@ -32,14 +33,13 @@ public class TamagoTestContext {
 	private String perconame;
 	private TamagoCCPercolation percolation;
 	private TamagoCCGeneratorTargetLanguageBuilder generator;
-	private File dest;
 	private TamagoTestGenerator gen;
 	private GExpression dnfinvariant;
 	private int count;
 	private String component_under_test;
 	private String businesscode;
 	private String junitsuffix;
-	
+	private OutputStream outputstream;
 	
 	/**
 	 * 
@@ -48,7 +48,6 @@ public class TamagoTestContext {
 		perconame = "plugin";
 		teststrategy = new NominalStrategy();
 		gen = new TamagoTestGeneratorReport(this);
-		dest = new File(".");
 		dnfinvariant = new GINoContract();
 		try {
 			generator = (TamagoCCGeneratorTargetLanguageBuilder)Class.forName("tamagocc.javasource.TamagoCCJavaSourceBuilder").newInstance();
@@ -60,7 +59,17 @@ public class TamagoTestContext {
 		count = 1;
 		component_under_test = "";
 		junitsuffix = "";
+		outputstream = null;
 	}
+	
+	public void setOutputStream(OutputStream out) {
+		outputstream = out;
+	}
+	
+	public OutputStream getOutputStream() {
+		return outputstream;
+	}
+	
 	
 	public void setFixPoint(TamagoTestTransSelector fixpoint) {
 		teststrategy.setFixPoint(fixpoint);
@@ -71,7 +80,7 @@ public class TamagoTestContext {
 		return percolation;
 	}
 	
-	void setContract(GTamago contract) throws TamagoCCException {
+	public void setContract(GTamago contract) throws TamagoCCException {
 		currentcontract = contract;
 		scenario = new TamagoTestScenario(perconame);
 		percolation = TamagoCCPercolation.getPercolator(new GIPercolator(perconame), contract, new TamagoTestConverter(contract));
@@ -101,21 +110,9 @@ public class TamagoTestContext {
 		}
 	}
 	
+	
 	public TamagoCCGeneratorTargetLanguageBuilder getGenerator() {
 		return generator;
-	}
-
-	public File getDestination() {
-		return dest;
-	}
-		
-	public void setDestination(String pathname) throws LineParserException {
-		File file = new File(pathname);
-		if(!file.exists())
-			file.mkdirs();
-		if(!file.isDirectory())
-			throw new LineParserException("path is not a directory : "+pathname);
-		dest = file;
 	}
 	
 	public void addScenario(TamagoTestScenario tts) {
@@ -125,6 +122,11 @@ public class TamagoTestContext {
 		scenario = tts;
 	}
 
+
+	public void setGenReport(TamagoTestGenerator generator) {
+		this.gen = generator; 
+	}
+	
 	public void setGenReport(String genreport) throws LineParserException {
 		try {
 			Class<?> cla = Class.forName(genreport);

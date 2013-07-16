@@ -154,7 +154,7 @@ public class TamagoTestGeneratorAST extends TamagoTestGenerator {
 	public void write() throws TamagoTestException, IOException {
 		try {
 			AEntity entity = getEntity();
-			TamagoCCGeneratorTargetLanguage target = ctx.getGenerator().getTargetLanguage(entity, ctx.getDestination());
+			TamagoCCGeneratorTargetLanguage target = ctx.getGenerator().getTargetLanguage(entity, ctx.getOutputStream());
 			try {
 				TamagoCCLogger.println(3, "Generation of the file : "+target.getFinalDestination().getCanonicalPath());
 			} catch (IOException e) {
