@@ -47,7 +47,7 @@ public class TamagoTestDest extends DefaultLineParserSpec {
 	 * @see tamagocc.util.lineparser.LineParserSpec#setArgument(int, java.lang.String)
 	 */
 	public void setArgument(int pos, String value) throws LineParserException {
-		ctx.setDestination(value);
+		//ctx.setDestination(value);
 	}
 
 }

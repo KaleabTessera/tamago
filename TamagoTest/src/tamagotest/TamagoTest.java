@@ -1,6 +1,7 @@
 package tamagotest;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
@@ -100,7 +101,7 @@ public class TamagoTest {
 	}
 	
 	private static TamagoTestContext ctx;
-	private static boolean genjunit = true;
+	private static boolean genjunit = false;
 
 	public static TamagoTestContext getContext() {
 		if(ctx == null)
@@ -234,7 +235,12 @@ public class TamagoTest {
 			try {
 				ui().beginWriteTest();
 				ttg.prepare();
-				ttg.write();
+				
+				OutputStream output = ctx.getOutputStream();
+				if(output == null)
+					ttg.write();
+				else
+					ttg.write(output);
 				ui().endWriteTest();
 			}
 			catch(Exception exc) {

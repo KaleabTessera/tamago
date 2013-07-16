@@ -48,8 +48,9 @@ public class TamagoTestGeneratorReport extends TamagoTestGenerator {
 
 	public void write() throws TamagoTestException, IOException {
 		try {
-			FileOutputStream fos = new FileOutputStream(ctx.getDestination() + File.separator+ ctx.getContract().getName()+"_harness.xml");
-			writeCore(fos);
+			//FileOutputStream fos = new FileOutputStream(ctx.get() + File.separator+ ctx.getContract().getName()+"_harness.xml");
+			//writeCore(fos);
+			writeCore(ctx.getOutputStream());
 		}
 		catch(TamagoCCException tcce) {
 			throw new TamagoTestException(tcce);
