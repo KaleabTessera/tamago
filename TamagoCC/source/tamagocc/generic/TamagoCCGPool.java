@@ -75,8 +75,8 @@ public class TamagoCCGPool {
 		String fullname = entity.getModule().getFullModule();		
 		String key1 = fullname+"#"+name;
 		
-		if(tables.containsKey(key1))
-			throw new TamagoCCException("TamagoCCGPool<register> : Duplicate container with the key : "+key1);
+		//if(tables.containsKey(key1))
+		//	throw new TamagoCCException("TamagoCCGPool<register> : Duplicate container with the key : "+key1);
 		tables.put(key1,entity);
 	}
 	
