@@ -5,12 +5,19 @@ package org.tamago.eclipse.cdl.compiler;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
 import java.lang.reflect.InvocationTargetException;
 
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.ui.IFileEditorInput;
 import org.tamago.eclipse.cdl.CDLEditorException;
 import org.tamago.eclipse.cdl.CDLEditorPlugin;
 import org.tamago.eclipse.cdl.wizards.SettingsTamagoTest.SettingsStrategy;
@@ -19,12 +26,15 @@ import tamagocc.TamagoCCParser;
 import tamagocc.api.TTamago;
 import tamagocc.compiler.TamagoCDLLexer;
 import tamagocc.compiler.TamagoCDLParser;
+import tamagocc.generic.TamagoCCGPool;
+import tamagocc.generic.api.GTamago;
 import tamagocc.logger.TamagoCCLogger;
 import tamagocc.percolation.TamagoCCPercolation;
 import tamagocc.util.TamagoCCPool;
 import tamagotest.TamagoTest;
 import tamagotest.TamagoTestContext;
 import tamagotest.fixpoint.MaxDepth;
+import tamagotest.report.TamagoTestGeneratorJUnit;
 import tamagotest.strategy.BadScenarioStrategy;
 import tamagotest.strategy.BoundedStrategy;
 import tamagotest.strategy.CoverageStrategy;
@@ -37,25 +47,22 @@ import tamagotest.util.TamagoTestUI;
  * @author Hakim Belhaouari
  *
  */
-public class CDLTest implements IRunnableWithProgress, TamagoTestUI {
+public class CDLTest  extends CDLTask implements TamagoTestUI {
 
-	private File filecdl;
-	private String outputdir;
-	private String tamagoccpath;
+	private IFileEditorInput input;
 	private int quantity;
 	private int scenariosize;
 	private String component;
 	private boolean isbusiness;
 	private SettingsStrategy strategy;
 	
-	private transient IProgressMonitor monitor;
 	private transient int pos_step;
 	private int pos_quantity;
 
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder("Launch Tamago-Test on ");
-		sb.append(filecdl. getName());
+		sb.append(input);
 		sb.append(" ["+quantity);
 		sb.append("; "+scenariosize);
 		sb.append("; "+component);
@@ -72,78 +79,37 @@ public class CDLTest implements IRunnableWithProgress, TamagoTestUI {
 	 * @throws CDLEditorException 
 	 * 
 	 */
-	public CDLTest(File filecdl, String component, boolean isBusiness, int quantity, int scenariosize,SettingsStrategy strategy) throws CDLEditorException {
-		this.filecdl = filecdl;
-		//String name = filecdl.getName();
-		outputdir = filecdl.getParentFile().getParent()+File.separator+"test";//+File.separator+name.substring(0,name.lastIndexOf('.'))+".xml";
-
-		tamagoccpath = filecdl.getParentFile().getParent()+File.separator+"xmls";
-
+	public CDLTest(IFileEditorInput fileinput, String component, boolean isBusiness, int quantity, int scenariosize,SettingsStrategy strategy) throws CDLEditorException {
+		this.input = fileinput;
 		this.quantity = quantity;
 		this.scenariosize = scenariosize;
 		this.component = component;
 		this.isbusiness = isBusiness;
 		this.strategy = strategy;
-		//if(!filexml.exists())
-		//	throw new CDLEditorException("Inaccessible output location: "+output+"!");
+		
 	}
 
 
 	public void run(){
 		CDLEditorPlugin.getDefault().showConsole();
-		
+		IProject project = retreveProject(input);
 		try {
 			monitor.subTask("Initialize system...");
 			
-			TamagoCCPool pool = TamagoCCPool.getDefaultPool();
-			TamagoCCParser parser = TamagoCCParser.getDefaultParser();
-			TamagoCCPercolation.initialisation();
-			parser.setTamagoCCPool(pool);
-
-			TamagoCCLogger.setOut(CDLEditorPlugin.getDefault().getOutputStreamConsole());
-			TamagoCCLogger.setLevel(CDLEditorPlugin.getDefault().getDebugLevel());
-
-			//InputStream input  = getClass().getResourceAsStream("/CDLGrammarPop.txt");
-			//CDLGrammarProvider.setCDLGrammar(input);
+			prepareEnv(project);
 			
-			pool.addTamagoCCPath(tamagoccpath);
-			TTamago tamago = null;
+			
+			TTamago tamago = parseInputCDLFile(input);
+			GTamago gtamago = (GTamago) TamagoCCGPool.getDefaultTamagoCCGPool().getGTamagoEntity(tamago);
 			// --- nouveau code
 			
-			try {
-				CDLEditorPlugin.getDefault().log("Generation of the abstract contract...");
-				monitor.worked(1);
-				monitor.subTask("Parse file...");
-				
-				FileInputStream fis = new FileInputStream(filecdl);
-				ANTLRInputStream stream = new ANTLRInputStream(fis);
-				TamagoCDLLexer lexer = new TamagoCDLLexer(stream);
-				CommonTokenStream token = new CommonTokenStream(lexer);
-				TamagoCDLParser antlrparser = new TamagoCDLParser(token);
-				TamagoCDLParser.tamagoEntity_return res;
-				
-				res = antlrparser.tamagoEntity();
-				if(res != null && res.value != null) {
-					tamago = (TTamago) res.value;
-					TamagoCCLogger.println(1,"compilation success");
-					if(tamago instanceof TTamago) {
-						TamagoCCPool.getDefaultPool().addEntry(tamago.getName(), tamago.getModule(), (TTamago)tamago);
-					}
-					else
-						TamagoCCLogger.println(1, "Assembly not yet supported!");
-				}
-				CDLEditorPlugin.getDefault().log("End compilation with success");
-			}
-			catch(Exception e) {
-				CDLEditorPlugin.getDefault().log("End compilation with an exception");
-				//IWorkbench workbench = PlatformUI.getWorkbench();
-				//MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "AST Generation failed", e.getMessage());
-				return;
-			}
+			
 			TamagoTest.resetContext();
 			TamagoTestContext ctx =  TamagoTest.getContext();
-			ctx.setDestination(outputdir);
+			ctx.setContract(gtamago);
+			ctx.setGenReport(new TamagoTestGeneratorJUnit(ctx));
 			ctx.setCount(quantity);
+			
 			MaxDepth.MAX_DEPTH = scenariosize;
 
 			switch(strategy) {
@@ -193,7 +159,31 @@ public class CDLTest implements IRunnableWithProgress, TamagoTestUI {
 			monitor.worked(1);
 			monitor.subTask("Tamago-Test is animating the contract...");
 			TamagoTest.ui = this;
-			TamagoTest.generateTestFile(tamago);
+			
+			PipedOutputStream pos = new PipedOutputStream();
+			final PipedInputStream pis = new PipedInputStream(pos);
+			
+			ctx.setOutputStream(pos);
+			
+			final IFile outputfile = searchAndOrCreat(project, "test", tamago.getModule(), "Test"+tamago.getName() + ctx.getJUnitSuffix()+".java");
+			
+			new Thread() {
+				public void run() {
+					try {
+						if(outputfile.exists())
+							outputfile.setContents(pis, true, false, monitor);
+						else
+							outputfile.create(pis, true, monitor);
+					}
+					catch(Throwable e) {
+						CDLEditorPlugin.getDefault().log("Error:\n "+e);
+					}
+				};
+			}.start();
+			
+			TamagoTest.generateTestFile(gtamago);
+			pos.flush();
+			pos.close();
 			
 			monitor.worked(1);
 			
@@ -205,6 +195,13 @@ public class CDLTest implements IRunnableWithProgress, TamagoTestUI {
 			TamagoCCLogger.infoln(0,"Test generation failed!!!!");
 			//IWorkbench workbench = PlatformUI.getWorkbench();
 			//MessageDialog.openError(workbench.getActiveWorkbenchWindow().getShell(), "Test generation failed!", e.getMessage());
+		}
+		finally {
+			try {
+				project.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
