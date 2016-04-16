@@ -1,0 +1,1 @@
+The platform Tamago offers a specification language similar in the OCL or JML language. Furthermore, it allows the description of a finite state machine in order to describe precisely the behavior of the specification. From this specification, we can perform various analysis especially the automated test cases generation of scenarios extracted from the behavior.
